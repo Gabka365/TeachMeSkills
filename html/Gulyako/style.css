@@ -1,0 +1,12 @@
+@import "./css/header.css";
+@import "./css/mainPage.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a, button {
+  cursor: pointer;
+}

@@ -1,0 +1,90 @@
+.header {
+  background-image: linear-gradient(147deg, #ed3cca .49%, #df34d2 14.88%, #d02bd9 29.27%, #bf22e1 43.14%, #ae1ae8 57.02%, #9a10f0 70.89%, #8306f7 84.76%, #60f 99.15%);
+  border-bottom: 20px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  display: flex;
+  padding: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerTitle {
+  font-weight: 600;
+  color:#ffffff;
+  font-size: 38px;
+  font-family: Roboto Serif, Arial, sans-serif;
+}
+
+.menuBtn {
+  border: none;
+  background-color: #f808f8;
+  width: 75px;
+  height: 75px;
+  border-radius: 20px;
+}
+
+.menuBtn:hover {
+  background-color: #ff07ff;
+}
+
+.menuBtn:active {
+  background-color: #ff6aff;
+}
+
+.menuImg {
+  width: 60px;
+  height: 60px;
+}
+
+.searchBlock {
+  position: relative;
+}
+
+.searchField {
+  width: 700px;
+  height: 80px;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 10px 10px 50px;
+  font-size: 26px;
+  font-family: Roboto Serif, Arial, sans-serif;
+  color: black;
+  outline: none;
+}
+
+.searchField::placeholder {
+  font-size: 30px;
+  font-family: Roboto Serif, Arial, sans-serif;
+  font-weight: 600;
+  color: gray;
+}
+
+.searchImg {
+  position: absolute;
+  left: 15px;
+  width: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.featuresList {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.headerFeaturesBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.featuresTitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+  font-family: Roboto serif;
+}

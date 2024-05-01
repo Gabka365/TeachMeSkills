@@ -1,0 +1,135 @@
+.container {
+  width: calc(100% - 40px);
+  display: block;
+  margin: 40px auto 0;
+}
+
+.salesImg {
+  border-radius: 30px;
+  width: 100%;
+  cursor: pointer;
+}
+
+
+
+.goodsBlock {
+  width: 100%;
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  justify-items: center;
+  grid-row-gap: 20px;
+}
+
+.goodBlock {
+  position: relative;
+  width: 200px;
+}
+
+.good {
+  width: inherit;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.good:hover {
+  transform: scale(1.05);
+}
+
+.likedIcon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 30px;
+  cursor: pointer;
+}
+
+.likedIcon:active {
+  width: 35px;
+}
+
+.likedIcon[src$=".svg"]:hover {
+  filter: brightness(0) saturate(100%) invert(25%) sepia(100%) saturate(4242%) hue-rotate(291deg) brightness(111%) contrast(130%);
+}
+
+.pricePretext {
+  font-size: 20px;
+  font-family: Roboto Serif, Arial, sans-serif;
+  font-weight: 500;
+}
+
+.pricePretext:hover {
+  cursor: pointer;
+  color: #ff07ff;
+}
+
+.price {
+  font-size: 28px;
+  font-family: Roboto Serif, Arial, sans-serif;
+  font-weight: 500;
+}
+
+.price:hover {
+  cursor: pointer;
+  color: #ff07ff;
+}
+
+.salor {
+  margin-top: 5px;
+  color: black;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: Roboto Serif, Arial, sans-serif;
+}
+
+.raitingBlock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.infoIcon {
+  width: 20px;
+}
+
+.info {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: Roboto Serif, Arial, sans-serif;
+}
+
+.buyBlock {
+  position: relative;
+  width: inherit;
+  margin-top: 10px;
+}
+
+.buyBtn {
+  width: inherit;
+  background-color: #bf02c5;
+  color: #ffffff;
+  padding: 10px 10px 10px 35px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: Roboto Serif, Arial, sans-serif;
+}
+
+.buyBtn:hover {
+  background-color: #ff07ff;
+}
+
+.buyBtn:active {
+  background-color: #a100a7;
+}
+
+.basketIconForBtn {
+  position: absolute;
+  width: 20px;
+  left: 10px;
+  top: 49%;
+  transform: translateY(-50%);
+}
