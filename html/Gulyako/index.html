@@ -12,36 +12,49 @@
   <link rel="stylesheet" href="/style.css" type="text/css">
 </head>
 
-<body>
+<body class="storeWrapper" data-theme="dark">
   <header class="header">
-    <p class="headerTitle">
-      wildberries
-    </p>
-    <button class="menuBtn">
-      <img class="menuImg" src="./assets/header/burgerMenuIcon.png" alt="menu" />
-    </button>
-    <div class="searchBlock">
-      <input class="searchField" placeholder="Найти товары" />
-      <img class="searchImg" src="./assets/header/searchIcon.svg" alt="search" />
+    <div class="changeThemeBlock">
+      <form method="get" class="formMode">
+        <div class="themeDecor">
+          <p class="nameTheme">Светлый режим</p>
+          <label class="switch">
+            <input type="checkbox" class="switchInput">
+            <span id="changeTheme" class="switchSlider"></span>
+          </label>
+        </div>
+      </form>
     </div>
-    <ul class="featuresList">
-      <li class="headerFeaturesBlock">
-        <img src="./assets/header/deliveryIcon.svg" alt="delivery" />
-        <p class="featuresTitle">Доставки</p>
-      </li>
-      <li class="headerFeaturesBlock">
-        <img src="./assets/header/likedIcon.svg" alt="liked" />
-        <p class="featuresTitle">Избр.</p>
-      </li>
-      <li class="headerFeaturesBlock">
-        <img src="./assets/header/loginIcon.svg" alt="login" />
-        <p class="featuresTitle">Войти</p>
-      </li>
-      <li class="headerFeaturesBlock">
-        <img src="./assets/header/basketIcon.svg" alt="basket" />
-        <p class="featuresTitle">Корзина</p>
-      </li>
-    </ul>
+    <div class="headerContent">
+      <p class="headerTitle">
+        wildberries
+      </p>
+      <button class="menuBtn">
+        <img class="menuImg" src="./assets/header/burgerMenuIcon.png" alt="menu" />
+      </button>
+      <div class="searchBlock">
+        <input class="searchField" placeholder="Найти товары" />
+        <img class="searchImg" src="./assets/header/searchIcon.svg" alt="search" />
+      </div>
+      <ul class="featuresList">
+        <li class="headerFeaturesBlock">
+          <img class="featureIcon" src="./assets/header/deliveryIcon.svg" alt="delivery" />
+          <p class="featuresTitle">Доставки</p>
+        </li>
+        <li class="headerFeaturesBlock">
+          <img class="featureIcon" src="./assets/header/likedIcon.svg" alt="liked" />
+          <p class="featuresTitle">Избр.</p>
+        </li>
+        <li class="headerFeaturesBlock">
+          <img class="featureIcon" src="./assets/header/loginIcon.svg" alt="login" />
+          <p class="featuresTitle">Войти</p>
+        </li>
+        <li class="headerFeaturesBlock">
+          <img class="featureIcon" src="./assets/header/basketIcon.svg" alt="basket" />
+          <p class="featuresTitle">Корзина</p>
+        </li>
+      </ul>
+    </div>
   </header>
   <main class="container">
     <div>
@@ -166,5 +179,7 @@
     </div>
   </main>
 </body>
+<script type="module" src="index.js"></script>
+<script type="module" src="service.js"></script>
 
 </html>

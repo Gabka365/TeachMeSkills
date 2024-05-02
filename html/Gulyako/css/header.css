@@ -1,35 +1,38 @@
 .header {
-  background-image: linear-gradient(147deg, #ed3cca .49%, #df34d2 14.88%, #d02bd9 29.27%, #bf22e1 43.14%, #ae1ae8 57.02%, #9a10f0 70.89%, #8306f7 84.76%, #60f 99.15%);
+  background-image: var(--bg-header);
   border-bottom: 20px;
   border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
+  border-bottom-right-radius: 40px;  
+  padding: 20px;  
+}
+
+.headerContent {
   display: flex;
-  padding: 20px;
   align-items: center;
   justify-content: space-between;
+  margin-top: 10px;
 }
 
 .headerTitle {
   font-weight: 600;
   color:#ffffff;
   font-size: 38px;
-  font-family: Roboto Serif, Arial, sans-serif;
 }
 
 .menuBtn {
   border: none;
-  background-color: #f808f8;
+  background-color: var(--bg-btn);
   width: 75px;
   height: 75px;
   border-radius: 20px;
 }
 
 .menuBtn:hover {
-  background-color: #ff07ff;
+  background-color: var(--bg-btn-hover);
 }
 
 .menuBtn:active {
-  background-color: #ff6aff;
+  background-color: var(--bg-btn-active);
 }
 
 .menuImg {
@@ -46,18 +49,17 @@
   height: 80px;
   border: none;
   border-radius: 30px;
-  padding: 10px 10px 10px 50px;
+  padding: 10px 10px 10px 55px;
   font-size: 26px;
-  font-family: Roboto Serif, Arial, sans-serif;
-  color: black;
+  color: var(--txt-color);
   outline: none;
+  background-color: var(--bg-input);
 }
 
 .searchField::placeholder {
-  font-size: 30px;
-  font-family: Roboto Serif, Arial, sans-serif;
+  font-size: 30px; 
   font-weight: 600;
-  color: gray;
+  color: var(--placeholder-color);
 }
 
 .searchImg {
@@ -65,7 +67,7 @@
   left: 15px;
   width: 30px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-58%);
 }
 
 .featuresList {
@@ -86,5 +88,4 @@
   font-size: 18px;
   font-weight: 500;
   color: #ffffff;
-  font-family: Roboto serif;
 }
