@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: 'Gilroy', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #ffffff;
 }
 
@@ -16,47 +16,111 @@ a {
 }
 
 .wrapper {
-    max-width: 1199px;
+    max-width: 1200px;
     margin: 0 auto;
-}
-
-.header {
-    height: 200px;
 }
 
 .header__nav {
     display: flex;
     justify-content: flex-end;
+    margin-top: 10px;
 }
 
 .nav__link {
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 600;
     padding: 5px;
     margin: 0 10px;
     color: rgb(38, 50, 56);
 }
 
+.header__wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header__content {
+    width: 400px;
+}
+
 .header__title {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
-    height: 50px;
-    font-size: 36px;
+    font-size: 48px;
     font-weight: 700;
     color: rgb(38, 50, 56);
-    line-height: 41px;
+    line-height: 84px;
 }
 
 .header__summary {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     line-height: 25px;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.header__btn_wrapper {
+    display: flex;
+    justify-content: left;
+}
+
+.header__btn {
+    margin-top: 20px;
+}
+
+.btn {
+    height: 54px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 30px;
+    border: none;
+    font-size: 17px;
+    background-color: #f5c400;
+}
+
+.btn_small {
+    width: 200px;
+}
+
+.btn_big {
+    width: 262px;
+}
+
+.header__image {
+    width: 550px;
+    background-position: center center;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.header__image img {
+    width: 100%;
 }
 
 .content-page {
+    padding: 50px 20px;
+    background-color: rgb(234, 236, 239);
+}
+
+.content-page__wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-page__book {
+    width: 750px;
     border-radius: 20px;
     padding: 20px 30px;
     padding: auto;
@@ -65,22 +129,75 @@ a {
     background-repeat: no-repeat;
     border-color: transparent;
     border-style: solid;
-    background-image: url("Images/background_content.png");
+    background-image: url("images/background_content.png");
 }
 
-.content-page__book_title {
-    font-size: 30px;
+.book__book_title {
+    font-size: 42px;
     font-weight: 700;
-    line-height: 36px;
     color: #ffffff;
+    line-height: 65px;
 }
 
-.content-page__book_author {
-    font-size: 18px;
+.book__book_author {
+    font-size: 26px;
     font-weight: 600;
     color: #7e8186;
+    line-height: 40px;
 }
 
+.book__book-images {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 70px;
+}
+
+.image_wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.cover {
+    width: 200px;
+    height: 270px;
+}
+
+.back_cover {
+    width: 250px;
+    height: 250px;
+}
+
+.contents {
+    width: 200px;
+    height: 100px;
+}
+
+.content-page__aside {
+    border-radius: 20px;
+    background-color: #ffffff;
+    background-position: center center;
+    border-color: transparent;
+    border-style: solid;
+    width: 350px;
+    padding: 20px 10px;
+    box-sizing: border-box;
+}
+
+.aside__title {
+    color: #263238;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 45px;
+}
+
+.aside__summury {
+    color: #263238;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    line-height: 1.35;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
 
 .subject__item {
     display: inline-block;
@@ -88,11 +205,78 @@ a {
     padding: 5px 10px;
     border-radius: 15px;
     color: #263238;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
     background: rgb(234, 236, 239);
 }
 
+.aside__buttons {
+    margin-top: 40px;
+}
+
+.book_reviews {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.books_reviews__title {
+    color: #263238;
+    font-size: 42px;
+    font-weight: 600;
+    background-position: center center;
+    border-color: transparent;
+    height: 70px;
+    border-style: solid;
+    margin-top: 35px;
+}
+
+.reviews_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.review {
+    box-sizing: border-box;
+    width: 540px;
+    height: 230px;
+    border-radius: 20px;
+    background-color: #ecedf1;
+    background-position: center center;
+    border-color: transparent;
+    border-style: solid;
+    padding: 40px;
+    margin: 30px 0;
+    overflow: hidden;
+}
+
+.review__header {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.review__date {
+    color: #263238;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.review__text {
+    color: #263238;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    line-height: 1.35;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.review__reviewer {
+    color: #f5c400;
+    font-size: 20px;
+    font-weight: 600;
+}
 
 .footer {
     background-color: #1d262b;
