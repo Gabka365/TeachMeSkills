@@ -2,7 +2,6 @@ import { storage } from "./service.js";
 
 const theme = document.getElementById("changeTheme");
 const inputTheme = document.querySelector(".switchInput");
-console.log("theme");
 
 const todosTemplate = {
 
