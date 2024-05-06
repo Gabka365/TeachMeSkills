@@ -1,0 +1,30 @@
+.menu-list{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.menu-list li {
+    margin: 0 2%; 
+    padding: 1% 2%; 
+    border-radius: 5px; 
+}
+
+.menu-list li:hover {
+    background-color: #dcdcdc; 
+}
+
+.logo {
+    display: block;
+    margin: 0 auto; 
+    max-width: 10%; 
+}
+
+.top-logo{
+    display: flex;
+    justify-content: space-around;
+}
+
+.PingSight{
+    align-items: center;
+}
