@@ -1,0 +1,138 @@
+.Image img{
+    height: 300px;
+    width: 900px;           
+}
+.Image{
+    display: flex;
+    justify-content: center;
+    height: 300;
+    margin-bottom: 20px;
+   
+}
+.Page{
+    display: flex;
+    justify-content: center;
+    
+}
+.Game{
+    display: flex;
+    flex-direction: column;      
+}
+.Game-Page {       
+    display: flex;
+    justify-content: space-around;     
+    justify-content: flex-start; 
+    width: 600px;
+    height: 200px;      
+    
+}
+.Game-Image img{
+    height: 200px;
+    width: 300px;      
+}
+.Game-Images{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 10px;
+    
+}
+.Game-Images img{
+    max-width: 50;
+    max-height: 50;
+}
+.Game-Image2 img{
+ width: 120;
+ height: 150;
+}
+.Features{
+    display: flex;    
+    flex-direction: column;  
+    margin-left: 20px;         
+    
+}
+.colonization{
+    background: darkred;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px black solid;
+    font-size: 20px;
+}
+.trading{
+    background: grey;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px black solid;
+    font-size: 20px;
+}
+.historical-events{
+    background: green;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px black solid;
+    font-size: 20px;
+}
+.Dynastic-Wars{
+    background: darkblue;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px black solid;
+    font-size: 20px;
+}
+.Games{
+    width: 300;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+    height: 300;
+   
+   
+    
+}
+.Games img{
+    max-width: 200px;
+    max-height: 60px;
+    margin-bottom: 5px;       
+}
+.Game-Image2{
+    display: flex;
+    justify-content: center;
+}
+.Game-Image2 img{
+    
+    width: 200;
+    height: 300;
+}
+.Gameplay{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 600px;
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 5px;
+        
+}
+.Text{
+    max-height: 350px;
+    overflow-y: auto;
+    font-size: 24px;  
+}
+.Moderator-Comments{
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    
+    padding: 5px;
+    max-height: 20px;
+    
+}
+
+.Comments-Likes{
+    display: flex;
+    justify-content:flex-end;  
+}

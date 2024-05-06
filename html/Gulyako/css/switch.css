@@ -1,0 +1,63 @@
+.changeThemeBlock {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .switch {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+  }
+  
+  .switchInput {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  
+  }
+  
+  .switchSlider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--bg-switchAndLabel);
+    border-radius: 34px;
+    transition: 0.5s;
+  }
+  
+  .switchSlider::before {
+    content: "";
+    position: absolute;
+    cursor: pointer;
+    bottom: 4px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.5s;
+  }
+  
+  .switchInput:checked+.switchSlider {
+    background-color: var(--bg-switchAndLabel);
+  }
+  
+  .switchInput:checked+.switchSlider::before {
+    transform: translate(19px);
+  }
+  
+  .nameTheme {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--bg-switchAndLabel);
+    align-self: center;
+    margin: 0 10px 0 0;
+  }
+  
+  .themeDecor {
+    display: flex;
+    align-items: center;
+  }
