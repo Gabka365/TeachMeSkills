@@ -1,0 +1,39 @@
+﻿@model PortalAboutEverything.Models.Game.GameIndexViewModel
+
+<div>
+    Здесь у меня будет список игр
+</div>
+<div>
+    А ты знал, что сейчас @Model.Second секунд и @Model.DayName день недели
+</div>
+<div>
+    @foreach (var day in Model.Days)
+    {
+        <span>Один из них @day</span>
+    }
+</div>
+<div>
+    Насколько Half-Life хороша?
+</div>
+<div>
+    <form action="/Game/RateTheGame" method="post">
+        <div>
+            <input type="text" name="gameName" placeholder="Название игры" />
+        </div>
+        <div>
+            @foreach (var rate in Model.AvailableRates)
+            {
+                <label>
+                    Ставлю @rate
+                    <input type="radio" name="rate" value="@rate" />
+                </label>
+            }
+        </div>
+        <div>
+            <textarea name="comment"></textarea>
+        </div>
+        <div>
+            <input type="submit" value="Отправить отзыв" />
+        </div>
+    </form>
+</div>
