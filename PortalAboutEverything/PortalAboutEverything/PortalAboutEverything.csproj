@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\BoardGame\" />
     <Folder Include="wwwroot\css\Sleptsov\" />
+    <Folder Include="wwwroot\images\Sleptsov\" />
   </ItemGroup>
 
 </Project>

@@ -8,5 +8,10 @@ namespace PortalAboutEverything.Controllers
         {
             return View();
         }
+
+        public IActionResult FirstBoardGame()
+        {
+            return View();
+        }
     }
 }
