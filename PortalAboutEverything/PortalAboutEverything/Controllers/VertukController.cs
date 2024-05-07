@@ -6,7 +6,7 @@ namespace PortalAboutEverything.Controllers
 {
     public class VertukController : Controller
     {
-        
+        private VertukListPostsViewModel _listPost = new VertukListPostsViewModel();
         public IActionResult Index()
         {
             // создаем модель для отображение месяца года и дня
@@ -32,11 +32,8 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult Post(VertukPostViewModel rateViewModel)
         {
-            var lisitPost = new VertukListPostsViewModel();
-            var post = new VertukPostViewModel();
-            post = rateViewModel;
-            lisitPost.listPosts.Add(post);
-            return View(lisitPost);
+            _listPost.listPosts.Add(rateViewModel);
+            return View(_listPost);
         }
     }
 }
