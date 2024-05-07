@@ -46,7 +46,7 @@ a:hover {
     text-decoration: none; 
 }
 
-.images {
+.images-and-text {
 	display: flex;
 	justify-content: space-around;
 	width: 100%;
@@ -60,9 +60,15 @@ a:hover {
 	align-items: center;
 }
 
-.images img {
+.images-and-text img {
 	max-width: 500px;
 	max-height: 600px;
+}
+
+.images-and-text {
+	display: flex;
+	justify-content: space-around;
+    align-items: center;
 }
 
 .center-block {
@@ -70,3 +76,21 @@ a:hover {
     justify-content: center;
 }
 
+footer{
+    text-align: right;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+	background: #7C06BC;
+	padding: 5px 10px;
+	border-radius: 15px;
+	display: inline-block;
+	margin: 3px;
+	border: 1px #FFFFFF;
+    color: #FFFFFF;
+}
