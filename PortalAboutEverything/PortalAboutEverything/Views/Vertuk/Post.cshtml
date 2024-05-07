@@ -1,1 +1,32 @@
-﻿
+﻿@model PortalAboutEverything.Models.Vertuk.VertukListPostsViewModel
+
+@if (Model.listPosts != null)
+{
+    foreach (var post in Model.listPosts)
+    {
+        <div>
+            @post.NamePost
+        </div>
+        <div>
+            @post.DecPost
+        </div>
+
+    }
+}
+<div>
+    Здесь можно разместить пост
+</div>
+
+<div>
+    <form action="/Vertuk/Post" method="post">
+        <div>
+            <input type="text" name="namePost" placeholder="Имя поста" />
+        </div>
+        <div>
+            <textarea name="decPost"></textarea>
+        </div>
+        <div>
+            <input type="submit" value="Создать пост" />
+        </div>
+    </form>
+</div>

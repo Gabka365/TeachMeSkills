@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Vertuk;
 
 namespace PortalAboutEverything.Controllers
 {
     public class VertukController : Controller
     {
+        
         public IActionResult Index()
         {
             // создаем модель для отображение месяца года и дня
@@ -21,9 +23,20 @@ namespace PortalAboutEverything.Controllers
 
             return View(model);
         }
+
         public IActionResult Post()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Post(VertukPostViewModel rateViewModel)
+        {
+            var lisitPost = new VertukListPostsViewModel();
+            var post = new VertukPostViewModel();
+            post = rateViewModel;
+            lisitPost.listPosts.Add(post);
+            return View(lisitPost);
         }
     }
 }
