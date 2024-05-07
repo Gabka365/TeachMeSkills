@@ -1,0 +1,95 @@
+.site-bg {
+    position: relative;
+    background-image: url(/images/header-bg.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 55vh;
+    padding-top: 20px;
+    z-index: 10;
+}
+.site-bg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -10;
+   
+}
+.header{
+    justify-content: space-between;
+    flex-wrap: wrap;
+   
+}
+.header_logo{
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 100%;
+    color: var(--white-color);
+}
+.header_list{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 167%;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white-color);
+    gap: 40px;
+    margin-right: 20px;
+    align-items: flex-end;
+}
+.wrapper_title{
+	justify-content: center;
+    justify-items: center;
+    padding: 130px;
+}
+.header_title{
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 102%;
+    letter-spacing: 0.04em;
+    text-align: center;
+    color: var(--white-color);
+    margin-bottom: 20px;
+}
+.header_disc{
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 118%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.63);
+    margin-bottom: 35px;
+}
+.wrapper_btn{
+    align-items: center;
+}
+.title_btn{   
+    display: inline-block;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 154%;
+    text-align: center;
+    color: var(--white-color);
+    background-color: var(--orange-color);
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+.title_btn:focus,.title_btn:hover{
+    background: rgba(27, 17, 8, 0.12);
+}
+.title_btn:active{
+    background: rgba(191, 188, 184, 0.44);
+    z-index: 10;
+}
+.wrrape_nav_bg{
+    padding: 2% 20%;
+    background-color: var(--white-color);
+}
+.nav_bg{
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}

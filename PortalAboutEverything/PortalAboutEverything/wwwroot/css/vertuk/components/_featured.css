@@ -1,0 +1,91 @@
+.wriper__title{
+    text-align: center;
+}
+.featured__title{
+    display: inline-block;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 135%;
+    letter-spacing: 0.1em;
+    text-align: center;
+    color: var(--night-rider-color);
+    border-bottom: 1px solid #dedede;
+    padding: 54px 10px 20px 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.featured__cards{
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+.card-left{
+    background: url(/images/featured_img_left.png) no-repeat ;
+}
+.card-right {
+    background: url(/images/featured_img_right.png) no-repeat;
+    position: relative;
+}
+.card__btn{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: var(--orange-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 108%;
+    text-transform: uppercase;
+    color: var(--white-color);
+}
+.card__btn:focus,.card__btn:hover{
+    background: rgba(27, 17, 8, 0.12);
+}
+.card__btn:active{
+    background: rgba(191, 188, 184, 0.44);
+    z-index: 10;
+}
+.featured__card{
+   padding-left: 20px;
+}
+.card-title{
+    font-weight: 400;
+    font-size: 27px;
+    line-height: 111%;
+    color: var(--white-color);
+    padding-top: 160px;
+}
+.card-desc{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 179%;
+    color: rgba(255, 255, 255, 0.7);
+    padding-top: 5px;
+}
+.card__wrapper-ava{
+    justify-content: space-between;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 292%;
+    color: rgba(255, 255, 255, 0.7);
+    padding-top: 10px;
+    padding-bottom: 50px;
+    padding-right: 25px;
+}
+.card__ava{
+    position: relative;
+    padding-left: 30px;
+}
+.card__ava:after{
+    position: absolute;
+    content: "";
+    background: url(/images/ava.png) no-repeat;
+    top: 0;
+    left: 0;
+    height: 65px;
+    width: 65px;
+
+}
