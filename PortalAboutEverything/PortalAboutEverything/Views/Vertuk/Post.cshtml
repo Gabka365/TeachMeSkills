@@ -5,18 +5,16 @@
     <link rel="stylesheet" href="/css/vertuk/post/style.css" />
 </head>
 <body>
-    @if (Model.listPosts != null)
-    {
-        foreach (var post in Model.listPosts)
-        {
-            <div>
-                @post.NamePost
-            </div>
-            <div>
-                @post.DecPost
-            </div>
 
-        }
+    @foreach (var post in Model.ListPosts)
+    {
+        <div>
+            @post.NamePost
+        </div>
+        <div>
+            @post.DecPost
+        </div>
+
     }
     <div>
         Здесь можно разместить пост

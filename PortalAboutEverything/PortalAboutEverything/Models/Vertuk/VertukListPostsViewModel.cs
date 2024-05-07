@@ -2,7 +2,8 @@
 {
     public class VertukListPostsViewModel
     {
-       public  List<VertukPostViewModel> listPosts { get; set; } = new List<VertukPostViewModel>();   
+       public  List<VertukPostViewModel> ListPosts { get; set; } = new List<VertukPostViewModel>();   
 
     }
+
 }
