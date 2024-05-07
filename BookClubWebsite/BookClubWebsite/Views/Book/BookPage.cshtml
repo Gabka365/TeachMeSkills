@@ -1,12 +1,13 @@
-﻿@{
+﻿@model BookClubWebsite.Models.Book.BookPageViewModel;
+@{
     ViewData["Title"] = "Book page";
 }
 
 <div class="content-page">
 	<div class="content-page__wrapper">
 		<div class="content-page__book book">
-			<div class="book__book_title">Совершенный код</div>
-			<div class="book__book_author">Стив Макконнелл</div>
+			<div class="book__book_title">@Model.TitleOfBook</div>
+			<div class="book__book_author">@Model.AuthorOfBook</div>
 			<div class="book__book-images">
 				<div class="image_wrapper">
 					<img src="/images/book/cover.webp" alt="cover" class="book-image__item cover">
@@ -32,9 +33,10 @@
 				nesciunt adipisci! Atque modi, numquam eaque obcaecati aliquid natus.
 			</div>
 			<div class="aside__subject subject">
-				<span class="subject__item">C#</span>
-				<span class="subject__item">Алгоритмы</span>
-				<span class="subject__item">БД</span>
+				@foreach (var subject in Model.SubjectsOfBook)
+				{
+					<span class="subject__item">@subject</span>
+				}
 			</div>
 			<div class="aside__buttons">
 				<button class="btn btn_big">Оставить отзыв о книге</button>

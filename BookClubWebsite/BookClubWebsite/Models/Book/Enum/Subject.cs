@@ -6,6 +6,8 @@ namespace BookClubWebsite.Models.Book.Enum
 	{
 		[Description("C#")]
 		CSharp,
+		[Description("C++")]
+		CPlusPlus,
 		Linux,
 		[Description("Алгоритмы")]
 		Algorithms,
