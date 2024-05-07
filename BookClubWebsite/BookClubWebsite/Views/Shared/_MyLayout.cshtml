@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - BookClubWebsite</title>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/BookClubWebsite.styles.css" asp-append-version="true" />
+    <title>IT книжный клуб</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="header__nav nav">
+                <div class="nav__link">
+                    <a href="/Home/Index">О клубе</a>
+                </div>
+                <div class="nav__link">
+                    <a href="/Book/BookPage">Книги</a>
+                </div>
+            </div>
+            <div class="header__wrapper">
+                <div class="header__content">
+                    <div class="header__title">
+                        IT книжный клуб
+                    </div>
+                    <div class="header__summary">
+                        Читаем, разбираем и делимся опытом в кругу своих
+                    </div>
+                    <div class="header__btn_wrapper">
+                        <button class="header__btn btn btn_small">Вступить</button>
+                    </div>
+                </div>
+                <div class="header__image">
+                    <img src="/images/shared/header_image2.webp" alt="A man read books">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-page">
+        @RenderBody()
+    </div>
+
+    <div class="footer">
+        <div class="footer__social social">
+            <div class="social__item">
+                <a href="#" class="social__item">YouTube</a>
+            </div>
+            <div class="social__item">
+                <a href="#" class="social__item">Telegram</a>
+            </div>
+            <div class="social__item">
+                <a href="#" class="social__item">Вконтакте</a>
+            </div>
+            <div class="social__item">
+                <a href="#" class="social__item">Дзен</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-using BookClubWebsite.Models;
+//using BookClubWebsite.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,16 +6,14 @@ namespace BookClubWebsite.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-
-        public IActionResult Index()
+        public IActionResult BookPage()
         {
             return View();
         }
 
-        public IActionResult Privacy()
-        {
+       public IActionResult Index()
+        { 
             return View();
         }
 
