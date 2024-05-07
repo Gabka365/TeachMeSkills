@@ -48,7 +48,10 @@
                     We travel the world in search of stories. Come along for the ride.
                 </p>
                 <div class="wraper_btn">
-                    <button class="title_btn btn-reset">View Latest Posts</button>
+
+                    <form action="@Url.Action("Post", "Vertuk")" method="post">
+                        <input type="submit" value="View Latest Posts" class="title_btn btn-reset" />
+                    </form>
                 </div>
 
             </div>

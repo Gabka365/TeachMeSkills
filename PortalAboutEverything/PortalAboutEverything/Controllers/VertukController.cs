@@ -8,5 +8,9 @@ namespace PortalAboutEverything.Controllers
         {
             return View();
         }
+        public IActionResult Post()
+        {
+            return View();
+        }
     }
 }
