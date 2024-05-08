@@ -30,27 +30,27 @@
 }
 
 .card1 {
-    background: url(/images/card1.png);
+    background: url(/images/vertuk/card1.png);
 }
 
 .card2 {
-    background: url(/images/card2.png);
+    background: url(/images/vertuk/card2.png);
 }
 
 .card3 {
-    background: url(/images/card3.png);
+    background: url(/images/vertuk/card3.png);
 }
 
 .card4 {
-    background: url(/images/card4.png);
+    background: url(/images/vertuk/card4.png);
 }
 
 .card5 {
-    background: url(/images/card5.png);
+    background: url(/images/vertuk/card5.png);
 }
 
 .card6 {
-    background: url(/images/card6.png);
+    background: url(/images/vertuk/card6.png);
 }
 
 .mostRecent__card-title {
@@ -93,7 +93,7 @@
     .mostRecent__card__ava:after {
         position: absolute;
         content: "";
-        background: url(/images/ava.png) no-repeat;
+        background: url(/images/vertuk/ava.png) no-repeat;
         top: 0;
         left: 0;
         height: 65px;

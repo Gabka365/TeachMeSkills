@@ -15,7 +15,7 @@ namespace PortalAboutEverything.Controllers
         }
         public IActionResult Index()
         {
-            // создаем модель для отображение месяца года и дня
+            //создаем модель для отображение месяца года и дня
             var month = DateTime.Now.ToString("MMMM", new System.Globalization.CultureInfo("en-US"));
             var year = DateTime.Now.Year;
             var day = DateTime.Now.Day;
