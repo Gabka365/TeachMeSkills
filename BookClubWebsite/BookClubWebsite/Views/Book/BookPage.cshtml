@@ -1,4 +1,5 @@
-﻿@model BookClubWebsite.Models.Book.BookPageViewModel;
+﻿@using BookClubWebsite.Controllers
+@model BookClubWebsite.Models.Book.BookPageViewModel;
 @{
     ViewData["Title"] = "Book page";
 }
@@ -35,12 +36,12 @@
 			<div class="aside__subject subject">
 				@foreach (var subject in Model.SubjectsOfBook)
 				{
-					<span class="subject__item">@subject</span>
+					<span class="subject__item">@DescriptionAttributeExtensions.GetEnumDescription(subject)</span>
 				}
 			</div>
 			<div class="aside__buttons">
-				<button class="btn btn_big">Оставить отзыв о книге</button>
-				<button class="btn btn_big">Открыть список книг</button>
+				<a class="btn btn_big" href="/Book/BookReview?bookAuthor=@Model.AuthorOfBook&bookTitle=@Model.TitleOfBook">Оставить отзыв о книге</a>
+				<a class="btn btn_big">Открыть список книг</a>
 			</div>
 		</div>
 	</div>

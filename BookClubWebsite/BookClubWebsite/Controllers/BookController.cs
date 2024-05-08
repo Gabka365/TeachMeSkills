@@ -1,10 +1,10 @@
-﻿using BookClubWebsite.Models.Book;
-using BookClubWebsite.Models.Book.Enum;
+﻿using BookClubWebsite.Controllers.BookEnum;
+using BookClubWebsite.Models.Book;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookClubWebsite.Controllers
 {
-	public class BookController : Controller
+    public class BookController : Controller
 	{
 		public IActionResult BookPage()
 		{
@@ -12,9 +12,16 @@ namespace BookClubWebsite.Controllers
 			{
 				TitleOfBook = "Совершенный код",
 				AuthorOfBook = "Стив Макконнелл",
-				SubjectsOfBook = new List<Subject> { Subject.CSharp, Subject.Algorithms, Subject.Database }
+				SubjectsOfBook = [Subject.CSharp, Subject.Algorithms, Subject.Database, Subject.AnotherInteresting]
 			};
 			return View(viewModel);
 		}
+
+		public IActionResult BookReview(string bookAuthor, string bookTitle)
+		{
+			var book = $"{bookAuthor}: {bookTitle}";
+			return View(book);
+		}
+		
 	}
 }
