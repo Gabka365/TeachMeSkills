@@ -1,12 +1,13 @@
-
+using PortalAboutEverything.Services.Ancient;
 using PortalAboutEverything.Services.Vertuk;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<VideoSortChatService>();
 
-//Создал сервис
+//Г‘Г®Г§Г¤Г Г« Г±ГҐГ°ГўГЁГ±
 builder.Services.AddSingleton<PostsService>();
 
 var app = builder.Build();
