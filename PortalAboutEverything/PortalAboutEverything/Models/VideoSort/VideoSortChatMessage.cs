@@ -1,6 +1,6 @@
 ﻿namespace PortalAboutEverything.Models.Ancient;
 
-public class AncientChatMessage
+public class VideoSortChatMessage
 {
     public string Username { get; set; }
     public string Message { get; set; }

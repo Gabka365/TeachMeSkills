@@ -4,11 +4,11 @@ using PortalAboutEverything.Services.Ancient;
 
 namespace PortalAboutEverything.Controllers;
 
-public class AncientController : Controller
+public class VideoSortController : Controller
 {
-    private readonly AncientChatService _chatService;
+    private readonly VideoSortChatService _chatService;
 
-    public AncientController(AncientChatService chatService)
+    public VideoSortController(VideoSortChatService chatService)
     {
         _chatService = chatService;
     }
@@ -16,7 +16,7 @@ public class AncientController : Controller
     [HttpGet]
     public IActionResult Chat()
     {
-        return View(new AncientChatViewModel()
+        return View(new VideoSortChatViewModel()
         {
             ChatMessages = _chatService.ChatMessages
         });
@@ -27,13 +27,13 @@ public class AncientController : Controller
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(message))
         {
-            return View(new AncientChatViewModel()
+            return View(new VideoSortChatViewModel()
             {
                 ChatMessages = _chatService.ChatMessages
             });
         }
         
-        var newMessage = new AncientChatMessage()
+        var newMessage = new VideoSortChatMessage()
         {
             Username = username,
             Message = message,
@@ -41,7 +41,7 @@ public class AncientController : Controller
         };
         _chatService.ChatMessages.Add(newMessage);
 
-        return View(new AncientChatViewModel()
+        return View(new VideoSortChatViewModel()
         {
             ChatMessages = _chatService.ChatMessages
         });
