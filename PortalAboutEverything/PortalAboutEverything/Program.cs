@@ -1,7 +1,13 @@
+
+using PortalAboutEverything.Services.Vertuk;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Создал сервис
+builder.Services.AddSingleton<PostsService>();
 
 var app = builder.Build();
 
