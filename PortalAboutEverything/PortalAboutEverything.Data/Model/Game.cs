@@ -1,6 +1,6 @@
-﻿namespace PortalAboutEverything.Models.Game
+﻿namespace PortalAboutEverything.Data.Model
 {
-    public class GameIndexViewModel
+    public class Game
     {
         public int Id { get; set; }
         public string Name { get; set; }

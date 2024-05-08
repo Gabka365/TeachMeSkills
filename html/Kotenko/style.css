@@ -1,0 +1,128 @@
+.site-name {
+	font-size: 30px;
+	height: 50px;
+}
+
+.header_site{
+    display: flex;
+	justify-content: space-between;
+}
+
+.header_right{
+    display: flex;
+    justify-content:space-around;
+}
+
+.catalog_games{
+    border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+}
+.login{
+    border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.buy{
+    border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.images {
+	display: flex;
+	justify-content: space-around;
+	width: 600px;
+	height: 300px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.image {
+	display: flex;
+	align-items: center;
+}
+
+.images img {
+	max-width: 150px;
+	max-height: 300px;
+}
+
+.center-block {
+	display: flex;
+    justify-content: center;
+}
+
+.desc-and-genres {
+	margin-left: 20px;
+	width: 150px;
+}
+.developer{
+    border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.desc {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.genre {
+	padding: 5px 10px;
+	border-radius: 15px;
+	display: inline-block;
+    align-items: center;
+	margin: 3px;
+	border: 1px rgb(255, 255, 255) solid;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+  }
+
+.comment{	
+	border: 1px solid #ccc;
+	margin: 10px 0;
+}
+
+.comment .text{
+	max-height: 100px;
+    overflow-y: auto;
+}
+
+.comment .header{
+	display: flex;
+	justify-content: flex-end;
+}
+
+.comment-type{
+	width: 20px;
+    height: 20px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.comment-type.bad{
+	background: rgb(95, 10, 10);
+}
+
+.comment-type.good{
+	background: green;
+}
+
+.author{
+	display: flex;
+	justify-content: flex-end;
+}
+
+div{
+    color: #ffffff;
+}
+
+body{
+    background-image: url('images/beckground.jpg');
+}
