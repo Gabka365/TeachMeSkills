@@ -1,4 +1,6 @@
-﻿<link href="../../css/Sleptsov/style.css" rel="stylesheet" />
+﻿@model PortalAboutEverything.Models.BoardGame.BoardGameReviewViewModel;
+
+<link href="../../css/Sleptsov/style.css" rel="stylesheet" />
 
 <div class="banner">
     <img src="../../images/Sleptsov/banner.webp" alt="Advertising banner" />
@@ -116,9 +118,21 @@
                 удовольствием!)
             </p>
         </div>
+        @if (Model != null)
+        {
+            <div class="review">
+                <div class="name-and-date">
+                    <div class="name">@Model.Name</div>
+                    <div class="date">@Model.Date.ToString("dd.MM.yyyy HH:mm")</div>
+                </div>
+                <p class="text">
+                    @Model.Text
+                </p>
+            </div>
+        }
         <div class="review-buttons">
             <button class="usual-button">Показать ещё</button>
-            <button class="highlighted-button">Написать отзыв</button>
+            <button class="highlighted-button" onclick="window.location.href = '/BoardGame/ReviewForm';">Написать отзыв</button>
         </div>
     </div>
 </div>

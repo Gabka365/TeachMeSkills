@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using PortalAboutEverything.Models.BoardGame;
+using System;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -10,6 +13,19 @@ namespace PortalAboutEverything.Controllers
         }
 
         public IActionResult FirstBoardGame()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult FirstBoardGame(BoardGameReviewViewModel boardGameReviewViewModel)
+        {
+            boardGameReviewViewModel.Date = DateTime.Now;
+
+            return View(boardGameReviewViewModel);
+        }
+
+        public IActionResult ReviewForm()
         {
             return View();
         }
