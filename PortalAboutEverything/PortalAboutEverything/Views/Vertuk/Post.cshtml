@@ -5,17 +5,21 @@
     <link rel="stylesheet" href="/css/vertuk/post/style.css" />
 </head>
 <body>
+    
 
-    @foreach (var post in Model.ListPosts)
-    {
-        <div>
-            @post.NamePost
-        </div>
-        <div>
-            @post.DecPost
-        </div>
-
-    }
+        @foreach (var post in Model.ListPosts)
+        {
+            <div class="post">
+                <div class="name_post">
+                    @post.NamePost
+                </div>
+                <div calss="desc_post">
+                    @post.DecsPost
+                </div>
+            </div>
+        }
+    
+    
     <div>
         Здесь можно разместить пост
     </div>
@@ -23,10 +27,10 @@
     <div>
         <form action="/Vertuk/Post" method="post">
             <div>
-                <input type="text" name="namePost" placeholder="Имя поста" />
+                <input type="text" name="namePost" placeholder="Заголовок" />
             </div>
             <div>
-                <textarea name="decPost"></textarea>
+                <textarea name="decsPost" placeholder="Ваши коментарии"></textarea>
             </div>
             <div>
                 <input type="submit" value="Создать пост" />

@@ -4,7 +4,7 @@
     {
         public string NamePost { get; set; }
 
-        public string DecPost { get; set; }
+        public string DecsPost { get; set; }
 
     }
 }
