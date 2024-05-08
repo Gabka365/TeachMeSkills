@@ -1,0 +1,39 @@
+﻿@model PortalAboutEverything.Models.Ancient.AncientChatViewModel
+
+<div class="ancient-main">
+    <div class="ancient-title">
+        <span>New message:</span>
+    </div>
+    <form class="ancient-form" action="/Ancient/Chat" method="post">
+        <label class="ancient-form-element" for="ancient-form-element-input">
+            <span>Username:</span>
+            <input name="username" type="text">
+        </label>
+        <label class="ancient-form-element" for="ancient-form-element-input">
+            <span>Message:</span>
+            <textarea name="message"></textarea>
+        </label>
+        <div class="ancient-form-element-submit">
+            <input type="submit" value="Send Message">
+        </div>
+    </form>
+    <div class="ancient-title">
+        <span>Message List:</span>
+    </div>
+    <div class="ancient-chat-message-list">
+        @foreach (var message in Model.ChatMessages)
+        {
+            <div class="ancient-chat-message">
+                <div class="ancient-chat-message-username">
+                    <span>@message.Username</span>
+                </div>
+                <div class="ancient-chat-message-message">
+                    <span>@message.Message</span>
+                </div>
+                <div class="ancient-chat-message-timestamp">
+                    <span>@message.Timestamp.Hour:@message.Timestamp.Minute</span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
