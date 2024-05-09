@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\css\GameStore\" />
     <Folder Include="wwwroot\css\Sleptsov\" />
+    <Folder Include="wwwroot\images\GameStore\" />
     <Folder Include="wwwroot\images\Sleptsov\" />
   </ItemGroup>
 

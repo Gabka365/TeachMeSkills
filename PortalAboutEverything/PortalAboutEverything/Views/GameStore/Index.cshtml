@@ -1,0 +1,32 @@
+﻿@model PortalAboutEverything.Models.GameStore.GameStoreIndexViewModel
+<div>
+    Магазин игр Game Store
+</div>
+<div>
+    Оцените наш магазин
+</div>
+<div>
+    <form action="/GameStore/RateTheGameStore" method="post">
+        <div>
+            Название игры котору вы приобрели у нас
+        </div>
+        <div>
+            <input type="text" name="gameName" placeholder="Название игры" />
+        </div>
+        <div>
+            @foreach (var rate in Model.AvailableRates)
+            {
+                <label>
+                    Ставлю @rate
+                    <input type="radio" name="rate" value="@rate" />
+                </label>
+            }
+        </div>
+        <div>
+            <textarea name="comment"></textarea>
+        </div>
+        <div>
+            <input type="submit" value="Отправить отзыв" />
+        </div>
+    </form>
+</div>
