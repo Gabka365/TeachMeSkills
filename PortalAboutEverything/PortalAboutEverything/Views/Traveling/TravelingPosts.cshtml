@@ -1,0 +1,24 @@
+﻿@model List<PortalAboutEverything.Models.Traveling.TravelingShowPostsViewModel>
+
+@section StyleTraveling {
+    <link rel="stylesheet" href="/css/Traveling/posts/style.css" />
+}
+
+ @foreach (var post in Model)
+ {
+   <div class="name_post">
+       @post.Name
+        <div class="post_actions">
+                <a href="/Traveling/EditPost/@post.Id">Редактировать</a>
+                <a href="/Traveling/DeletePost/@post.Id">Удалить</a>
+        </div>
+   </div>
+   <div lass="name_post">
+       @post.Desc
+   </div desc_post>
+
+ }
+
+<div class="post">
+    <a href="/Traveling/CreatePost">Оставить свой отзыв</a>
+</div>
