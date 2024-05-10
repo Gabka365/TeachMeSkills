@@ -1,49 +1,48 @@
-.menu-list{
-    list-style: none;
-    display: flex;
-    justify-content: space-around;
-    padding: 0;
+.menu-list {
+	list-style: none;
+	display: flex;
+	justify-content: space-around;
+	padding: 0;
 }
 
 .menu-list li {
-    margin: 0 2%; 
-    padding: 1% 2%; 
-    border-radius: 5px; 
-    color: #FFFFFF; 
-    font-family: Arial, sans-serif; 
-    font-size: 16px;
-    text-align: center; 
-    padding: 20px; 
-    background-color:#6160AB;
-    width: 15%;
-
+	margin: 0 2%;
+	padding: 1% 2%;
+	border-radius: 5px;
+	color: #ffffff;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+	text-align: center;
+	padding: 20px;
+	background-color: #6160ab;
+	width: 15%;
 }
 
 .menu-list li:hover {
-    background-color: #7C06BC; 
+	background-color: #7c06bc;
 }
 
-.logo-container{
-    display: flex;
-    justify-content: center;
+.logo-container {
+	display: flex;
+	justify-content: center;
 }
 
 .logo {
-    max-width: 10%; 
+	max-width: 10%;
 }
 
-.top-menu{
-    border-top: 3px solid #241E45; 
-    border-bottom: 3px solid #241E45;
+.top-menu {
+	border-top: 3px solid #241e45;
+	border-bottom: 3px solid #241e45;
 }
 
 a {
-    text-decoration: none;
-    color: inherit; 
+	text-decoration: none;
+	color: inherit;
 }
 
 a:hover {
-    text-decoration: none; 
+	text-decoration: none;
 }
 
 .images-and-text {
@@ -68,29 +67,29 @@ a:hover {
 .images-and-text {
 	display: flex;
 	justify-content: space-around;
-    align-items: center;
+	align-items: center;
 }
 
 .center-block {
 	display: flex;
-    justify-content: center;
+	justify-content: center;
 }
 
-footer{
-    text-align: right;
+footer {
+	text-align: right;
 }
 
 .tags {
-    display: flex;
-    flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .tag {
-	background: #7C06BC;
+	background: #7c06bc;
 	padding: 5px 10px;
 	border-radius: 15px;
 	display: inline-block;
 	margin: 3px;
-	border: 1px #FFFFFF;
-    color: #FFFFFF;
+	border: 1px #ffffff;
+	color: #ffffff;
 }
