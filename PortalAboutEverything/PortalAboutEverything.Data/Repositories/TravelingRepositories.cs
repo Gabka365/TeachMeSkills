@@ -25,5 +25,14 @@ namespace PortalAboutEverything.Data.Repositories
         {
            return _traveling.ToList();
         }
+
+        public Traveling Get(int id)
+            => _traveling.Single(x => x.Id == id);
+
+        public void Update(Traveling traveling)
+        {
+            Delete(traveling.Id);
+            Create(traveling);
+        }
     }
 }

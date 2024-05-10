@@ -68,6 +68,31 @@ namespace PortalAboutEverything.Controllers
             _travelingRepositories.Delete(id);
             return RedirectToAction("TravelingPosts");
         }
+        [HttpGet]
+        public IActionResult UpdatePost(int id)
+        {
+            var traveling = _travelingRepositories.Get(id);
+            var model = new TravelingUpdateViewModel()
+            {
+                Id = traveling.Id,
+                Name = traveling.Name,
+                Desc = traveling.Desc,
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult UpdatePost(TravelingUpdateViewModel model)
+        {
+            var traveling = new Traveling
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Desc = model.Desc,
+
+            };
+            _travelingRepositories.Update(traveling);
+            return RedirectToAction("TravelingPosts");
+        }
 
         private TravelingShowPostsViewModel BuildTravelingShowPostsViewModel(Traveling traveling)
            => new TravelingShowPostsViewModel
@@ -75,7 +100,6 @@ namespace PortalAboutEverything.Controllers
                Id = traveling.Id,
                Desc = traveling.Desc,
                Name = traveling.Name,
-
            };
 
     }
