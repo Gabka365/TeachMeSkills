@@ -10,6 +10,10 @@
     color: #333;
     margin-bottom: 10px;
     position: relative;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .post_actions {
@@ -18,19 +22,23 @@
     top: 0;
 }
 
-    .post_actions a {
-        margin-left: 10px;
-        background-color: #5C6BC0;
-        color: #fff;
-        padding: 5px 10px;
-        text-decoration: none;
-        border-radius: 3px;
-    }
+.post_actions a {
+    margin-left: 10px;
+    background-color: #5C6BC0;
+    color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
 
 .desc_post {
     font-size: 16px;
-    color: #666;
+    background-color: #e0e0e0;
     margin-bottom: 20px;
+    border: 1px solid green;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .post a {
@@ -40,8 +48,12 @@
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 3px;
+    margin-top: 20px;
 }
 
-    .post a:hover {
-        background-color: #4B5DA1;
-    }
+.post a:hover {
+    background-color: #4B5DA1;
+}
+.footer[b-arziu4cny0] {
+    position: relative;
+}
