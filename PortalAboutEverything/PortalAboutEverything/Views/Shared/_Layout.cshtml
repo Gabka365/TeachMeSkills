@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/PortalAboutEverything.styles.css" asp-append-version="true" />
 
     @RenderSection("Style", false)
+    @RenderSection("storeStyle", false)
 </head>
 <body>
     <header>
@@ -42,6 +43,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/BoardGame/Index">Настольные игры</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Store/Index">Online store</a>
                         </li>
                     </ul>
                 </div>

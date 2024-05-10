@@ -1,0 +1,11 @@
+﻿@model PortalAboutEverything.Models.Store.CreateReviewViewModel;
+
+<form method="post">
+    <div>
+        @Html.TextBoxFor(x => x.Title, new {placeholder="input title"})
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Description, new { placeholder = "input description" })
+    </div>
+    <input type="submit" value="create review"/>
+</form>
