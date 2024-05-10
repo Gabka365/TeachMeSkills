@@ -13,6 +13,7 @@ builder.Services.AddSingleton<VideoSortChatService>();
 builder.Services.AddSingleton<PostsService>();
 
 builder.Services.AddSingleton<GameRepositories>();
+builder.Services.AddSingleton<BoardGameReviewRepositories>();
 
 var app = builder.Build();
 
