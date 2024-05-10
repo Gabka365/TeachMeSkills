@@ -1,4 +1,4 @@
-﻿@model PortalAboutEverything.Models.BoardGame.BoardGameReviewViewModel;
+﻿@model List<PortalAboutEverything.Models.BoardGame.BoardGameReviewViewModel>
 
 @section Style {
     <link href="/css/BoardGame/style.css" rel="stylesheet" />
@@ -120,21 +120,21 @@
                 удовольствием!)
             </p>
         </div>
-        @if (Model != null)
+        @foreach(var rewiev in Model)
         {
             <div class="review">
                 <div class="name-and-date">
-                    <div class="name">@Model.Name</div>
-                    <div class="date">@Model.Date.ToString("dd.MM.yyyy HH:mm")</div>
+                    <div class="name">@rewiev.Name</div>
+                    <div class="date">@rewiev.Date.ToString("dd.MM.yyyy HH:mm")</div>
                 </div>
                 <p class="text">
-                    @Model.Text
+                    @rewiev.Text
                 </p>
             </div>
         }
         <div class="review-buttons">
             <button class="usual-button">Показать ещё</button>
-            <button class="highlighted-button" onclick="window.location.href = '/BoardGame/ReviewForm';">Написать отзыв</button>
+            <button class="highlighted-button" onclick="window.location.href = '/BoardGame/Create';">Написать отзыв</button>
         </div>
     </div>
 </div>
