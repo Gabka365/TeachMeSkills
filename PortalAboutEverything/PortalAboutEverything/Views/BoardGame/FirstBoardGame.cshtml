@@ -125,11 +125,13 @@
             <div class="review">
                 <div class="name-and-date">
                     <div class="name">@rewiev.Name</div>
-                    <div class="date">@rewiev.Date.ToString("dd.MM.yyyy HH:mm")</div>
+                    <div class="date">@rewiev.DateInStringFormat</div>
                 </div>
                 <p class="text">
                     @rewiev.Text
                 </p>
+                <a href="/BoardGame/Update?id=@rewiev.Id">U</a>
+                <a href="/BoardGame/Delete?id=@rewiev.Id">X</a>
             </div>
         }
         <div class="review-buttons">

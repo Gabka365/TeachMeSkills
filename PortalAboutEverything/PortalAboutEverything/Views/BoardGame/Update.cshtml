@@ -1,0 +1,26 @@
+﻿@model PortalAboutEverything.Models.BoardGame.BoardGameUpdateReviewViewModel
+
+<h2>
+    Ваше мнение об игре "Ticket to Ride: Европа":
+</h2>
+<div>
+    <form method="post">
+        @Html.HiddenFor(review => review.Id)
+        <div>
+            @Html.TextBoxFor(review => review.Name, new
+                {
+                    placeholder = "Ваше имя"
+                })
+        </div>
+        @Html.HiddenFor(review => review.Date)
+        <div>
+            @Html.TextAreaFor(review => review.Text, new
+                {
+                    placeholder = "Ваш отзыв"
+                })
+        </div>
+        <div>
+            <input type="submit" value="Изменить отзыв" />
+        </div>
+    </form>
+</div>
