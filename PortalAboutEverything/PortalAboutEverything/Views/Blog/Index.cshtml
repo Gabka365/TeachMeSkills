@@ -1,9 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-
-}
+﻿@model List<PortalAboutEverything.Models.Blog.postIndexViewModel>
 
 @section Style
 {
@@ -35,7 +30,7 @@
         <div>Main</div>
         <div>Uploads</div>
         <div>Page</div>
-        <div>Photos</div>
+        <div> <a href="/Blog/PostMessage">Post Message</a> </div>
         <div> <a href="/Blog/SendingMessage">  Send message </a></div>
     </div>
 
@@ -77,34 +72,36 @@
             <span class="tag">Most likable</span>
             <span class="tag">+</span>
         </div>
-        <div class="post">
-            <span class="header">
-                Author: Morgan Freeman <br>
-                Date: 23.12.2008
-            </span>
-            <div class="body">
-                <div class="litle-ava">
-                    <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
+        <div>
+            @foreach (var post in Model)
+            {
+                <div class="post">
+                    <span class="header">
+                        Author: @post.Name <br>
+                        Date: @post.Now
+                    </span>
+                    <div class="body">
+                        <div class="litle-ava">
+                            <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
+                        </div>
+                        <div class="text-of-post">
+                            @post.message
+                        </div>
+                    </div>
+                    <div class="interaction">
+                        <span class="like">
+                            <img src="/images/Blog/png/like.png" alt="" />
+                        </span>
+                        <span class="dislike">
+                            <img src="/images/Blog/png/dislike.png" alt="" />
+                        </span>
+                        <span class="answers">
+                            <span> <a href="/Blog/DeleteMessage?id=@post.Id">Delete</a></span>
+                            <span><a href="/Blog/UpdateMessage?id=@post.Id">Update</a></span>
+                        </span>
+                    </div>
                 </div>
-                <div class="text-of-post">
-                    I'm alive
-                </div>
-            </div>
-            <div class="interaction">
-                <span class="like">
-                    <img src="/images/Blog/png/like.png" alt="" />
-                </span>
-                <span class="dislike">
-                    <img src="/images/Blog/png/dislike.png" alt="" />
-                </span>
-                <span class="answers">
-                    <span>Reply</span>
-                    <span>See answers</span>
-                </span>
-            </div>
-            <span class="other-posts">
-                See more posts
-            </span>
+            }
         </div>
     </div>
 </div>
