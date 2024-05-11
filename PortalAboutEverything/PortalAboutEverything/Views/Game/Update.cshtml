@@ -1,0 +1,24 @@
+﻿@model PortalAboutEverything.Models.Game.GameUpdateViewModel
+
+<form method="post">
+    @Html.HiddenFor(x => x.Id)
+    <div>
+        @Html.TextBoxFor(x => x.Name)
+    </div>
+    <div>
+        @Html.TextAreaFor(x => x.Description)
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.YearOfRelease, 
+            new { 
+                placeholder = "Год выпуска", 
+                @class = "my-input", 
+                @type = "number",
+                @min = "1990",
+                @max = "2020"
+            })
+    </div>
+    <div>
+        <input type="submit" value="Обновить" />
+    </div>
+</form>
