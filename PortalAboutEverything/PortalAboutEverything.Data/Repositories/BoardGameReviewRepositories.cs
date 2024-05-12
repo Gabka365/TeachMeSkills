@@ -26,8 +26,9 @@ namespace PortalAboutEverything.Data.Repositories
 
         public void Update(BoardGameReview review)
         {
-            Delete(review.Id);
-            Create(review);
+            BoardGameReview updatedReview = Get(review.Id);
+            updatedReview.Name = review.Name;
+            updatedReview.Text = review.Text;
         }
     }
 }

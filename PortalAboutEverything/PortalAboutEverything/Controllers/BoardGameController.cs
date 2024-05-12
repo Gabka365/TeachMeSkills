@@ -38,12 +38,12 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult FirstBoardGame()
         {
-            List<BoardGameReviewViewModel> reviewViewModels = _reviewRepositories
+            List<BoardGameReviewViewModel> reviewViewModel = _reviewRepositories
                 .GetAll()
                 .Select(BuildBoardGameRewievViewModel)
                 .ToList();
 
-            return View(reviewViewModels);
+            return View(reviewViewModel);
         }
 
         [HttpGet]
@@ -93,7 +93,6 @@ namespace PortalAboutEverything.Controllers
             {
                 Id = reviewViewModel.Id,
                 Name = reviewViewModel.Name,
-                Date = reviewViewModel.Date,
                 Text = reviewViewModel.Text,
             };
 
@@ -101,7 +100,6 @@ namespace PortalAboutEverything.Controllers
             => new BoardGameUpdateReviewViewModel
             {
                 Name = review.Name,
-                Date = review.Date,
                 Text = review.Text,
             };
     }
