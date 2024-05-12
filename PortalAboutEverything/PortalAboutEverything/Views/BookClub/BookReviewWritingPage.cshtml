@@ -20,20 +20,12 @@
         <div class="content-page__aside aside">
             <div class="aside__title">О книге</div>
             <div class="aside__summury">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit eum ipsa ab corporis, sunt id
-                tenetur. Fugiat beatae similique rem, eligendi quas quasi incidunt magni reiciendis possimus est
-                nisi enim numquam voluptatibus tenetur atque neque eum officia minus omnis sapiente aliquid.
-                Adipisci repellendus accusantium inventore dolorum facere qui veritatis sequi dolore nihil
-                repudiandae minima unde perspiciatis at assumenda nulla, atque, id enim voluptatem cum rem
-                possimus ex hic? Adipisci sequi beatae dolorem tenetur eligendi delectus quaerat asperiores
-                debitis vero numquam qui rerum, odio dolore ad eum fugiat? Iusto excepturi obcaecati quae
-                nesciunt adipisci! Atque modi, numquam eaque obcaecati aliquid natus.
+               @Model.SummaryOfBook
             </div>
             <div class="aside__subject subject">
                 @foreach (var subject in Model.SubjectsOfBook)
                 {
                     <span class="subject__item">@subject</span>
-
                 }
             </div>
         </div>
@@ -98,7 +90,6 @@
                     <label>
                         @rate
                         <input type="radio" name="bookIllustrationsRating" value=@rate>
-
                     </label>
                 }
             </div>

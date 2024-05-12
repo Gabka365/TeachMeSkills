@@ -2,7 +2,7 @@
 
 namespace PortalAboutEverything.Models.BookClub
 {
-    public class BookClubIndexViewModel
+    public class BookUpdateViewModel
     {
         public int Id { get; set; }
         public required string BookAuthor { get; set; }

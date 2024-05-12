@@ -6,6 +6,7 @@ namespace PortalAboutEverything.Models.BookClub
     {
         public required string BookAuthor { get; set; }
         public required string BookTitle { get; set; }
+        public required string SummaryOfBook { get; set; }
         public required int BookRating { get; set; }
         public required int BookPrintRating { get; set; }
         public required int BookIllustrationsRating { get; set; }
