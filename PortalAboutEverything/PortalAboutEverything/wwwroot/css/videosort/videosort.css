@@ -1,4 +1,4 @@
-﻿:root{
+﻿:root {
     --ancient-border-color: #1a1e21;
 }
 
@@ -59,7 +59,7 @@
     font-weight: 600;
 }
 
-.ancient-title{
+.ancient-title {
     width: 100%;
     font-size: 1.2rem;
     font-weight: 600;
@@ -85,19 +85,53 @@
     display: flex;
     flex-direction: column;
     gap: 0.1rem;
+    position: relative;
 }
 
-.ancient-chat-message-username{
+.ancient-chat-message-username {
     font-size: 0.8rem;
 }
 
-.ancient-chat-message-message{
+.ancient-chat-message-message {
     font-size: 1.2rem;
     font-weight: 600;
 }
 
-.ancient-chat-message-timestamp{
+.ancient-chat-message-bottom-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ancient-chat-message-modified-mark {
     font-size: 0.6rem;
     margin-top: 0.2rem;
-    text-align: right;
+}
+
+.ancient-chat-message-timestamp {
+    font-size: 0.6rem;
+    margin-top: 0.2rem;
+}
+
+.ancient-chat-message-buttons {
+    display: flex;
+    gap: 0.1rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0.3rem;
+}
+
+.ancient-chat-message-delete-button, .ancient-chat-message-modify-button {
+    border: 1px solid var(--ancient-border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.1rem;
+    border-radius: 0.25rem;
+}
+
+.ancient-chat-message-delete-button svg, .ancient-chat-message-modify-button svg {
+    width: 1rem;
 }
