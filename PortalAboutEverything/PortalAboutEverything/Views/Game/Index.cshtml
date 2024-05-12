@@ -1,0 +1,18 @@
+﻿@model List<PortalAboutEverything.Models.Game.GameIndexViewModel>
+
+@section Style{
+    <link rel="stylesheet" href="/css/Game/index.css?v=2" />
+}
+
+<div>
+    <a href="/Game/Create">Создать игру</a>
+</div>
+<div class="games">
+    @foreach (var game in Model)
+    {
+        <div class="game">
+            Игра <a href="/Game/Update?id=@game.Id">@game.Name</a> была выпущена в @game.YearOfRelease Вот что о ней говорят @game.Description
+            <a href="/Game/Delete?id=@game.Id" class="delete">Х</a>
+        </div>
+    }
+</div>
