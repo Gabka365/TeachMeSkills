@@ -1,0 +1,141 @@
+body{
+    background-image: url('images/Background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.head-image img{
+    position: relative;
+    display: inline-block;
+    height: 300px;
+    width: 100%;
+}
+
+.head-text img{
+    height: 42px; 
+    width: 42px;
+}
+
+.head-text {
+    color: white;
+    background: black;
+	display: grid;
+	align-items: center;
+	height: 50px;
+    padding: 5px 10px;
+	margin: 0;
+    justify-content: space-around;
+    grid-template-columns: 10px 300px 3fr 100px;
+}
+
+.name-site{
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.sign-in{
+    text-align: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+form {
+    position: relative;
+    width: 600px;
+    margin: 0 auto;
+}
+
+input {
+    width: 100%;
+    height: 42px;
+    padding-left: 10px;
+    border: 2px solid #7BA7AB;
+    border-radius: 5px;
+  }
+
+button {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-image: url('images/lupa.jpg');
+    background-size: cover;
+  }
+
+.central-block{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.menu{
+    font-size: 20px;
+    text-align: left;
+	padding: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    background: linear-gradient(to top, #fe54003d, #d68127);
+    height:max-content;
+    color: #f3e3e3de;
+}
+
+.menu .item{
+    cursor: pointer;
+    margin: 10px;
+}
+
+
+.movie{
+    border: 2px solid #01010fa8;
+	padding: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    background: linear-gradient(to top, #31684f26, #31684f);
+}
+
+.image {
+	display: flex;
+    justify-content: space-around;
+}
+
+.image img {
+	max-width: 150px;
+	height: 250px;
+}
+
+.author{
+    text-align: right;
+    color: white;
+}
+
+.genre{
+    background: rgb(255 255 255);
+	padding: 5px 10px;
+	border-radius: 15px;
+	display: inline-block;
+	margin: 3px;
+	border: 2px solid black;
+}
+
+.comment{
+    display: grid;
+    grid-template-rows: auto 100px auto;
+    color: black;
+    background: white;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    border: 2px solid black;
+    position: relative;
+}
+
+.comment .text{
+    overflow-y: auto;
+}
+
+.comment .date, .user{
+    text-align: right;
+}
