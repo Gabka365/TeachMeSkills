@@ -39,8 +39,13 @@ namespace PortalAboutEverything.Data.Repositories
 
         public void Update(Game game)
         {
-            Delete(game.Id);
-            Create(game);
+            var dbGame = Get(game.Id);
+
+            dbGame.Name = game.Name;
+            dbGame.Description = game.Description;
+            dbGame.YearOfRelease = game.YearOfRelease;
+
+            _dbContext.SaveChanges();
         }
     }
 }
