@@ -47,13 +47,13 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateBook()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateBook(CreateBookViewModel createBookViewModel)
+        public IActionResult Create(CreateBookViewModel createBookViewModel)
         {
             var book = new Book
             {
