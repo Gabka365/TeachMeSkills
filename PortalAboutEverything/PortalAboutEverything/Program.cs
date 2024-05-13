@@ -21,6 +21,7 @@ builder.Services.AddSingleton<BlogRepositories>();
 builder.Services.AddSingleton<MovieRepositories>();
 
 builder.Services.AddSingleton<GameStoreRepositories>();
+builder.Services.AddSingleton<BoardGameReviewRepositories>();
 
 var app = builder.Build();
 
