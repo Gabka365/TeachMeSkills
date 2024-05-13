@@ -1,6 +1,6 @@
 ﻿namespace PortalAboutEverything.Models.GameStore
 {
-    public class GameStoreIndexViewModel
+    public class GameStoreUpdateViewModel
     {
         public int Id { get; set; }
         public string GameName { get; set; }

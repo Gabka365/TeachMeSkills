@@ -1,15 +1,16 @@
-﻿@model PortalAboutEverything.Models.GameStore.CreateGameStoreViewModel
+﻿@model PortalAboutEverything.Models.GameStore.GameStoreUpdateViewModel
 
 @section Style {
     <link rel="stylesheet" href="/css/GameStore/style.css?v=1" />
 }
 
 <form method="post">
+    @Html.HiddenFor(x => x.Id)
     <div>
         @Html.TextBoxFor(x => x.GameName, new { pleceholder = "Название игры", @class = "my-input" })
     </div>
     <div>
-        @Html.TextBoxFor(x => x.Developer, new { pleceholder = "Разработчик", @class = "my-input" })
+        @Html.TextBoxFor(x => x.Developer, new { placeholder = "Разработчик", @class = "my-input" })
     </div>
     <div>
         @Html.TextBoxFor(x => x.YearOfRelease,
@@ -23,6 +24,6 @@
                  })
     </div>
     <div>
-        <input type="submit" value="Создать" />
+        <input type="submit" value="Создать пост" />
     </div>
 </form>

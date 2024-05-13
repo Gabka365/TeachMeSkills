@@ -95,3 +95,10 @@ comment-block {
 	display: flex;
 	justify-content: flex-end;
 }
+.delete {
+	padding: 5px;
+	background: #ccc;
+	text-decoration: none;
+	border-radius: 5px;
+	display: inline-block;
+}

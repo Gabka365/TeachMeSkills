@@ -1,7 +1,7 @@
-﻿@model PortalAboutEverything.Models.GameStore.GameStoreIndexViewModel
+﻿@model List<PortalAboutEverything.Models.GameStore.GameStoreIndexViewModel>
 
-@section Style{
-<link rel="stylesheet" href="~/css/GameStore/style.css?v=2" />
+@section Style {
+    <link rel="stylesheet" href="~/css/GameStore/style.css?v=2" />
 }
 
 <div class="header_site">
@@ -22,11 +22,22 @@
         </button>
     </div>
 </div>
-<div class="center-block">
+<div>
+    <a href="/GameStore/CreateGame">Создать игру</a>
 </div>
-<div class="comment-block">
+<div class="center-block">
+    @foreach (var game in Model)
+    {
+        <div class="game">
+            Игра <a href="/GameStore/Update?id=@game.Id">@game.GameName</a>
+            Год выпуска @game.YearOfRelease
+            Разрабочтик @game.Developer
+            <a href="/GameStore/Delete?id=@game.Id" class="delete">X</a>
+        </div>
+    }
+</div>
+@* <div class="comment-block">
     <div>
-        
         <form action="/GameStore/RateTheGameStore" method="post">
             <div>
                 Оцените наш магазин
@@ -52,5 +63,4 @@
             </div>
         </form>
     </div>
-    
-</div>
+</div> *@

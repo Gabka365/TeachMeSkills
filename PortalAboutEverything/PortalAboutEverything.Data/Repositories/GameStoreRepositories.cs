@@ -9,13 +9,32 @@ namespace PortalAboutEverything.Data.Repositories
 {
     public class GameStoreRepositories
     {
-        private static List<GameStore> _games = new();
-        private static int _lastId = 1;
+        private List<GameStore> _games = new();
+        private int _lastId = 1;
 
-        public void Save(GameStore game)
+        public void Delete(int id)
+        {
+            var game =
+                _games.Single(x => x.Id == id);
+            _games.Remove(game);
+        }
+
+        public GameStore Get(int id)
+            => _games.Single(x => x.Id == id);
+
+        public List<GameStore> GetAll()
+            => _games.ToList();
+
+        public void Create(GameStore game)
         {
             game.Id = _lastId++;
             _games.Add(game);
+        }
+
+        public void Update(GameStore game)
+        {
+            Delete(game.Id);
+            Create(game);
         }
     }
 }
