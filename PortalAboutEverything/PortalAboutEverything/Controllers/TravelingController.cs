@@ -56,7 +56,7 @@ namespace PortalAboutEverything.Controllers
             {
                 Name = createTravelingViewModel.Name,
                 Desc = createTravelingViewModel.Desc,
-
+                TimeOfCreation = createTravelingViewModel.TimeOfCreation,
             };
 
             _travelingRepositories.Create(traveling);
@@ -77,6 +77,7 @@ namespace PortalAboutEverything.Controllers
                 Id = traveling.Id,
                 Name = traveling.Name,
                 Desc = traveling.Desc,
+                
             };
             return View(model);
         }
@@ -100,6 +101,7 @@ namespace PortalAboutEverything.Controllers
                Id = traveling.Id,
                Desc = traveling.Desc,
                Name = traveling.Name,
+               TimeOfCreation = traveling.TimeOfCreation,
            };
 
     }
