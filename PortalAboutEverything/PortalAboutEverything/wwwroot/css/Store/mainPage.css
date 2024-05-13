@@ -26,6 +26,10 @@
   width: 200px;
 }
 
+.linkToReview {
+    width: inherit;
+}
+
 .good {
   width: inherit;
   border-radius: 15px;

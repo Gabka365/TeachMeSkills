@@ -27,12 +27,10 @@ namespace PortalAboutEverything.Controllers
             return View();
         }
 
-
-
         [HttpPost]
-        public IActionResult AddReview()
+        public IActionResult AddReview(CreateReviewViewModel viewModel)
         {
-            return RedirectToAction("Good");
+            return RedirectToAction("Good", viewModel);
         }
     }
 }
