@@ -1,7 +1,7 @@
 ﻿@model List<PortalAboutEverything.Models.BoardGame.BoardGameReviewViewModel>
 
 @section Style {
-    <link href="/css/BoardGame/style.css" rel="stylesheet" />
+    <link href="/css/BoardGame/style.css?v=2" rel="stylesheet" />
 }
 
 <div class="banner">
@@ -127,11 +127,13 @@
                     <div class="name">@rewiev.Name</div>
                     <div class="date">@rewiev.DateInStringFormat</div>
                 </div>
-                <p class="text">
-                    @rewiev.Text
-                </p>
-                <a href="/BoardGame/Update?id=@rewiev.Id">U</a>
-                <a href="/BoardGame/Delete?id=@rewiev.Id">X</a>
+                    <p class="text">
+                        @rewiev.Text
+                    </p>
+                    <div class="update-and-delete">
+                        <a href="/BoardGame/Update?id=@rewiev.Id"><img src="/images/BoardGame/edit.svg" /></a>
+                        <a href="/BoardGame/Delete?id=@rewiev.Id"><img src="/images/BoardGame/delete.svg" /></a>
+                    </div>                            
             </div>
         }
         <div class="review-buttons">

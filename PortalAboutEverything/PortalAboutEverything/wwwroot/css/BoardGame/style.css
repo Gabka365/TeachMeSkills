@@ -27,14 +27,14 @@ body {
     color: white;
 }
 
-.board-game-header a {
-    color: white;
-    text-decoration: none;
-}
+    .board-game-header a {
+        color: white;
+        text-decoration: none;
+    }
 
- .board-game-header a:hover {
-    color: #fc0;
- }
+        .board-game-header a:hover {
+            color: #fc0;
+        }
 
 .header-elements {
     display: flex;
@@ -154,6 +154,10 @@ button {
     .review .date {
         font-size: 12px;
     }
+
+.update-and-delete img {
+    max-width: 20px;
+}
 
 .review-buttons {
     margin-top: 35px;
