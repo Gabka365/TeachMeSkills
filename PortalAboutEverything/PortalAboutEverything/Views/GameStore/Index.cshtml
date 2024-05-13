@@ -1,0 +1,66 @@
+﻿@model List<PortalAboutEverything.Models.GameStore.GameStoreIndexViewModel>
+
+@section Style {
+    <link rel="stylesheet" href="~/css/GameStore/style.css?v=2" />
+}
+
+<div class="header_site">
+    <div class="site-name">
+        Game Store
+    </div>
+    <div class="header_left">
+        <button class="catalog_games">
+            Каталог Игр
+        </button>
+    </div>
+    <div class="header_right">
+        <button class="login">
+            Войти
+        </button>
+        <button class="buy">
+            Корзина
+        </button>
+    </div>
+</div>
+<div>
+    <a href="/GameStore/CreateGame">Создать игру</a>
+</div>
+<div class="center-block">
+    @foreach (var game in Model)
+    {
+        <div class="game">
+            Игра <a href="/GameStore/Update?id=@game.Id">@game.GameName</a>
+            Год выпуска @game.YearOfRelease
+            Разрабочтик @game.Developer
+            <a href="/GameStore/Delete?id=@game.Id" class="delete">X</a>
+        </div>
+    }
+</div>
+@* <div class="comment-block">
+    <div>
+        <form action="/GameStore/RateTheGameStore" method="post">
+            <div>
+                Оцените наш магазин
+                Название игры котору вы приобрели у нас
+            </div>
+            <div>
+                <input type="text" name="gameName" placeholder="Название игры" />
+            </div>
+            <div>
+                @foreach (var rate in Model.AvailableRates)
+                {
+                    <label>
+                        Ставлю @rate
+                        <input type="radio" name="rate" value="@rate" />
+                    </label>
+                }
+            </div>
+            <div>
+                <textarea name="comment"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="Отправить отзыв" />
+            </div>
+        </form>
+    </div>
+</div> *@

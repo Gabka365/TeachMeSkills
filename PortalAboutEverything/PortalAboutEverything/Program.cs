@@ -16,6 +16,8 @@ builder.Services.AddSingleton<BlogRepositories>();
 
 builder.Services.AddSingleton<MovieRepositories>();
 
+builder.Services.AddSingleton<GameStoreRepositories>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
