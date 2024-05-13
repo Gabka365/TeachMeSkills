@@ -9,14 +9,15 @@
         @Html.TextAreaFor(x => x.Description)
     </div>
     <div>
-        @Html.TextBoxFor(x => x.YearOfRelease, 
-            new { 
-                placeholder = "Год выпуска", 
-                @class = "my-input", 
-                @type = "number",
-                @min = "1990",
-                @max = "2020"
-            })
+        @Html.TextBoxFor(x => x.YearOfRelease,
+                 new
+                 {
+                     placeholder = "Год выпуска",
+                     @class = "my-input",
+                     @type = "number",
+                     @min = "1990",
+                     @max = "2020"
+                 })
     </div>
     <div>
         <input type="submit" value="Обновить" />

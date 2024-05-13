@@ -1,0 +1,19 @@
+﻿@model PortalAboutEverything.Models.Movie.MovieRateViewModel
+
+<div>
+    Пользователь поставил фильму "@Model.Name" оценку @Model.Rate.
+</div>
+<div>
+    Комментарий пользователя:
+    @Model.Comment
+</div>
+<div>
+    @if (Model.Subscribe)
+    {
+        <div> Пользователь подписан на новости </div>
+    }
+    else
+    {
+        <div> Пользователь не подписан на новости </div>
+    }
+</div>

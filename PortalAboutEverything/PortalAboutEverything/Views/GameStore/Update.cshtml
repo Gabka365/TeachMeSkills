@@ -1,0 +1,29 @@
+﻿@model PortalAboutEverything.Models.GameStore.GameStoreUpdateViewModel
+
+@section Style {
+    <link rel="stylesheet" href="/css/GameStore/style.css?v=1" />
+}
+
+<form method="post">
+    @Html.HiddenFor(x => x.Id)
+    <div>
+        @Html.TextBoxFor(x => x.GameName, new { pleceholder = "Название игры", @class = "my-input" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Developer, new { placeholder = "Разработчик", @class = "my-input" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.YearOfRelease,
+                 new
+                 {
+                     pleceholder = "Год выпуска",
+                     @class = "my-input",
+                     @type = "number",
+                     @min = "1990",
+                     @max = "2024"
+                 })
+    </div>
+    <div>
+        <input type="submit" value="Создать пост" />
+    </div>
+</form>

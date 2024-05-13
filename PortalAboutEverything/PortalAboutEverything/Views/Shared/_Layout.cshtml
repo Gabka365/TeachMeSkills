@@ -6,10 +6,11 @@
     <title>@ViewData["Title"] - PortalAboutEverything</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/videosort/ancient.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/videosort/videosort.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PortalAboutEverything.styles.css" asp-append-version="true" />
 
     @RenderSection("Style", false)
+    @RenderSection("MovieStyle", false)
 </head>
 <body>
     <header>
@@ -31,6 +32,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Game/Index">Игры</a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" href="/HomeWorkHushchyn/Index">HomeWorkHushchyn</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Vertuk/Index">Путешествие</a>
                         </li>
@@ -39,6 +43,15 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/BoardGame/Index">Настольные игры</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Movie/Index">Фильмы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Blog/Index"> Блог </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/GameStore/Index">Магазин игр</a>
                         </li>
                     </ul>
                 </div>

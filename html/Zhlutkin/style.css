@@ -1,0 +1,95 @@
+.menu-list {
+	list-style: none;
+	display: flex;
+	justify-content: space-around;
+	padding: 0;
+}
+
+.menu-list li {
+	margin: 0 2%;
+	padding: 1% 2%;
+	border-radius: 5px;
+	color: #ffffff;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+	text-align: center;
+	padding: 20px;
+	background-color: #6160ab;
+	width: 15%;
+}
+
+.menu-list li:hover {
+	background-color: #7c06bc;
+}
+
+.logo-container {
+	display: flex;
+	justify-content: center;
+}
+
+.logo {
+	max-width: 10%;
+}
+
+.top-menu {
+	border-top: 3px solid #241e45;
+	border-bottom: 3px solid #241e45;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.images-and-text {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	height: 300px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.image {
+	display: flex;
+	align-items: center;
+}
+
+.images-and-text img {
+	max-width: 500px;
+	max-height: 600px;
+}
+
+.images-and-text {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.center-block {
+	display: flex;
+	justify-content: center;
+}
+
+footer {
+	text-align: right;
+}
+
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.tag {
+	background: #7c06bc;
+	padding: 5px 10px;
+	border-radius: 15px;
+	display: inline-block;
+	margin: 3px;
+	border: 1px #ffffff;
+	color: #ffffff;
+}
