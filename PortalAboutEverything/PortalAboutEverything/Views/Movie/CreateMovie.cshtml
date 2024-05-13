@@ -1,0 +1,29 @@
+﻿@model PortalAboutEverything.Models.Movie.MovieCreateViewModel
+
+@section MovieStyle {
+			<link rel="stylesheet" href="/css/Movie/movieStyle.css" />
+}
+
+<form method="post">
+	<div>
+		@Html.TextBoxFor(x => x.Name, new { placeholder = "название фильма" })
+	</div>
+	 <div>
+		@Html.TextAreaFor(x => x.Description, new { placeholder = "комментарий" })
+	</div>
+	<div>
+		@Html.TextBoxFor(x => x.ReleaseDate, new { placeholder = "год выхода", type = "number", min = "1900", max = "2024" })
+	</div>
+	<div>
+		@Html.TextBoxFor(x => x.Director, new { placeholder = "режиссер" })
+	</div>
+	<div>
+		@Html.TextBoxFor(x => x.Budget, new { placeholder = "бюджет", type = "number", min = "0" })
+	</div>
+	<div>
+		@Html.TextBoxFor(x => x.CountryOfOrigin, new { placeholder = "страна производства" })
+	</div>
+	<div>
+		<input type="submit" value="создать"/>
+	</div>
+ </form>
