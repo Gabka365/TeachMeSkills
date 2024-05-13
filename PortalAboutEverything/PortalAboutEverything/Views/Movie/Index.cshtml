@@ -1,0 +1,38 @@
+﻿@model List<PortalAboutEverything.Models.Movie.MovieIndexViewModel>
+
+@section MovieStyle {
+				<link rel="stylesheet" href="/css/Movie/movieStyle.css" />
+}
+
+<div>
+	Выберете действие:
+</div>
+<div>
+	 <a href="/Movie/GiveFeedback">Оставить отзыв</a>
+</div>
+<div>
+	<a href="/Movie/CreateMovie">Создать фильм</a>
+</div>
+<div>
+	Список фильмов:
+</div>
+<div class="movies">
+	@foreach (var movie in Model)
+	{
+		<div class="infoAboutMovie">
+			<span class="movieName">Фильм <a href="/Movie/UpdateMovie?id=@movie.Id">@movie.Name</a></span> 
+			<div>Дата выхода: @movie.ReleaseDate год</div>
+			<div>Режиссер фильма: @movie.Director</div>
+			<div>Страна происхождения: @movie.CountryOfOrigin</div>
+			<div>Бюджет фильма: @movie.Budget</div>
+			<div>Описание фильма:</div>
+			<div class="movieDescription">@movie.Description</div>
+			<div>
+				<a href="/Movie/DeleteMovie?id=@movie.Id">Удалить</a> 
+			</div>
+			<div>
+				<a href="/Movie/MovieReview?id=@movie.Id">Написать отзыв фильму "@movie.Name"</a>
+			</div>
+		</div>
+	}
+</div>

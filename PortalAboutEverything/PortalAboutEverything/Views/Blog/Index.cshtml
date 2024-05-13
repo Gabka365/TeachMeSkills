@@ -1,0 +1,107 @@
+﻿@model List<PortalAboutEverything.Models.Blog.postIndexViewModel>
+
+@section Style
+{
+    <link href="/css/Blog/style.css" rel="stylesheet" />
+}
+
+
+
+<div>
+
+
+    <!-- About Developer -->
+
+
+    <div class="company-information">
+        <img src="/images/Blog/png/logo.png" alt="" />
+        <div class="contact-with-dev">
+            Number: +375294875745<br>
+            Email: absolutelyreal@gmail.com<br>
+            Address: New York, 50 avenue, 32
+        </div>
+    </div>
+
+
+    <!-- Menu -->
+
+
+    <div class="menu">
+        <div>Main</div>
+        <div>Uploads</div>
+        <div>Page</div>
+        <div> <a href="/Blog/PostMessage">Post Message</a> </div>
+        <div> <a href="/Blog/SendingMessage">  Send message </a></div>
+    </div>
+
+
+    <!-- Information About Blog Author -->
+
+
+    <div class="inf-about-blog-author">
+        <span class="ava">
+            <div class="main-ava">
+                <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
+            </div>
+            <div class="additional-avas">
+                <img src="/images/Blog/jpeg/third_ava.jpg" alt="" />
+                <div class="new">
+                    More
+                </div>
+            </div>
+        </span>
+        <span class="text-about-blog-author">
+            First Name: <span>Morgan</span><br>
+            Last Name: <span>Freeman</span><br>
+            Birthday: <span>22.10.1960</span><br>
+            Сity Of Living: <span>Bejing</span><br>
+            Place Of Work: <span>Apple</span><br>
+            Family status: <span>Actively looking</span><br>
+            Political Views: <span>Left</span> <br>
+        </span>
+    </div>
+
+
+    <!-- Posts By Author -->
+
+
+    <div class="interactive-section">
+        <div class="selection-bar">
+            <span class="tag">Newest</span>
+            <span class="tag">Only popular</span>
+            <span class="tag">Most likable</span>
+            <span class="tag">+</span>
+        </div>
+        <div>
+            @foreach (var post in Model)
+            {
+                <div class="post">
+                    <span class="header">
+                        Author: @post.Name <br>
+                        Date: @post.Now
+                    </span>
+                    <div class="body">
+                        <div class="litle-ava">
+                            <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
+                        </div>
+                        <div class="text-of-post">
+                            @post.message
+                        </div>
+                    </div>
+                    <div class="interaction">
+                        <span class="like">
+                            <img src="/images/Blog/png/like.png" alt="" />
+                        </span>
+                        <span class="dislike">
+                            <img src="/images/Blog/png/dislike.png" alt="" />
+                        </span>
+                        <span class="answers">
+                            <span> <a href="/Blog/DeleteMessage?id=@post.Id">Delete</a></span>
+                            <span><a href="/Blog/UpdateMessage?id=@post.Id">Update</a></span>
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
