@@ -1,104 +1,108 @@
 ﻿.site-name {
-	font-size: 30px;
-	height: 50px;
+    font-size: 30px;
+    height: 50px;
 }
 
-.header_site{
+.header_site {
     display: flex;
-	justify-content: space-between;
+    justify-content: space-between;
 }
 
-.header_right{
+.header_right {
     display: flex;
-    justify-content:space-around;
+    justify-content: space-around;
 }
 
-.catalog_games{
+.catalog_games {
     border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 10px;
-}
-.login{
-    border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 10px;
+    border-radius: 5px;
+    padding: 10px;
 }
 
-.buy{
+.login {
     border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 10px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.buy {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .images {
-	display: flex;
-	justify-content: space-around;
-	width: 600px;
-	height: 300px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    width: 600px;
+    height: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .image {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .images img {
-	max-width: 150px;
-	max-height: 300px;
+    max-width: 150px;
+    max-height: 300px;
 }
 
 .center-block {
-	display: flex;
+    display: flex;
     justify-content: center;
 }
 
 .desc-and-genres {
-	margin-left: 20px;
-	width: 150px;
+    margin-left: 20px;
+    width: 150px;
 }
-.developer{
+
+.developer {
     border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 10px;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .desc {
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .genre {
-	padding: 5px 10px;
-	border-radius: 15px;
-	display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    display: inline-block;
     align-items: center;
-	margin: 3px;
-	border: 1px rgb(255, 255, 255) solid;
+    margin: 3px;
+    border: 1px rgb(255, 255, 255) solid;
 }
 
 button {
     border: none;
     cursor: pointer;
-  }
+}
 
-div{
+div {
     color: #ffffff;
 }
 
 body {
-	background-image: url('../../images/GameStore/background.jpg');
+    background-image: url('../../images/GameStore/background.jpg');
 }
+
 comment-block {
-	display: flex;
-	justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
 }
+
 .delete {
-	padding: 5px;
-	background: #ccc;
-	text-decoration: none;
-	border-radius: 5px;
-	display: inline-block;
+    padding: 5px;
+    background: #ccc;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
 }
