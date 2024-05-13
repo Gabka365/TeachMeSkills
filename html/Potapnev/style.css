@@ -1,0 +1,213 @@
+
+/* About Developer */
+
+.company-information {
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+}
+
+
+/* Menu */
+
+.menu {
+    display: flex;
+    justify-content: space-around;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    border-radius: 20px;
+}
+
+    .menu div {
+        margin-left: 70px;
+        margin-right: 70px;
+        background-color: antiquewhite;
+        padding: 5px;
+        color: rgb(99, 66, 19);
+        border-radius: 5px;
+    }
+
+/*  Information About Blog Author */
+
+.inf-about-blog-author {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(134, 118, 98);
+    padding: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+
+    .inf-about-blog-author .text-about-blog-author {
+        font-size: large;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        background-color: bisque;
+        padding: 40px;
+        border-radius: 5px;
+    }
+
+
+    .inf-about-blog-author .ava {
+        display: flex;
+    }
+
+
+        .inf-about-blog-author .ava .main-ava {
+            background-origin: padding-box;
+            margin-right: 10px;
+            padding: 10px;
+            background-color: bisque;
+        }
+
+
+        .inf-about-blog-author .ava .additional-avas {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+        }
+
+            .inf-about-blog-author .ava .additional-avas img {
+                max-width: 50px;
+                max-height: 50px;
+                margin: 10px;
+                padding: 5px;
+            }
+
+
+            .inf-about-blog-author .ava .additional-avas div {
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                font-size: 15px;
+                padding: 10px;
+                border-radius: 10px;
+                background-color: rgb(226, 233, 145);
+            }
+
+
+    .inf-about-blog-author .text-about-blog-author span {
+        color: black;
+        background-color: rgb(255, 255, 255);
+        border-radius: 5px;
+        overflow-y: scroll;
+        width: 500px;
+        max-height: 40px;
+    }
+
+/* Posts By Author */
+
+.interactive-section {
+    background-color: black;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    padding-bottom: 40px;
+}
+
+
+    .interactive-section .selection-bar {
+        display: flex;
+        justify-content: center;
+        padding: 50px;
+    }
+
+
+        .interactive-section .selection-bar .tag {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: small;
+            color: aliceblue;
+            background-color: brown;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 3px;
+        }
+
+
+    .interactive-section .post {
+        display: flex;
+        background-color: rgb(99, 66, 19);
+        padding: 10px;
+        border-radius: 10px;
+        flex-direction: column;
+        margin-left: 100px;
+        margin-right: 100px;
+        align-items: center;
+    }
+
+
+        .interactive-section .post .header {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: small;
+            color: aliceblue;
+            background-color: brown;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 3px;
+            margin-bottom: 10px;
+            margin-left: 47px;
+            margin-right: 520px;
+        }
+
+
+        .interactive-section .post .body {
+            display: flex;
+        }
+
+
+            .interactive-section .post .body .litle-ava img {
+                max-width: 40px;
+                max-height: 40px;
+                margin-right: 20px;
+                border-radius: 10px;
+            }
+
+
+            .interactive-section .post .body .text-of-post {
+                color: black;
+                background-color: rgb(255, 255, 255);
+                border-radius: 5px;
+                width: 700px;
+                overflow-y: scroll;
+            }
+
+
+
+
+        .interactive-section .post .interaction .like img {
+            max-width: 30px;
+            margin-left: 50px;
+        }
+
+        .interactive-section .post .interaction .dislike img {
+            max-width: 30px;
+            margin-right: 460px;
+        }
+
+
+
+        .interactive-section .post .interaction .answers span {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: small;
+            background-color: azure;
+            margin: 10px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+
+        .interactive-section .post .other-posts {
+            margin: 10px;
+            background-color: azure;
+            padding: 10px;
+            border-radius: 10px;
+        }
