@@ -1,49 +1,76 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PortalAboutEverything.Models.Ancient;
-using PortalAboutEverything.Services.Ancient;
+using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Models.VideoSort;
 
 namespace PortalAboutEverything.Controllers;
 
 public class VideoSortController : Controller
 {
-    private readonly VideoSortChatService _chatService;
+    private readonly VideoSortRepository _videoSortRepository;
 
-    public VideoSortController(VideoSortChatService chatService)
+    public VideoSortController(VideoSortRepository videoSortRepository)
     {
-        _chatService = chatService;
+        _videoSortRepository = videoSortRepository;
     }
 
     [HttpGet]
     public IActionResult Chat()
     {
-        return View(new VideoSortChatViewModel()
-        {
-            ChatMessages = _chatService.ChatMessages
-        });
+        var messages = _videoSortRepository.GetAllMessages().Select(GenerateChatMessageViewModel).ToList();
+
+        return View(messages);
     }
 
     [HttpPost]
     public IActionResult Chat(string username, string message)
     {
-        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(message))
-        {
-            return View(new VideoSortChatViewModel()
-            {
-                ChatMessages = _chatService.ChatMessages
-            });
-        }
-        
-        var newMessage = new VideoSortChatMessage()
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(message)) return RedirectToAction("Chat");
+
+        var newMessage = new ChatMessage
         {
             Username = username,
             Message = message,
             Timestamp = DateTime.Now
         };
-        _chatService.ChatMessages.Add(newMessage);
+        _videoSortRepository.AddMessage(newMessage);
 
-        return View(new VideoSortChatViewModel()
+        return RedirectToAction("Chat");
+    }
+
+    [HttpGet]
+    public IActionResult ChatMessageUpdate(Guid id)
+    {
+        var message = _videoSortRepository.GetMessage(id);
+
+        return View(GenerateChatMessageViewModel(message));
+    }
+
+    [HttpPost]
+    public IActionResult ChatMessageUpdate(Guid id, string message)
+    {
+        _videoSortRepository.UpdateMessage(id, message);
+
+        return RedirectToAction("Chat");
+    }
+
+    [HttpGet]
+    public IActionResult ChatMessageDelete(Guid id)
+    {
+        _videoSortRepository.DeleteMessage(id);
+
+        return RedirectToAction("Chat");
+    }
+
+    private ChatMessageViewModel GenerateChatMessageViewModel(ChatMessage chatMessage)
+    {
+        return new ChatMessageViewModel
         {
-            ChatMessages = _chatService.ChatMessages
-        });
+            Id = chatMessage.Id,
+            Username = chatMessage.Username,
+            Message = chatMessage.Message,
+            Timestamp = chatMessage.Timestamp.ToString("dd.MM.yyyy HH:mm"),
+            IsModified = chatMessage.IsModified
+        };
     }
 }

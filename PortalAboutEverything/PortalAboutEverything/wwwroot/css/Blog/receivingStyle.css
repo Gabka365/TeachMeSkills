@@ -1,0 +1,68 @@
+﻿.section-output {
+    width: 600px;
+    max-height: 600px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+
+.sending div {
+    display: flex;
+    margin: 10px;
+}
+
+.sending .header .inf-about-author {
+    background-color: bisque;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 50px;
+}
+
+    .sending .header .inf-about-author img {
+        max-width: 40px;
+        max-height: 60px;
+        margin-right: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-flow: column;
+    }
+
+
+.sending .text-field textarea {
+    width: 400px;
+    height: 150px;
+}
+
+
+.sending .Submit {
+    display: flex;
+    justify-content: end;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+
+    .sending .Submit input {
+        width: 170px;
+        background-color: #8dff8d;
+        border-radius: 10px;
+    }
+
+.sending .header .text-field {
+    background-color: white;
+    width: 400px;
+    max-height: 1800px;
+    overflow-y: scroll;
+}
+
+.receive .back {
+    margin: 20px;
+    padding: 10px;
+    background-color: yellow;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    margin-left: 400px;
+}
