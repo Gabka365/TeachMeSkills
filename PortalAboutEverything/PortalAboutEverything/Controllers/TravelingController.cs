@@ -89,6 +89,7 @@ namespace PortalAboutEverything.Controllers
                 Id = model.Id,
                 Name = model.Name,
                 Desc = model.Desc,
+                TimeOfCreation = DateTime.Now.ToString("dd MMM yyyy"),
 
             };
             _travelingRepositories.Update(traveling);
