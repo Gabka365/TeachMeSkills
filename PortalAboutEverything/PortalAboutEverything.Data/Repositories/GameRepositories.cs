@@ -4,19 +4,23 @@ namespace PortalAboutEverything.Data.Repositories
 {
     public class GameRepositories
     {
-        // BAD
-        // Temporary before we add real DB
-        private List<Game> _games = new();
-        private int _lastId = 1;
+        private PortalDbContext _dbContext;
+
+        public GameRepositories(PortalDbContext db)
+        {
+            _dbContext = db;
+        }
 
         public Game Get(int id)
-            => _games.Single(x => x.Id == id);
+            => _dbContext.Games.Single(x => x.Id == id);
 
         public void Delete(int id)
         {
-            var game = _games
+            var game = _dbContext.Games
                 .Single(x => x.Id == id);
-            _games.Remove(game);
+            _dbContext.Games.Remove(game);
+            
+            _dbContext.SaveChanges();
         }
 
         //public List<Game> GetAll()
@@ -24,18 +28,24 @@ namespace PortalAboutEverything.Data.Repositories
         //    return _games.ToList();
         //}
         public List<Game> GetAll()
-            => _games.ToList();
+            => _dbContext.Games.ToList();
 
         public void Create(Game game)
         {
-            game.Id = _lastId++;
-            _games.Add(game);
+            _dbContext.Games.Add(game);
+
+            _dbContext.SaveChanges();
         }
 
         public void Update(Game game)
         {
-            Delete(game.Id);
-            Create(game);
+            var dbGame = Get(game.Id);
+
+            dbGame.Name = game.Name;
+            dbGame.Description = game.Description;
+            dbGame.YearOfRelease = game.YearOfRelease;
+
+            _dbContext.SaveChanges();
         }
     }
 }
