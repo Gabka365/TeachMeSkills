@@ -1,6 +1,6 @@
 ﻿namespace PortalAboutEverything.Models.Hushchyn
 {
-    public class HomeWorkHushchynViewModel
+    public class HistoryViewModel
     {
         public int Second { get; set; }
         public int Number { get; set; }

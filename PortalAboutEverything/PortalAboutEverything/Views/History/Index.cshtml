@@ -1,9 +1,7 @@
-﻿@model PortalAboutEverything.Models.Hushchyn.HomeWorkHushchynViewModel
+﻿@model PortalAboutEverything.Models.Hushchyn.HistoryViewModel
 
 
-<div>
-    Домашняя работа Гущин
-</div>
+
 <div>
     сейчас @Model.Second секунд 
 </div>
@@ -12,7 +10,7 @@
 </div>
 
 <div>
-    <form action="/HomeWorkHushchyn/Page2" method="post">
+    <form action="/History/PageTwo" method="post">
         <div>
             Какой сейчас день недели?
             @foreach (var day in Model.Days)

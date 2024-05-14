@@ -1,6 +1,6 @@
 ﻿namespace PortalAboutEverything.Models.Hushchyn
 {
-    public class Page2VIewModel
+    public class PageTwoViewModel
     {
         public string Day { get; set; }
 

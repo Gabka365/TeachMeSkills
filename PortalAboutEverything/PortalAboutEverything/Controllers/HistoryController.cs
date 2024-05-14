@@ -3,7 +3,7 @@ using PortalAboutEverything.Models.Hushchyn;
 
 namespace PortalAboutEverything.Controllers
 {
-    public class HomeWorkHushchynController : Controller
+    public class HistoryController : Controller
     {
         public IActionResult Index()
         {
@@ -13,7 +13,7 @@ namespace PortalAboutEverything.Controllers
 
             var days = Enum.GetNames<DayOfWeek>().ToList();
 
-            var viewModel = new HomeWorkHushchynViewModel
+            var viewModel = new HistoryViewModel
             {
                 Second = second,
                 Number = random.Next(1, 100),
@@ -23,9 +23,9 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public IActionResult Page2(Page2VIewModel page2ViewModel)
+        public IActionResult PageTwo(PageTwoViewModel pageTwoViewModel)
         {
-            return View(page2ViewModel);
+            return View(pageTwoViewModel);
         }
     }
 }
