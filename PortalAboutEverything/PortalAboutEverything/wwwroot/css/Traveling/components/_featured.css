@@ -21,11 +21,11 @@
     width: 100%;
     overflow: hidden;
 }
-.card-left{
-    background: url(/images/vertuk/featured_img_left.png) no-repeat ;
+.card-left {
+    background: url(/images/Traveling/featured_img_left.png) no-repeat;
 }
 .card-right {
-    background: url(/images/vertuk/featured_img_right.png) no-repeat;
+    background: url(/images/Traveling/featured_img_right.png) no-repeat;
     position: relative;
 }
 .card__btn{
@@ -79,13 +79,12 @@
     position: relative;
     padding-left: 30px;
 }
-.card__ava:after{
-    position: absolute;
-    content: "";
-    background: url(/images/vertuk/ava.png) no-repeat;
-    top: 0;
-    left: 0;
-    height: 65px;
-    width: 65px;
-
-}
+    .card__ava:after {
+        position: absolute;
+        content: "";
+        background: url(/images/Traveling/ava.png) no-repeat;
+        top: 0;
+        left: 0;
+        height: 65px;
+        width: 65px;
+    }
