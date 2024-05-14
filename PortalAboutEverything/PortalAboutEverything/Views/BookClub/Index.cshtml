@@ -1,0 +1,63 @@
+﻿@model List<PortalAboutEverything.Models.BookClub.BookClubIndexViewModel>;
+
+<div class="wrapper">
+	<div class="header">
+		<div class="header__wrapper">
+			<div class="header__content">
+				<div class="header__title">
+					IT книжный клуб
+				</div>
+				<div class="header__summary">
+					Читаем, разбираем и делимся опытом в кругу своих
+				</div>
+				<div class="header__btn_wrapper">
+					<a class="header__btn btn btn_big" href="/BookClub/Create">Добавить новую книгу</a>
+				</div>
+			</div>
+			<div class="header__image">
+				<img src="/images/bookClub/header_image.webp" alt="A man read books">
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="content-page">
+	<h2>Список наших книг</h2>
+	@foreach (var book in @Model)
+	{
+		<div class="content-page__wrapper">
+			<div class="content-page__book book">
+				<div class="book__book_title">@book.BookTitle</div>
+				<div class="book__book_author">@book.BookAuthor</div>
+				<div class="book__book-images">
+					<div class="image_wrapper">
+						<img src="/images/bookClub/cover.webp" alt="cover" class="book-image__item cover">
+					</div>
+					<div class="image_wrapper">
+						<img src="/images/bookClub/back_cover.webp" alt="back cover" class="book-image__item back_cover">
+					</div>
+					<div class="image_wrapper">
+						<img src="/images/bookClub/contents.webp" alt="table contents" class="book-image__item contents">
+					</div>
+				</div>
+			</div>
+			<div class="content-page__aside aside">
+				<div class="aside__title">О книге</div>
+				<div class="aside__summury">
+					@book.SummaryOfBook
+				</div>
+				<div class="aside__subject subject">
+					@foreach (var subject in @book.SubjectsOfBook)
+					{
+						<span class="subject__item">@subject</span>
+					}
+				</div>
+				<div class="aside__buttons">
+					<a href="/BookClub/BookReviewWritingPage" class="btn btn_big">Написать рецензию</a>
+					<a href= "/BookClub/Delete?id=@book.Id" class="btn btn_small">Удалить книгу</a>
+					<a href="/BookClub/Update?id=@book.Id" class="btn btn_small">Изменить данные о книге</a>
+				</div>
+			</div>
+		</div>
+	}
+</div>

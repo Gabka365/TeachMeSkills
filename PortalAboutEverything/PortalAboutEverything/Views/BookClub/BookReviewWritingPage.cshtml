@@ -1,0 +1,110 @@
+﻿@model PortalAboutEverything.Models.BookClub.BookClubReviewWritingPageViewModel;
+
+<div class="content-page">
+    <div class="content-page__wrapper">
+        <div class="content-page__book book">
+            <div class="book__book_title">@Model.BookTitle</div>
+            <div class="book__book_author">@Model.BookAuthor</div>
+            <div class="book__book-images">
+                <div class="image_wrapper">
+                    <img src="/images/bookClub/cover.webp" alt="cover" class="book-image__item cover">
+                </div>
+                <div class="image_wrapper">
+                    <img src="/images/bookClub/back_cover.webp" alt="back cover" class="book-image__item back_cover">
+                </div>
+                <div class="image_wrapper">
+                    <img src="/images/bookClub/contents.webp" alt="table contents" class="book-image__item contents">
+                </div>
+            </div>
+        </div>
+        <div class="content-page__aside aside">
+            <div class="aside__title">О книге</div>
+            <div class="aside__summury">
+               @Model.SummaryOfBook
+            </div>
+            <div class="aside__subject subject">
+                @foreach (var subject in Model.SubjectsOfBook)
+                {
+                    <span class="subject__item">@subject</span>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <form action="/BookClub/BookReviewPage" method="post">
+        <h2>Ваша оценка</h2>
+
+        <div class="row">
+            <div class="col-75" hidden>
+                <label>
+                    Автор
+                    <input type="text" name="bookAuthor" value="@Model.BookAuthor" />
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-75" hidden>
+                <label>
+                    Нaзвание книги
+                    <input type="text" name="bookTitle" value="@Model.BookTitle" />
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="book-rate">Оценка книги:</label>
+            </div>
+            <div class="rating-area">
+                @foreach (var rate in Model.BookRates)
+                {
+                    <label>
+                        @rate
+                        <input type="radio" name="bookRating" value=@rate>
+                    </label>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="book-print-rate">Качество печати:</label>
+            </div>
+            <div class="rating-area">
+                @foreach (var rate in Model.BookPrintRates)
+                {
+                    <label>
+                        @rate
+                        <input type="radio" name="bookPrintRating" value=@rate>
+                    </label>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="book-print-rate">Качество иллюстраций:</label>
+            </div>
+            <div class="rating-area">
+                @foreach (var rate in Model.BookIllustrationsRates)
+                {
+                    <label>
+                        @rate
+                        <input type="radio" name="bookIllustrationsRating" value=@rate>
+                    </label>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-25">
+                <label for="subject">Рецензия</label>
+            </div>
+            <div class="col-75">
+                <textarea name="textReview" style="height:200px"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <input type="submit" value="Отправить отзыв">
+        </div>
+    </form>
+</div>
