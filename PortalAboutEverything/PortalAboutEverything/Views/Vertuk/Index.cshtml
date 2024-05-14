@@ -1,0 +1,259 @@
+﻿@model PortalAboutEverything.Models.Vertuk.VertukIndexViewModel
+
+<head>
+    <link rel="stylesheet" href="/css/vertuk/style.css" />
+</head>
+<body>
+    <div class="site-container">
+        <!-- Верхняя часть страницы -->
+        <div class="site-bg">
+            <header class="header container flex">
+
+                <a href="#" class="header_logo">Escape.</a>
+
+                <ul class="header_list flex">
+
+                    <li class="header_list-items">
+                        <a href="#" class="header_list-item">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="header_list-items">
+                        <a href="#" class="header_list-item">
+                            Categories
+                        </a>
+                    </li>
+
+                    <li class="header_list-items">
+                        <a href="#" class="header_list-item">
+                            About
+                        </a>
+                    </li>
+
+                    <li class="header_list-items">
+                        <a href="#" class="header_list-item">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </header>
+            <div class="wrapper_title grid">
+                <h1 class="header_title">
+                    Let's do it together.
+                </h1>
+
+                <p class="header_disc">
+                    We travel the world in search of stories. Come along for the ride.
+                </p>
+                <div class="wraper_btn">
+
+                    <a href="/Vertuk/Post" class="title_btn btn-reset">
+                        View Latest Posts
+                    </a>
+                    @* <form action="@Url.Action("Post", "Vertuk")" method="post">
+                        <input type="submit" value="View Latest Posts" class="title_btn btn-reset" />
+                    </form> *@
+                </div>
+
+            </div>
+        </div>
+        <div class="wrrape_nav_bg">
+            <ul class="nav_bg flex">
+                <li class="nav_bg-items">
+                    <a href="#" class="nav_bg-item">Nature</a>
+                </li>
+                <li class="nav_bg-items">
+                    <a href="#" class="nav_bg-item">Photography</a>
+                </li>
+                <li class="nav_bg-items">
+                    <a href="#" class="nav_bg-item">Relaxation</a>
+                </li>
+                <li class="nav_bg-items">
+                    <a href="#" class="nav_bg-item">Vacation</a>
+                </li>
+                <li class="nav_bg-items">
+                    <a href="#" class="nav_bg-item">Travel</a>
+                </li>
+                <li class="nav_bg-items">
+                    <a href="#" class="nav_bg-item">Adventure</a>
+                </li>
+            </ul>
+        </div>
+        <!-- mian -->
+        <main calss="main">
+            <div class="container">
+                <!-- featured -->
+                <section class="featured">
+                    <div class="wriper__title">
+                        <h2 class="featured__title">Featured Posts</h2>
+                    </div>
+                    <div class="featured__cards grid">
+
+                        <div class="featured__card card-left">
+                            <h3 class="card-title">
+                                The Road Ahead
+                            </h3>
+
+                            <p class="card-desc">
+                                The road ahead might be paved - it might not be.
+                            </p>
+                            <div class="card__wrapper-ava flex">
+                                <p class="card__ava">
+                                    Mat Vogels
+                                </p>
+
+                                <p class="card__data">
+                                    @Model.Month @Model.Day, @Model.Year
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="featured__card card-right">
+
+                            <button class="card__btn btn-reset">Adventure</button>
+
+                            <h3 class="card-title">
+                                From Top Down
+                            </h3>
+
+                            <p class="card-desc">
+                                Once a year, go someplace you’ve never been before.
+                            </p>
+                            <div class="card__wrapper-ava flex">
+                                <p class="card__ava">
+                                    William Wong
+                                </p>
+
+                                <p class="card__data">
+                                    @Model.Month @Model.Day, @Model.Year
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <!-- Most Recent -->
+                <section class="mostRecent">
+
+                    <div class="mostRecent__wrapper-title">
+                        <h2 class="mostRecent-title">
+                            Most Recent
+                        </h2>
+                    </div>
+
+                    <div class="mostRecent__wrapper-cards grid">
+
+                        <div class="mostRecent-card ">
+
+                            <div class="card-img card1"></div>
+
+                            <h3 class="mostRecent__card-title">Still Standing Tall</h3>
+                            <p class="mostRecent__card-desc">Life begins at the end of your comfort zone.</p>
+
+                            <div class="mostRecent__card__wrapper-ava flex">
+                                <p class="mostRecent__card__ava">
+                                    William Wong
+                                </p>
+
+                                <p class="mostRecent__card__data">
+                                    September 25, 2015
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mostRecent-card">
+
+                            <div class="card-img card2"></div>
+
+                            <h3 class="mostRecent__card-title">Sunny Side Up</h3>
+                            <p class="mostRecent__card-desc">No place is ever as bad as they tell you it’s going to be.</p>
+
+                            <div class="mostRecent__card__wrapper-ava flex">
+                                <p class="mostRecent__card__ava">
+                                    Mat Vogels
+                                </p>
+
+                                <p class="mostRecent__card__data">
+                                    @Model.Month @Model.NewDay, @Model.Year
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mostRecent-card">
+
+                            <div class="card-img card3"></div>
+
+                            <h3 class="mostRecent__card-title">Water Falls</h3>
+                            <p class="mostRecent__card-desc">We travel not to escape life, but for life not to escape us.</p>
+
+                            <div class="mostRecent__card__wrapper-ava flex">
+                                <p class="mostRecent__card__ava">
+                                    Mat Vogels
+                                </p>
+
+                                <p class="mostRecent__card__data">
+                                    @Model.Month @Model.NewDay, @Model.Year
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mostRecent-card">
+
+                            <div class="card-img card4"></div>
+
+                            <h3 class="mostRecent__card-title">Through the Mist</h3>
+                            <p class="mostRecent__card-desc">Travel makes you see what a tiny place you occupy in the world.</p>
+
+                            <div class="mostRecent__card__wrapper-ava flex">
+                                <p class="mostRecent__card__ava">
+                                    William Wong
+                                </p>
+
+                                <p class="mostRecent__card__data">
+                                    @Model.Month @Model.NewDay, @Model.Year
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mostRecent-card">
+
+                            <div class="card-img card5"></div>
+
+                            <h3 class="mostRecent__card-title">Awaken Early</h3>
+                            <p class="mostRecent__card-desc">Not all those who wander are lost.</p>
+
+                            <div class="mostRecent__card__wrapper-ava flex">
+                                <p class="mostRecent__card__ava">
+                                    William Wong
+                                </p>
+
+                                <p class="mostRecent__card__data">
+                                    @Model.Month @Model.NewDay, @Model.Year
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mostRecent-card">
+
+                            <div class="card-img card6"></div>
+
+                            <h3 class="mostRecent__card-title">Try it Always</h3>
+                            <p class="mostRecent__card-desc">The world is a book, and those who do not travel read only one page.</p>
+
+                            <div class="mostRecent__card__wrapper-ava flex">
+                                <p class="mostRecent__card__ava">
+                                    William Wong
+                                </p>
+
+                                <p class="mostRecent__card__data">
+                                    @Model.Month @Model.NewDay, @Model.Year
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </main>
+</body>
