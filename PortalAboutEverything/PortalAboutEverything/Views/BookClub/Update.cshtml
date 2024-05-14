@@ -1,0 +1,78 @@
+﻿@model PortalAboutEverything.Models.BookClub.BookUpdateViewModel;
+
+<div class="wrapper">
+    <div class="header">
+        <div class="header__wrapper">
+            <div class="header__content">
+                <div class="header__title">
+                    IT книжный клуб 
+                </div>
+                <div class="header__summary">
+                    Читаем, разбираем и делимся опытом в кругу своих
+                </div>
+                <div class="header__btn_wrapper">
+                    <button class="header__btn btn btn_small">Вступить</button>
+                </div>
+            </div>
+            <div class="header__image">
+                <img src="/images/bookClub/header_image.webp" alt="A man read books">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <form action="" method="post">
+        <div class="row">
+            <div class="col-75">
+                @Html.HiddenFor(x => x.Id)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-75">
+                @Html.LabelFor(x => x.BookTitle, "Название: ")
+                @Html.TextBoxFor(x => x.BookTitle)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-75">
+                @Html.LabelFor(x => x.BookAuthor, "Автор")
+                @Html.TextBoxFor(x => x.BookAuthor)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-75">
+                @Html.LabelFor(x => x.SubjectsOfBook, "Тэг")
+                @Html.ListBoxFor(x => x.SubjectsOfBook, new List<SelectListItem>
+                    {
+                    }
+                         )
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-75">
+                @Html.LabelFor(x => x.YearOfPublication, "Год выпуска")
+
+                @Html.TextBoxFor(x => x.YearOfPublication,
+                         new
+                         {
+                             placeholder = "Год",
+                             @type = "number",
+                             @min = "2017",
+                             @max = "2024"
+                         })
+            </div>
+        </div>
+
+        <div class="row">
+            @Html.LabelFor(x => x.SummaryOfBook, "Описание")
+            @Html.TextAreaFor(x => x.SummaryOfBook)
+        </div>
+
+        <div class="row">
+            <input type="submit" value="Обновить" />
+        </div>
+    </form>
+</div>

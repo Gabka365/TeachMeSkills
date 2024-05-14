@@ -23,6 +23,8 @@ builder.Services.AddSingleton<MovieRepositories>();
 builder.Services.AddSingleton<GameStoreRepositories>();
 builder.Services.AddSingleton<BoardGameReviewRepositories>();
 
+builder.Services.AddSingleton<BookRepositories>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
