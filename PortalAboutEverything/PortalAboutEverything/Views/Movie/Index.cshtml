@@ -1,33 +1,38 @@
-﻿@model PortalAboutEverything.Models.Movie.MovieViewModel
+﻿@model List<PortalAboutEverything.Models.Movie.MovieIndexViewModel>
+
+@section MovieStyle {
+				<link rel="stylesheet" href="/css/Movie/movieStyle.css" />
+}
 
 <div>
-    Сегодня @Model.Date
+	Выберете действие:
 </div>
 <div>
-    Оцените фильм
+	 <a href="/Movie/GiveFeedback">Оставить отзыв</a>
 </div>
 <div>
-    <form action = "/Movie/RateTheMovie" method ="post">
-        <div>
-            <input type = "text" name = "MovieName" placeholder = "Название фильма"/>
-        </div>
-        <div>
-            @foreach (var rate in Model.AvailableRate)
-            {
-                <label>Оценка @rate
-                        <input type = "radio" name = "rate" value="@rate"/>
-                </label>
-            }
-        </div>
-        <div>
-            <textarea name="comment"></textarea>
-        </div>
-        <div>
-            <input type = "submit" value="Отправить отзыв"/>
-            <input type = "reset" value="Очистить"/>
-        </div>
-        <div>
-            <input type="checkbox" name="subscribe" value ="true"> Подписаться на новости
-        </div>
-    </form>
+	<a href="/Movie/CreateMovie">Создать фильм</a>
+</div>
+<div>
+	Список фильмов:
+</div>
+<div class="movies">
+	@foreach (var movie in Model)
+	{
+		<div class="infoAboutMovie">
+			<span class="movieName">Фильм <a href="/Movie/UpdateMovie?id=@movie.Id">@movie.Name</a></span> 
+			<div>Дата выхода: @movie.ReleaseDate год</div>
+			<div>Режиссер фильма: @movie.Director</div>
+			<div>Страна происхождения: @movie.CountryOfOrigin</div>
+			<div>Бюджет фильма: @movie.Budget</div>
+			<div>Описание фильма:</div>
+			<div class="movieDescription">@movie.Description</div>
+			<div>
+				<a href="/Movie/DeleteMovie?id=@movie.Id">Удалить</a> 
+			</div>
+			<div>
+				<a href="/Movie/MovieReview?id=@movie.Id">Написать отзыв фильму "@movie.Name"</a>
+			</div>
+		</div>
+	}
 </div>

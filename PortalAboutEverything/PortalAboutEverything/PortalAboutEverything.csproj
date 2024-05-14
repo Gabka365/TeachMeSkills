@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\css\Sleptsov\" />
-    <Folder Include="wwwroot\images\Sleptsov\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PortalAboutEverything.Data\PortalAboutEverything.Data.csproj" />
   </ItemGroup>
 

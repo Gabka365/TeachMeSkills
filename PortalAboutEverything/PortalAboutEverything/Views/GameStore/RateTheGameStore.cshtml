@@ -1,0 +1,15 @@
+﻿@model PortalAboutEverything.Models.GameStore.RateTheGameStoreViewModel
+
+@section Style {
+    <link href="~/css/GameStore/style.css" rel="stylesheet=1" />
+}
+
+<div>
+    Отзывы
+</div>
+<div>
+    Игра : @Model.GameName поставил оценку : @Model.Rate
+</div>
+<div>
+    Коментарий : @Model.Comment
+</div>

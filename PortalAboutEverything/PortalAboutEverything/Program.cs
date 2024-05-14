@@ -1,5 +1,4 @@
 using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Services.Ancient;
 using PortalAboutEverything.Services.Vertuk;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,12 +6,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<VideoSortChatService>();
+builder.Services.AddSingleton<VideoSortRepository>();
 
 //Ñîçäàë ñåðâèñ
 builder.Services.AddSingleton<PostsService>();
 
 builder.Services.AddSingleton<GameRepositories>();
+builder.Services.AddSingleton<BlogRepositories>();
+
+builder.Services.AddSingleton<MovieRepositories>();
+
+builder.Services.AddSingleton<GameStoreRepositories>();
+builder.Services.AddSingleton<BoardGameReviewRepositories>();
 
 builder.Services.AddSingleton<BookRepositories>();
 
