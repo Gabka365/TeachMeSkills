@@ -1,0 +1,31 @@
+﻿@model PortalAboutEverything.Models.Blog.BlogIndexViewModel
+
+
+<div class="section-output">
+    <header>
+        <link href="/css/Blog/receivingStyle.css" rel="stylesheet" />
+    </header>
+    <body>
+        <form action="/Blog/CreatePost" method="post">
+
+            <div class="sending">
+                <div class="header">
+                    <div class="inf-about-author">
+                        <img src="/images/Blog/jpeg/first_ava.jpg" />
+                        @Model.Now <br>
+                        <input type="hidden" name="Now" value="@Model.Now" />
+                        from: @Model.Name <br>
+                        <input type="hidden" name="Name" value="@Model.Name" />
+                    </div>
+                    <div class="text-field">
+                        <textarea name="message" placeholder="Enter"></textarea>
+                    </div>
+                </div>
+                <span class="Submit">
+                    <input type="submit" name="name" value="Post" />
+                </span>
+            </div>
+        </form>
+    </body>
+
+</div>
