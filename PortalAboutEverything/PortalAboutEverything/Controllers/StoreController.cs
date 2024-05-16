@@ -10,27 +10,22 @@ namespace PortalAboutEverything.Controllers
             return View();
         }
 
-        public IActionResult Good(CreateReviewViewModel viewModel)
-        {
-            var show = new ShowNewModel
-            {
-                Title = viewModel.Title,
-                Description = viewModel.Description
-            };
-
-            return View(show);
-        }
-
-        [HttpGet]
-        public IActionResult AddReview(int Id)
+        //[HttpGet]
+        public IActionResult Good()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddReview(CreateReviewViewModel viewModel)
+        public IActionResult Good(CreateReviewViewModel viewModel)
         {
-            return RedirectToAction("Good", viewModel);
+            var newReview = new CreateReviewViewModel
+            {
+                TitleOfReview = viewModel.TitleOfReview,
+                DescriptionOfReview = viewModel.DescriptionOfReview
+            };
+            return View(newReview);
         }
+
     }
 }
