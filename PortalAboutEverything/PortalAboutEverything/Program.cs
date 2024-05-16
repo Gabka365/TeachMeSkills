@@ -1,17 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Services.Vertuk;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbContext.CONNECTION_STRING));
+
 builder.Services.AddSingleton<VideoSortRepository>();
 
-//Ñîçäàë ñåðâèñ
-builder.Services.AddSingleton<PostsService>();
-
-builder.Services.AddSingleton<GameRepositories>();
+builder.Services.AddSingleton<TravelingRepositories>();
+builder.Services.AddScoped<GameRepositories>();
 builder.Services.AddSingleton<BlogRepositories>();
 
 builder.Services.AddSingleton<MovieRepositories>();
