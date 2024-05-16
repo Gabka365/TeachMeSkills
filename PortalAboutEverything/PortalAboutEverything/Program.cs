@@ -12,7 +12,7 @@ builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbConte
 
 builder.Services.AddSingleton<VideoSortRepository>();
 
-builder.Services.AddSingleton<TravelingRepositories>();
+builder.Services.AddScoped<TravelingRepositories>();
 builder.Services.AddScoped<GameRepositories>();
 builder.Services.AddSingleton<BlogRepositories>();
 

@@ -1,6 +1,6 @@
 ﻿@model PortalAboutEverything.Models.Traveling.TravelingIndexViewModel
 
-@section StyleTraveling {
+@section Style {
     <link rel="stylesheet" href="/css/Traveling/style.css" />
 }
 
@@ -51,9 +51,6 @@
                 <a href="/Traveling/TravelingPosts" class="title_btn btn-reset">
                     View Latest Posts
                 </a>
-                @* <form action="@Url.Action("Post", "Vertuk")" method="post">
-                <input type="submit" value="View Latest Posts" class="title_btn btn-reset" />
-                </form> *@
             </div>
 
         </div>
@@ -104,7 +101,7 @@
                             </p>
 
                             <p class="card__data">
-                                @Model.When
+                                @Html.Encode(Model.TravelingDate[1].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture));
                             </p>
                         </div>
                     </div>
@@ -126,7 +123,7 @@
                             </p>
 
                             <p class="card__data">
-                                @Model.When
+                                @Html.Encode(Model.TravelingDate[2].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture));
                             </p>
                         </div>
                     </div>
@@ -157,7 +154,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.When
+                                @Html.Encode(Model.TravelingDate[3].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture));
                             </p>
                         </div>
                     </div>
@@ -175,7 +172,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.When
+                                @Html.Encode(Model.TravelingDate[4].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture));
                             </p>
                         </div>
                     </div>
@@ -193,7 +190,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.When
+                                @Html.Encode(Model.TravelingDate[5].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture));
                             </p>
                         </div>
                     </div>
@@ -211,7 +208,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.When
+                                @Html.Encode(Model.TravelingDate[0].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture));
                             </p>
                         </div>
                     </div>
@@ -229,7 +226,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.When
+                                @Html.Encode(Model.TravelingDate[1].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture));
                             </p>
                         </div>
                     </div>
@@ -247,7 +244,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.When
+                                @Html.Encode(Model.TravelingDate[2].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture));
                             </p>
                         </div>
                     </div>

@@ -18,17 +18,20 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult Index()
         {
-            var month = DateTime.Now.ToString("MMMM", new System.Globalization.CultureInfo("en-US"));
-            var year = DateTime.Now.Year;
-            var day = DateTime.Now.Day;
+            var dateTime1 = new DateTime(2015, 9, 25);
+            var dateTime2 = new DateTime(2016, 10, 13);
+            var dateTime3 = new DateTime(2012, 1, 14);
+            var dateTime4 = new DateTime(2014, 5, 20);
+            var dateTime5 = new DateTime(2011, 4, 22);
+            var dateTime6 = new DateTime(2010, 2, 21);
 
-            var model = new TravelingIndexViewModel
-            {
-                Month = month,
-                Year = year,
-                Day = day,
-                When = $"{month} {day} {year}"
-            };
+            var model = new TravelingIndexViewModel();
+            model.TravelingDate.Add(dateTime1);
+            model.TravelingDate.Add(dateTime2);
+            model.TravelingDate.Add(dateTime3);
+            model.TravelingDate.Add(dateTime4);
+            model.TravelingDate.Add(dateTime5);
+            model.TravelingDate.Add(dateTime6);
 
             return View(model);
         }
@@ -52,23 +55,27 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult CreatePost(TravelingCreateViewModel createTravelingViewModel)
         {
+
             var traveling = new Traveling
             {
                 Name = createTravelingViewModel.Name,
                 Desc = createTravelingViewModel.Desc,
                 TimeOfCreation = createTravelingViewModel.TimeOfCreation,
+
             };
 
             _travelingRepositories.Create(traveling);
 
             return RedirectToAction("TravelingPosts");
         }
+
         public IActionResult DeletePost(int id)
         {
             _travelingRepositories.Delete(id);
             return RedirectToAction("TravelingPosts");
         }
         [HttpGet]
+
         public IActionResult UpdatePost(int id)
         {
             var traveling = _travelingRepositories.Get(id);
@@ -77,10 +84,11 @@ namespace PortalAboutEverything.Controllers
                 Id = traveling.Id,
                 Name = traveling.Name,
                 Desc = traveling.Desc,
-                
+
             };
             return View(model);
         }
+
         [HttpPost]
         public IActionResult UpdatePost(TravelingUpdateViewModel model)
         {
