@@ -9,6 +9,7 @@ public class VideoProcessorService
 {
     private readonly VideoLibraryRepository _repository;
     private readonly FfMpegService _ffMpegService;
+    private bool _isScanning = false;
 
     public VideoProcessorService(VideoLibraryRepository repository, FfMpegService ffMpegService)
     {
@@ -18,6 +19,10 @@ public class VideoProcessorService
 
     public async Task ScanUnsortedVideoFolder()
     {
+        if(_isScanning) return;
+
+        _isScanning = true;
+        
         if (!Directory.Exists(GlobalVariables.UnsortedVideosFolder))
         {
             Directory.CreateDirectory(GlobalVariables.UnsortedVideosFolder);
@@ -38,6 +43,8 @@ public class VideoProcessorService
         }
 
         await CheckMissingThumbnailFiles(videosInDb);
+
+        _isScanning = false;
     }
 
     private async Task CheckMissingThumbnailFiles(List<VideoInfo> videosInDb)

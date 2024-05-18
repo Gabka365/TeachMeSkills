@@ -13,8 +13,8 @@ builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbConte
 
 //VideoLibrary Services
 builder.Services.AddScoped<VideoLibraryRepository>();
-builder.Services.AddScoped<VideoProcessorService>();
-builder.Services.AddScoped<FfMpegService>();
+builder.Services.AddSingleton<VideoProcessorService>();
+builder.Services.AddSingleton<FfMpegService>();
 
 builder.Services.AddSingleton<TravelingRepositories>();
 builder.Services.AddScoped<GameRepositories>();
