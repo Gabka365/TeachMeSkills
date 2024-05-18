@@ -18,7 +18,8 @@ namespace PortalAboutEverything.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Desc = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TimeOfCreation = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TimeOfCreation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameImage = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

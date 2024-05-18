@@ -20,6 +20,11 @@
                         <label class="u-label">Отзыв</label>
                         @Html.TextAreaFor(x => x.Desc, new { placeholder = "Оставьте свой отзыв", @class = "u-input u-input-rectangle", @rows = "4", @cols = "50" })
                     </div>
+                    <div class="u-form-group u-form-message">
+                        <label for="file-upload" class="u-label custom-file-upload">Загрузить изображение</label>
+                        <input id="file-upload" class="file-input" type="file" name="image" placeholder="Выбрать изображение" onchange="updateFileName(this.value)" />
+                        <span class="file-name"></span>
+                    </div>
                     <div class="u-align-left u-form-group u-form-submit">
                         <input type="submit" value="Создать " class="u-btn u-btn-submit u-button-style u-btn-1" />
                     </div>
@@ -28,3 +33,13 @@
         </div>
     </section>
 </div>
+
+@section Scripts {
+    <script>
+        function updateFileName(value) {
+            var fileName = value.split('\\').pop();
+            var elements = document.getElementsByClassName('file-name');
+                elements[0].textContent = fileName ? "Выбран файл: " + fileName : "";
+        }
+    </script>
+}

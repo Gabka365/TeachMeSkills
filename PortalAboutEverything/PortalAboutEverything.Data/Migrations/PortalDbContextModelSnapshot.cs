@@ -143,6 +143,9 @@ namespace PortalAboutEverything.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NameImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TimeOfCreation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

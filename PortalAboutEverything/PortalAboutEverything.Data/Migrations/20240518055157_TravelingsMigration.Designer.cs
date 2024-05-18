@@ -12,7 +12,7 @@ using PortalAboutEverything.Data;
 namespace PortalAboutEverything.Data.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    [Migration("20240516113215_TravelingsMigration")]
+    [Migration("20240518055157_TravelingsMigration")]
     partial class TravelingsMigration
     {
         /// <inheritdoc />
@@ -144,6 +144,9 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TimeOfCreation")

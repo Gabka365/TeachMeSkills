@@ -9,5 +9,6 @@
 
         public string TimeOfCreation { get; set; } = DateTime.Now.ToString("dd MMM yyyy");
 
+        public string? NameImage { get; set; }
     }
 }

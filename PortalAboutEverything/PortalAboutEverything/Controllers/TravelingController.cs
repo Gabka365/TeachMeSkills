@@ -3,6 +3,7 @@ using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Traveling;
+using System.IO;
 
 
 namespace PortalAboutEverything.Controllers
@@ -10,6 +11,9 @@ namespace PortalAboutEverything.Controllers
     public class TravelingController : Controller
     {
         private TravelingRepositories _travelingRepositories;
+
+        private static readonly string AssetsFolder = Path.Combine(AppContext.BaseDirectory, "Assets");
+        private readonly string ImagesFolder = Path.Combine(AssetsFolder, "Images");
 
         public TravelingController(TravelingRepositories travelingRepositories)
         {
@@ -44,6 +48,14 @@ namespace PortalAboutEverything.Controllers
                 .ToList();
 
             return View(travelingPostsViewModel);
+
+        }
+        [HttpGet]
+        public IActionResult ShowImage(int id)
+        {
+            var TravelingImage = _travelingRepositories.Get(id).NameImage;
+
+            return Ok(System.IO.File.OpenRead(Path.Combine(ImagesFolder, TravelingImage)));
         }
 
         [HttpGet]
@@ -53,16 +65,39 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePost(TravelingCreateViewModel createTravelingViewModel)
+        public IActionResult CreatePost(TravelingCreateViewModel createTravelingViewModel, IFormFile image)
         {
-
             var traveling = new Traveling
             {
                 Name = createTravelingViewModel.Name,
                 Desc = createTravelingViewModel.Desc,
                 TimeOfCreation = createTravelingViewModel.TimeOfCreation,
-
             };
+
+            if (image != null)
+            {
+                var imageName = Path.GetFileName(image.FileName);
+                var fileExt = System.IO.Path.GetExtension(imageName).Substring(1);
+
+                if (fileExt == "png" || fileExt == "jpg" || fileExt == "jpeg" || fileExt == "gif")
+                {
+                    if (!Directory.Exists(AssetsFolder))
+                    {
+                        Directory.CreateDirectory(AssetsFolder);
+                    }
+                    if (!Directory.Exists(ImagesFolder))
+                    {
+                        Directory.CreateDirectory(ImagesFolder);
+                    }
+
+                    var path = Path.Combine(ImagesFolder, imageName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        image.CopyTo(stream);
+                    }
+                    traveling.NameImage = imageName;
+                }
+            }
 
             _travelingRepositories.Create(traveling);
 
@@ -71,11 +106,17 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult DeletePost(int id)
         {
+            var TravelingImage = _travelingRepositories.Get(id).NameImage;
+            if (TravelingImage != null)
+            {
+                System.IO.File.Delete(Path.Combine(ImagesFolder, TravelingImage));
+            }
+
             _travelingRepositories.Delete(id);
             return RedirectToAction("TravelingPosts");
         }
-        [HttpGet]
 
+        [HttpGet]
         public IActionResult UpdatePost(int id)
         {
             var traveling = _travelingRepositories.Get(id);
@@ -111,6 +152,7 @@ namespace PortalAboutEverything.Controllers
                Desc = traveling.Desc,
                Name = traveling.Name,
                TimeOfCreation = traveling.TimeOfCreation,
+               NameImage = traveling.NameImage,
            };
 
     }

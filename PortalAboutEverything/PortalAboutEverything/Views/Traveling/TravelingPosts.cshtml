@@ -3,18 +3,24 @@
 @section Style {
     <link rel="stylesheet" href="/css/Traveling/posts/style.css" />
 }
-@if (Model != null)
+@if (Model != null && Model.Count != 0)
 {
     foreach (var post in Model)
     {
         <div class="name_post">
             <div>
-                Имя поста
+                Имя поста : @post.Name
                 <div>
                     @post.TimeOfCreation
                 </div>
             </div>
-            @post.Name
+
+            @if (post.NameImage != null)
+            {
+                <div>
+                    <img src="/Traveling/ShowImage/@post.Id" style="height: 200px; width = 100%" />
+                </div>
+            }
 
             <div class="post_actions">
                 <a href="/Traveling/UpdatePost/@post.Id">Редактировать</a>
