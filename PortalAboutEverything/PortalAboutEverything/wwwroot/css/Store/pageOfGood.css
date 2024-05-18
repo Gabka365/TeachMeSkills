@@ -1,0 +1,37 @@
+﻿.title {
+    font-size: 48px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.goodDescriptionBlock {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+}
+
+.titleForBlockReviews {
+    font-size: 40px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.titleOfReview {
+    font-size: 28px;
+    margin-top: 20px;
+}
+
+.descriptionOfReview {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.goodImg {
+    width: 600px;
+    border-radius: 30px;
+}
+
+.addReviewTitle {
+    text-decoration: none;
+    font-size: 26px;
+}
