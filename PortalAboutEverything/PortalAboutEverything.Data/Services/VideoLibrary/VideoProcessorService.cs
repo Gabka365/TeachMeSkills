@@ -115,9 +115,7 @@ public class VideoProcessorService
     private async Task<VideoInfo> GenerateVideoInfo(string filePath)
     {
         var id = Guid.NewGuid();
-        await _ffMpegService.CheckFfmpegFiles();
-        var mediaInfo = await FFmpeg.GetMediaInfo(filePath);
-        var duration = mediaInfo.Duration.TotalSeconds;
+        var duration = await _ffMpegService.GetVideoDuration(filePath);
 
         return new VideoInfo
         {

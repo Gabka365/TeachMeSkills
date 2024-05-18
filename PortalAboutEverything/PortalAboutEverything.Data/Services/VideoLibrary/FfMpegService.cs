@@ -44,8 +44,16 @@ public class FfMpegService
 
         Console.WriteLine($"Создание превью для файла {Path.GetFileName(videoInfo.FilePath)} завершено");
     }
-    
-    public async Task CheckFfmpegFiles()
+
+    public async Task<double> GetVideoDuration(string filePath)
+    {
+        await CheckFfmpegFiles();
+
+        var mediaInfo = await FFmpeg.GetMediaInfo(filePath);
+        return mediaInfo.Duration.TotalSeconds;
+    }
+
+    private static async Task CheckFfmpegFiles()
     {
         if (!Directory.Exists(GlobalVariables.FfmpegFolder)) Directory.CreateDirectory(GlobalVariables.FfmpegFolder);
         
