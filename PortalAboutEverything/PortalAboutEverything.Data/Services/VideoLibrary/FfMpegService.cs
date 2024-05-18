@@ -70,11 +70,11 @@ public class FfMpegService
         }
     }
 
-    private static async Task StartThumbnailGeneration(string thumbnailTime, string sourceVideoPath,
-        string smallThumbnailFileName)
+    private static async Task StartThumbnailGeneration(string thumbnailTime, string sourceVideo,
+        string outputThumbnailFile)
     {
         var argument = $"""
-                        -ss {thumbnailTime} -i "{sourceVideoPath}" -vf scale=-1:360 -frames:v 1 "{smallThumbnailFileName}"
+                        -ss {thumbnailTime} -i "{sourceVideo}" -vf scale=-1:360 -frames:v 1 "{outputThumbnailFile}"
                         """;
 
         await FFmpeg.Conversions.New().Start(argument);
