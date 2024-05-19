@@ -5,11 +5,11 @@ namespace PortalAboutEverything.Data.Repositories
     public class MovieRepositories
     {
         private List<Movie> _movies = new ();
-        private int _lastID = 1;
+        private int _lastId = 1;
 
         public void Create(Movie movie)
         {
-            movie.Id = _lastID++;
+            movie.Id = _lastId++;
             _movies.Add(movie);
         }
 
