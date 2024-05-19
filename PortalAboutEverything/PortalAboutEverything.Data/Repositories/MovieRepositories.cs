@@ -4,35 +4,49 @@ namespace PortalAboutEverything.Data.Repositories
 {
     public class MovieRepositories
     {
-        private List<Movie> _movies = new ();
-        private int _lastId = 1;
+		private PortalDbContext _dbContext;
+
+		public MovieRepositories(PortalDbContext db)
+		{
+			_dbContext = db;
+		}
 
         public void Create(Movie movie)
         {
-            movie.Id = _lastId++;
-            _movies.Add(movie);
-        }
+			_dbContext.Movies.Add(movie);
+			_dbContext.SaveChanges();
+		}
 
         public List<Movie> GetAll()
         {
-            return _movies;
+            return _dbContext.Movies.ToList();
         }
 
         public void Delete(int id)
         {
-            var movie = _movies.FirstOrDefault(movie => movie.Id == id);
-            _movies.Remove(movie);
-        }
+            var movie = _dbContext.Movies.Single(movie => movie.Id == id);
+			_dbContext.Movies.Remove(movie);
+
+			_dbContext.SaveChanges();
+		}
 
         public Movie Get(int id)
         {
-           return _movies.Single(movie => movie.Id == id);
+           return _dbContext.Movies.Single(movie => movie.Id == id);
         }
 
         public void Update(Movie movie)
         {
-            Delete(movie.Id);
-            Create(movie);
-        }
+            var dbMovie = Get(movie.Id);
+
+			dbMovie.Name = movie.Name;
+			dbMovie.Description = movie.Description;
+			dbMovie.ReleaseYear = movie.ReleaseYear;
+			dbMovie.Director = movie.Director;
+			dbMovie.Budget = movie.Budget;
+			dbMovie.CountryOfOrigin = movie.CountryOfOrigin;
+            
+            _dbContext.SaveChanges();
+		}
     }
 }

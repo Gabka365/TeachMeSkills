@@ -16,7 +16,7 @@ builder.Services.AddSingleton<TravelingRepositories>();
 builder.Services.AddScoped<GameRepositories>();
 builder.Services.AddSingleton<BlogRepositories>();
 
-builder.Services.AddSingleton<MovieRepositories>();
+builder.Services.AddScoped<MovieRepositories>();
 
 builder.Services.AddSingleton<GameStoreRepositories>();
 builder.Services.AddSingleton<BoardGameReviewRepositories>();
