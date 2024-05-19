@@ -1,4 +1,4 @@
-﻿@model PortalAboutEverything.Models.Store.CreateReviewViewModel;
+﻿@model List<PortalAboutEverything.Models.Store.CreateReviewViewModel>;
 
 <div class="title">
     Страница товара
@@ -11,39 +11,27 @@
         <div class="titleForBlockReviews">
             Здесь будут отзывы
         </div>
-        <div class="titleOfReview">
-            @if (Model != null && Model.TitleOfReview != null)
+        @if (Model.Count == 0)
+        {
+            <div>
+                Отзывы пока отсутствуют
+            </div>
+        }
+        <div>
+            @foreach (var review in Model)
             {
-                @Model.TitleOfReview
-            }
-            else
-            {
-                <span>Пока нет отзывов</span>
-            }
-        </div>
-        <div class="descriptionOfReview">
-            @if (Model != null && Model.DescriptionOfReview != null)
-            {
-                @Model.DescriptionOfReview
-            }
-            else
-            {
-                <span></span>
+                <div>
+                    @review.Title
+                </div>
+                <div>
+                    @review.Description
+                </div>
             }
         </div>
     </div>
-
 </div>
-<div class="addReviewTitle">Добавить отзыв для товара</div>
-<form method="post">
-    <div>
-        @Html.TextBoxFor(x => x.TitleOfReview, new { placeholder = "input title" })
-    </div>
-    <div>
-        @Html.TextBoxFor(x => x.DescriptionOfReview, new { placeholder = "input description" })
-    </div>
-    <input type="submit" value="create review" />
-</form>
+<a href="/Store/AddReview" class="addReviewTitle">Добавить отзыв для товара</a>
+
 
 
 
