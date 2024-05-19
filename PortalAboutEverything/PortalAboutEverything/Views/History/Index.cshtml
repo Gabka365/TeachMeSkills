@@ -1,34 +1,21 @@
-﻿@model PortalAboutEverything.Models.Hushchyn.HistoryViewModel
+﻿@model List<PortalAboutEverything.Models.History.HistoryIndexViewModel>
 
-
+    
+<div class="events">
+    Список событий
+    @foreach (var historicalEvent in Model)
+    {
+       <div class="event">
+          Название - @historicalEvent.Name  
+          Дата - @historicalEvent.Date 
+          Описание - @historicalEvent.Description
+            <a href="/History/Update?id=@historicalEvent.Id">редактировать</a>
+          <a href="/History/Delete?id=@historicalEvent.Id" class="delete">Удалить</a>
+       </div>         
+    }
+</div>
 
 <div>
-    сейчас @Model.Second секунд 
-</div>
-<div>
-    случайное число = @Model.Number
+    <a href="/History/Create">Добавить событие</a>
 </div>
 
-<div>
-    <form action="/History/PageTwo" method="post">
-        <div>
-            Какой сейчас день недели?
-            @foreach (var day in Model.Days)
-            {
-                <label>
-                    @day
-                    <input type="radio" name="day" value="@day" />
-                </label>
-            }
-        </div>
-        <div>
-           Введите какой-нибудь текст
-        </div>
-        <div>
-            <textarea name="comment"></textarea>
-        </div>
-        <div>
-            <input type="submit" value="Отправить" />
-        </div>
-    </form>
-</div>

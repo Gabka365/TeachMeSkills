@@ -20,7 +20,7 @@ builder.Services.AddSingleton<MovieRepositories>();
 
 builder.Services.AddSingleton<GameStoreRepositories>();
 builder.Services.AddSingleton<BoardGameReviewRepositories>();
-
+builder.Services.AddSingleton<HistoryRepositories>();
 builder.Services.AddSingleton<BookRepositories>();
 
 var app = builder.Build();

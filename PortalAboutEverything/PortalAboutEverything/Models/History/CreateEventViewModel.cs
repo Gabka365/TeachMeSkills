@@ -1,8 +1,8 @@
 ﻿namespace PortalAboutEverything.Models.History
 {
-    public class HistoryIndexViewModel
+    public class CreateEventViewModel
     {
-        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }

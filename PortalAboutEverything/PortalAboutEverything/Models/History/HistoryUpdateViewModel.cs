@@ -1,6 +1,6 @@
 ﻿namespace PortalAboutEverything.Models.History
 {
-    public class HistoryIndexViewModel
+    public class HistoryUpdateViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -10,3 +10,4 @@
         public int Date { get; set; }
     }
 }
+
