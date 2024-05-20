@@ -3,31 +3,46 @@ using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
 {
+    
     public class HistoryRepositories
     {
-        private List<History> _historicalEvents = new();
-        private int _lastId = 1;
+        private PortalDbContext _dbContext;
+
+        public HistoryRepositories(PortalDbContext db)
+        {
+            _dbContext = db;
+        }    
 
         public History Get(int id)
-            => _historicalEvents.Single(x => x.Id == id);
+            => _dbContext.History.Single(x => x.Id == id);
+
         public List<History> GetAll()
-              => _historicalEvents.ToList(); 
+              => _dbContext.History.ToList(); 
+
         public void Create(History historicalEvent)
         {
-            historicalEvent.Id = _lastId++;
-            _historicalEvents.Add(historicalEvent);
+
+            _dbContext.History.Add(historicalEvent);
+
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var historicalEvents = _historicalEvents
+            var historicalEvents = _dbContext.History
                 .Single(x => x.Id == id);
-            _historicalEvents.Remove(historicalEvents);
+            _dbContext.History.Remove(historicalEvents);
+            _dbContext.SaveChanges();
         }
         public void Update (History historicalEvent)
         {
-            Delete(historicalEvent.Id);
-            Create(historicalEvent);
+            var dbGame = Get(historicalEvent.Id);
+
+            dbGame.Name = historicalEvent.Name;
+            dbGame.Description = historicalEvent.Description;
+            dbGame.Date = historicalEvent.Date;
+
+            _dbContext.SaveChanges();
         }
 
     
