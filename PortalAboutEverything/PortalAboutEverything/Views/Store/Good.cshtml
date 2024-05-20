@@ -1,0 +1,51 @@
+﻿@model PortalAboutEverything.Models.Store.CreateReviewViewModel;
+
+<div class="title">
+    Страница товара
+</div>
+<div class="goodDescriptionBlock">
+    <div>
+        <img class="goodImg" src="https://source.unsplash.com/random" alt="good" />
+    </div>
+    <div>
+        <div class="titleForBlockReviews">
+            Здесь будут отзывы
+        </div>
+        <div class="titleOfReview">
+            @if (Model != null && Model.TitleOfReview != null)
+            {
+                @Model.TitleOfReview
+            }
+            else
+            {
+                <span>Пока нет отзывов</span>
+            }
+        </div>
+        <div class="descriptionOfReview">
+            @if (Model != null && Model.DescriptionOfReview != null)
+            {
+                @Model.DescriptionOfReview
+            }
+            else
+            {
+                <span></span>
+            }
+        </div>
+    </div>
+
+</div>
+<div class="addReviewTitle">Добавить отзыв для товара</div>
+<form method="post">
+    <div>
+        @Html.TextBoxFor(x => x.TitleOfReview, new { placeholder = "input title" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.DescriptionOfReview, new { placeholder = "input description" })
+    </div>
+    <input type="submit" value="create review" />
+</form>
+
+
+
+
+

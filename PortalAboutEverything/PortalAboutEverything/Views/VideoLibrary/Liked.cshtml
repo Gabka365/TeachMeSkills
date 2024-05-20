@@ -1,0 +1,125 @@
+@model List<PortalAboutEverything.Models.VideoLibrary.VideoLibraryVideoViewModel>
+
+@{
+    ViewBag.Title = "Liked Videos";
+    Layout = "_LayoutVideoLibrary";
+}
+
+@section Style
+{
+    <link rel="stylesheet" href="/css/video-library/video-list.css">
+}
+
+@section TopScripts
+{
+<script src="/js/VideoLibrary/like.js"></script>
+}
+
+<div class="video-list">
+    <div class="video-list-bars">
+        <div class="video-list-count-bar">
+            <span>Total videos: @Model.Count</span>
+        </div>
+        <div class="video-selection-bar">
+            <button class="video-selection-button" onclick="goToRandomVideo(true)">
+                <div class="video-selection-button-info">
+                    <div class="video-selection-button-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                            <path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240H560Zm-344 0-56-56 504-504H560v-80h240v240h-80v-104L216-160Zm151-377L160-744l56-56 207 207-56 56Z"/>
+                        </svg>
+                    </div>
+                    <div class="video-selection-button-title">
+                        <span>
+                            Shuffle
+                        </span>
+                    </div>
+                </div>
+                <div class="video-selection-button-active-mark"></div>
+            </button>
+            <button class="video-selection-button" onclick="goToFirstVideo(@($"\"{Model.FirstOrDefault()?.Id}\"")">
+                <div class="video-selection-button-info">
+                    <div class="video-selection-button-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                            <path d="M320-200v-560l440 280-440 280Z"/>
+                        </svg>
+                    </div>
+                    <div class="video-selection-button-title">
+                        <span>
+                            Play First
+                        </span>
+                    </div>
+                </div>
+                <div class="video-selection-button-active-mark"></div>
+            </button>
+        </div>
+        <div class="video-additional-bar">
+            <button class="video-selection-button">
+                <div class="video-selection-button-info">
+                    <div class="video-selection-button-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                            <path d="M320-200v-560l440 280-440 280Z"/>
+                        </svg>
+                    </div>
+                    <div class="video-selection-button-title">
+                        <span>
+                            Export Videos
+                        </span>
+                    </div>
+                </div>
+                <div class="video-selection-button-active-mark"></div>
+            </button>
+        </div>
+    </div>
+    <div class="video-list-container">
+        @if (Model.Count != 0)
+        {
+            foreach (var videoElement in Model)
+            {
+                <div title="@videoElement.FileName" class="video-element">
+                    <a href="/VideoLibrary/Player/@videoElement.Id">
+                        <div class="thumbnail">
+                            <div class="thumbnail-placeholder"></div>
+                            <div class="thumbnail-blurred">
+                                <img loading="lazy" src="/VideoLibrary/Thumbnail/@videoElement.Id?size=Small" alt="">
+                            </div>
+                            <div class="thumbnail-image">
+                                <div>
+                                    <img loading="lazy" src="/VideoLibrary/Thumbnail/@videoElement.Id?size=Small" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-duration">
+                            <div class="video-duration-background">
+                                <span class="video-duration-text">@videoElement.VideoDuration</span>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-info-title">
+                                <span>@videoElement.FileName</span>
+                            </div>
+                            <div class="video-info-folder">
+                                <span>\@videoElement.FileFolder</span>
+                            </div>
+                        </div>
+                    </a>
+                    <button class="video-like" onclick="changeVideoLikeState(@($"\"{videoElement.Id}\""), false); reloadPage();">
+                        <div class="video-like-bg">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z"/>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="empty-list">
+                <span>No Videos</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M880-260 720-420v67l-80-80v-287H353l-80-80h367q33 0 56.5 23.5T720-720v180l160-160v440ZM822-26 26-822l56-56L878-82l-56 56ZM498-575ZM382-464ZM160-800l80 80h-80v480h480v-80l80 80q0 33-23.5 56.5T640-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800Z"/>
+                </svg>
+            </div>
+        }
+    </div>
+</div>

@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Services.Vertuk;
+using PortalAboutEverything.Data.Services.VideoLibrary;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,16 +11,21 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbContext.CONNECTION_STRING));
 
-builder.Services.AddSingleton<VideoSortRepository>();
+//VideoLibrary Services
+builder.Services.AddScoped<VideoLibraryRepository>();
+builder.Services.AddSingleton<VideoProcessorService>();
+builder.Services.AddSingleton<FfMpegService>();
 
-//Ñîçäàë ñåðâèñ
-builder.Services.AddSingleton<PostsService>();
-
+builder.Services.AddSingleton<TravelingRepositories>();
 builder.Services.AddScoped<GameRepositories>();
 builder.Services.AddSingleton<BlogRepositories>();
 
 builder.Services.AddSingleton<MovieRepositories>();
 
+builder.Services.AddSingleton<GameStoreRepositories>();
+builder.Services.AddScoped<BoardGameReviewRepositories>();
+
+builder.Services.AddSingleton<BookRepositories>();
 builder.Services.AddScoped<GameStoreRepositories>();
 builder.Services.AddSingleton<BoardGameReviewRepositories>();
 
