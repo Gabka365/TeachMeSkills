@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Model.Store;
 
 namespace PortalAboutEverything.Data
 {
@@ -11,6 +12,7 @@ namespace PortalAboutEverything.Data
         public DbSet<GameStore> GameStores { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Good> Goods { get; set; }
         public DbSet<VideoInfo> Videos { get; init; }
         public DbSet<BoardGameReview> BoardGameReviews { get; set; }
 

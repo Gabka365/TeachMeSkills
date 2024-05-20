@@ -1,0 +1,31 @@
+﻿.addGoodForm {
+    border: 1px solid #000;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.addGoodTitle {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.goodNameInput,
+.goodDescriptionInput,
+.goodPriceInput {
+    width: 500px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.addGoodBtn {
+    width: 200px;
+    padding: 10px;
+    background: #e103cc;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 800;
+}

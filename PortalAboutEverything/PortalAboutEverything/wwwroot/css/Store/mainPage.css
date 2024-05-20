@@ -10,6 +10,43 @@
     cursor: pointer;
 }
 
+.goodsTitle {
+    font-size: 32px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.addGoodBtn,
+.updateGoodBtn,
+.deleteGoodBtn {
+    margin-top: 10px;
+    width: 200px;
+    padding: 10px;
+    background: #e103cc;
+    border: none;
+    border-radius: 5px;
+}
+
+    .addGoodBtn:hover,
+    .updateGoodBtn:hover,
+    .deleteGoodBtn:hover {
+        opacity: 0.7;
+    }
+
+    .addGoodBtn:active,
+    .updateGoodLink:active,
+    .deleteGoodBtn:active {
+        opacity: 0.5;
+    }
+
+.addGoodLink,
+.updateGoodLink,
+.deleteGoodLink {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+}
+
 
 
 .goodsBlock {
