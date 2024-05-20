@@ -14,6 +14,7 @@ namespace PortalAboutEverything.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Good> Goods { get; set; }
         public DbSet<VideoInfo> Videos { get; init; }
+        public DbSet<BoardGame> BoardGames { get; set; }
         public DbSet<BoardGameReview> BoardGameReviews { get; set; }
 
         public PortalDbContext() { }
@@ -30,6 +31,12 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<Game>()
                 .HasMany(x => x.Reviews)
                 .WithOne(x => x.Game)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired(false);
+
+            modelBuilder.Entity<BoardGame>()
+                .HasMany(x => x.Reviews)
+                .WithOne(x => x.BoardGame)
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
 
