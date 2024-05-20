@@ -1,6 +1,6 @@
 ﻿@model List<PortalAboutEverything.Models.Movie.MovieIndexViewModel>
 
-@section MovieStyle {
+@section Style {
 				<link rel="stylesheet" href="/css/Movie/movieStyle.css" />
 }
 
@@ -21,7 +21,7 @@
 	{
 		<div class="infoAboutMovie">
 			<span class="movieName">Фильм <a href="/Movie/UpdateMovie?id=@movie.Id">@movie.Name</a></span> 
-			<div>Дата выхода: @movie.ReleaseDate год</div>
+			<div>Дата выхода: @movie.ReleaseYear год</div>
 			<div>Режиссер фильма: @movie.Director</div>
 			<div>Страна происхождения: @movie.CountryOfOrigin</div>
 			<div>Бюджет фильма: @movie.Budget</div>
