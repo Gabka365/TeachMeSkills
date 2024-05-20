@@ -1,0 +1,20 @@
+:root{
+    --scrollbar-track-color: #808080;
+    --scrollbar-handle-color: #454545;
+    --scrollbar-handle-hover-color: #515151;
+    --background-color: #2d2d2d;
+    --border-color: #464646;
+    --border-radius: 0.5rem;
+    --nav-menu-bg: #00000099;
+    --icons-color: #cdcdcd;
+    --text-color: #cdcdcd;
+    --empty-items-color: #1c1c1c;
+    --button-color: #1c1c1c;
+    --home-button-hover-color: #DC143CFF;
+    --menu-button-hover-color: #00BFFFFF;
+    --menu-button-active-color: #00ff6f;
+    --button-selection-hover-color: #DAA520FF;
+    --button-like-hover-color: #FF1493FF;
+    --button-delete-hover-color: #FF0000FF;
+    --video-info-bg: #00000099;
+}
