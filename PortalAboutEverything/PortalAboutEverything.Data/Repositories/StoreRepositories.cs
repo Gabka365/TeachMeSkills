@@ -11,14 +11,19 @@ namespace PortalAboutEverything.Data.Repositories
 {
     public class StoreRepositories
     {
-        private List<Good> _goods = new List<Good>();
         private List<GoodReview> _reviews = new List<GoodReview>();
-        private int _lastGoodId = 0;
         private int _lastReviewId = 0;
+
+        private PortalDbContext _dbContext;
+
+        public StoreRepositories(PortalDbContext db)
+        {
+            _dbContext = db;
+        }
 
         public List<Good> GetAllGoods()
         {
-            return _goods.ToList();
+            return _dbContext.Goods.ToList();
         }
 
         public List<GoodReview> GetAllReviews()
@@ -28,19 +33,21 @@ namespace PortalAboutEverything.Data.Repositories
 
         public void AddGood(Good good)
         {
-            good.Id = _lastGoodId++;
-            _goods.Add(good);
+            _dbContext.Goods.Add(good);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var good = _goods.First(x => x.Id == id);
-            _goods.Remove(good);
+            var good = _dbContext.Goods.First(x => x.Id == id);
+            _dbContext.Goods.Remove(good);
+            _dbContext.SaveChanges();
         }
 
         public Good GetGoodForUpdate(int id)
         {
-            return _goods.Single(x => x.Id == id);
+            return _dbContext.Goods.Single(x => x.Id == id);
+           
         }
 
         public void UpdateGood(Good good)
@@ -54,7 +61,5 @@ namespace PortalAboutEverything.Data.Repositories
             review.Id = _lastReviewId++;
             _reviews.Add(review);
         }
-
-
     }
 }

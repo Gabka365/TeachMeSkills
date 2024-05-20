@@ -65,6 +65,7 @@ namespace PortalAboutEverything.Controllers
 
             };
             _storeRepositories.AddGood(good);
+
             return RedirectToAction("Index");
         }
 
