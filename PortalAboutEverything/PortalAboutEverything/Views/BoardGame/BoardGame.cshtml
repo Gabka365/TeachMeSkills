@@ -120,25 +120,25 @@
                 удовольствием!)
             </p>
         </div>
-        @foreach(var rewiev in Model)
+        @foreach (var rewiev in Model)
         {
             <div class="review">
                 <div class="name-and-date">
                     <div class="name">@rewiev.Name</div>
                     <div class="date">@rewiev.DateOfCreationInStringFormat</div>
                 </div>
-                    <p class="text">
-                        @rewiev.Text
-                    </p>
-                    <div class="update-and-delete">
-                        <a href="/BoardGame/Update?id=@rewiev.Id"><img src="/images/BoardGame/edit.svg" /></a>
-                        <a href="/BoardGame/Delete?id=@rewiev.Id"><img src="/images/BoardGame/delete.svg" /></a>
-                    </div>                            
+                <p class="text">
+                    @rewiev.Text
+                </p>
+                <div class="update-and-delete">
+                    <a href="/BoardGame/UpdateReview?id=@rewiev.Id"><img src="/images/BoardGame/edit.svg" /></a>
+                    <a href="/BoardGame/DeleteReview?id=@rewiev.Id"><img src="/images/BoardGame/delete.svg" /></a>
+                </div>
             </div>
         }
         <div class="review-buttons">
             <button class="usual-button">Показать ещё</button>
-            <button class="highlighted-button" onclick="window.location.href = '/BoardGame/Create';">Написать отзыв</button>
+            <button class="highlighted-button" onclick="window.location.href = '/BoardGame/CreateReview';">Написать отзыв</button>
         </div>
     </div>
 </div>

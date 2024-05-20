@@ -22,6 +22,7 @@ builder.Services.AddSingleton<BlogRepositories>();
 
 builder.Services.AddScoped<MovieRepositories>();
 
+builder.Services.AddScoped<BoardGameRepositories>();
 builder.Services.AddScoped<BoardGameReviewRepositories>();
 
 builder.Services.AddSingleton<BookRepositories>();

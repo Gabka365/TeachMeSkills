@@ -2,16 +2,17 @@
 using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PortalAboutEverything.Controllers
 {
     public class BoardGameController : Controller
     {
+        private BoardGameRepositories _gameRepositories;
         private BoardGameReviewRepositories _reviewRepositories;
 
-        public BoardGameController(BoardGameReviewRepositories reviewRepositories)
+        public BoardGameController(BoardGameRepositories gameRepositories, BoardGameReviewRepositories reviewRepositories)
         {
+            _gameRepositories = gameRepositories;
             _reviewRepositories = reviewRepositories;
         }
 
@@ -21,22 +22,25 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateReview()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(BoardGameCreateReviewViewModel boardGameReviewViewModel)
+        public IActionResult CreateReview(BoardGameCreateReviewViewModel boardGameReviewViewModel)
         {
             BoardGameReview review = BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
 
             _reviewRepositories.Create(review);
-            return RedirectToAction("FirstBoardGame");
+            return RedirectToAction("BoardGame");
         }
 
-        public IActionResult FirstBoardGame()
+        public IActionResult BoardGame(int id)
         {
+            //BoardGame gameViewModel = _gameRepositories.Get(id);
+            //BoardGameViewModel viewModel = BuildBoardGameViewModel(gameViewModel);
+
             List<BoardGameReviewViewModel> reviewViewModel = _reviewRepositories
                 .GetAll()
                 .Select(BuildBoardGameRewievViewModel)
@@ -46,7 +50,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
-        public IActionResult Update(int id)
+        public IActionResult UpdateReview(int id)
         {
             BoardGameReview reviewForUpdate = _reviewRepositories.Get(id);
             BoardGameUpdateReviewViewModel viewModel = BuildBoardGameUpdateRewievDataModel(reviewForUpdate);
@@ -55,19 +59,40 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
+        public IActionResult UpdateReview(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
         {
             BoardGameReview updatedReview = BuildBoardGameRewievDataModelFromUpdate(boardGameReviewViewModel);
             _reviewRepositories.Update(updatedReview);
 
-            return RedirectToAction("FirstBoardGame");
+            return RedirectToAction("BoardGame");
         }
        
-        public IActionResult Delete(int id)
+        public IActionResult DeleteReview(int id)
         {
             _reviewRepositories.Delete(id);
 
-            return RedirectToAction("FirstBoardGame");
+            return RedirectToAction("BoardGame");
+        }
+
+        private BoardGameViewModel BuildBoardGameViewModel(BoardGame game)
+        {
+            List<BoardGameReviewViewModel> reviewViewModels = new();
+            foreach (var review in game.Reviews)
+            {
+                reviewViewModels.Add(BuildBoardGameRewievViewModel(review));
+            }
+
+            return new BoardGameViewModel
+            {
+                Title = game.Title,
+                MiniTitle = game.MiniTitle,
+                Description = game.Description,
+                Essence = game.Essence,
+                Tags = game.Tags,
+                Price = game.Price,
+                ProductCode = game.ProductCode,
+                Reviews = reviewViewModels
+            };
         }
 
         private BoardGameReviewViewModel BuildBoardGameRewievViewModel(BoardGameReview review)

@@ -1,4 +1,5 @@
-﻿using PortalAboutEverything.Data.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
 {
@@ -11,7 +12,10 @@ namespace PortalAboutEverything.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public List<BoardGame> GetAll() => _dbContext.BoardGames.ToList();
+        public List<BoardGame> GetAll() 
+            => _dbContext.BoardGames
+            .Include(boardGame => boardGame.Reviews)
+            .ToList();
 
         public void Create(BoardGame boardGame)
         {
