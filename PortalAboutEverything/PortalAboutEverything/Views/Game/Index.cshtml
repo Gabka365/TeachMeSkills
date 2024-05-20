@@ -14,5 +14,16 @@
             Игра <a href="/Game/Update?id=@game.Id">@game.Name</a> была выпущена в @game.YearOfRelease Вот что о ней говорят @game.Description
             <a href="/Game/Delete?id=@game.Id" class="delete">Х</a>
         </div>
+        @foreach (var review in game.Reviews)
+        {
+            <div class="review">
+                @review.Text <span class="date">@review.DateOfCreation</span>
+            </div>
+        }
+        <form action="/Game/AddReview" method="post">
+            <input type="hidden" value="@game.Id" name="gameId" />
+            <textarea name="text" placeholder="Напиши свой отзыв здесь"></textarea>
+            <input type="submit" value="Отставить отзыв" />
+        </form>
     }
 </div>

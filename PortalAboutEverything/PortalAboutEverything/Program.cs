@@ -13,7 +13,7 @@ builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbConte
 
 //VideoLibrary Services
 builder.Services.AddScoped<VideoLibraryRepository>();
-builder.Services.AddSingleton<VideoProcessorService>();
+builder.Services.AddScoped<VideoProcessorService>();
 builder.Services.AddSingleton<FfMpegService>();
 
 builder.Services.AddSingleton<TravelingRepositories>();
@@ -22,13 +22,11 @@ builder.Services.AddSingleton<BlogRepositories>();
 
 builder.Services.AddScoped<MovieRepositories>();
 
-builder.Services.AddSingleton<GameStoreRepositories>();
 builder.Services.AddScoped<BoardGameReviewRepositories>();
 
 builder.Services.AddSingleton<BookRepositories>();
 builder.Services.AddScoped<StoreRepositories>();
 builder.Services.AddScoped<GameStoreRepositories>();
-builder.Services.AddSingleton<BoardGameReviewRepositories>();
 
 var app = builder.Build();
 

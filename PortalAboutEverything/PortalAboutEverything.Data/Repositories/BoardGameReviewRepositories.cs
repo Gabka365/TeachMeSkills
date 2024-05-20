@@ -19,8 +19,8 @@ namespace PortalAboutEverything.Data.Repositories
 
             _dbContext.SaveChanges();
         }
-        
-        public BoardGameReview Get(int id) 
+
+        public BoardGameReview Get(int id)
             => _dbContext.BoardGameReviews.Single(review => review.Id == id);
 
         public void Delete(int id)
@@ -37,6 +37,22 @@ namespace PortalAboutEverything.Data.Repositories
             updatedReview.Name = review.Name;
             updatedReview.Text = review.Text;
 
+            _dbContext.SaveChanges();
+        }
+
+        public void AddReviewToGame(int gameId, string text)
+        {
+            var game = _dbContext.Games.First(x => x.Id == gameId);
+
+            var review = new BoardGameReview
+            {
+                Text = text,
+                Game = game,
+                DateOfCreation = DateTime.Now,
+                Name = "Game Review"
+            };
+
+            _dbContext.BoardGameReviews.Add(review);
             _dbContext.SaveChanges();
         }
     }

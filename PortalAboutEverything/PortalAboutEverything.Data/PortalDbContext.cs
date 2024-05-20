@@ -24,5 +24,16 @@ namespace PortalAboutEverything.Data
             optionsBuilder
                 .UseSqlServer(CONNECTION_STRING);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Game>()
+                .HasMany(x => x.Reviews)
+                .WithOne(x => x.Game)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired(false);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

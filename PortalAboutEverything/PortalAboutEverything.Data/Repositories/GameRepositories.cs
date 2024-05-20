@@ -1,4 +1,5 @@
-﻿using PortalAboutEverything.Data.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
 {
@@ -19,7 +20,7 @@ namespace PortalAboutEverything.Data.Repositories
             var game = _dbContext.Games
                 .Single(x => x.Id == id);
             _dbContext.Games.Remove(game);
-            
+
             _dbContext.SaveChanges();
         }
 
@@ -29,6 +30,11 @@ namespace PortalAboutEverything.Data.Repositories
         //}
         public List<Game> GetAll()
             => _dbContext.Games.ToList();
+
+        public List<Game> GetAllWithReviews()
+            => _dbContext.Games
+            .Include(x => x.Reviews)
+            .ToList();
 
         public void Create(Game game)
         {
