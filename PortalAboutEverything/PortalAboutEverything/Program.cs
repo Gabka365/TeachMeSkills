@@ -26,6 +26,7 @@ builder.Services.AddSingleton<GameStoreRepositories>();
 builder.Services.AddScoped<BoardGameReviewRepositories>();
 
 builder.Services.AddSingleton<BookRepositories>();
+builder.Services.AddScoped<StoreRepositories>();
 
 var app = builder.Build();
 
