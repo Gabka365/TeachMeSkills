@@ -18,7 +18,27 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult Index()
         {
+            List<BoardGameIndexViewModel> indexViewModel = _gameRepositories
+                .GetAll()
+                .Select(BuildBoardGameIndexViewModel)
+                .ToList();
+
+            return View(indexViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult CreateBoardGame()
+        {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateBoardGame(BoardGameCreateViewModel boardGameViewModel)
+        {
+            BoardGame game = BuildBoardGameDataModelFromCreate(boardGameViewModel);
+
+            _gameRepositories.Create(game);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -38,15 +58,10 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult BoardGame(int id)
         {
-            //BoardGame gameViewModel = _gameRepositories.Get(id);
-            //BoardGameViewModel viewModel = BuildBoardGameViewModel(gameViewModel);
+            BoardGame gameViewModel = _gameRepositories.Get(id);
+            BoardGameViewModel viewModel = BuildBoardGameViewModel(gameViewModel);
 
-            List<BoardGameReviewViewModel> reviewViewModel = _reviewRepositories
-                .GetAll()
-                .Select(BuildBoardGameRewievViewModel)
-                .ToList();
-
-            return View(reviewViewModel);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -77,9 +92,12 @@ namespace PortalAboutEverything.Controllers
         private BoardGameViewModel BuildBoardGameViewModel(BoardGame game)
         {
             List<BoardGameReviewViewModel> reviewViewModels = new();
-            foreach (var review in game.Reviews)
+            if (game.Reviews != null)
             {
-                reviewViewModels.Add(BuildBoardGameRewievViewModel(review));
+                foreach (var review in game.Reviews)
+                {
+                    reviewViewModels.Add(BuildBoardGameRewievViewModel(review));
+                }
             }
 
             return new BoardGameViewModel
@@ -95,6 +113,25 @@ namespace PortalAboutEverything.Controllers
             };
         }
 
+        private BoardGame BuildBoardGameDataModelFromCreate(BoardGameCreateViewModel game)
+            => new BoardGame
+            {
+                Title = game.Title,
+                MiniTitle = game.MiniTitle,
+                Description = game.Description,
+                Essence = game.Essence,
+                Tags = game.Tags,
+                Price = game.Price,
+                ProductCode = game.ProductCode,
+            };
+
+        private BoardGameIndexViewModel BuildBoardGameIndexViewModel(BoardGame game)
+            => new BoardGameIndexViewModel
+            {
+                Id = game.Id,
+                Title = game.Title,
+            };
+
         private BoardGameReviewViewModel BuildBoardGameRewievViewModel(BoardGameReview review)
             => new BoardGameReviewViewModel
             {
@@ -103,6 +140,7 @@ namespace PortalAboutEverything.Controllers
                 DateOfCreationInStringFormat = review.DateOfCreation.ToString("dd.MM.yyyy HH:mm"),
                 Text = review.Text,
             };
+
 
         private BoardGameReview BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
             => new BoardGameReview

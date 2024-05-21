@@ -1,6 +1,15 @@
-﻿<div>
+﻿@model List<PortalAboutEverything.Models.BoardGame.BoardGameIndexViewModel>
+
+<div>
     <h2>Список лучших настольных игр</h2>
     <ul>
-        <li><a class="text-dark" href="/BoardGame/BoardGame?Id=0">Ticket to Ride: Европа</a></li>
+        @foreach (var game in Model)
+        {          
+            <li><a class="text-dark" href="/BoardGame/BoardGame?Id=@game.Id">@game.Title</a></li>
+        }
     </ul>
+
+    <div>
+        <a href="/BoardGame/CreateBoardGame">Добавить игру</a>
+    </div>
 </div>
