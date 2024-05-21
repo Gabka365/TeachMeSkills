@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Model.Store;
 
 namespace PortalAboutEverything.Data
 {
@@ -11,6 +12,9 @@ namespace PortalAboutEverything.Data
         public DbSet<GameStore> GameStores { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Good> Goods { get; set; }
+        public DbSet<VideoInfo> Videos { get; init; }
+        public DbSet<BoardGameReview> BoardGameReviews { get; set; }
         public DbSet<Traveling> Travelings { get; set; }
 
         public PortalDbContext() { }
@@ -20,6 +24,17 @@ namespace PortalAboutEverything.Data
         {
             optionsBuilder
                 .UseSqlServer(CONNECTION_STRING);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Game>()
+                .HasMany(x => x.Reviews)
+                .WithOne(x => x.Game)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired(false);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

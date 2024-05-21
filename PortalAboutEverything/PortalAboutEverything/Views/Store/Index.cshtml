@@ -1,0 +1,97 @@
+﻿@model List<PortalAboutEverything.Models.Store.StoreIndexViewModel>
+
+<div class="storeWrapper" data-theme="light">
+    <div class="header">
+        <div class="changeThemeBlock">
+            <form method="get" class="formMode">
+                <div class="themeDecor">
+                    <p class="nameTheme">Светлый режим</p>
+                    <label class="switch">
+                        <input type="checkbox" class="switchInput">
+                        <span id="changeTheme" class="switchSlider"></span>
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div class="headerContent">
+            <p class="headerTitle">
+                wildberries
+            </p>
+            <button class="menuBtn">
+                <img class="menuImg" src="/images/store/header/burgerMenuIcon.png" alt="menu" />
+            </button>
+            <div class="searchBlock">
+                <input class="searchField" placeholder="Найти товары" />
+                <img class="searchImg" src="/images/store/header/searchIcon.svg" alt="search" />
+            </div>
+            <ul class="featuresList">
+                <li class="headerFeaturesBlock">
+                    <img class="featureIcon" src="/images/store/header/deliveryIcon.svg" alt="delivery" />
+                    <p class="featuresTitle">Доставки</p>
+                </li>
+                <li class="headerFeaturesBlock">
+                    <img class="featureIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
+                    <p class="featuresTitle">Избр.</p>
+                </li>
+                <li class="headerFeaturesBlock">
+                    <img class="featureIcon" src="/images/store/header/loginIcon.svg" alt="login" />
+                    <p class="featuresTitle">Войти</p>
+                </li>
+                <li class="headerFeaturesBlock">
+                    <img class="featureIcon" src="/images/store/header/basketIcon.svg" alt="basket" />
+                    <p class="featuresTitle">Корзина</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <main class="container">
+        <div>
+            <a href="#" class="salesLink">
+                <img class="salesImg" src="/images/store/MainPage/salesIcon.webp" alt="sales" />
+            </a>
+        </div>
+        @if (Model.Count == 0)
+        {
+            <div class="goodsTitle">
+                Товары отсутствуют. Добавьте хотя бы один товар.
+            </div>
+        }
+        <button class="addGoodBtn">
+            <a href="/Store/AddGood" class="addGoodLink">
+                Добавить товар
+            </a>
+        </button>
+        <div class="goodsBlock">
+            @foreach (var good in Model)
+            {
+                <div class="goodBlock">
+                    <a class="linkToReview" href="/Store/Good">
+                        <img class="good" src="https://source.unsplash.com/random" alt="random" />
+                        <img class="likedIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
+                    </a>
+                    <p class="pricePretext">от<span class="price"> @good.Price </span>р.</p>
+                    <p class="salor">Valencia med - @good.Name</p>
+                    <p class="goodDescription">@good.Description</p>
+                    <div class="raitingBlock">
+                        <img class="infoIcon" src="/images/store/MainPage/raitingIcon.svg" alt="raiting" />
+                        <p class="info">4.8</p>
+                        <img class="infoIcon" src="/images/store/MainPage/commentIcon.svg" alt="comments" />
+                        <p class="info">311</p>
+                    </div>
+                    <div class="buyBlock">
+                        <button class="buyBtn">5 мая</button>
+                        <img class="basketIconForBtn" src="/images/store/header/basketIcon.svg" alt="basket" />
+                    </div>
+                    <button class="updateGoodBtn">
+                        <a href="/Store/UpdateGood?id=@good.Id" class="updateGoodLink">Редактировать</a>
+                    </button>
+                    <button class="deleteGoodBtn">
+                        <a href="/Store/DeleteGood?id=@good.Id" class="deleteGoodLink">Удалить товар</a>
+                    </button>
+                </div>
+            }
+        </div>
+    </main>
+</div>
+@* <script type="module" src="index.js"></script>
+<script type="module" src="service.js"></script> *@

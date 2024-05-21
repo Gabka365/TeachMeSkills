@@ -2,6 +2,7 @@
 using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -28,8 +29,6 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult Create(BoardGameCreateReviewViewModel boardGameReviewViewModel)
         {
-            boardGameReviewViewModel.Date = DateTime.Now;
-
             BoardGameReview review = BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
 
             _reviewRepositories.Create(review);
@@ -76,7 +75,7 @@ namespace PortalAboutEverything.Controllers
             {
                 Id = review.Id,
                 Name = review.Name,
-                DateInStringFormat = review.Date.ToString("dd.MM.yyyy HH:mm"),
+                DateOfCreationInStringFormat = review.DateOfCreation.ToString("dd.MM.yyyy HH:mm"),
                 Text = review.Text,
             };
 
@@ -84,7 +83,7 @@ namespace PortalAboutEverything.Controllers
             => new BoardGameReview
             {
                 Name = reviewViewModel.Name,
-                Date = reviewViewModel.Date,
+                DateOfCreation = DateTime.Now,
                 Text = reviewViewModel.Text,
             };
 

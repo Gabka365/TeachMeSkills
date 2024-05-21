@@ -22,6 +22,35 @@ namespace PortalAboutEverything.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGameReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateOfCreation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("BoardGameReviews");
+                });
+
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Game", b =>
                 {
                     b.Property<int>("Id")
@@ -97,7 +126,7 @@ namespace PortalAboutEverything.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ReleaseDate")
+                    b.Property<int>("ReleaseYear")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -125,6 +154,66 @@ namespace PortalAboutEverything.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.Store.Good", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Goods");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Duration")
+                        .HasColumnType("float");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsLiked")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Videos");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGameReview", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.Game", "Game")
+                        .WithMany("Reviews")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.Game", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Traveling", b =>

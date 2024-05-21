@@ -10,20 +10,31 @@ namespace PortalAboutEverything.Controllers
     public class GameController : Controller
     {
         private GameRepositories _gameRepositories;
+        private BoardGameReviewRepositories _boardGameReviewRepositories;
 
-        public GameController(GameRepositories gameRepositories)
+
+        public GameController(GameRepositories gameRepositories, 
+            BoardGameReviewRepositories boardGameReviewRepositories)
         {
             _gameRepositories = gameRepositories;
+            _boardGameReviewRepositories = boardGameReviewRepositories;
         }
 
         public IActionResult Index()
         {
             var gamesViewModel = _gameRepositories
-                .GetAll()
+                .GetAllWithReviews()
                 .Select(BuildGameIndexViewModel)
                 .ToList();
 
             return View(gamesViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddReview(AddGameReviewViewModel viewModel)
+        {
+            _boardGameReviewRepositories.AddReviewToGame(viewModel.GameId, viewModel.Text);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -89,6 +100,17 @@ namespace PortalAboutEverything.Controllers
                 Description = game.Description,
                 Name = game.Name,
                 YearOfRelease = game.YearOfRelease,
+                Reviews = game
+                    .Reviews
+                    .Select(BuildGameReviewViewModel)
+                    .ToList()
+            };
+
+        private GameReviewViewModel BuildGameReviewViewModel(BoardGameReview review)
+            => new GameReviewViewModel
+            {
+                Text = review.Text,
+                DateOfCreation = review.DateOfCreation,
             };
 
         private GameUpdateViewModel BuildGameUpdateViewModel(Game game)

@@ -9,26 +9,33 @@ namespace PortalAboutEverything.Data.Repositories
 {
     public class GameStoreRepositories
     {
-        private List<GameStore> _games = new();
-        private int _lastId = 1;
+        private PortalDbContext _dbContex;
+
+        public GameStoreRepositories(PortalDbContext db)
+        {
+            _dbContex = db;
+        }
 
         public void Delete(int id)
         {
             var game =
-                _games.Single(x => x.Id == id);
-            _games.Remove(game);
+                _dbContex.GameStores.Single(x => x.Id == id);
+            _dbContex.GameStores.Remove(game);
+
+            _dbContex.SaveChanges();
         }
 
         public GameStore Get(int id)
-            => _games.Single(x => x.Id == id);
+            => _dbContex.GameStores.Single(x => x.Id == id);
 
         public List<GameStore> GetAll()
-            => _games.ToList();
+            => _dbContex.GameStores.ToList();
 
         public void Create(GameStore game)
         {
-            game.Id = _lastId++;
-            _games.Add(game);
+            _dbContex.GameStores.Add(game);
+
+            _dbContex.SaveChanges();
         }
 
         public void Update(GameStore game)
