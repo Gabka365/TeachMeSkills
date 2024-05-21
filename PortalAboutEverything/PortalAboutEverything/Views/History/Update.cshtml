@@ -2,15 +2,12 @@
 
 
 <form method="post"> 
-    @Html.HiddenFor(x => x.Id)
-    <div>
-        @Html.TextBoxFor(x => x.Name)
-    </div>
+    @Html.HiddenFor(x => x.Id)   
    <div>
        @Html.TextBoxFor( x=> x.Name, new {placeholder = "Название События"})
    </div>
     <div>
-        @Html.TextBoxFor(x => x.Date, new { placeholder = "Дата", @type = "number", })
+        @Html.TextBoxFor(x => x.YearOfEvent, new { placeholder = "Дата", @type = "number", })
     </div>
     <div>
         @Html.TextAreaFor(x => x.Description, new{placeholder = "Описание"})

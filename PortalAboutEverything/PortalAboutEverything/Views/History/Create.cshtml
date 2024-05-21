@@ -1,21 +1,19 @@
 ﻿@model PortalAboutEverything.Models.History.CreateEventViewModel
 
 
-<form method="post"> 
-    
-   <div>
-       @Html.TextBoxFor( x=> x.Name, new {placeholder = "Название События"})
-   </div>
+<form method="post">  
     <div>
-        @Html.TextBoxFor(x => x.Date, new { placeholder = "Дата", @type = "number", })
+        @Html.TextBoxFor(x => x.Name, new { placeholder = "Название События" })
     </div>
     <div>
-        @Html.TextAreaFor(x => x.Description, new{placeholder = "Описание"})
+        @Html.TextBoxFor(x => x.YearOfEvent, new { placeholder = "Дата", @type = "number", })
     </div>
-   <div>
-       <input type="submit" href="/History/Index" value="Создать" />
-   </div>
+    <div>
+        @Html.TextAreaFor(x => x.Description, new { placeholder = "Описание" })
+    </div>
+    <div>
+        <input type="submit" href="/History/Index" value="Создать" />
+    </div>
 </form>
- 
-        
+    
     

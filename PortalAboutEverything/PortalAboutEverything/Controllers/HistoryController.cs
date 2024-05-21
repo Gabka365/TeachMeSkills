@@ -20,9 +20,7 @@ namespace PortalAboutEverything.Controllers
                 .ToList();
             return View(eventsHistoryIndexViewModel);
         }
-
-        
-
+       
         [HttpGet]
         public IActionResult Create()
         {
@@ -36,11 +34,10 @@ namespace PortalAboutEverything.Controllers
             {
                 Name = createEventViewModel.Name,
                 Description = createEventViewModel.Description,
-                Date = createEventViewModel.Date,
+                YearOfEvent = createEventViewModel.YearOfEvent,
             };
             _historyRepositories.Create(historicalEvent);
             return RedirectToAction("Index");
-
         }
 
         public IActionResult Delete(int id)
@@ -65,26 +62,28 @@ namespace PortalAboutEverything.Controllers
                 Id = updateViewModel.Id,
                 Name = updateViewModel.Name,
                 Description = updateViewModel.Description,
-                Date = updateViewModel.Date,
+                YearOfEvent = updateViewModel.YearOfEvent,
             };
             _historyRepositories.Update(historicalEvents);
 
             return RedirectToAction("Index");
         }
+
         private HistoryIndexViewModel BuildHistoryViewModel(History historicalEvent)
             => new HistoryIndexViewModel
             {
                 Id = historicalEvent.Id,
                 Name = historicalEvent.Name,
-                Date = historicalEvent.Date,
+                YearOfEvent = historicalEvent.YearOfEvent,
                 Description = historicalEvent.Description,               
             };
+
         private HistoryUpdateViewModel BuildHistoryUpdateViewModel(History historicalEvent)
             => new HistoryUpdateViewModel
             {
                 Id = historicalEvent.Id,
                 Name = historicalEvent.Name,
-                Date = historicalEvent.Date,
+                YearOfEvent = historicalEvent.YearOfEvent,
                 Description = historicalEvent.Description,
             };
     }

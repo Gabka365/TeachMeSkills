@@ -7,7 +7,7 @@
 
         public string Description { get; set; }
 
-        public int Date { get; set; }
+        public int YearOfEvent { get; set; }
     }
 }
 
