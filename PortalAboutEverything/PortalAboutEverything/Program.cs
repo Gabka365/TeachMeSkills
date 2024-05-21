@@ -23,7 +23,7 @@ builder.Services.AddSingleton<BlogRepositories>();
 builder.Services.AddScoped<MovieRepositories>();
 
 builder.Services.AddScoped<BoardGameReviewRepositories>();
-
+builder.Services.AddScoped<HistoryRepositories>();
 builder.Services.AddSingleton<BookRepositories>();
 builder.Services.AddScoped<StoreRepositories>();
 builder.Services.AddScoped<GameStoreRepositories>();
