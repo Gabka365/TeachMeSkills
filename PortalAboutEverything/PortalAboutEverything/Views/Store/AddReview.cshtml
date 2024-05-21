@@ -1,5 +1,9 @@
 ﻿@model PortalAboutEverything.Models.Store.CreateReviewViewModel;
 
+@section Style {
+    <link rel="stylesheet" href="/css/Store/style.css" />
+}
+
 <form method="post">
     <div>
         @Html.TextBoxFor(x => x.Title, new { placeholder = "input title" })
