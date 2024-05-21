@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - PortalAboutEverything</title>
+    <link rel="stylesheet" href="/css/video-library/reset-css.css">
+    <link rel="stylesheet" href="/css/video-library/variables.css">
+    <link rel="stylesheet" href="/css/video-library/global.css">
+    <link rel="stylesheet" href="/css/video-library/nav-menu.css">
+    @await RenderSectionAsync("Style", false)
+    @await RenderSectionAsync("TopScripts", required: false)
+</head>
+<body>
+<div class="background"></div>
+<div class="main-section">
+    <div class="nav-menu">
+        <div class="left-part">
+            <a href="/" class="home-button">
+                <div class="home-button-info">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z"/>
+                    </svg>
+                    <span>Home</span>
+                </div>
+                <div class="button-active-mark"></div>
+            </a>
+        </div>
+        <div class="middle-part">
+            <a href="/VideoLibrary" class="menu-button @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+                <div class="menu-button-info">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z"/>
+                    </svg>
+                    <span>All Videos</span>
+                </div>
+                <div class="button-active-mark"></div>
+            </a>
+            <a href="/VideoLibrary/Liked" class="menu-button @(ViewContext.RouteData.Values["Action"]?.ToString() == "Liked" ? "active" : "")">
+                <div class="menu-button-info">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/>
+                    </svg>
+                    <span>Liked Videos</span>
+                </div>
+                <div class="button-active-mark"></div>
+            </a>
+        </div>
+        <div class="right-part">
+            <button onclick="updateVideos(@($"\"{Context.Request.Scheme}://{Context.Request.Host}/VideoLibrary/UpdateLibrary\""))" class="update-button">
+                <div class="update-button-info">
+                    <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 -960 960 960">
+                        <path d="M480-120q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T120-480q0-75 28.5-140.5t77-114q48.5-48.5 114-77T480-840q82 0 155.5 35T760-706v-94h80v240H600v-80h110q-41-56-101-88t-129-32q-117 0-198.5 81.5T200-480q0 117 81.5 198.5T480-200q105 0 183.5-68T756-440h82q-15 137-117.5 228.5T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z"/>
+                    </svg>
+                    <span>Update Library</span>
+                </div>
+                <div class="button-active-mark"></div>
+            </button>
+        </div>
+    </div>
+    @RenderBody()
+</div>
+<script src="~/js/VideoLibrary/server.js"></script>
+@await RenderSectionAsync("BottomScripts", required: false)
+</body>
+</html>
