@@ -16,7 +16,7 @@ builder.Services.AddScoped<VideoLibraryRepository>();
 builder.Services.AddScoped<VideoProcessorService>();
 builder.Services.AddSingleton<FfMpegService>();
 
-builder.Services.AddSingleton<TravelingRepositories>();
+builder.Services.AddScoped<TravelingRepositories>();
 builder.Services.AddScoped<GameRepositories>();
 builder.Services.AddSingleton<BlogRepositories>();
 

@@ -15,6 +15,7 @@ namespace PortalAboutEverything.Data
         public DbSet<Good> Goods { get; set; }
         public DbSet<VideoInfo> Videos { get; init; }
         public DbSet<BoardGameReview> BoardGameReviews { get; set; }
+        public DbSet<Traveling> Travelings { get; set; }
 
         public PortalDbContext() { }
         public PortalDbContext(DbContextOptions<PortalDbContext> contextOptions) : base(contextOptions) { }
