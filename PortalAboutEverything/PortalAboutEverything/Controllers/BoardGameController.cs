@@ -42,6 +42,39 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
+        public IActionResult UpdateBoardGame(int id)
+        {
+            BoardGame boardGameForUpdate = _gameRepositories.Get(id);
+            BoardGameUpdateViewModel viewModel = BuildBoardGameUpdateDataModel(boardGameForUpdate);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateBoardGame(BoardGameUpdateViewModel boardGameViewModel)
+        {
+            BoardGame updatedReview = BuildBoardGameDataModelFromUpdate(boardGameViewModel);
+            _gameRepositories.Update(updatedReview);
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteBoardGame(int id)
+        {
+            _gameRepositories.Delete(id);
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult BoardGame(int id)
+        {
+            BoardGame gameViewModel = _gameRepositories.Get(id);
+            BoardGameViewModel viewModel = BuildBoardGameViewModel(gameViewModel);
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
         public IActionResult CreateReview()
         {
             return View();
@@ -54,14 +87,6 @@ namespace PortalAboutEverything.Controllers
 
             _reviewRepositories.Create(review);
             return RedirectToAction("BoardGame");
-        }
-
-        public IActionResult BoardGame(int id)
-        {
-            BoardGame gameViewModel = _gameRepositories.Get(id);
-            BoardGameViewModel viewModel = BuildBoardGameViewModel(gameViewModel);
-
-            return View(viewModel);
         }
 
         [HttpGet]
@@ -81,7 +106,7 @@ namespace PortalAboutEverything.Controllers
 
             return RedirectToAction("BoardGame");
         }
-       
+
         public IActionResult DeleteReview(int id)
         {
             _reviewRepositories.Delete(id);
@@ -113,8 +138,20 @@ namespace PortalAboutEverything.Controllers
             };
         }
 
-        private BoardGame BuildBoardGameDataModelFromCreate(BoardGameCreateViewModel game)
+        private BoardGame BuildBoardGameDataModelFromCreate(BoardGameCreateViewModel gameViewModel)
             => new BoardGame
+            {
+                Title = gameViewModel.Title,
+                MiniTitle = gameViewModel.MiniTitle,
+                Description = gameViewModel.Description,
+                Essence = gameViewModel.Essence,
+                Tags = gameViewModel.Tags,
+                Price = gameViewModel.Price,
+                ProductCode = gameViewModel.ProductCode,
+            };
+
+        private BoardGameUpdateViewModel BuildBoardGameUpdateDataModel(BoardGame game)
+            => new BoardGameUpdateViewModel
             {
                 Title = game.Title,
                 MiniTitle = game.MiniTitle,
@@ -124,6 +161,19 @@ namespace PortalAboutEverything.Controllers
                 Price = game.Price,
                 ProductCode = game.ProductCode,
             };
+
+        private BoardGame BuildBoardGameDataModelFromUpdate(BoardGameUpdateViewModel gameViewModel)
+             => new BoardGame
+             {
+                 Id = gameViewModel.Id,
+                 Title = gameViewModel.Title,
+                 MiniTitle = gameViewModel.MiniTitle,
+                 Description = gameViewModel.Description,
+                 Essence = gameViewModel.Essence,
+                 Tags = gameViewModel.Tags,
+                 Price = gameViewModel.Price,
+                 ProductCode = gameViewModel.ProductCode,
+             };
 
         private BoardGameIndexViewModel BuildBoardGameIndexViewModel(BoardGame game)
             => new BoardGameIndexViewModel

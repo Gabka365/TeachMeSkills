@@ -6,6 +6,10 @@
         @foreach (var game in Model)
         {          
             <li><a class="text-dark" href="/BoardGame/BoardGame?Id=@game.Id">@game.Title</a></li>
+            <div class="update-and-delete">
+                <a href="/BoardGame/UpdateBoardGame?id=@game.Id"><img src="/images/BoardGame/edit.svg" /></a>
+                <a href="/BoardGame/DeleteBoardGame?id=@game.Id"><img src="/images/BoardGame/delete.svg" /></a>
+            </div>
         }
     </ul>
 
