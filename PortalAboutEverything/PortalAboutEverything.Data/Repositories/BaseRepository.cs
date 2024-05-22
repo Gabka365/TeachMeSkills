@@ -15,6 +15,9 @@ namespace PortalAboutEverything.Data.Repositories
             _dbSet = dbContext.Set<DbModel>();
         }
 
+        public virtual bool Any() 
+            => _dbSet.Any();
+
         public virtual List<DbModel> GetAll()
         {
             return _dbSet.ToList();

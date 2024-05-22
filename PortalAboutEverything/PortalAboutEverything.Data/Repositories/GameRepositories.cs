@@ -12,6 +12,14 @@ namespace PortalAboutEverything.Data.Repositories
             .Include(x => x.Reviews)
             .ToList();
 
+        public List<Game> GetFavoriteGamesByUserId(int userId)
+            => _dbSet
+            .Where(game => 
+                game
+                    .UserWhoFavoriteTheGame
+                    .Any(u => u.Id == userId))
+            .ToList();
+
         public void Update(Game game)
         {
             var dbGame = Get(game.Id);

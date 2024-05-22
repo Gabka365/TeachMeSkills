@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Game;
+using PortalAboutEverything.Services;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -11,13 +13,15 @@ namespace PortalAboutEverything.Controllers
     {
         private GameRepositories _gameRepositories;
         private BoardGameReviewRepositories _boardGameReviewRepositories;
+        private AuthService _authService;
 
-
-        public GameController(GameRepositories gameRepositories, 
-            BoardGameReviewRepositories boardGameReviewRepositories)
+        public GameController(GameRepositories gameRepositories,
+            BoardGameReviewRepositories boardGameReviewRepositories,
+            AuthService authService)
         {
             _gameRepositories = gameRepositories;
             _boardGameReviewRepositories = boardGameReviewRepositories;
+            _authService = authService;
         }
 
         public IActionResult Index()
@@ -91,6 +95,25 @@ namespace PortalAboutEverything.Controllers
             _gameRepositories.Update(game);
 
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult Gamer()
+        {
+            var userName = _authService.GetUserName();
+
+            var userId = _authService.GetUserId();
+            var games = _gameRepositories.GetFavoriteGamesByUserId(userId);
+
+            var viewModel = new GamerViewModel
+            {
+                Name = userName,
+                Games = games
+                    .Select(BuildGameUpdateViewModel)
+                    .ToList(),
+            };
+
+            return View(viewModel);
         }
 
         private GameIndexViewModel BuildGameIndexViewModel(Game game)

@@ -1,0 +1,11 @@
+﻿@model PortalAboutEverything.Models.Game.GamerViewModel
+<div>
+    Привет, геймер по имени @Model.Name
+</div>
+
+@foreach(var game in Model.Games)
+{
+    <div>
+        @game.Name
+    </div>
+}

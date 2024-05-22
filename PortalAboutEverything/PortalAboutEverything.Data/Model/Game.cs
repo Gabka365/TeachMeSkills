@@ -7,5 +7,7 @@
         public int YearOfRelease { get; set; }
 
         public virtual List<BoardGameReview> Reviews { get; set; }
+        
+        public virtual List<User> UserWhoFavoriteTheGame { get; set; }
     }
 }

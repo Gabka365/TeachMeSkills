@@ -8,6 +8,7 @@ namespace PortalAboutEverything.Data
     {
         public const string CONNECTION_STRING = "Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True;Database=Net16Portal";
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<GameStore> GameStores { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -41,6 +42,10 @@ namespace PortalAboutEverything.Data
                 .WithOne(x => x.BoardGame)
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.FavoriteGames)
+                .WithMany(x => x.UserWhoFavoriteTheGame);
 
             base.OnModelCreating(modelBuilder);
         }
