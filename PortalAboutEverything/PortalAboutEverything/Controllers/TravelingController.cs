@@ -4,6 +4,7 @@ using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Traveling;
 using System.IO;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 
 namespace PortalAboutEverything.Controllers
@@ -11,13 +12,15 @@ namespace PortalAboutEverything.Controllers
     public class TravelingController : Controller
     {
         private TravelingRepositories _travelingRepositories;
+        private IWebHostEnvironment _hostingEnvironment;
+        private readonly string _pathTravelingUserPictures;
+        private readonly string[] _validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 
-        private static readonly string AssetsFolder = Path.Combine(AppContext.BaseDirectory, "Assets");
-        private readonly string ImagesFolder = Path.Combine(AssetsFolder, "Images");
-
-        public TravelingController(TravelingRepositories travelingRepositories)
+        public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment)
         {
             _travelingRepositories = travelingRepositories;
+            _hostingEnvironment = hostingEnvironment;
+            _pathTravelingUserPictures = Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling", "UserPictures");
         }
 
         public IActionResult Index()
@@ -48,14 +51,23 @@ namespace PortalAboutEverything.Controllers
                 .ToList();
 
             return View(travelingPostsViewModel);
-
         }
         [HttpGet]
         public IActionResult ShowImage(int id)
         {
-            var TravelingImage = _travelingRepositories.Get(id).NameImage;
+            string travelingImage = null;
+            foreach (var ext in _validExtensions)
+            {
+                var imageName = $"{id}.{ext}";
+                var imagePath = Path.Combine(_pathTravelingUserPictures, imageName);
 
-            return Ok(System.IO.File.OpenRead(Path.Combine(ImagesFolder, TravelingImage)));
+                if (System.IO.File.Exists(imagePath))
+                {
+                    travelingImage = imageName;
+                    break;
+                }
+            }
+            return Ok(System.IO.File.OpenRead(Path.Combine(_pathTravelingUserPictures, travelingImage)));
         }
 
         [HttpGet]
@@ -73,45 +85,41 @@ namespace PortalAboutEverything.Controllers
                 Desc = createTravelingViewModel.Desc,
                 TimeOfCreation = createTravelingViewModel.TimeOfCreation,
             };
-
+            _travelingRepositories.Create(traveling);
             if (image != null)
             {
-                var imageName = Path.GetFileName(image.FileName);
-                var fileExt = System.IO.Path.GetExtension(imageName).Substring(1);
-
-                if (fileExt == "png" || fileExt == "jpg" || fileExt == "jpeg" || fileExt == "gif")
+                var fileExt = Path.GetExtension(Path.GetFileName(image.FileName)).Substring(1);
+                var imageName = $"{traveling.Id}.{fileExt}";
+                if (_validExtensions.Contains(fileExt))
                 {
-                    if (!Directory.Exists(AssetsFolder))
+                    if (!Directory.Exists(_pathTravelingUserPictures))
                     {
-                        Directory.CreateDirectory(AssetsFolder);
-                    }
-                    if (!Directory.Exists(ImagesFolder))
-                    {
-                        Directory.CreateDirectory(ImagesFolder);
+                        Directory.CreateDirectory(_pathTravelingUserPictures);
                     }
 
-                    var path = Path.Combine(ImagesFolder, imageName);
+                    var path = Path.Combine(_pathTravelingUserPictures, imageName);
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         image.CopyTo(stream);
                     }
-                    traveling.NameImage = imageName;
                 }
             }
-
-            _travelingRepositories.Create(traveling);
-
             return RedirectToAction("TravelingPosts");
         }
 
         public IActionResult DeletePost(int id)
         {
-            var TravelingImage = _travelingRepositories.Get(id).NameImage;
-            if (TravelingImage != null)
+            foreach (var ext in _validExtensions)
             {
-                System.IO.File.Delete(Path.Combine(ImagesFolder, TravelingImage));
-            }
+                var imageName = $"{id}.{ext}";
+                var imagePath = Path.Combine(_pathTravelingUserPictures, imageName);
 
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                    break;
+                }
+            }
             _travelingRepositories.Delete(id);
             return RedirectToAction("TravelingPosts");
         }
