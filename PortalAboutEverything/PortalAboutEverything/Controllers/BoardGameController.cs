@@ -75,9 +75,16 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateReview()
+        public IActionResult CreateReview(int gameId)
         {
-            return View();
+            BoardGameCreateReviewViewModel createReviewViewModel =
+                new BoardGameCreateReviewViewModel
+                {
+                    BoardGameId = gameId,
+                    BoardGameName = _gameRepositories.Get(gameId).Title,
+                };
+
+            return View(createReviewViewModel);
         }
 
         [HttpPost]
@@ -127,6 +134,7 @@ namespace PortalAboutEverything.Controllers
 
             return new BoardGameViewModel
             {
+                Id = game.Id,
                 Title = game.Title,
                 MiniTitle = game.MiniTitle,
                 Description = game.Description,
