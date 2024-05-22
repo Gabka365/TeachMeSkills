@@ -91,8 +91,8 @@ namespace PortalAboutEverything.Controllers
         public IActionResult CreateReview(BoardGameCreateReviewViewModel boardGameReviewViewModel)
         {
             BoardGameReview review = BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
-
             _reviewRepositories.Create(review, boardGameReviewViewModel.BoardGameId);
+
             return RedirectToAction("BoardGame", new {id = review.BoardGame.Id});
         }
 
@@ -103,7 +103,6 @@ namespace PortalAboutEverything.Controllers
             BoardGameUpdateReviewViewModel viewModel = BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
             viewModel.BoardGameId = gameId;
             
-
             return View(viewModel);
         }
 

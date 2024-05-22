@@ -12,10 +12,8 @@ namespace PortalAboutEverything.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public List<BoardGame> GetAll() 
-            => _dbContext.BoardGames
-            .Include(boardGame => boardGame.Reviews)
-            .ToList();
+        public List<BoardGame> GetAll()
+            => _dbContext.BoardGames.ToList();
 
         public void Create(BoardGame boardGame)
         {

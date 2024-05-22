@@ -12,14 +12,12 @@ namespace PortalAboutEverything.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public List<BoardGameReview> GetAll() => _dbContext.BoardGameReviews.ToList();
-
         public void Create(BoardGameReview review, int boardGameId)
         {
             BoardGame boardGame = _dbContext.BoardGames.First(game => game.Id == boardGameId);
             review.BoardGame = boardGame;
-            _dbContext.BoardGameReviews.Add(review);
 
+            _dbContext.BoardGameReviews.Add(review);
             _dbContext.SaveChanges();
         }
 
@@ -34,8 +32,8 @@ namespace PortalAboutEverything.Data.Repositories
         public void Delete(int id)
         {
             BoardGameReview review = _dbContext.BoardGameReviews.Single(review => review.Id == id);
-            _dbContext.BoardGameReviews.Remove(review);
 
+            _dbContext.BoardGameReviews.Remove(review);
             _dbContext.SaveChanges();
         }
 
