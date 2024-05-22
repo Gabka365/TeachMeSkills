@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalAboutEverything.Data;
 
@@ -11,9 +12,11 @@ using PortalAboutEverything.Data;
 namespace PortalAboutEverything.Data.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    partial class PortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240520193107_AddBoardGame")]
+    partial class AddBoardGame
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,30 +146,6 @@ namespace PortalAboutEverything.Data.Migrations
                     b.ToTable("GameStores");
                 });
 
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.History", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("YearOfEvent")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("HistoryEvents");
-                });
-
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Movie", b =>
                 {
                     b.Property<int>("Id")
@@ -294,34 +273,6 @@ namespace PortalAboutEverything.Data.Migrations
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Game", b =>
                 {
                     b.Navigation("Reviews");
-                });
-
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.Traveling", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Desc")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameImage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TimeOfCreation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Travelings");
                 });
 #pragma warning restore 612, 618
         }

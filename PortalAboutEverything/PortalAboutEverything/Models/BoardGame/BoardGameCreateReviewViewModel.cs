@@ -2,6 +2,8 @@
 {
     public class BoardGameCreateReviewViewModel
     {
+        public int BoardGameId { get; set; }
+        public string BoardGameName { get; set; }
         public string Name { get; set; }
         public string Text { get; set; }
     }

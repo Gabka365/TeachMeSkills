@@ -11,9 +11,9 @@ body {
     max-height: 74px;
 }
 
-    .banner img {
-        max-width: 100%;
-    }
+.banner img {
+    max-width: 100%;
+}
 
 .container {
     width: 100%;
@@ -27,14 +27,14 @@ body {
     color: white;
 }
 
-    .board-game-header a {
-        color: white;
-        text-decoration: none;
-    }
+.board-game-header a {
+    color: white;
+    text-decoration: none;
+}
 
-        .board-game-header a:hover {
-            color: #fc0;
-        }
+.board-game-header a:hover {
+    color: #fc0;
+}
 
 .header-elements {
     display: flex;
@@ -70,6 +70,10 @@ body {
     margin-left: 100px;
 }
 
+.elongated-image {
+    max-height: 322px;
+}
+
 .description p {
     text-align: justify;
 }
@@ -81,15 +85,15 @@ body {
     padding: 20px;
 }
 
-    .price-card .first-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 30px;
-    }
+.price-card .first-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
 
-    .price-card .code {
-        font-size: 10px;
-    }
+.price-card .code {
+    font-size: 10px;
+}
 
 button {
     cursor: pointer;
@@ -102,10 +106,10 @@ button {
     margin: auto;
 }
 
-    .price-card .buttons button {
-        height: 40px;
-        font-size: 20px;
-    }
+.price-card .buttons button {
+    height: 40px;
+    font-size: 20px;
+}
 
 .highlighted-button {
     color: white;
@@ -140,20 +144,20 @@ button {
     margin-bottom: 50px;
 }
 
-    .review .name-and-date {
-        display: flex;
-        gap: 35px;
-        align-items: center;
-    }
+.review .name-and-date {
+    display: flex;
+    gap: 35px;
+    align-items: center;
+}
 
-    .review .name {
-        font-size: 15px;
-        font-weight: 700;
-    }
+.review .name {
+    font-size: 15px;
+    font-weight: 700;
+}
 
-    .review .date {
-        font-size: 12px;
-    }
+.review .date {
+    font-size: 12px;
+}
 
 .update-and-delete img {
     max-width: 20px;
@@ -166,10 +170,10 @@ button {
     gap: 20px;
 }
 
-    .review-buttons button {
-        border-radius: 15px;
-        padding: 10px;
-    }
+.review-buttons button {
+    border-radius: 15px;
+    padding: 10px;
+}
 
 .board-game-footer {
     background-color: rgb(33, 33, 33);
