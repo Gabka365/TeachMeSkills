@@ -85,6 +85,10 @@
     margin-bottom: 10px;
 }
 
+.mostRecent__card__data {
+    padding-right: 30px;
+}
+
 .mostRecent__card__ava {
     position: relative;
     padding-left: 30px;
@@ -103,5 +107,3 @@
 .footer[b-arziu4cny0] {
     position: relative;
 }
-
-
