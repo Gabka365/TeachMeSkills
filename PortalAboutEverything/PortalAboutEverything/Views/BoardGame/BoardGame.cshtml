@@ -116,8 +116,8 @@
                     @rewiev.Text
                 </p>
                 <div class="update-and-delete">
-                    <a href="/BoardGame/UpdateReview?id=@rewiev.Id"><img src="/images/BoardGame/edit.svg" /></a>
-                    <a href="/BoardGame/DeleteReview?id=@rewiev.Id"><img src="/images/BoardGame/delete.svg" /></a>
+                    <a href="/BoardGame/UpdateReview?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/edit.svg" /></a>
+                    <a href="/BoardGame/DeleteReview?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/delete.svg" /></a>
                 </div>
             </div>
         }

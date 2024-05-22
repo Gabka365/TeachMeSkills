@@ -27,6 +27,11 @@ namespace PortalAboutEverything.Data.Repositories
         public BoardGame Get(int id)
             => _dbContext.BoardGames.Single(boardGame => boardGame.Id == id);
 
+        public BoardGame GetWithReviews(int id)
+            => _dbContext.BoardGames
+            .Include(boardGame => boardGame.Reviews)
+            .Single(boardGame => boardGame.Id == id);
+
         public void Delete(int id)
         {
             BoardGame boardGame = _dbContext.BoardGames.Single(boardGame => boardGame.Id == id);

@@ -10,6 +10,7 @@
     </h2>
     <form method="post">
         @Html.HiddenFor(review => review.Id)
+        @Html.HiddenFor(review => review.BoardGameId)
         <div>
             @Html.TextBoxFor(review => review.Name, new
                 {

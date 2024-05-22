@@ -68,7 +68,7 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult BoardGame(int id)
         {
-            BoardGame gameViewModel = _gameRepositories.Get(id);
+            BoardGame gameViewModel = _gameRepositories.GetWithReviews(id);
             BoardGameViewModel viewModel = BuildBoardGameViewModel(gameViewModel);
 
             return View(viewModel);
@@ -92,15 +92,17 @@ namespace PortalAboutEverything.Controllers
         {
             BoardGameReview review = BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
 
-            _reviewRepositories.Create(review);
-            return RedirectToAction("BoardGame");
+            _reviewRepositories.Create(review, boardGameReviewViewModel.BoardGameId);
+            return RedirectToAction("BoardGame", new {id = review.BoardGame.Id});
         }
 
         [HttpGet]
-        public IActionResult UpdateReview(int id)
+        public IActionResult UpdateReview(int id, int gameId)
         {
-            BoardGameReview reviewForUpdate = _reviewRepositories.Get(id);
-            BoardGameUpdateReviewViewModel viewModel = BuildBoardGameUpdateRewievDataModel(reviewForUpdate);
+            BoardGameReview reviewForUpdate = _reviewRepositories.GetWithBoardGame(id);
+            BoardGameUpdateReviewViewModel viewModel = BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
+            viewModel.BoardGameId = gameId;
+            
 
             return View(viewModel);
         }
@@ -109,18 +111,19 @@ namespace PortalAboutEverything.Controllers
         public IActionResult UpdateReview(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
         {
             BoardGameReview updatedReview = BuildBoardGameRewievDataModelFromUpdate(boardGameReviewViewModel);
-            _reviewRepositories.Update(updatedReview);
+            _reviewRepositories.Update(updatedReview, boardGameReviewViewModel.BoardGameId);
 
-            return RedirectToAction("BoardGame");
+            return RedirectToAction("BoardGame", new { id = updatedReview.BoardGame.Id });
         }
 
-        public IActionResult DeleteReview(int id)
+        public IActionResult DeleteReview(int id, int gameId)
         {
             _reviewRepositories.Delete(id);
 
-            return RedirectToAction("BoardGame");
+            return RedirectToAction("BoardGame", new {id = gameId});
         }
 
+        #region BoardGameBuilders
         private BoardGameViewModel BuildBoardGameViewModel(BoardGame game)
         {
             List<BoardGameReviewViewModel> reviewViewModels = new();
@@ -189,7 +192,9 @@ namespace PortalAboutEverything.Controllers
                 Id = game.Id,
                 Title = game.Title,
             };
+        #endregion
 
+        #region ReviewBuilders
         private BoardGameReviewViewModel BuildBoardGameRewievViewModel(BoardGameReview review)
             => new BoardGameReviewViewModel
             {
@@ -216,11 +221,13 @@ namespace PortalAboutEverything.Controllers
                 Text = reviewViewModel.Text,
             };
 
-        private BoardGameUpdateReviewViewModel BuildBoardGameUpdateRewievDataModel(BoardGameReview review)
+        private BoardGameUpdateReviewViewModel BuildBoardGameUpdateRewievViewModel(BoardGameReview review)
             => new BoardGameUpdateReviewViewModel
             {
+                BoardGameName = review.BoardGame.Title,
                 Name = review.Name,
                 Text = review.Text,
             };
+        #endregion
     }
 }
