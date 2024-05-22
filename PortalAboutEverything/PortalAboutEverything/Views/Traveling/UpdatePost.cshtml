@@ -1,16 +1,21 @@
 ﻿@model PortalAboutEverything.Models.Traveling.TravelingUpdateViewModel
 
-@section StyleTraveling {
-    <link rel="stylesheet" href="/css/Traveling/post/style.css" />
+@section Style {   
+    <link rel="stylesheet" href="/css/lib/bootstrap/dist/css/bootstrap.css" />
 }
-<form method="post">
-    <div>
-        @Html.TextBoxFor(x => x.Name, new { placeholder = "Введите имя" })
-    </div>
-    <div>
-        @Html.TextAreaFor(x => x.Desc, new { placeholder = "Введите отзыв" })
-    </div>
-    <div>
-        <input type="submit" value="Обновить" />
-    </div>
-</form>
+
+<div class="container mt-5">
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Имя</label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", id = "name", placeholder = "Введите имя" })
+        </div>
+        <div class="form-group">
+            <label for="desc">Отзыв</label>
+            @Html.TextAreaFor(x => x.Desc, new { @class = "form-control", id = "desc", rows = "3", placeholder = "Введите отзыв" })
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Обновить" style="margin-top: 20px" />
+        </div>
+    </form>
+</div>
