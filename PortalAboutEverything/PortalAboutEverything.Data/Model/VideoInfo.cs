@@ -1,6 +1,8 @@
+using PortalAboutEverything.Data.Model.Abstract;
+
 namespace PortalAboutEverything.Data.Model;
 
-public class VideoInfo
+public class VideoInfo : DbModel
 {
     public Guid Id { get; set; }
     public string FilePath { get; set; }

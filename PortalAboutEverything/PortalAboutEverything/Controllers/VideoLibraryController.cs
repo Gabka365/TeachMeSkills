@@ -1,27 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PortalAboutEverything.Data.Enums.VideoLibrary;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Data.Services.VideoLibrary;
 using PortalAboutEverything.Models.VideoLibrary;
+using PortalAboutEverything.VideoServices.Enums;
+using PortalAboutEverything.VideoServices.Services;
 
 namespace PortalAboutEverything.Controllers;
 
 public class VideoLibraryController : Controller
 {
     private readonly VideoLibraryRepository _videoLibraryRepository;
-    private readonly VideoProcessorService _videoProcessor;
+    private readonly VideoService _video;
 
-    public VideoLibraryController(VideoLibraryRepository videoLibraryRepository, VideoProcessorService videoProcessor)
+    public VideoLibraryController(VideoLibraryRepository videoLibraryRepository, VideoService video)
     {
         _videoLibraryRepository = videoLibraryRepository;
-        _videoProcessor = videoProcessor;
+        _video = video;
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public IActionResult ndex()
     {
-        var videos = _videoLibraryRepository.GetAllVideos(isLiked: false).Select(GenerateVideoViewModel).ToList();
+        var videos = _videoLibraryRepository.GetAll(isLiked: false).Select(GenerateVideoViewModel).ToList();
         
         return View(videos);
     }
@@ -29,7 +29,7 @@ public class VideoLibraryController : Controller
     [HttpGet]
     public IActionResult Liked()
     {
-        var videos = _videoLibraryRepository.GetAllVideos(isLiked: true).Select(GenerateVideoViewModel).ToList();
+        var videos = _videoLibraryRepository.GetAll(isLiked: true).Select(GenerateVideoViewModel).ToList();
         
         return View(videos);
     }
@@ -38,9 +38,9 @@ public class VideoLibraryController : Controller
     public IActionResult Player(Guid id)
     {
         if (string.IsNullOrWhiteSpace(id.ToString())) return BadRequest();
-        var video = _videoLibraryRepository.GetVideo(id);
+        var video = _videoLibraryRepository.Get(id);
 
-        return View(GenerateVideoViewModel(video));
+        return video is null ? View() : View(GenerateVideoViewModel(video));
     }
 
     [HttpGet]
@@ -53,23 +53,28 @@ public class VideoLibraryController : Controller
             return BadRequest("Wrong size");
         }
 
-        var thumbnailPath = _videoLibraryRepository.GetThumbnailPath(id, parsedSize);
+        var thumbnailPath = _video.GetThumbnailPath(id, parsedSize);
 
-        return System.IO.File.Exists(thumbnailPath)
+        return thumbnailPath is not null || System.IO.File.Exists(thumbnailPath)
             ? Ok(System.IO.File.OpenRead(thumbnailPath))
             : NotFound("Thumbnail file not found");
     }
 
     [HttpGet]
-    public async Task UpdateLibrary()
+    public void UpdateLibrary()
     {
-        await _videoProcessor.ScanUnsortedVideoFolder();
+        _ = _video.ScanUnsortedVideoFolder();
     }
 
     [HttpGet]
     public IActionResult GetVideo(Guid id)
     {
         var videoPath = _videoLibraryRepository.GetVideoPath(id);
+
+        if (videoPath is null)
+        {
+            return NotFound("Видео не найдено");
+        }
 
         var videoStream = System.IO.File.OpenRead(videoPath);
 
@@ -85,13 +90,22 @@ public class VideoLibraryController : Controller
     [HttpGet]
     public void UpdateVideoLikeState(Guid id, [FromQuery] bool isLiked)
     {
-        _videoLibraryRepository.UpdateVideoLikeState(id, isLiked);
+        _videoLibraryRepository.UpdateLikeState(id, isLiked);
     }
 
     [HttpGet]
     public void DeleteVideo(Guid id)
     {
-        _videoLibraryRepository.DeleteVideo(id);
+        var video = _videoLibraryRepository.Get(id);
+
+        if (video is null)
+        {
+            return;
+        }
+        
+        _video.DeleteVideo(video.FilePath);
+        VideoService.DeleteThumbnailFolder(id.ToString());
+        _videoLibraryRepository.Delete(id);
     }
 
     private VideoLibraryVideoViewModel GenerateVideoViewModel(VideoInfo videoInfo)

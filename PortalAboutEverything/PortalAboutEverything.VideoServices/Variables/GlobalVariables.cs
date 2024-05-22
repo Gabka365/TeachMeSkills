@@ -1,4 +1,4 @@
-namespace PortalAboutEverything.Data.Variables.VideoLibrary;
+namespace PortalAboutEverything.VideoServices.Variables;
 
 public static class GlobalVariables
 {
@@ -16,4 +16,6 @@ public static class GlobalVariables
 
     public static readonly string UnsortedVideosFolder = Path.Combine(ProjectFolder, "Unsorted Videos");
     public static readonly string ExportedVideosFolder = Path.Combine(ProjectFolder, "Exported Videos");
+
+    public static readonly int ThumbnailGenerationMaxParallelProcesses = 2;
 }
