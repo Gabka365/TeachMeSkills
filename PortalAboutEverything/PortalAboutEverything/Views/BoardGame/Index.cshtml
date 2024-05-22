@@ -1,19 +1,29 @@
 ﻿@model List<PortalAboutEverything.Models.BoardGame.BoardGameIndexViewModel>
 
-<div>
-    <h2>Список лучших настольных игр</h2>
-    <ul>
-        @foreach (var game in Model)
-        {          
-            <li><a class="text-dark" href="/BoardGame/BoardGame?Id=@game.Id">@game.Title</a></li>
-            <div class="update-and-delete">
-                <a href="/BoardGame/UpdateBoardGame?id=@game.Id"><img src="/images/BoardGame/edit.svg" /></a>
-                <a href="/BoardGame/DeleteBoardGame?id=@game.Id"><img src="/images/BoardGame/delete.svg" /></a>
-            </div>
+@section Style {
+    <link href="/css/BoardGame/boardGamesIndex.css" rel="stylesheet" />
+}
+
+<div class="board-game-list">
+    <h2 class="title">Список лучших настольных игр</h2>
+    <ul class="board-games">
+        @foreach (var boardGame in Model)
+        {
+            <li class="board-game-item">
+                <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@boardGame.Id">@boardGame.Title</a>
+                <div class="update-and-delete">
+                    <a class="edit-link" href="/BoardGame/UpdateBoardGame?id=@boardGame.Id">
+                        <img class="icon edit-icon" src="/images/BoardGame/edit.svg" alt="Edit" />
+                    </a>
+                    <a class="delete-link" href="/BoardGame/DeleteBoardGame?id=@boardGame.Id">
+                        <img class="icon delete-icon" src="/images/BoardGame/delete.svg" alt="Delete" />
+                    </a>
+                </div>
+            </li>
         }
     </ul>
 
-    <div>
-        <a href="/BoardGame/CreateBoardGame">Добавить игру</a>
+    <div class="add-board-game">
+        <a class="add-board-game-link" href="/BoardGame/CreateBoardGame">Добавить игру</a>
     </div>
 </div>
