@@ -47,6 +47,10 @@ namespace PortalAboutEverything.Data
                 .HasMany(x => x.FavoriteGames)
                 .WithMany(x => x.UserWhoFavoriteTheGame);
 
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.FavoriteBoardsGames)
+                .WithMany(x => x.UsersWhoFavoriteThisBoardGame);
+
             base.OnModelCreating(modelBuilder);
         }
     }
