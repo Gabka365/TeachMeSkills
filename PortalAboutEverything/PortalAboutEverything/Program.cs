@@ -34,6 +34,7 @@ builder.Services.AddScoped<HistoryRepositories>();
 builder.Services.AddSingleton<BookRepositories>();
 builder.Services.AddScoped<StoreRepositories>();
 builder.Services.AddScoped<GameStoreRepositories>();
+builder.Services.AddScoped<CommentRepository>();
 
 // Services
 builder.Services.AddScoped<AuthService>();

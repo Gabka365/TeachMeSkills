@@ -18,15 +18,18 @@ namespace PortalAboutEverything.Controllers
         private IWebHostEnvironment _hostingEnvironment;
         private AuthService _authService;
         private readonly string _pathTravelingUserPictures;
+        private readonly CommentRepository _commentRepository;
         private readonly string[] _validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 
-        public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment, UserRepository userRepository, AuthService authService)
+        public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment, 
+                                   UserRepository userRepository, AuthService authService, CommentRepository commentRepository)
         {
             _travelingRepositories = travelingRepositories;
             _hostingEnvironment = hostingEnvironment;
             _pathTravelingUserPictures = Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling", "UserPictures");
             _userRepository = userRepository;
             _authService = authService;
+            _commentRepository = commentRepository; 
         }
 
         public IActionResult Index()
@@ -116,6 +119,18 @@ namespace PortalAboutEverything.Controllers
             }
             return RedirectToAction("TravelingPosts");
         }
+        public IActionResult CreateComent(int id, string text)
+        {
+            var comment = new Comment
+            {
+                Text = text,
+                Traveling = _travelingRepositories.Get(id)
+            };
+           
+            _commentRepository.Create(comment);
+
+           return RedirectToAction("TravelingPosts");
+        }
 
         public IActionResult DeletePost(int id)
         {
@@ -171,6 +186,7 @@ namespace PortalAboutEverything.Controllers
                Name = traveling.Name,
                TimeOfCreation = traveling.TimeOfCreation,
                UserId = traveling.User.Id,
+               Comments = _commentRepository.GetWithTravel(traveling.Id)
            };
 
     }
