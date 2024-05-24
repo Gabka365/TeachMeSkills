@@ -160,7 +160,6 @@ namespace PortalAboutEverything.Controllers
                Desc = traveling.Desc,
                Name = traveling.Name,
                TimeOfCreation = traveling.TimeOfCreation,
-               NameImage = traveling.NameImage,
            };
 
     }
