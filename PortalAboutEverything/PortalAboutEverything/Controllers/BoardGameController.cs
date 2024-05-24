@@ -2,6 +2,8 @@
 using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -9,11 +11,15 @@ namespace PortalAboutEverything.Controllers
     {
         private BoardGameRepositories _gameRepositories;
         private BoardGameReviewRepositories _reviewRepositories;
+        private AuthService _authServise;
 
-        public BoardGameController(BoardGameRepositories gameRepositories, BoardGameReviewRepositories reviewRepositories)
+        public BoardGameController(BoardGameRepositories gameRepositories, 
+            BoardGameReviewRepositories reviewRepositories, 
+            AuthService authService)
         {
             _gameRepositories = gameRepositories;
             _reviewRepositories = reviewRepositories;
+            _authServise = authService;
         }
 
         public IActionResult Index()
@@ -70,6 +76,23 @@ namespace PortalAboutEverything.Controllers
         {
             BoardGame gameViewModel = _gameRepositories.GetWithReviews(id);
             BoardGameViewModel viewModel = BuildBoardGameViewModel(gameViewModel);
+
+            return View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult UserFavoriteBoardGames()
+        {
+            string userName = _authServise.GetUserName();
+            int userId = _authServise.GetUserId();
+
+            List<BoardGame> favoriteBoardGames = _gameRepositories.GetFavoriteBoardGamesForUser(userId);
+
+            UserFavoriteBoardGamesViewModel viewModel = new()
+            {
+                Name = userName,
+                FavoriteBoardGames = favoriteBoardGames.Select(BuildBoardGameViewModel).ToList()
+            };
 
             return View(viewModel);
         }

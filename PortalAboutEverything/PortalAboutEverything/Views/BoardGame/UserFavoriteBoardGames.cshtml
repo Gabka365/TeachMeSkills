@@ -1,0 +1,17 @@
+﻿@model PortalAboutEverything.Models.BoardGame.UserFavoriteBoardGamesViewModel
+
+@section Style {
+    <link href="/css/BoardGame/boardGamesIndex.css" rel="stylesheet" />
+}
+
+<div class="board-game-list">
+    <h2 class="title">Список любимых настольных игр пользователя "@Model.Name"</h2>
+    <ul class="board-games">
+        @foreach (var boardGame in Model.FavoriteBoardGames)
+        {
+            <li class="board-game-item">
+                <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@boardGame.Id">@boardGame.Title</a>
+            </li>
+        }
+    </ul>
+</div>
