@@ -50,8 +50,11 @@
                                     </div>
                                     <div class="u-clearfix u-group-elements u-group-elements-2">
                                         <!--blog_post_readmore-->
-                                        <a href="/Traveling/DeletePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-1">Удалить</a>
-                                        <a href="/Traveling/UpdatePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-2">Редактировать</a>
+                                        @if (User.Identity is not null && (User.Identity.IsAuthenticated && post.UserId.ToString() == User.Claims.FirstOrDefault(x => x.Type == "Id")?.Value))
+                                        {
+                                            <a href="/Traveling/DeletePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-1">Удалить</a>
+                                            <a href="/Traveling/UpdatePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-2">Редактировать</a>
+                                        }
                                     </div>
                                 </div>
                             </div>

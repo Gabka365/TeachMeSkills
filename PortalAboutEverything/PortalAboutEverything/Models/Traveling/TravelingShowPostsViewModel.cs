@@ -7,5 +7,6 @@
         public string Desc { get; set; }
         public string TimeOfCreation { get; set; }
         public string? NameImage { get; set; }
+        public int UserId { get; set; }
     }
 }

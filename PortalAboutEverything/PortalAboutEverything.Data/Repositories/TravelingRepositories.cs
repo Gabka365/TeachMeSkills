@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
@@ -13,6 +14,10 @@ namespace PortalAboutEverything.Data.Repositories
             dbTraveling.Name = traveling.Name;
             dbTraveling.Desc = traveling.Desc;
             _dbContext.SaveChanges();
+        }
+        public override List<Traveling> GetAll()
+        {
+            return _dbSet.Include(x => x.User).ToList();
         }
     }
 }

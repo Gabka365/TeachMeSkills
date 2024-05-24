@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Traveling;
+using PortalAboutEverything.Services;
 using System.IO;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
@@ -12,15 +14,19 @@ namespace PortalAboutEverything.Controllers
     public class TravelingController : Controller
     {
         private TravelingRepositories _travelingRepositories;
+        private UserRepository _userRepository;
         private IWebHostEnvironment _hostingEnvironment;
+        private AuthService _authService;
         private readonly string _pathTravelingUserPictures;
         private readonly string[] _validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 
-        public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment)
+        public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment, UserRepository userRepository, AuthService authService)
         {
             _travelingRepositories = travelingRepositories;
             _hostingEnvironment = hostingEnvironment;
             _pathTravelingUserPictures = Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling", "UserPictures");
+            _userRepository = userRepository;
+            _authService = authService;
         }
 
         public IActionResult Index()
@@ -42,7 +48,7 @@ namespace PortalAboutEverything.Controllers
 
             return View(model);
         }
-
+        [HttpGet]
         public IActionResult TravelingPosts()
         {
             var travelingPostsViewModel = _travelingRepositories
@@ -69,21 +75,25 @@ namespace PortalAboutEverything.Controllers
             }
             return Ok(System.IO.File.OpenRead(Path.Combine(_pathTravelingUserPictures, travelingImage)));
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult CreatePost()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult CreatePost(TravelingCreateViewModel createTravelingViewModel, IFormFile image)
         {
+            var userId = _authService.GetUserId();
+            var user = _userRepository.Get(userId);
             var traveling = new Traveling
             {
                 Name = createTravelingViewModel.Name,
                 Desc = createTravelingViewModel.Desc,
                 TimeOfCreation = createTravelingViewModel.TimeOfCreation,
+                User = user
             };
             _travelingRepositories.Create(traveling);
             if (image != null)
@@ -160,6 +170,7 @@ namespace PortalAboutEverything.Controllers
                Desc = traveling.Desc,
                Name = traveling.Name,
                TimeOfCreation = traveling.TimeOfCreation,
+               UserId = traveling.User.Id,
            };
 
     }
