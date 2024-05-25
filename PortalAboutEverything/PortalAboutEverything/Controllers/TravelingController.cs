@@ -51,6 +51,7 @@ namespace PortalAboutEverything.Controllers
 
             return View(model);
         }
+
         [HttpGet]
         public IActionResult TravelingPosts()
         {
@@ -78,6 +79,7 @@ namespace PortalAboutEverything.Controllers
             }
             return Ok(System.IO.File.OpenRead(Path.Combine(_pathTravelingUserPictures, travelingImage)));
         }
+
         [Authorize]
         [HttpGet]
         public IActionResult CreatePost()
