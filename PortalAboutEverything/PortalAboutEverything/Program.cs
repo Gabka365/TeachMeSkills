@@ -33,6 +33,7 @@ builder.Services.AddScoped<BoardGameReviewRepositories>();
 builder.Services.AddScoped<HistoryRepositories>();
 builder.Services.AddSingleton<BookRepositories>();
 builder.Services.AddScoped<StoreRepositories>();
+builder.Services.AddScoped<GoodReviewRepositories>();
 builder.Services.AddScoped<GameStoreRepositories>();
 
 // Services
