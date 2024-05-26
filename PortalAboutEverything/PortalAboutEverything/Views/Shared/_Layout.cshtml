@@ -6,10 +6,8 @@
     <title>@ViewData["Title"] - PortalAboutEverything</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/videosort/videosort.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PortalAboutEverything.styles.css" asp-append-version="true" />
     @RenderSection("Style", false)
-    @RenderSection("StyleTraveling", false)
     @RenderSection("MovieStyle", false)
     @RenderSection("BookClubStyle", false)
 </head>
@@ -27,20 +25,35 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Home/Index">Home</a>
                         </li>
+
+                        @if ((!User?.Identity?.IsAuthenticated) ?? true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Auth/Login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Auth/Logout">Logout</a>
+                            </li>
+                        }
+
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Home/Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Game/Index">Игры</a>
                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/HomeWorkHushchyn/Index">HomeWorkHushchyn</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/History/Index">История</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Traveling/Index">Путешествие</a>
                         </li>
-                        <li class="nav-item">                            
-                            <a class="nav-link text-dark" href="/VideoSort/Chat">Ancient</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/VideoLibrary">Ancient</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/BoardGame/Index">Настольные игры</a>
@@ -56,6 +69,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/BookClub/Index">IT книжный клуб</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Store/Index">Online store</a>
                         </li>
                     </ul>
                 </div>

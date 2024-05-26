@@ -1,30 +1,70 @@
 ﻿@model List<PortalAboutEverything.Models.Traveling.TravelingShowPostsViewModel>
 
-@section StyleTraveling {
+@section Style {
     <link rel="stylesheet" href="/css/Traveling/posts/style.css" />
+    <link rel="stylesheet" href="/css/Traveling/nicepage.css" />
+}
+@if (Model != null && Model.Count != 0)
+{
+    <div class="u-body u-xl-mode" data-lang="ru">
+        <section class="u-align-center u-clearfix u-section-1" id="sec-b5d7">
+            <div class="u-clearfix u-sheet u-sheet-1">
+                <div class="custom-expanded u-container-style u-post-details u-post-details-1">
+                    <div class="u-container-layout u-container-layout-1">
+
+                        @foreach (var post in Model)
+                        {
+                            <h3 class="u-blog-control u-text u-text-1">
+                                @post.Name
+                            </h3>
+
+                            <div class="custom-expanded u-container-style u-grey-10 u-group u-group-1">
+                                <div class="u-container-layout u-container-layout-2">
+
+                                    <div class="u-container-style u-grey-10 u-group u-group-2">
+                                        <div class="u-container-layout">
+                                            <div class="u-clearfix u-group-elements u-group-elements-1">
+
+                                                @{
+                                                    string[] validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
+                                                    foreach (var ext in validExtensions)
+                                                    {
+                                                        var imagePath = System.IO.Path.Combine($"wwwroot/images/traveling/UserPictures/{post.Id}.{ext}");
+                                                        if (System.IO.File.Exists(imagePath))
+                                                        {
+                                                            <img alt="" class="custom-expanded u-blog-control u-image u-image-default u-image-1" src="/Traveling/ShowImage/@post.Id">
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+
+                                            </div>
+                                            <p class="u-align-center u-text u-text-2">@post.Desc</p>
+                                            <p class="u-text u-text-3">@post.Name</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="u-blog-control u-metadata u-metadata-1">
+                                        <span class="u-meta-date u-meta-icon">@post.TimeOfCreation</span>
+                                    </div>
+                                    <div class="u-clearfix u-group-elements u-group-elements-2">
+                                        <!--blog_post_readmore-->
+                                        <a href="/Traveling/DeletePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-1">Удалить</a>
+                                        <a href="/Traveling/UpdatePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-2">Редактировать</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <p class="u-text u-text-default u-text-4">Ваши коментарии </p>
+
+                        <a href="/Traveling/CreatePost" class="u-btn u-button-style u-btn-3">Создать новый пост</a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 }
 
- @foreach (var post in Model)
- {
-   <div class="name_post">
-       <div>
-           Имя поста
-           <div>
-                @post.TimeOfCreation
-           </div>
-       </div>
-       @post.Name   
-        <div class="post_actions">
-                <a href="/Traveling/UpdatePost/@post.Id">Редактировать</a>
-                <a href="/Traveling/DeletePost/@post.Id">Удалить</a>
-        </div>
-   </div>
-    <div class="desc_post" style="word-wrap: break-word;">
-       @post.Desc
-   </div>
 
- }
-
-<div class="post">
-    <a href="/Traveling/CreatePost">Оставить свой отзыв</a>
-</div>

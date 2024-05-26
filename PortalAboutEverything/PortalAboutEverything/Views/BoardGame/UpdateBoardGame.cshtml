@@ -1,0 +1,66 @@
+﻿@model PortalAboutEverything.Models.BoardGame.BoardGameUpdateViewModel
+
+@section Style {
+    <link href="/css/BoardGame/forms.css" rel="stylesheet" />
+}
+
+<div class="review-form">
+    <h2>
+        Редактирование игры @Model.Title
+    </h2>
+    <form method="post">
+        @Html.HiddenFor(boardGame => boardGame.Id)
+        <div>
+            @Html.TextBoxFor(boardGame => boardGame.Title, new
+                {
+                    placeholder = "Название игры",
+                    @class = "reviewer-name"
+                })
+        </div>
+        <div>
+            @Html.TextBoxFor(boardGame => boardGame.MiniTitle, new
+                {
+                    placeholder = "Слоган игры",
+                    @class = "reviewer-name"
+                })
+        </div>
+        <div>
+            @Html.TextAreaFor(boardGame => boardGame.Description, new
+                {
+                    placeholder = "Описание игры",
+                    @class = "reviewer-name"
+                })
+        </div>
+        <div>
+            @Html.TextAreaFor(boardGame => boardGame.Essence, new
+                {
+                    placeholder = "Суть игры",
+                    @class = "reviewer-name"
+                })
+        </div>
+        <div>
+            @Html.TextBoxFor(boardGame => boardGame.Tags, new
+                {
+                    placeholder = "Тег для игры",
+                    @class = "reviewer-name"
+                })
+        </div>
+        <div>
+            @Html.TextBoxFor(boardGame => boardGame.Price, new
+                {
+                    placeholder = "Цена игры",
+                    @class = "reviewer-name"
+                })
+        </div>
+        <div>
+            @Html.TextBoxFor(boardGame => boardGame.ProductCode, new
+                {
+                    placeholder = "Код товара",
+                    @class = "reviewer-name"
+                })
+        </div>
+        <div>
+            <input class="button-send" type="submit" value="Сохранить изменения" />
+        </div>
+    </form>
+</div>

@@ -3,6 +3,8 @@ using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Traveling;
+using System.IO;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 
 namespace PortalAboutEverything.Controllers
@@ -10,25 +12,33 @@ namespace PortalAboutEverything.Controllers
     public class TravelingController : Controller
     {
         private TravelingRepositories _travelingRepositories;
+        private IWebHostEnvironment _hostingEnvironment;
+        private readonly string _pathTravelingUserPictures;
+        private readonly string[] _validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 
-        public TravelingController(TravelingRepositories travelingRepositories)
+        public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment)
         {
             _travelingRepositories = travelingRepositories;
+            _hostingEnvironment = hostingEnvironment;
+            _pathTravelingUserPictures = Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling", "UserPictures");
         }
 
         public IActionResult Index()
         {
-            var month = DateTime.Now.ToString("MMMM", new System.Globalization.CultureInfo("en-US"));
-            var year = DateTime.Now.Year;
-            var day = DateTime.Now.Day;
+            var dateTime1 = new DateTime(2015, 9, 25);
+            var dateTime2 = new DateTime(2016, 10, 13);
+            var dateTime3 = new DateTime(2012, 1, 14);
+            var dateTime4 = new DateTime(2014, 5, 20);
+            var dateTime5 = new DateTime(2011, 4, 22);
+            var dateTime6 = new DateTime(2010, 2, 21);
 
-            var model = new TravelingIndexViewModel
-            {
-                Month = month,
-                Year = year,
-                Day = day,
-                When = $"{month} {day} {year}"
-            };
+            var model = new TravelingIndexViewModel();
+            model.TravelingDate.Add(dateTime1);
+            model.TravelingDate.Add(dateTime2);
+            model.TravelingDate.Add(dateTime3);
+            model.TravelingDate.Add(dateTime4);
+            model.TravelingDate.Add(dateTime5);
+            model.TravelingDate.Add(dateTime6);
 
             return View(model);
         }
@@ -42,6 +52,23 @@ namespace PortalAboutEverything.Controllers
 
             return View(travelingPostsViewModel);
         }
+        [HttpGet]
+        public IActionResult ShowImage(int id)
+        {
+            string travelingImage = null;
+            foreach (var ext in _validExtensions)
+            {
+                var imageName = $"{id}.{ext}";
+                var imagePath = Path.Combine(_pathTravelingUserPictures, imageName);
+
+                if (System.IO.File.Exists(imagePath))
+                {
+                    travelingImage = imageName;
+                    break;
+                }
+            }
+            return Ok(System.IO.File.OpenRead(Path.Combine(_pathTravelingUserPictures, travelingImage)));
+        }
 
         [HttpGet]
         public IActionResult CreatePost()
@@ -50,7 +77,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePost(TravelingCreateViewModel createTravelingViewModel)
+        public IActionResult CreatePost(TravelingCreateViewModel createTravelingViewModel, IFormFile image)
         {
             var traveling = new Traveling
             {
@@ -58,16 +85,45 @@ namespace PortalAboutEverything.Controllers
                 Desc = createTravelingViewModel.Desc,
                 TimeOfCreation = createTravelingViewModel.TimeOfCreation,
             };
-
             _travelingRepositories.Create(traveling);
+            if (image != null)
+            {
+                var fileExt = Path.GetExtension(Path.GetFileName(image.FileName)).Substring(1);
+                var imageName = $"{traveling.Id}.{fileExt}";
+                if (_validExtensions.Contains(fileExt))
+                {
+                    if (!Directory.Exists(_pathTravelingUserPictures))
+                    {
+                        Directory.CreateDirectory(_pathTravelingUserPictures);
+                    }
 
+                    var path = Path.Combine(_pathTravelingUserPictures, imageName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        image.CopyTo(stream);
+                    }
+                }
+            }
             return RedirectToAction("TravelingPosts");
         }
+
         public IActionResult DeletePost(int id)
         {
+            foreach (var ext in _validExtensions)
+            {
+                var imageName = $"{id}.{ext}";
+                var imagePath = Path.Combine(_pathTravelingUserPictures, imageName);
+
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                    break;
+                }
+            }
             _travelingRepositories.Delete(id);
             return RedirectToAction("TravelingPosts");
         }
+
         [HttpGet]
         public IActionResult UpdatePost(int id)
         {
@@ -77,10 +133,11 @@ namespace PortalAboutEverything.Controllers
                 Id = traveling.Id,
                 Name = traveling.Name,
                 Desc = traveling.Desc,
-                
+
             };
             return View(model);
         }
+
         [HttpPost]
         public IActionResult UpdatePost(TravelingUpdateViewModel model)
         {
@@ -103,6 +160,7 @@ namespace PortalAboutEverything.Controllers
                Desc = traveling.Desc,
                Name = traveling.Name,
                TimeOfCreation = traveling.TimeOfCreation,
+               NameImage = traveling.NameImage,
            };
 
     }

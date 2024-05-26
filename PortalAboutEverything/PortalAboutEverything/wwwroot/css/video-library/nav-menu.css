@@ -1,0 +1,126 @@
+.nav-menu{
+    height: 3.5rem;
+    margin: 1rem;
+    border-radius: var(--border-radius);
+    background-color: var(--nav-menu-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left-part, .right-part, .middle-part{
+    height: 100%;
+    width: 100%;
+}
+
+.left-part, .right-part{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-inline: 1rem;
+}
+
+.middle-part{
+    flex: 3;
+}
+
+.right-part{
+    justify-content: flex-end;
+}
+
+.home-button, .update-button{
+    border: 1px solid var(--border-color);
+    height: 2.2rem;
+    width: 12rem;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    background-color: var(--button-color);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.home-button:hover .button-active-mark, .update-button:hover .button-active-mark {
+    background-color: var(--home-button-hover-color);
+}
+
+.home-button-info, .update-button-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+}
+
+.home-button svg, .update-button svg{
+    width: 1.5rem;
+    fill: var(--icons-color);
+}
+
+.home-button span, .update-button span{
+    color: var(--text-color);
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.middle-part{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1rem;
+    gap: 1rem;
+}
+
+.menu-button{
+    border: 1px solid var(--border-color);
+    height: 2.2rem;
+    width: 13rem;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    background-color: var(--button-color);
+    overflow: hidden;
+    position: relative;
+}
+
+.menu-button-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+}
+
+.menu-button svg{
+    width: 1.5rem;
+    fill: var(--icons-color);
+}
+
+.menu-button span{
+    color: var(--text-color);
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.button-active-mark {
+    width: 100%;
+    height: 10px;
+    background-color: transparent;
+    position: absolute;
+    bottom: -8px;
+    filter: blur(7px);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.menu-button.active .button-active-mark {
+    background-color: var(--menu-button-active-color);
+}
+
+.menu-button:hover .button-active-mark {
+    background-color: var(--menu-button-hover-color);
+}

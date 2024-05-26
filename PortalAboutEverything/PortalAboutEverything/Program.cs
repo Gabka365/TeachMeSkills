@@ -1,29 +1,49 @@
 using Microsoft.EntityFrameworkCore;
+using PortalAboutEverything.Controllers;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
-
+using PortalAboutEverything.Data.Services.VideoLibrary;
+using PortalAboutEverything.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services
+    .AddAuthentication(AuthController.AUTH_METHOD)
+    .AddCookie(AuthController.AUTH_METHOD, option =>
+    {
+        option.LoginPath = "/Auth/Login";
+    });
+
 builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbContext.CONNECTION_STRING));
 
-builder.Services.AddSingleton<VideoSortRepository>();
-
-builder.Services.AddSingleton<TravelingRepositories>();
+//Repository
+builder.Services.AddScoped<VideoLibraryRepository>();
+builder.Services.AddScoped<VideoProcessorService>();
+builder.Services.AddSingleton<FfMpegService>();
+builder.Services.AddScoped<TravelingRepositories>();
 builder.Services.AddScoped<GameRepositories>();
+builder.Services.AddScoped<UserRepository>();
 builder.Services.AddSingleton<BlogRepositories>();
-
-builder.Services.AddSingleton<MovieRepositories>();
-
-builder.Services.AddSingleton<GameStoreRepositories>();
-builder.Services.AddSingleton<BoardGameReviewRepositories>();
-
+builder.Services.AddScoped<MovieRepositories>();
+builder.Services.AddScoped<BoardGameRepositories>();
+builder.Services.AddScoped<BoardGameReviewRepositories>();
+builder.Services.AddScoped<HistoryRepositories>();
 builder.Services.AddSingleton<BookRepositories>();
+builder.Services.AddScoped<StoreRepositories>();
+builder.Services.AddScoped<GameStoreRepositories>();
+
+// Services
+builder.Services.AddScoped<AuthService>();
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
+
+var seed = new Seed();
+seed.Fill(app.Services);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -38,7 +58,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication(); // Who I am?
+app.UseAuthorization(); // May I?
 
 app.MapControllerRoute(
     name: "default",

@@ -1,0 +1,124 @@
+﻿@model PortalAboutEverything.Models.BoardGame.BoardGameViewModel
+
+@section Style {
+    <link href="/css/BoardGame/style.css" rel="stylesheet" />
+}
+
+<div class="banner">
+    <img src="/images/BoardGame/banner.webp" alt="Advertising banner" />
+</div>
+
+<header class="board-game-header">
+    <div class="container">
+        <div class="header-elements">
+            <div class="left-elements">
+                <a href="#" class="header-element">Магазины</a>
+                <a href="#" class="header-element">Игротеки</a>
+            </div>
+            <div class="right-elements">
+                <a href="#" class="header-element">График работы</a>
+                <p href="#" class="header-element">+7 123 456-78-90</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="title">
+    <div class="container">
+        <h1 class="head-title">@Model.Title</h1>
+        <p class="mini-title">@Model.MiniTitle</p>
+    </div>
+</div>
+
+<div class="main-block">
+    <div class="container">
+        <div class="main-wraper">
+            <div class="left-part">
+                <div class="images">
+                    @if (Model.Title == "Ticket to Ride: Европа")
+                    {
+                        <img src="/images/BoardGame/images.png"
+                             alt="Side images"
+                             class="elongated-image" />
+                        <img src="/images/BoardGame/mainImage.jpg"
+                             alt="Foto of game"
+                             class="square-image" />
+                    }
+                    else
+                    {
+                        <img src="https://placehold.co/89x322"
+                        alt = "Side images"
+                        class="elongated-image" />
+                        <img src="https://placehold.co/322x322"
+                             alt="Foto of game"
+                             class="square-image" />
+                    }
+                </div>
+                <div class="description">
+                    <h3 class="desc-title">Описание</h3>
+                    <p class="desc-text">
+                        @Model.Description
+                    </p>
+                    <h3 class="desc-title">Суть игры</h3>
+                    <p class="desc-text">
+                        @Model.Essence
+                    </p>
+                </div>
+                <div class="tags">
+                    <span class="tag">@Model.Tags</span>
+                </div>
+            </div>
+            <div class="price-card">
+                <div class="first-row">
+                    <h2 class="price">@Model.Price ₽</h2>
+                    <p class="code">Код товара: @Model.ProductCode</p>
+                </div>
+                <div class="buttons">
+                    <button class="highlighted-button">Добавить в корзину</button>
+                    <button class="usual-button">В избранное</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="reviews">
+    <div class="container">
+        <h3 class="reviews-head">Отзывы</h3>
+        @if(Model.Reviews.Count > 0)
+        {           
+            @foreach (var rewiev in Model.Reviews)
+            {
+                <div class="review">
+                    <div class="name-and-date">
+                        <div class="name">@rewiev.Name</div>
+                        <div class="date">@rewiev.DateOfCreationInStringFormat</div>
+                    </div>
+                    <p class="text">
+                        @rewiev.Text
+                    </p>
+                    <div class="update-and-delete">
+                        <a href="/BoardGame/UpdateReview?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/edit.svg" /></a>
+                        <a href="/BoardGame/DeleteReview?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/delete.svg" /></a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Отзывов пока нет. Оставьте первый!</p>
+        }
+        <div class="review-buttons">
+            <button class="usual-button">Показать ещё</button>
+            <button class="highlighted-button" onclick="window.location.href = '/BoardGame/CreateReview?GameId=@Model.Id';">Написать отзыв</button>
+        </div>
+    </div>
+</div>
+
+<div class="board-game-footer">
+    <div class="container">
+        <div class="footer-elements">
+            <p>Производитель - hobbygames</p>
+        </div>
+    </div>
+</div>

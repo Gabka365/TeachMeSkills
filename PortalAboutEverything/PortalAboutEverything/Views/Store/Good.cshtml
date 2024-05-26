@@ -1,0 +1,43 @@
+﻿@model List<PortalAboutEverything.Models.Store.CreateReviewViewModel>;
+
+@section Style {
+    <link rel="stylesheet" href="/css/Store/style.css" />
+}
+
+<div class="title">
+    Страница товара
+</div>
+<div class="goodDescriptionBlock">
+    <div>
+        <img class="goodImg" src="https://source.unsplash.com/random" alt="good" />
+    </div>
+    <div>
+        <div class="titleForBlockReviews">
+            Здесь будут отзывы
+        </div>
+        @if (Model.Count == 0)
+        {
+            <div>
+                Отзывы пока отсутствуют
+            </div>
+        }
+        <div>
+            @foreach (var review in Model)
+            {
+                <div>
+                    @review.Title
+                </div>
+                <div>
+                    @review.Description
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<a href="/Store/AddReview" class="addReviewTitle">Добавить отзыв для товара</a>
+
+
+
+
+
+

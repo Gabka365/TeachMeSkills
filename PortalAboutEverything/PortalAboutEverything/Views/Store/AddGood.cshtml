@@ -1,0 +1,23 @@
+﻿@model PortalAboutEverything.Models.Store.AddGoodViewModel;
+
+@section Style {
+    <link rel="stylesheet" href="/css/Store/style.css" />
+}
+
+<form method="post" class="addGoodForm">
+    <div class="addGoodTitle">
+        Добавить товар
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Name, new { placeholder = "Введите название товара", @class = "goodNameInput" })
+    </div>
+    <div>
+        @Html.TextAreaFor(x => x.Description, new { placeholder = "Введите описание товара", @class = "goodDescriptionInput" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Price, new { placeholder = "Введите цену товара", @class = "goodPriceInput" })
+    </div>
+    <div class="addGoodBtnBlock">
+        <input class="addGoodBtn" type="submit" value="Добавить" />
+    </div>
+</form>
