@@ -2,35 +2,46 @@
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class BookRepositories
-    {
-        private List<Book> _books = new();
-        private int _lastId = 1;
+	public class BookRepositories
+	{
+		private PortalDbContext _dbContext;
 
-        public List<Book> GetAll()
-            => _books.ToList();
+		public BookRepositories(PortalDbContext db)
+		{
+			_dbContext = db;
+		}
 
-        public Book Get(int id)
-            => _books.
-            Single(x => x.Id == id);
+		public List<Book> GetAll()
+			=> _dbContext.Books.ToList();
 
-        public void Create(Book book)
-        {
-            book.Id = _lastId++;
-            _books.Add(book);
-        }
+		public Book Get(int id)
+			=> _dbContext.Books
+			.Single(x => x.Id == id);
 
-        public void Delete(int id)
-        {
-            var book = _books
-                .Single(x => x.Id == id);
-            _books.Remove(book);
-        }
+		public void Create(Book book)
+		{
+			_dbContext.Books.Add(book);
+			_dbContext.SaveChanges();
+		}
 
-        public void Update(Book book)
-        {
-            Delete(book.Id);
-            Create(book);
-        }
-    }
+		public void Delete(int id)
+		{
+			var book = _dbContext.Books
+				.Single(x => x.Id == id);
+			_dbContext.Books.Remove(book);
+			_dbContext.SaveChanges();
+		}
+
+		public void Update(Book book)
+		{
+			var dbBook = Get(book.Id);
+
+			dbBook.BookTitle = book.BookTitle;
+			dbBook.BookAuthor = book.BookAuthor;
+			dbBook.YearOfPublication = book.YearOfPublication;
+			dbBook.SummaryOfBook = book.SummaryOfBook;
+
+			_dbContext.SaveChanges();
+		}
+	}
 }

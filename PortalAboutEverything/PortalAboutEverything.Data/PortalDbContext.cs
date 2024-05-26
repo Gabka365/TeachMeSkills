@@ -7,8 +7,7 @@ namespace PortalAboutEverything.Data
     public class PortalDbContext : DbContext
     {
         public const string CONNECTION_STRING = "Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True;Database=Net16Portal";
-
-        public DbSet<User> Users { get; set; }
+		public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<GameStore> GameStores { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -18,8 +17,8 @@ namespace PortalAboutEverything.Data
         public DbSet<BoardGame> BoardGames { get; set; }
         public DbSet<BoardGameReview> BoardGameReviews { get; set; }
         public DbSet<Traveling> Travelings { get; set; }
-
         public DbSet<History> HistoryEvents { get; set; }
+        public DbSet<Book> Books { get; set; }
         public PortalDbContext() { }
         public PortalDbContext(DbContextOptions<PortalDbContext> contextOptions) : base(contextOptions) { }
 
