@@ -97,6 +97,24 @@ namespace PortalAboutEverything.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
+        public IActionResult AddFavoriteBoardGameForUser(int gameId)
+        {
+            User user = _authServise.GetUser();
+            _gameRepositories.AddUserWhoFavoriteThisBoardGame(user, gameId);
+
+            return RedirectToAction("BoardGame", new { id = gameId });
+        }
+
+        [Authorize]
+        public IActionResult RemoveFavoriteBoardGameForUser(int gameId)
+        {
+            User user = _authServise.GetUser();
+            _gameRepositories.RemoveUserWhoFavoriteThisBoardGame(user, gameId);
+
+            return RedirectToAction("UserFavoriteBoardGames");
+        }
+
         [HttpGet]
         public IActionResult CreateReview(int gameId)
         {

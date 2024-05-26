@@ -12,6 +12,11 @@ namespace PortalAboutEverything.Data.Repositories
             .Include(boardGame => boardGame.Reviews)
             .Single(boardGame => boardGame.Id == id);
 
+        public BoardGame GetWithUsersWhoFavoriteThisBoardGame(int id)
+            => _dbSet
+            .Include(boardGame => boardGame.UsersWhoFavoriteThisBoardGame)
+            .Single(boardGame => boardGame.Id == id);
+
         public List<BoardGame> GetFavoriteBoardGamesForUser(int userId)
             => _dbSet
             .Where(boardGame => boardGame.UsersWhoFavoriteThisBoardGame.Any(user =>  user.Id == userId))
@@ -27,6 +32,22 @@ namespace PortalAboutEverything.Data.Repositories
             updatedboardGame.Tags = boardGame.Tags;
             updatedboardGame.Price = boardGame.Price;
             updatedboardGame.ProductCode = boardGame.ProductCode;
+
+            _dbContext.SaveChanges();
+        }
+
+        public void AddUserWhoFavoriteThisBoardGame(User user, int gameId)
+        {
+            BoardGame boardGame = GetWithUsersWhoFavoriteThisBoardGame(gameId);
+            boardGame.UsersWhoFavoriteThisBoardGame.Add(user);
+
+            _dbContext.SaveChanges();
+        }
+
+        public void RemoveUserWhoFavoriteThisBoardGame(User user, int gameId)
+        {
+            BoardGame boardGame = GetWithUsersWhoFavoriteThisBoardGame(gameId);
+            boardGame.UsersWhoFavoriteThisBoardGame.Remove(user);
 
             _dbContext.SaveChanges();
         }
