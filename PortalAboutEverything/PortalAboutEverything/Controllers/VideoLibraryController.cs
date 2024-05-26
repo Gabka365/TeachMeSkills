@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Data.Model.VideoLibrary;
 using PortalAboutEverything.Data.Repositories.VideoLibrary;
 using PortalAboutEverything.Models.VideoLibrary;
@@ -18,6 +19,7 @@ public class VideoLibraryController : Controller
         _videoFileSystemService = videoFileSystemService;
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult Index()
     {
@@ -26,6 +28,7 @@ public class VideoLibraryController : Controller
         return View(videos);
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult Liked()
     {
@@ -34,6 +37,7 @@ public class VideoLibraryController : Controller
         return View(videos);
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult Player(int id)
     {
@@ -64,12 +68,14 @@ public class VideoLibraryController : Controller
             : NotFound("Thumbnail file not found");
     }
 
+    [Authorize]
     [HttpGet]
     public void UpdateLibrary()
     {
         _videoFileSystemService.StartUpdateLibrary();
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult GetVideo(int id)
     {
@@ -85,18 +91,21 @@ public class VideoLibraryController : Controller
         return File(videoStream, "video/mp4", Request.Headers.ContainsKey("Range"));
     }
 
+    [Authorize]
     [HttpGet]
     public int? GetRandomVideoId([FromQuery] bool isLiked)
     {
         return _videoRepository.GetRandomVideoId(isLiked);
     }
 
+    [Authorize]
     [HttpGet]
     public void UpdateVideoLikeState(int id, [FromQuery] bool isLiked)
     {
         _videoRepository.UpdateLikeState(id, isLiked);
     }
 
+    [Authorize]
     [HttpGet]
     public void DeleteVideo(int id)
     {
