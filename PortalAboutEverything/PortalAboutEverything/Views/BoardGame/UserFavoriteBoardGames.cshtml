@@ -12,7 +12,7 @@
             <li class="board-game-item">
                 <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@boardGame.Id">@boardGame.Title</a>
                 <p>@boardGame.Price</p>
-                <a class="delete-link" href="/BoardGame/RemoveFavoriteBoardGameForUser?GameId=@boardGame.Id">
+                <a class="delete-link" href="/BoardGame/RemoveFavoriteBoardGameForUser?GameId=@boardGame.Id&IsGamePage=@false">
                     x
                 </a>
             </li>

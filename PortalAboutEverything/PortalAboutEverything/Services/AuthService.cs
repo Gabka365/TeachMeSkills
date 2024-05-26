@@ -20,6 +20,12 @@ namespace PortalAboutEverything.Services
             return _userRepository.Get(userId)!;
         }
 
+        public User GetUserWithFavoriteBoardGames()
+        {
+            var userId = GetUserId();
+            return _userRepository.GetWithFavoriteBoardGames(userId)!;
+        }
+
         public string GetUserName()
         {
             var userName = _httpContextAccessor

@@ -13,8 +13,8 @@ namespace PortalAboutEverything.Controllers
         private BoardGameReviewRepositories _reviewRepositories;
         private AuthService _authServise;
 
-        public BoardGameController(BoardGameRepositories gameRepositories, 
-            BoardGameReviewRepositories reviewRepositories, 
+        public BoardGameController(BoardGameRepositories gameRepositories,
+            BoardGameReviewRepositories reviewRepositories,
             AuthService authService)
         {
             _gameRepositories = gameRepositories;
@@ -76,6 +76,16 @@ namespace PortalAboutEverything.Controllers
         {
             BoardGame gameViewModel = _gameRepositories.GetWithReviews(id);
             BoardGameViewModel viewModel = BuildBoardGameViewModel(gameViewModel);
+            try
+            {
+                User user = _authServise.GetUserWithFavoriteBoardGames();
+                if (user.FavoriteBoardsGames.Any(boardGame => boardGame.Id == id))
+                {
+                    viewModel.IsFavoriteForUser = true;
+                }
+            }
+            catch { }
+
 
             return View(viewModel);
         }
@@ -107,12 +117,19 @@ namespace PortalAboutEverything.Controllers
         }
 
         [Authorize]
-        public IActionResult RemoveFavoriteBoardGameForUser(int gameId)
+        public IActionResult RemoveFavoriteBoardGameForUser(int gameId, bool isGamePage)
         {
             User user = _authServise.GetUser();
             _gameRepositories.RemoveUserWhoFavoriteThisBoardGame(user, gameId);
 
-            return RedirectToAction("UserFavoriteBoardGames");
+            if (isGamePage)
+            {
+                return RedirectToAction("BoardGame", new { id = gameId });
+            }
+            else
+            { 
+                return RedirectToAction("UserFavoriteBoardGames"); 
+            }
         }
 
         [HttpGet]
@@ -134,7 +151,7 @@ namespace PortalAboutEverything.Controllers
             BoardGameReview review = BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
             _reviewRepositories.Create(review, boardGameReviewViewModel.BoardGameId);
 
-            return RedirectToAction("BoardGame", new {id = review.BoardGame.Id});
+            return RedirectToAction("BoardGame", new { id = review.BoardGame.Id });
         }
 
         [HttpGet]
@@ -143,7 +160,7 @@ namespace PortalAboutEverything.Controllers
             BoardGameReview reviewForUpdate = _reviewRepositories.GetWithBoardGame(id);
             BoardGameUpdateReviewViewModel viewModel = BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
             viewModel.BoardGameId = gameId;
-            
+
             return View(viewModel);
         }
 
@@ -160,7 +177,7 @@ namespace PortalAboutEverything.Controllers
         {
             _reviewRepositories.Delete(id);
 
-            return RedirectToAction("BoardGame", new {id = gameId});
+            return RedirectToAction("BoardGame", new { id = gameId });
         }
 
         #region BoardGameBuilders
