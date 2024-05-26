@@ -1,5 +1,10 @@
 ﻿@model PortalAboutEverything.Models.BookClub.BookClubReviewWritingPageViewModel;
 
+@section BookClubStyle {
+    <link rel="stylesheet" href="/css/BookClub/BookReviewWritingPage.css" />
+}
+
+
 <div class="content-page">
     <div class="content-page__wrapper">
         <div class="content-page__book book">
@@ -21,12 +26,6 @@
             <div class="aside__title">О книге</div>
             <div class="aside__summury">
                @Model.SummaryOfBook
-            </div>
-            <div class="aside__subject subject">
-                @foreach (var subject in Model.SubjectsOfBook)
-                {
-                    <span class="subject__item">@subject</span>
-                }
             </div>
         </div>
     </div>

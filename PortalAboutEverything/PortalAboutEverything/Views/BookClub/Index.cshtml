@@ -1,5 +1,9 @@
 ﻿@model List<PortalAboutEverything.Models.BookClub.BookClubIndexViewModel>;
 
+@section BookClubStyle {
+	<link rel="stylesheet" href="/css/BookClub/Index.css" />
+}
+
 <div class="wrapper">
 	<div class="header">
 		<div class="header__wrapper">
@@ -46,15 +50,9 @@
 				<div class="aside__summury">
 					@book.SummaryOfBook
 				</div>
-				<div class="aside__subject subject">
-					@foreach (var subject in @book.SubjectsOfBook)
-					{
-						<span class="subject__item">@subject</span>
-					}
-				</div>
 				<div class="aside__buttons">
 					<a href="/BookClub/BookReviewWritingPage" class="btn btn_big">Написать рецензию</a>
-					<a href= "/BookClub/Delete?id=@book.Id" class="btn btn_small">Удалить книгу</a>
+					<a href= "/BookClub/Delete?id=@book.Id" class="btn btn_small">Удалить книгу </a>
 					<a href="/BookClub/Update?id=@book.Id" class="btn btn_small">Изменить данные о книге</a>
 				</div>
 			</div>

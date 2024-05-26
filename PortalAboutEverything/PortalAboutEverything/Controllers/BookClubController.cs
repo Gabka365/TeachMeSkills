@@ -2,7 +2,6 @@
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.BookClub;
-using System.Globalization;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -13,37 +12,17 @@ namespace PortalAboutEverything.Controllers
 
         public BookClubController(BookRepositories bookRepositories)
         {
-            _bookRepositories = bookRepositories;   
+            _bookRepositories = bookRepositories;
         }
+
         public IActionResult Index()
         {
             var books = _bookRepositories
                 .GetAll()
                 .Select(BuildBookClubIndexViewModel)
                 .ToList();
-           
+
             return View(books);
-        }
-
-        public IActionResult BookReviewWritingPage()
-        {
-            var bookReviewWritingPageViewModel = new BookClubReviewWritingPageViewModel
-            {
-                BookAuthor = "Стив Макконнелл",
-                BookTitle = "Совершенный код",
-                SubjectsOfBook = [Subject.CSharp, Subject.Algorithms, Subject.Database],
-                SummaryOfBook = "Более 10 лет первое издание этой книги считалось одним из лучших практических руководств" +
-                " по программированию. Сейчас эта книга полностью обновлена с учетом современных тенденций и технологий и" +
-                " дополнена сотнями новых примеров, иллюстрирующих искусство и науку программирования."
-            };
-
-            return View(bookReviewWritingPageViewModel);
-        }
-
-        [HttpPost]
-        public IActionResult BookReviewPage(BookClubReviewPageViewModel bookClubReviewPageViewModel)
-        {
-            return View(bookClubReviewPageViewModel);
         }
 
         [HttpGet]
@@ -59,7 +38,6 @@ namespace PortalAboutEverything.Controllers
             {
                 BookAuthor = createBookViewModel.BookAuthor,
                 BookTitle = createBookViewModel.BookTitle,
-                SubjectsOfBook = createBookViewModel.SubjectsOfBook,
                 SummaryOfBook = createBookViewModel.SummaryOfBook,
                 YearOfPublication = createBookViewModel.YearOfPublication
             };
@@ -68,46 +46,63 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(int bookId) {
-            _bookRepositories.Delete(bookId);
+        public IActionResult Delete(int id)
+        {
+            _bookRepositories.Delete(id);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Update(int bookId) {
-            var book = _bookRepositories.Get(bookId);
+        public IActionResult Update(int id)
+        {
+            var book = _bookRepositories.Get(id);
             var viewModel = BuildBookUpdateViewModel(book);
-			return View(viewModel);
+            return View(viewModel);
+        }
 
-		}
-
-		[HttpPost]
-		public IActionResult Update(BookUpdateViewModel bookUpdateViewModel)
-		{
+        [HttpPost]
+        public IActionResult Update(BookUpdateViewModel bookUpdateViewModel)
+        {
             var book = new Book
             {
                 Id = bookUpdateViewModel.Id,
                 BookAuthor = bookUpdateViewModel.BookAuthor,
                 BookTitle = bookUpdateViewModel.BookTitle,
-                SubjectsOfBook = bookUpdateViewModel.SubjectsOfBook,
                 SummaryOfBook = bookUpdateViewModel.SummaryOfBook,
                 YearOfPublication = bookUpdateViewModel.YearOfPublication
 
             };
             _bookRepositories.Update(book);
-			return RedirectToAction("Index");
+            return RedirectToAction("Index");
+        }
 
-		}
+        [HttpPost]
+        public IActionResult BookReviewPage(BookClubReviewPageViewModel bookClubReviewPageViewModel)
+        {
+            return View(bookClubReviewPageViewModel);
+        }
 
-		private BookClubIndexViewModel BuildBookClubIndexViewModel(Book book)
+        public IActionResult BookReviewWritingPage()
+        {
+            var bookReviewWritingPageViewModel = new BookClubReviewWritingPageViewModel
+            {
+                BookAuthor = "Стив Макконнелл",
+                BookTitle = "Совершенный код",
+                SummaryOfBook = "Более 10 лет первое издание этой книги считалось одним из лучших практических руководств" +
+                " по программированию. Сейчас эта книга полностью обновлена с учетом современных тенденций и технологий и" +
+                " дополнена сотнями новых примеров, иллюстрирующих искусство и науку программирования."
+            };
+
+            return View(bookReviewWritingPageViewModel);
+        }
+        private BookClubIndexViewModel BuildBookClubIndexViewModel(Book book)
              => new BookClubIndexViewModel
              {
                  Id = book.Id,
                  BookAuthor = book.BookAuthor,
                  BookTitle = book.BookTitle,
-                 SubjectsOfBook = book.SubjectsOfBook,
                  SummaryOfBook = book.SummaryOfBook,
-                 YearOfPublication = book.YearOfPublication
+                 YearOfPublication = book.YearOfPublication,
              };
 
         private BookUpdateViewModel BuildBookUpdateViewModel(Book book)
@@ -116,7 +111,6 @@ namespace PortalAboutEverything.Controllers
                  Id = book.Id,
                  BookAuthor = book.BookAuthor,
                  BookTitle = book.BookTitle,
-                 SubjectsOfBook = book.SubjectsOfBook,
                  SummaryOfBook = book.SummaryOfBook,
                  YearOfPublication = book.YearOfPublication
              };
