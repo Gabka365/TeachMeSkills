@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PortalAboutEverything.Data\PortalAboutEverything.Data.csproj" />
+    <ProjectReference Include="..\PortalAboutEverything.VideoServices\PortalAboutEverything.VideoServices.csproj" />
   </ItemGroup>
 
 </Project>

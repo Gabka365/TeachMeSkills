@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalAboutEverything.Data;
 
@@ -11,9 +12,11 @@ using PortalAboutEverything.Data;
 namespace PortalAboutEverything.Data.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    partial class PortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240526192611_RemoveVideoTable")]
+    partial class RemoveVideoTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -312,51 +315,6 @@ namespace PortalAboutEverything.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoLibrary.Folder", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Folders");
-                });
-
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoLibrary.Video", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Duration")
-                        .HasColumnType("float");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FolderId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsLiked")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FolderId");
-
-                    b.ToTable("Videos");
-                });
-
             modelBuilder.Entity("GameUser", b =>
                 {
                     b.HasOne("PortalAboutEverything.Data.Model.Game", null)
@@ -389,17 +347,6 @@ namespace PortalAboutEverything.Data.Migrations
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoLibrary.Video", b =>
-                {
-                    b.HasOne("PortalAboutEverything.Data.Model.VideoLibrary.Folder", "Folder")
-                        .WithMany("Videos")
-                        .HasForeignKey("FolderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Folder");
-                });
-
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGame", b =>
                 {
                     b.Navigation("Reviews");
@@ -408,11 +355,6 @@ namespace PortalAboutEverything.Data.Migrations
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Game", b =>
                 {
                     b.Navigation("Reviews");
-                });
-
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoLibrary.Folder", b =>
-                {
-                    b.Navigation("Videos");
                 });
 #pragma warning restore 612, 618
         }
