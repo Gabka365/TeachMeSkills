@@ -8,10 +8,12 @@ namespace PortalAboutEverything.Controllers
 	public class MovieController : Controller
 	{
 		private MovieRepositories _movieRepositories;
+		private MovieReviewRepositories _movieReviewRepositories;
 
-		public MovieController(MovieRepositories movieRepositories)
+		public MovieController(MovieRepositories movieRepositories, MovieReviewRepositories movieReviewRepositories)
 		{
 			_movieRepositories = movieRepositories;
+			_movieReviewRepositories = movieReviewRepositories;
 		}
 
 		public IActionResult Index()
@@ -126,7 +128,7 @@ namespace PortalAboutEverything.Controllers
 		[HttpPost]
 		public IActionResult MovieAddReview(MovieAddReviewViewModel movieAddReviewViewModel)
 		{
-			_movieRepositories.AddReviewToMovie(movieAddReviewViewModel.MovieId, 
+			_movieReviewRepositories.AddReviewToMovie(movieAddReviewViewModel.MovieId, 
 				movieAddReviewViewModel.Comment, movieAddReviewViewModel.Rate);
 			return RedirectToAction("Index");
 		}
