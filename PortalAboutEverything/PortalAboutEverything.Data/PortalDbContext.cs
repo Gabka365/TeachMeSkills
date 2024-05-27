@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Model.BookClub;
 using PortalAboutEverything.Data.Model.Store;
 
 namespace PortalAboutEverything.Data
@@ -19,6 +20,7 @@ namespace PortalAboutEverything.Data
         public DbSet<Traveling> Travelings { get; set; }
         public DbSet<History> HistoryEvents { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<BookReview> BookReviews { get; set; }
         public PortalDbContext() { }
         public PortalDbContext(DbContextOptions<PortalDbContext> contextOptions) : base(contextOptions) { }
 
@@ -39,6 +41,12 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<BoardGame>()
                 .HasMany(x => x.Reviews)
                 .WithOne(x => x.BoardGame)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Book>()
+                .HasMany(x => x.BookReviews)
+                .WithOne(x => x.Book)
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
 

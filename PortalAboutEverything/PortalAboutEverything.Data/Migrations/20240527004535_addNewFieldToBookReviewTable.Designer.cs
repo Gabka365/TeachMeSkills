@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalAboutEverything.Data;
 
@@ -11,9 +12,11 @@ using PortalAboutEverything.Data;
 namespace PortalAboutEverything.Data.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    partial class PortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240527004535_addNewFieldToBookReviewTable")]
+    partial class addNewFieldToBookReviewTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasIndex("UserWhoFavoriteTheGameId");
 
-                    b.ToTable("GameUser", (string)null);
+                    b.ToTable("GameUser");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGame", b =>
@@ -73,7 +76,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BoardGames", (string)null);
+                    b.ToTable("BoardGames");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGameReview", b =>
@@ -107,7 +110,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("BoardGameReviews", (string)null);
+                    b.ToTable("BoardGameReviews");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BookClub.Book", b =>
@@ -135,7 +138,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BookClub.BookReview", b =>
@@ -173,7 +176,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookReviews", (string)null);
+                    b.ToTable("BookReviews");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Game", b =>
@@ -197,7 +200,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Games", (string)null);
+                    b.ToTable("Games");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.GameStore", b =>
@@ -221,7 +224,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameStores", (string)null);
+                    b.ToTable("GameStores");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.History", b =>
@@ -245,7 +248,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HistoryEvents", (string)null);
+                    b.ToTable("HistoryEvents");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Movie", b =>
@@ -280,7 +283,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Post", b =>
@@ -302,7 +305,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts", (string)null);
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Store.Good", b =>
@@ -326,7 +329,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Goods", (string)null);
+                    b.ToTable("Goods");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Traveling", b =>
@@ -354,7 +357,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Travelings", (string)null);
+                    b.ToTable("Travelings");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.User", b =>
@@ -375,7 +378,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoInfo", b =>
@@ -396,7 +399,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Videos", (string)null);
+                    b.ToTable("Videos");
                 });
 
             modelBuilder.Entity("GameUser", b =>

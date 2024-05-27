@@ -1,4 +1,4 @@
-﻿@model PortalAboutEverything.Models.BookClub.BookClubReviewWritingPageViewModel;
+﻿@model PortalAboutEverything.Models.BookClub.BookClubReviewWritingViewModel;
 
 @section BookClubStyle {
     <link rel="stylesheet" href="/css/BookClub/BookReviewWritingPage.css" />
@@ -32,8 +32,9 @@
 </div>
 
 <div class="container">
-    <form action="/BookClub/BookReviewPage" method="post">
+    <form action="/BookClub/BookReview" method="post">
         <h2>Ваша оценка</h2>
+        <input type="hidden" value="@Model.Id" name="bookId" />
 
         <div class="row">
             <div class="col-75" hidden>
@@ -49,6 +50,18 @@
                     Нaзвание книги
                     <input type="text" name="bookTitle" value="@Model.BookTitle" />
                 </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-75">
+                @Html.LabelFor(x => x.UserName, "Имя: ")
+                @Html.TextBoxFor(x => x.UserName)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-75">
+                @Html.LabelFor(x => x.Date, "Дата: ")
+                @Html.TextBoxFor(x => x.Date)
             </div>
         </div>
         <div class="row">

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Model.BookClub;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.BookClub;
 
@@ -18,7 +18,7 @@ namespace PortalAboutEverything.Controllers
         public IActionResult Index()
         {
             var books = _bookRepositories
-                .GetAll()
+                .GetAllWithReviews()
                 .Select(BuildBookClubIndexViewModel)
                 .ToList();
 
@@ -76,25 +76,43 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public IActionResult BookReviewPage(BookClubReviewPageViewModel bookClubReviewPageViewModel)
+        [HttpGet]
+        public IActionResult AddBookReview(int id)
         {
-            return View(bookClubReviewPageViewModel);
-        }
-
-        public IActionResult BookReviewWritingPage()
-        {
-            var bookReviewWritingPageViewModel = new BookClubReviewWritingPageViewModel
+            var book = _bookRepositories.Get(id);
+            var bookClubReviewWritingViewModel = new BookClubReviewWritingViewModel
             {
-                BookAuthor = "Стив Макконнелл",
-                BookTitle = "Совершенный код",
-                SummaryOfBook = "Более 10 лет первое издание этой книги считалось одним из лучших практических руководств" +
-                " по программированию. Сейчас эта книга полностью обновлена с учетом современных тенденций и технологий и" +
-                " дополнена сотнями новых примеров, иллюстрирующих искусство и науку программирования."
+                BookAuthor = book.BookAuthor,
+                BookTitle = book.BookTitle,
+                SummaryOfBook = book.SummaryOfBook,
+                Date = DateTime.Now,
+                UserName = "",
+                Text = ""
             };
 
-            return View(bookReviewWritingPageViewModel);
+            return View(bookClubReviewWritingViewModel);
         }
+
+        [HttpPost]
+        public IActionResult AddBookReview(BookClubReviewViewModel viewModel)
+        {
+
+
+            var review = new BookReview
+            {
+                
+                Date = viewModel.Date,
+                UserName = viewModel.Name,
+                BookRating = viewModel.BookRating,
+                BookPrintRating = viewModel.PrintRating,
+                BookIllustrationsRating = viewModel.llustrationsRating,
+                Text = viewModel.Text,
+            };
+
+
+            return RedirectToAction("Index");
+        }
+
         private BookClubIndexViewModel BuildBookClubIndexViewModel(Book book)
              => new BookClubIndexViewModel
              {
@@ -103,6 +121,10 @@ namespace PortalAboutEverything.Controllers
                  BookTitle = book.BookTitle,
                  SummaryOfBook = book.SummaryOfBook,
                  YearOfPublication = book.YearOfPublication,
+                 Review = book
+                        .BookReviews
+                        .Select(BuildBookClubReviewViewModel)
+                        .ToList()
              };
 
         private BookUpdateViewModel BuildBookUpdateViewModel(Book book)
@@ -114,6 +136,18 @@ namespace PortalAboutEverything.Controllers
                  SummaryOfBook = book.SummaryOfBook,
                  YearOfPublication = book.YearOfPublication
              };
+
+        private BookClubReviewViewModel BuildBookClubReviewViewModel(BookReview review)
+            => new BookClubReviewViewModel
+            {
+                Name = review.UserName,
+                Date = review.Date,
+                BookRating = review.BookRating,
+                PrintRating = review.BookPrintRating,
+                llustrationsRating = review.BookIllustrationsRating,
+                Text = review.Text
+            };
+
 
     }
 }

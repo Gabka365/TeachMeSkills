@@ -1,4 +1,5 @@
-﻿using PortalAboutEverything.Data.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using PortalAboutEverything.Data.Model.BookClub;
 
 namespace PortalAboutEverything.Data.Repositories
 {
@@ -13,6 +14,11 @@ namespace PortalAboutEverything.Data.Repositories
 
 		public List<Book> GetAll()
 			=> _dbContext.Books.ToList();
+
+		public List<Book> GetAllWithReviews()
+			=> _dbContext.Books
+			.Include(x => x.BookReviews)
+			.ToList();
 
 		public Book Get(int id)
 			=> _dbContext.Books
