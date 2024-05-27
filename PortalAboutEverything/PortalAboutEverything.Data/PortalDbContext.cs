@@ -43,7 +43,7 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<BoardGame>()
                 .HasMany(x => x.Reviews)
                 .WithOne(x => x.BoardGame)
-                .OnDelete(DeleteBehavior.NoAction)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
 
             modelBuilder.Entity<Movie>()
@@ -60,6 +60,10 @@ namespace PortalAboutEverything.Data
                 .HasMany(folder => folder.Videos)
                 .WithOne(video => video.Folder)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.FavoriteBoardsGames)
+                .WithMany(x => x.UsersWhoFavoriteThisBoardGame);
 
             base.OnModelCreating(modelBuilder);
         }
