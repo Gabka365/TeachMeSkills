@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace PortalAboutEverything.Data.Model.BookClub
 {
-	public class BookReview
-	{
-		public int Id { get; set; }
+	public class BookReview: BaseModel
+    {
 		public DateTime Date { get; set; }
 		public string UserName { get; set; }
 		public int BookRating { get; set; } = 0;

@@ -32,6 +32,7 @@ builder.Services.AddScoped<BoardGameRepositories>();
 builder.Services.AddScoped<BoardGameReviewRepositories>();
 builder.Services.AddScoped<HistoryRepositories>();
 builder.Services.AddScoped<BookRepositories>();
+builder.Services.AddScoped<BookReviewRepositories>();
 builder.Services.AddScoped<StoreRepositories>();
 builder.Services.AddScoped<GameStoreRepositories>();
 

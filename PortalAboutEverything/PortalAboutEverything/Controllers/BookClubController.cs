@@ -9,10 +9,11 @@ namespace PortalAboutEverything.Controllers
     {
 
         private BookRepositories _bookRepositories;
-
-        public BookClubController(BookRepositories bookRepositories)
+        private BookReviewRepositories _bookReviewRepositories;
+        public BookClubController(BookRepositories bookRepositories, BookReviewRepositories bookReviewRepositories)
         {
             _bookRepositories = bookRepositories;
+            _bookReviewRepositories = bookReviewRepositories;
         }
 
         public IActionResult Index()
@@ -93,7 +94,7 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult AddBookReview(BookClubReviewViewModel viewModel)
         {
-            _bookRepositories.AddBookReviewToBook(viewModel.BookId, viewModel.Name,
+            _bookReviewRepositories.AddBookReviewToBook(viewModel.BookId, viewModel.Name,
                 viewModel.BookRating, viewModel.PrintRating, viewModel.IlustrationsRating, viewModel.Text);
 
             return RedirectToAction("Index");
