@@ -40,7 +40,7 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<BoardGame>()
                 .HasMany(x => x.Reviews)
                 .WithOne(x => x.BoardGame)
-                .OnDelete(DeleteBehavior.NoAction)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
 
             modelBuilder.Entity<User>()
