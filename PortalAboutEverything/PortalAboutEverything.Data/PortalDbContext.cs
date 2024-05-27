@@ -2,6 +2,7 @@
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Model.BookClub;
 using PortalAboutEverything.Data.Model.Store;
+using PortalAboutEverything.Data.Model.VideoLibrary;
 
 namespace PortalAboutEverything.Data
 {
@@ -12,13 +13,16 @@ namespace PortalAboutEverything.Data
         public DbSet<Game> Games { get; set; }
         public DbSet<GameStore> GameStores { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieReview> MovieReviews { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Good> Goods { get; set; }
-        public DbSet<VideoInfo> Videos { get; init; }
         public DbSet<BoardGame> BoardGames { get; set; }
         public DbSet<BoardGameReview> BoardGameReviews { get; set; }
         public DbSet<Traveling> Travelings { get; set; }
         public DbSet<History> HistoryEvents { get; set; }
+        public DbSet<Video> Videos { get; init; }
+        public DbSet<Folder> Folders { get; init; }
+        
         public DbSet<Book> Books { get; set; }
         public DbSet<BookReview> BookReviews { get; set; }
         public PortalDbContext() { }
@@ -41,7 +45,13 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<BoardGame>()
                 .HasMany(x => x.Reviews)
                 .WithOne(x => x.BoardGame)
-                .OnDelete(DeleteBehavior.NoAction)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Movie>()
+                .HasMany(x => x.Reviews)
+                .WithOne(x => x.Movie)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
 
             modelBuilder.Entity<Book>()
@@ -53,6 +63,15 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<User>()
                 .HasMany(x => x.FavoriteGames)
                 .WithMany(x => x.UserWhoFavoriteTheGame);
+            
+            modelBuilder.Entity<Folder>()
+                .HasMany(folder => folder.Videos)
+                .WithOne(video => video.Folder)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.FavoriteBoardsGames)
+                .WithMany(x => x.UsersWhoFavoriteThisBoardGame);
 
             base.OnModelCreating(modelBuilder);
         }

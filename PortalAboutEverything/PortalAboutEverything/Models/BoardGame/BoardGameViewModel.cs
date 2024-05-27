@@ -11,5 +11,6 @@
         public double Price { get; set; }
         public long ProductCode { get; set; }
         public List<BoardGameReviewViewModel> Reviews { get; set; }
+        public bool IsFavoriteForUser { get; set; }
     }
 }

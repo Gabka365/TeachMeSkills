@@ -2,6 +2,8 @@
 using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -9,11 +11,15 @@ namespace PortalAboutEverything.Controllers
     {
         private BoardGameRepositories _gameRepositories;
         private BoardGameReviewRepositories _reviewRepositories;
+        private AuthService _authServise;
 
-        public BoardGameController(BoardGameRepositories gameRepositories, BoardGameReviewRepositories reviewRepositories)
+        public BoardGameController(BoardGameRepositories gameRepositories,
+            BoardGameReviewRepositories reviewRepositories,
+            AuthService authService)
         {
             _gameRepositories = gameRepositories;
             _reviewRepositories = reviewRepositories;
+            _authServise = authService;
         }
 
         public IActionResult Index()
@@ -70,8 +76,60 @@ namespace PortalAboutEverything.Controllers
         {
             BoardGame gameViewModel = _gameRepositories.GetWithReviews(id);
             BoardGameViewModel viewModel = BuildBoardGameViewModel(gameViewModel);
+            try
+            {
+                User user = _authServise.GetUserWithFavoriteBoardGames();
+                if (user.FavoriteBoardsGames.Any(boardGame => boardGame.Id == id))
+                {
+                    viewModel.IsFavoriteForUser = true;
+                }
+            }
+            catch { }
+
 
             return View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult UserFavoriteBoardGames()
+        {
+            string userName = _authServise.GetUserName();
+            int userId = _authServise.GetUserId();
+
+            List<BoardGame> favoriteBoardGames = _gameRepositories.GetFavoriteBoardGamesForUser(userId);
+
+            UserFavoriteBoardGamesViewModel viewModel = new()
+            {
+                Name = userName,
+                FavoriteBoardGames = favoriteBoardGames.Select(BuildBoardGameViewModel).ToList()
+            };
+
+            return View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult AddFavoriteBoardGameForUser(int gameId)
+        {
+            User user = _authServise.GetUser();
+            _gameRepositories.AddUserWhoFavoriteThisBoardGame(user, gameId);
+
+            return RedirectToAction("BoardGame", new { id = gameId });
+        }
+
+        [Authorize]
+        public IActionResult RemoveFavoriteBoardGameForUser(int gameId, bool isGamePage)
+        {
+            User user = _authServise.GetUser();
+            _gameRepositories.RemoveUserWhoFavoriteThisBoardGame(user, gameId);
+
+            if (isGamePage)
+            {
+                return RedirectToAction("BoardGame", new { id = gameId });
+            }
+            else
+            { 
+                return RedirectToAction("UserFavoriteBoardGames"); 
+            }
         }
 
         [HttpGet]
@@ -93,7 +151,7 @@ namespace PortalAboutEverything.Controllers
             BoardGameReview review = BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
             _reviewRepositories.Create(review, boardGameReviewViewModel.BoardGameId);
 
-            return RedirectToAction("BoardGame", new {id = review.BoardGame.Id});
+            return RedirectToAction("BoardGame", new { id = review.BoardGame.Id });
         }
 
         [HttpGet]
@@ -102,7 +160,7 @@ namespace PortalAboutEverything.Controllers
             BoardGameReview reviewForUpdate = _reviewRepositories.GetWithBoardGame(id);
             BoardGameUpdateReviewViewModel viewModel = BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
             viewModel.BoardGameId = gameId;
-            
+
             return View(viewModel);
         }
 
@@ -119,7 +177,7 @@ namespace PortalAboutEverything.Controllers
         {
             _reviewRepositories.Delete(id);
 
-            return RedirectToAction("BoardGame", new {id = gameId});
+            return RedirectToAction("BoardGame", new { id = gameId });
         }
 
         #region BoardGameBuilders
