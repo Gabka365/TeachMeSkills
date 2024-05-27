@@ -10,4 +10,8 @@
     <ProjectReference Include="..\PortalAboutEverything.Data\PortalAboutEverything.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\BookClub\" />
+  </ItemGroup>
+
 </Project>
