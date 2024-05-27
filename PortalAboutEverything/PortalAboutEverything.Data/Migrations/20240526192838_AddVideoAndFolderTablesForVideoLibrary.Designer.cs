@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalAboutEverything.Data;
 
@@ -11,9 +12,11 @@ using PortalAboutEverything.Data;
 namespace PortalAboutEverything.Data.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    partial class PortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240526192838_AddVideoAndFolderTablesForVideoLibrary")]
+    partial class AddVideoAndFolderTablesForVideoLibrary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,38 +220,6 @@ namespace PortalAboutEverything.Data.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.MovieReview", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateOfCreation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rate")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("MovieReviews");
-                });
-
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -420,7 +391,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.Navigation("Game");
                 });
-                
+
             modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoLibrary.Video", b =>
                 {
                     b.HasOne("PortalAboutEverything.Data.Model.VideoLibrary.Folder", "Folder")
@@ -430,16 +401,6 @@ namespace PortalAboutEverything.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Folder");
-                });
-                
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.MovieReview", b =>
-                {
-                    b.HasOne("PortalAboutEverything.Data.Model.Movie", "Movie")
-                        .WithMany("Reviews")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGame", b =>
@@ -451,18 +412,11 @@ namespace PortalAboutEverything.Data.Migrations
                 {
                     b.Navigation("Reviews");
                 });
-                
-                
+
             modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoLibrary.Folder", b =>
                 {
                     b.Navigation("Videos");
                 });
-                
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.Movie", b =>
-                {
-                    b.Navigation("Reviews");
-                });
-                
 #pragma warning restore 612, 618
         }
     }
