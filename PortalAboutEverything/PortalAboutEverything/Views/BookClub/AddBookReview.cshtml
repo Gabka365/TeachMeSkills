@@ -25,43 +25,23 @@
         <div class="content-page__aside aside">
             <div class="aside__title">О книге</div>
             <div class="aside__summury">
-               @Model.SummaryOfBook
+                @Model.SummaryOfBook
             </div>
         </div>
     </div>
 </div>
 
 <div class="container">
-    <form action="/BookClub/BookReview" method="post">
-        <h2>Ваша оценка</h2>
-        <input type="hidden" value="@Model.Id" name="bookId" />
+    <form action="/BookClub/AddBookReview" method="post">
+        <h2>Ваша оценка @Model.BookId</h2>
+        <input type="hidden" value="@Model.BookId" name="bookId" />
 
         <div class="row">
-            <div class="col-75" hidden>
-                <label>
-                    Автор
-                    <input type="text" name="bookAuthor" value="@Model.BookAuthor" />
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-75" hidden>
-                <label>
-                    Нaзвание книги
-                    <input type="text" name="bookTitle" value="@Model.BookTitle" />
-                </label>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-75">
-                @Html.LabelFor(x => x.UserName, "Имя: ")
-                @Html.TextBoxFor(x => x.UserName)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-75">
-                @Html.LabelFor(x => x.Date, "Дата: ")
-                @Html.TextBoxFor(x => x.Date)
+                <label>
+                    Имя
+                    <input type="text" name="name" />
+                </label>
             </div>
         </div>
         <div class="row">
@@ -87,7 +67,7 @@
                 {
                     <label>
                         @rate
-                        <input type="radio" name="bookPrintRating" value=@rate>
+                        <input type="radio" name="printRating" value=@rate>
                     </label>
                 }
             </div>
@@ -101,18 +81,17 @@
                 {
                     <label>
                         @rate
-                        <input type="radio" name="bookIllustrationsRating" value=@rate>
+                        <input type="radio" name="ilustrationsRating" value=@rate>
                     </label>
                 }
             </div>
         </div>
-
         <div class="row">
             <div class="col-25">
                 <label for="subject">Рецензия</label>
             </div>
             <div class="col-75">
-                <textarea name="textReview" style="height:200px"></textarea>
+                <textarea name="text" style="height:500px"></textarea>
             </div>
         </div>
         <div class="row">

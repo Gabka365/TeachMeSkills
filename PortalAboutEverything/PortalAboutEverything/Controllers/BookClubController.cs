@@ -70,7 +70,6 @@ namespace PortalAboutEverything.Controllers
                 BookTitle = bookUpdateViewModel.BookTitle,
                 SummaryOfBook = bookUpdateViewModel.SummaryOfBook,
                 YearOfPublication = bookUpdateViewModel.YearOfPublication
-
             };
             _bookRepositories.Update(book);
             return RedirectToAction("Index");
@@ -82,12 +81,10 @@ namespace PortalAboutEverything.Controllers
             var book = _bookRepositories.Get(id);
             var bookClubReviewWritingViewModel = new BookClubReviewWritingViewModel
             {
+                BookId = id,
                 BookAuthor = book.BookAuthor,
                 BookTitle = book.BookTitle,
                 SummaryOfBook = book.SummaryOfBook,
-                Date = DateTime.Now,
-                UserName = "",
-                Text = ""
             };
 
             return View(bookClubReviewWritingViewModel);
@@ -96,19 +93,8 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult AddBookReview(BookClubReviewViewModel viewModel)
         {
-
-
-            var review = new BookReview
-            {
-                
-                Date = viewModel.Date,
-                UserName = viewModel.Name,
-                BookRating = viewModel.BookRating,
-                BookPrintRating = viewModel.PrintRating,
-                BookIllustrationsRating = viewModel.llustrationsRating,
-                Text = viewModel.Text,
-            };
-
+            _bookRepositories.AddBookReviewToBook(viewModel.BookId, viewModel.Name,
+                viewModel.BookRating, viewModel.PrintRating, viewModel.IlustrationsRating, viewModel.Text);
 
             return RedirectToAction("Index");
         }
@@ -144,7 +130,7 @@ namespace PortalAboutEverything.Controllers
                 Date = review.Date,
                 BookRating = review.BookRating,
                 PrintRating = review.BookPrintRating,
-                llustrationsRating = review.BookIllustrationsRating,
+                IlustrationsRating = review.BookIllustrationsRating,
                 Text = review.Text
             };
 
