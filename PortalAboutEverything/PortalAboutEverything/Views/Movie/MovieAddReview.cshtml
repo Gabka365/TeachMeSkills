@@ -1,4 +1,4 @@
-﻿@model PortalAboutEverything.Models.Movie.MovieReviewViewModel
+﻿@model PortalAboutEverything.Models.Movie.MovieAddReviewViewModel
 
 @section Style {
 			<link rel="stylesheet" href="/css/Movie/movieStyle.css" />
@@ -8,8 +8,8 @@
 	Оцените фильм
 </div>
 <div>
-	<form action="/Movie/MovieRate" method="post">
-		@Html.HiddenFor(x => x.Id)
+	<form method="post">
+		@Html.HiddenFor(x => x.MovieId)
 		<div>
 			@Html.TextBoxFor(x => x.Name, new { placeholder = "Название фильма" })
 		</div>
@@ -27,11 +27,6 @@
 		<div>
 			<input type="submit" value="Отправить отзыв"/>
 			<input type="reset" value="Очистить"/>
-		</div>
-		<div>
-			<label>
-				<input type="checkbox" name="subscribe" value ="true"> Подписаться на новости
-			</label>
 		</div>
 	</form>
 </div>

@@ -8,15 +8,17 @@ namespace PortalAboutEverything.Controllers
 	public class MovieController : Controller
 	{
 		private MovieRepositories _movieRepositories;
+		private MovieReviewRepositories _movieReviewRepositories;
 
-		public MovieController(MovieRepositories movieRepositories)
+		public MovieController(MovieRepositories movieRepositories, MovieReviewRepositories movieReviewRepositories)
 		{
 			_movieRepositories = movieRepositories;
+			_movieReviewRepositories = movieReviewRepositories;
 		}
 
 		public IActionResult Index()
 		{
-			var moviesViewModel = _movieRepositories.GetAll().Select(movie => new MovieIndexViewModel
+			var moviesViewModel = _movieRepositories.GetAllWithReviews().Select(movie => new MovieIndexViewModel
 			{
 				Id = movie.Id,
 				Name = movie.Name,
@@ -25,6 +27,12 @@ namespace PortalAboutEverything.Controllers
 				Director = movie.Director,
 				Budget = movie.Budget,
 				CountryOfOrigin = movie.CountryOfOrigin,
+				Reviews = movie.Reviews.Select(review => new MovieReviewViewModel
+				{
+					Rate = review.Rate,
+					DateOfCreation = review.DateOfCreation,
+					Comment = review.Comment,
+				}).ToList()
 			}).ToList();
 
 			return View(moviesViewModel);
@@ -105,21 +113,24 @@ namespace PortalAboutEverything.Controllers
 			return RedirectToAction("Index");
 		}
 
-
-		public IActionResult MovieReview(int id)
+		[HttpGet]
+		public IActionResult MovieAddReview(int id)
 		{
 			var movie = _movieRepositories.Get(id);
-			var viewModel = new MovieReviewViewModel
+			var viewModel = new MovieAddReviewViewModel
 			{
-				Id = movie.Id,
+				MovieId = movie.Id,
 				Name = movie.Name,
 			};
 			return View(viewModel);
 		}
 
-		public IActionResult MovieRate(MovieRateViewModel movieRateViewModel)
+		[HttpPost]
+		public IActionResult MovieAddReview(MovieAddReviewViewModel movieAddReviewViewModel)
 		{
-			return View(movieRateViewModel);
+			_movieReviewRepositories.AddReviewToMovie(movieAddReviewViewModel.MovieId, 
+				movieAddReviewViewModel.Comment, movieAddReviewViewModel.Rate);
+			return RedirectToAction("Index");
 		}
 	}
 }
