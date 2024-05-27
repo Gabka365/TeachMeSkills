@@ -36,7 +36,7 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
             var year = (int)value;
 
-            return year > MIN_YEAR && year <= DateTime.Now.Year;
+            return year > MIN_YEAR && year <= _maxYear;
         }
     }
 }
