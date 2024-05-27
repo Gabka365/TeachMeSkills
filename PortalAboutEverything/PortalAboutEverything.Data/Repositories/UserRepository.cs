@@ -7,6 +7,9 @@ namespace PortalAboutEverything.Data.Repositories
     {
         public UserRepository(PortalDbContext dbContext) : base(dbContext) { }
 
+        public bool Exist(string login)
+            => _dbSet.Any(x => x.UserName == login);
+
         public User? GetByLoginAndPasswrod(string login, string password)
         {
             return _dbSet

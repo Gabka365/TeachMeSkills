@@ -3,20 +3,24 @@
 <form method="post">
     <div>
         @Html.TextBoxFor(x => x.Name)
+        @Html.ValidationMessageFor(x => x.Name)
     </div>
     <div>
         @Html.TextAreaFor(x => x.Description)
+        @Html.ValidationMessageFor(x => x.Description)
     </div>
     <div>
+        @Html.DisplayNameFor(x => x.YearOfRelease)
         @Html.TextBoxFor(x => x.YearOfRelease,
                  new
                  {
                      placeholder = "Год выпуска",
                      @class = "my-input",
                      @type = "number",
-                     @min = "1990",
-                     @max = "2020"
+                     // @min = "1990",
+                     // @max = "2020"
                  })
+        @Html.ValidationMessageFor(x => x.YearOfRelease)
     </div>
     <div>
         <input type="submit" value="Создать" />

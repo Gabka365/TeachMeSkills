@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Model;
@@ -56,6 +57,11 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult Create(GameCreateViewModel createGameViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(createGameViewModel);
+            }
+
             var game = new Game
             {
                 Name = createGameViewModel.Name,
