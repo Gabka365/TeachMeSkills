@@ -11,14 +11,17 @@ namespace PortalAboutEverything.Controllers
     {
         private BoardGameRepositories _gameRepositories;
         private BoardGameReviewRepositories _reviewRepositories;
+        private UserRepository _userRepository;
         private AuthService _authServise;
 
         public BoardGameController(BoardGameRepositories gameRepositories,
             BoardGameReviewRepositories reviewRepositories,
+            UserRepository userRepository,
             AuthService authService)
         {
             _gameRepositories = gameRepositories;
             _reviewRepositories = reviewRepositories;
+            _userRepository = userRepository;
             _authServise = authService;
         }
 
@@ -76,16 +79,16 @@ namespace PortalAboutEverything.Controllers
         {
             BoardGame gameViewModel = _gameRepositories.GetWithReviews(id);
             BoardGameViewModel viewModel = BuildBoardGameViewModel(gameViewModel);
-            try
+
+            if (_authServise.IsAuthenticated())
             {
-                User user = _authServise.GetUserWithFavoriteBoardGames();
+                int userId = _authServise.GetUserId();
+                User user = _userRepository.GetWithFavoriteBoardGames(userId);
                 if (user.FavoriteBoardsGames.Any(boardGame => boardGame.Id == id))
                 {
                     viewModel.IsFavoriteForUser = true;
                 }
             }
-            catch { }
-
 
             return View(viewModel);
         }
@@ -127,8 +130,8 @@ namespace PortalAboutEverything.Controllers
                 return RedirectToAction("BoardGame", new { id = gameId });
             }
             else
-            { 
-                return RedirectToAction("UserFavoriteBoardGames"); 
+            {
+                return RedirectToAction("UserFavoriteBoardGames");
             }
         }
 
