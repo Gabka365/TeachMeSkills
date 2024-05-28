@@ -4,12 +4,15 @@ using PortalAboutEverything.Data.Model.BookClub;
 using PortalAboutEverything.Data.Model.Store;
 using PortalAboutEverything.Data.Model.VideoLibrary;
 
+
 namespace PortalAboutEverything.Data
 {
     public class PortalDbContext : DbContext
     {
         public const string CONNECTION_STRING = "Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True;Database=Net16Portal";
-		public DbSet<User> Users { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<GameStore> GameStores { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -72,6 +75,15 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<User>()
                 .HasMany(x => x.FavoriteBoardsGames)
                 .WithMany(x => x.UsersWhoFavoriteThisBoardGame);
+
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Travelings)
+                .WithOne(x => x.User);
+
+            modelBuilder.Entity<Traveling>()
+                .HasMany(x => x.Comments)
+                .WithOne(x => x.Traveling);
 
             base.OnModelCreating(modelBuilder);
         }

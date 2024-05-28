@@ -1,4 +1,6 @@
-﻿namespace PortalAboutEverything.Models.Traveling
+﻿using PortalAboutEverything.Data.Model;
+
+namespace PortalAboutEverything.Models.Traveling
 {
     public class TravelingShowPostsViewModel
     {
@@ -7,5 +9,8 @@
         public string Desc { get; set; }
         public string TimeOfCreation { get; set; }
         public string? NameImage { get; set; }
+        public int UserId { get; set; }
+        public List<Comment> Comments { get; set; }
+
     }
 }
