@@ -59,12 +59,16 @@
                                 </div>
                             </div>
                             <div class="comments">
-                                @foreach (var comment in post.Comments)
+                                @if(post.Comments is not null)
                                 {
-                                    <div>
-                                        <p>@comment.Text</p>
-                                    </div>
+                                    foreach (var comment in post.Comments)
+                                    {
+                                        <div>
+                                            <p>@comment.Text</p>
+                                        </div>
+                                    }
                                 }
+                                
                                 <form action="/Traveling/CreateComent/@post.Id" method="post">
                                     <textarea name="text" placeholder="Напиши свой отзыв здесь"></textarea>
                                     <input type="submit" value="Отставить отзыв" />
