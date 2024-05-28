@@ -11,6 +11,5 @@ namespace PortalAboutEverything.Models.Traveling
         public string? NameImage { get; set; }
         public int UserId { get; set; }
         public List<TravelingCreateComment>? Comments { get; set; }
-
     }
 }

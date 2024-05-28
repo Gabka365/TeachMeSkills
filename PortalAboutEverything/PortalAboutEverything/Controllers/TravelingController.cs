@@ -126,11 +126,15 @@ namespace PortalAboutEverything.Controllers
             }
             return RedirectToAction("TravelingPosts");
         }
-        public IActionResult CreateComent(int id, TravelingCreateComment travelingCreateComment)
+        public IActionResult CreateComment(int id, TravelingCreateComment travelingCreateComment)
         {
             if (!ModelState.IsValid)
             {
-                return View(travelingCreateComment);
+                var errors = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage; //Задать вопрос
+
+                TempData["ErrorMessage"] = errors;
+
+                return RedirectToAction("TravelingPosts");
             }
             var comment = new Comment
             {

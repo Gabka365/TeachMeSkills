@@ -14,10 +14,13 @@
                     <div class="u-form-group u-form-group-1">
                         <label class="u-label">Название</label>
                         @Html.TextBoxFor(x => x.Name, new { placeholder = "Название поста", @class = "u-input u-input-rectangle" })
+                        @Html.ValidationMessageFor(x => x.Name)
+
                     </div>
                     <div class="u-form-group u-form-message">
                         <label class="u-label">Отзыв</label>
                         @Html.TextAreaFor(x => x.Desc, new { placeholder = "Оставьте свой отзыв", @class = "u-input u-input-rectangle", @rows = "4", @cols = "50" })
+                        @Html.ValidationMessageFor(x => x.Desc)
                     </div>
                     <div class="u-form-group u-form-message">
                         <label for="file-upload" class="u-label custom-file-upload">Загрузить изображение</label>
