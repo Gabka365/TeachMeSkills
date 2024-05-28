@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Model.BookClub;
 using PortalAboutEverything.Data.Model.Store;
 using PortalAboutEverything.Data.Model.VideoLibrary;
 
@@ -8,8 +9,7 @@ namespace PortalAboutEverything.Data
     public class PortalDbContext : DbContext
     {
         public const string CONNECTION_STRING = "Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True;Database=Net16Portal";
-
-        public DbSet<User> Users { get; set; }
+		public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<GameStore> GameStores { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -23,6 +23,8 @@ namespace PortalAboutEverything.Data
         public DbSet<Video> Videos { get; init; }
         public DbSet<Folder> Folders { get; init; }
         
+        public DbSet<Book> Books { get; set; }
+        public DbSet<BookReview> BookReviews { get; set; }
         public PortalDbContext() { }
         public PortalDbContext(DbContextOptions<PortalDbContext> contextOptions) : base(contextOptions) { }
 
@@ -50,6 +52,12 @@ namespace PortalAboutEverything.Data
                 .HasMany(x => x.Reviews)
                 .WithOne(x => x.Movie)
                 .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Book>()
+                .HasMany(x => x.BookReviews)
+                .WithOne(x => x.Book)
+                .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
 
             modelBuilder.Entity<User>()
