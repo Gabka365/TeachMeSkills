@@ -1,4 +1,6 @@
-﻿namespace PortalAboutEverything.Models.BoardGame
+﻿using PortalAboutEverything.Models.ValidationAttributes;
+
+namespace PortalAboutEverything.Models.BoardGame
 {
     public class BoardGameUpdateViewModel
     {
@@ -8,7 +10,9 @@
         public string Description { get; set; }
         public string Essence { get; set; }
         public string Tags { get; set; }
+        [Price]
         public double Price { get; set; }
+        [ProductCode]
         public long ProductCode { get; set; }
     }
 }

@@ -4,7 +4,7 @@
     <link href="/css/BoardGame/forms.css" rel="stylesheet" />
 }
 
-<div class="review-form">
+<div class="board-game-or-review-form">
     <h2>
         Ваше мнение об игре "@Model.BoardGameName":
     </h2>
@@ -15,14 +15,14 @@
             @Html.TextBoxFor(review => review.Name, new
                 {
                     placeholder = "Ваше имя",
-                    @class = "reviewer-name"
+                    @class = "foarm-field"
                 })
         </div>
         <div>
             @Html.TextAreaFor(review => review.Text, new
                 {
                     placeholder = "Ваш отзыв",
-                     @class = "reviewer-name"
+                     @class = "foarm-field"
                 })
         </div>
         <div>

@@ -44,6 +44,11 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult CreateBoardGame(BoardGameCreateViewModel boardGameViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(boardGameViewModel);
+            }
+
             BoardGame game = BuildBoardGameDataModelFromCreate(boardGameViewModel);
 
             _gameRepositories.Create(game);
