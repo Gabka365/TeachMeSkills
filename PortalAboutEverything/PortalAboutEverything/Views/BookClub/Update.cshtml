@@ -1,5 +1,9 @@
 ﻿@model PortalAboutEverything.Models.BookClub.BookUpdateViewModel;
 
+@section BookClubStyle {
+    <link rel="stylesheet" href="/css/BookClub/Create.css" />
+}
+
 <div class="wrapper">
     <div class="header">
         <div class="header__wrapper">
@@ -38,16 +42,6 @@
             <div class="col-75">
                 @Html.LabelFor(x => x.BookAuthor, "Автор")
                 @Html.TextBoxFor(x => x.BookAuthor)
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-75">
-                @Html.LabelFor(x => x.SubjectsOfBook, "Тэг")
-                @Html.ListBoxFor(x => x.SubjectsOfBook, new List<SelectListItem>
-                    {
-                    }
-                         )
             </div>
         </div>
 

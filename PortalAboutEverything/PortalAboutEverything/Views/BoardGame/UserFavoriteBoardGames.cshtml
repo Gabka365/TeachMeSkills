@@ -1,0 +1,51 @@
+﻿@model PortalAboutEverything.Models.BoardGame.UserFavoriteBoardGamesViewModel
+
+@section Style {
+    <link href="/css/BoardGame/boardGamesFavorite.css" rel="stylesheet" />
+}
+
+<div class="board-game-list">
+    <h2 class="title">Список любимых настольных игр пользователя "@Model.Name"</h2>
+    @if (Model.FavoriteBoardGames.Any())
+    {
+        <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Цена</th>
+                <th>
+                    <div class="vk-share">
+                        <span></span>
+                        <button class="highlighted-button">Поделиться в VK</button>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var boardGame in Model.FavoriteBoardGames)
+            {
+                <tr class="board-game-item">
+                    <td>
+                        <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@boardGame.Id">@boardGame.Title</a>
+                    </td>
+                    <td>
+                        <p>@boardGame.Price</p>
+                    </td>
+                    <td>
+                        <div class="delete-and-add">
+                            <span></span>
+                            <a class="delete-link" href="/BoardGame/RemoveFavoriteBoardGameForUser?GameId=@boardGame.Id&IsGamePage=@false">x</a>
+                            <button class="highlighted-button card-button">Добавить в корзину</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Вы ещё не добавили ни одну игру в избранное</p>
+    }
+</div>
+    

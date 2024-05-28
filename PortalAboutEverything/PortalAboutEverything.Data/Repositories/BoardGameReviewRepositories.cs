@@ -3,39 +3,23 @@ using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class BoardGameReviewRepositories
+    public class BoardGameReviewRepositories : BaseRepository<BoardGameReview>
     {
-        private PortalDbContext _dbContext;
-
-        public BoardGameReviewRepositories(PortalDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        public BoardGameReviewRepositories(PortalDbContext dbContext) : base(dbContext) { }
 
         public void Create(BoardGameReview review, int boardGameId)
         {
             BoardGame boardGame = _dbContext.BoardGames.First(game => game.Id == boardGameId);
             review.BoardGame = boardGame;
 
-            _dbContext.BoardGameReviews.Add(review);
+            _dbSet.Add(review);
             _dbContext.SaveChanges();
         }
-
-        public BoardGameReview Get(int id)
-            => _dbContext.BoardGameReviews.Single(review => review.Id == id);
 
         public BoardGameReview GetWithBoardGame(int id)
-            => _dbContext.BoardGameReviews
+            => _dbSet
             .Include(review => review.BoardGame)
             .Single(review => review.Id == id);
-
-        public void Delete(int id)
-        {
-            BoardGameReview review = _dbContext.BoardGameReviews.Single(review => review.Id == id);
-
-            _dbContext.BoardGameReviews.Remove(review);
-            _dbContext.SaveChanges();
-        }
 
         public void Update(BoardGameReview review, int boardGameId)
         {

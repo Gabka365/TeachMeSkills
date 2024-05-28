@@ -1,50 +1,58 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PortalAboutEverything.Data.Enums.VideoLibrary;
-using PortalAboutEverything.Data.Model;
-using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Data.Services.VideoLibrary;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PortalAboutEverything.Data.Model.VideoLibrary;
+using PortalAboutEverything.Data.Repositories.VideoLibrary;
 using PortalAboutEverything.Models.VideoLibrary;
+using PortalAboutEverything.VideoServices.Services;
+using ThumbnailSizeEnum = PortalAboutEverything.VideoServices.Enums.ThumbnailSizeEnum;
 
 namespace PortalAboutEverything.Controllers;
 
 public class VideoLibraryController : Controller
 {
-    private readonly VideoLibraryRepository _videoLibraryRepository;
-    private readonly VideoProcessorService _videoProcessor;
+    private readonly VideoFileSystemService _videoFileSystemService;
+    private readonly VideoRepository _videoRepository;
 
-    public VideoLibraryController(VideoLibraryRepository videoLibraryRepository, VideoProcessorService videoProcessor)
+    public VideoLibraryController(VideoRepository videoRepository, VideoFileSystemService videoFileSystemService)
     {
-        _videoLibraryRepository = videoLibraryRepository;
-        _videoProcessor = videoProcessor;
+        _videoRepository = videoRepository;
+        _videoFileSystemService = videoFileSystemService;
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult Index()
     {
-        var videos = _videoLibraryRepository.GetAllVideos(isLiked: false).Select(GenerateVideoViewModel).ToList();
-        
+        var videos = _videoRepository.GetAllWithFolders(false).Select(GenerateVideoViewModel).ToList();
+
         return View(videos);
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult Liked()
     {
-        var videos = _videoLibraryRepository.GetAllVideos(isLiked: true).Select(GenerateVideoViewModel).ToList();
-        
+        var videos = _videoRepository.GetAllWithFolders(true).Select(GenerateVideoViewModel).ToList();
+
         return View(videos);
     }
 
+    [Authorize]
     [HttpGet]
-    public IActionResult Player(Guid id)
+    public IActionResult Player(int id)
     {
-        if (string.IsNullOrWhiteSpace(id.ToString())) return BadRequest();
-        var video = _videoLibraryRepository.GetVideo(id);
+        var video = _videoRepository.Get(id);
+
+        if (video is null)
+        {
+            return BadRequest("Видео с таким Id не найдено");
+        }
 
         return View(GenerateVideoViewModel(video));
     }
 
     [HttpGet]
-    public IActionResult Thumbnail(Guid id, [FromQuery] string size)
+    public IActionResult Thumbnail(int id, [FromQuery] string size)
     {
         var isSuccess = Enum.TryParse(size, out ThumbnailSizeEnum parsedSize);
 
@@ -53,55 +61,65 @@ public class VideoLibraryController : Controller
             return BadRequest("Wrong size");
         }
 
-        var thumbnailPath = _videoLibraryRepository.GetThumbnailPath(id, parsedSize);
+        var thumbnailPath = _videoFileSystemService.GetThumbnailPath(id, parsedSize);
 
         return System.IO.File.Exists(thumbnailPath)
             ? Ok(System.IO.File.OpenRead(thumbnailPath))
             : NotFound("Thumbnail file not found");
     }
 
+    [Authorize]
     [HttpGet]
-    public async Task UpdateLibrary()
+    public void UpdateLibrary()
     {
-        await _videoProcessor.ScanUnsortedVideoFolder();
+        _videoFileSystemService.StartUpdateLibrary();
     }
 
+    [Authorize]
     [HttpGet]
-    public IActionResult GetVideo(Guid id)
+    public IActionResult GetVideo(int id)
     {
-        var videoPath = _videoLibraryRepository.GetVideoPath(id);
+        var videoPath = _videoRepository.GetVideoPath(id);
+
+        if (videoPath is null)
+        {
+            return BadRequest("Видео с таким Id не найдено");
+        }
 
         var videoStream = System.IO.File.OpenRead(videoPath);
 
         return File(videoStream, "video/mp4", Request.Headers.ContainsKey("Range"));
     }
 
+    [Authorize]
     [HttpGet]
-    public string GetRandomVideoId([FromQuery] bool isLiked)
+    public int? GetRandomVideoId([FromQuery] bool isLiked)
     {
-        return _videoLibraryRepository.GetRandomVideoId(isLiked);
+        return _videoRepository.GetRandomVideoId(isLiked);
     }
 
+    [Authorize]
     [HttpGet]
-    public void UpdateVideoLikeState(Guid id, [FromQuery] bool isLiked)
+    public void UpdateVideoLikeState(int id, [FromQuery] bool isLiked)
     {
-        _videoLibraryRepository.UpdateVideoLikeState(id, isLiked);
+        _videoRepository.UpdateLikeState(id, isLiked);
     }
 
+    [Authorize]
     [HttpGet]
-    public void DeleteVideo(Guid id)
+    public void DeleteVideo(int id)
     {
-        _videoLibraryRepository.DeleteVideo(id);
+        _ = _videoFileSystemService.DeleteVideo(id);
     }
 
-    private VideoLibraryVideoViewModel GenerateVideoViewModel(VideoInfo videoInfo)
+    private VideoLibraryVideoViewModel GenerateVideoViewModel(Video video)
     {
         return new VideoLibraryVideoViewModel
         {
-            Id = videoInfo.Id,
-            FileName = Path.GetFileNameWithoutExtension(videoInfo.FilePath),
-            FileFolder = Path.GetFileName(Path.GetDirectoryName(videoInfo.FilePath))!,
-            VideoDuration = TimeSpan.FromSeconds(videoInfo.Duration).ToString(@"hh\:mm\:ss")
+            Id = video.Id,
+            FileName = Path.GetFileNameWithoutExtension(video.FilePath),
+            FileFolder = Path.GetFileName(Path.GetDirectoryName(video.FilePath))!,
+            VideoDuration = TimeSpan.FromSeconds(video.Duration).ToString(@"hh\:mm\:ss")
         };
     }
 }

@@ -47,8 +47,8 @@
                     else
                     {
                         <img src="https://placehold.co/89x322"
-                        alt = "Side images"
-                        class="elongated-image" />
+                             alt="Side images"
+                             class="elongated-image" />
                         <img src="https://placehold.co/322x322"
                              alt="Foto of game"
                              class="square-image" />
@@ -75,7 +75,14 @@
                 </div>
                 <div class="buttons">
                     <button class="highlighted-button">Добавить в корзину</button>
-                    <button class="usual-button">В избранное</button>
+                    @if (Model.IsFavoriteForUser)
+                    {
+                        <button class="usual-button" onclick="window.location.href = '/BoardGame/RemoveFavoriteBoardGameForUser?GameId=@Model.Id&IsGamePage=@true';">Удалить из избранного</button>
+                    }
+                    else
+                    {
+                        <button class="usual-button" onclick="window.location.href = '/BoardGame/AddFavoriteBoardGameForUser?GameId=@Model.Id';">В избранное</button>
+                    }
                 </div>
             </div>
         </div>
@@ -85,8 +92,8 @@
 <div class="reviews">
     <div class="container">
         <h3 class="reviews-head">Отзывы</h3>
-        @if(Model.Reviews.Count > 0)
-        {           
+        @if (Model.Reviews.Count > 0)
+        {
             @foreach (var rewiev in Model.Reviews)
             {
                 <div class="review">
