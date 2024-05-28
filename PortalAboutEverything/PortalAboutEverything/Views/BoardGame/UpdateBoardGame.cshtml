@@ -16,6 +16,7 @@
                     placeholder = "Название игры",
                     @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.Title)
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.MiniTitle, new
@@ -23,6 +24,7 @@
                     placeholder = "Слоган игры",
                     @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.MiniTitle)
         </div>
         <div>
             @Html.TextAreaFor(boardGame => boardGame.Description, new
@@ -30,6 +32,7 @@
                     placeholder = "Описание игры",
                     @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.Description)
         </div>
         <div>
             @Html.TextAreaFor(boardGame => boardGame.Essence, new
@@ -52,6 +55,7 @@
                     @class = "foarm-field",
                     @type = "number"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.Price)
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.ProductCode, new
@@ -60,6 +64,7 @@
                     @class = "foarm-field",
                     @type = "number"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.ProductCode)
         </div>
         <div>
             <input class="button-send" type="submit" value="Сохранить изменения" />

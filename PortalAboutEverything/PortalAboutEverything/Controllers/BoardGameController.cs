@@ -67,6 +67,11 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult UpdateBoardGame(BoardGameUpdateViewModel boardGameViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(boardGameViewModel);
+            }
+
             BoardGame updatedReview = BuildBoardGameDataModelFromUpdate(boardGameViewModel);
             _gameRepositories.Update(updatedReview);
 

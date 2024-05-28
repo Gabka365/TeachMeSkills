@@ -59,14 +59,20 @@
                     <p class="desc-text">
                         @Model.Description
                     </p>
-                    <h3 class="desc-title">Суть игры</h3>
-                    <p class="desc-text">
-                        @Model.Essence
-                    </p>
+                    @if (Model.Essence is not null)
+                    {
+                        <h3 class="desc-title">Суть игры</h3>
+                        <p class="desc-text">
+                            @Model.Essence
+                        </p>
+                    }
                 </div>
-                <div class="tags">
-                    <span class="tag">@Model.Tags</span>
-                </div>
+                @if (Model.Tags is not null)
+                {
+                    <div class="tags">
+                        <span class="tag">@Model.Tags</span>
+                    </div>
+                }
             </div>
             <div class="price-card">
                 <div class="first-row">
