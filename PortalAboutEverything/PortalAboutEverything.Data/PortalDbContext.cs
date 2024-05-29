@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Model.BookClub;
 using PortalAboutEverything.Data.Model.Store;
+using PortalAboutEverything.Data.Model.VideoLibrary;
+
 
 namespace PortalAboutEverything.Data
 {
@@ -8,18 +11,23 @@ namespace PortalAboutEverything.Data
     {
         public const string CONNECTION_STRING = "Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True;Database=Net16Portal";
 
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<GameStore> GameStores { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieReview> MovieReviews { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Good> Goods { get; set; }
-        public DbSet<VideoInfo> Videos { get; init; }
         public DbSet<BoardGame> BoardGames { get; set; }
         public DbSet<BoardGameReview> BoardGameReviews { get; set; }
         public DbSet<Traveling> Travelings { get; set; }
-
         public DbSet<History> HistoryEvents { get; set; }
+        public DbSet<Video> Videos { get; init; }
+        public DbSet<Folder> Folders { get; init; }
+        
+        public DbSet<Book> Books { get; set; }
+        public DbSet<BookReview> BookReviews { get; set; }
         public PortalDbContext() { }
         public PortalDbContext(DbContextOptions<PortalDbContext> contextOptions) : base(contextOptions) { }
 
@@ -40,12 +48,42 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<BoardGame>()
                 .HasMany(x => x.Reviews)
                 .WithOne(x => x.BoardGame)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Movie>()
+                .HasMany(x => x.Reviews)
+                .WithOne(x => x.Movie)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Book>()
+                .HasMany(x => x.BookReviews)
+                .WithOne(x => x.Book)
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
 
             modelBuilder.Entity<User>()
                 .HasMany(x => x.FavoriteGames)
                 .WithMany(x => x.UserWhoFavoriteTheGame);
+            
+            modelBuilder.Entity<Folder>()
+                .HasMany(folder => folder.Videos)
+                .WithOne(video => video.Folder)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.FavoriteBoardsGames)
+                .WithMany(x => x.UsersWhoFavoriteThisBoardGame);
+
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Travelings)
+                .WithOne(x => x.User);
+
+            modelBuilder.Entity<Traveling>()
+                .HasMany(x => x.Comments)
+                .WithOne(x => x.Traveling);
 
             modelBuilder.Entity<GameStore>()
                 .HasMany(x => x.UserTheGame)

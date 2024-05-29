@@ -22,3 +22,14 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.review {
+    padding: 5px;
+    margin: 8px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.dateReview {
+    text-align: right;
+}

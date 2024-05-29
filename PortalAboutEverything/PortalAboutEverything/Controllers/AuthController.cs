@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Auth;
 using System.Security.Claims;
@@ -32,6 +34,45 @@ namespace PortalAboutEverything.Controllers
                 return View(model);
             }
 
+            LoginUser(user);
+
+            return Redirect("/");
+        }
+
+        [HttpGet]
+        public IActionResult Registration()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Registration(RegisrationViewModel viewModel)
+        {
+            if (_userRepository.Exist(viewModel.Login))
+            {
+                ModelState.AddModelError(nameof(RegisrationViewModel.Login), "Такой пользователь уже есть");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            var user = new User
+            {
+                UserName = viewModel.Login,
+                Password = viewModel.Password
+            };
+
+            _userRepository.Create(user);
+
+            LoginUser(user);
+
+            return Redirect("/");
+        }
+
+        private void LoginUser(User user)
+        {
             var claims = new List<Claim>()
             {
                 new Claim("Id", user.Id.ToString()),
@@ -46,10 +87,8 @@ namespace PortalAboutEverything.Controllers
             HttpContext
                 .SignInAsync(principal)
                 .Wait();
-
-            return Redirect("/");
         }
-    
+
         public IActionResult Logout()
         {
             HttpContext

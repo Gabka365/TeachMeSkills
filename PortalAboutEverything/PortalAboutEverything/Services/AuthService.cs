@@ -14,10 +14,19 @@ namespace PortalAboutEverything.Services
             _userRepository = userRepository;
         }
 
+        public bool IsAuthenticated()
+            => _httpContextAccessor.HttpContext!.User.Identity?.IsAuthenticated ?? false;
+
         public User GetUser()
         {
             var userId = GetUserId();
             return _userRepository.Get(userId)!;
+        }
+
+        public User GetUserWithFavoriteBoardGames()
+        {
+            var userId = GetUserId();
+            return _userRepository.GetWithFavoriteBoardGames(userId)!;
         }
 
         public string GetUserName()
