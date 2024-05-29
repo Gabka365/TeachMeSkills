@@ -4,7 +4,7 @@
     <link href="/css/BoardGame/forms.css" rel="stylesheet" />
 }
 
-<div class="review-form">
+<div class="board-game-or-review-form">
     <h2>
         Редактирование игры @Model.Title
     </h2>
@@ -14,50 +14,57 @@
             @Html.TextBoxFor(boardGame => boardGame.Title, new
                 {
                     placeholder = "Название игры",
-                    @class = "reviewer-name"
+                    @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.Title)
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.MiniTitle, new
                 {
                     placeholder = "Слоган игры",
-                    @class = "reviewer-name"
+                    @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.MiniTitle)
         </div>
         <div>
             @Html.TextAreaFor(boardGame => boardGame.Description, new
                 {
                     placeholder = "Описание игры",
-                    @class = "reviewer-name"
+                    @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.Description)
         </div>
         <div>
             @Html.TextAreaFor(boardGame => boardGame.Essence, new
                 {
                     placeholder = "Суть игры",
-                    @class = "reviewer-name"
+                    @class = "foarm-field"
                 })
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.Tags, new
                 {
                     placeholder = "Тег для игры",
-                    @class = "reviewer-name"
+                    @class = "foarm-field"
                 })
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.Price, new
                 {
                     placeholder = "Цена игры",
-                    @class = "reviewer-name"
+                    @class = "foarm-field",
+                    @type = "number"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.Price)
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.ProductCode, new
                 {
                     placeholder = "Код товара",
-                    @class = "reviewer-name"
+                    @class = "foarm-field",
+                    @type = "number"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.ProductCode)
         </div>
         <div>
             <input class="button-send" type="submit" value="Сохранить изменения" />

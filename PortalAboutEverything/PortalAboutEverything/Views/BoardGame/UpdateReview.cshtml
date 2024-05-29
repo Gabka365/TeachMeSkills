@@ -4,26 +4,29 @@
     <link href="/css/BoardGame/forms.css" rel="stylesheet" />
 }
 
-<div class="review-form">
+<div class="board-game-or-review-form">
     <h2>
         Ваше мнение об игре "@Model.BoardGameName":
     </h2>
     <form method="post">
         @Html.HiddenFor(review => review.Id)
         @Html.HiddenFor(review => review.BoardGameId)
+        @Html.HiddenFor(review => review.BoardGameName)
         <div>
             @Html.TextBoxFor(review => review.Name, new
                 {
                     placeholder = "Ваше имя",
-                    @class = "reviewer-name"
+                    @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(review => review.Name)
         </div>
         <div>
             @Html.TextAreaFor(review => review.Text, new
                 {
                     placeholder = "Ваш отзыв",
-                     @class = "reviewer-name"
+                     @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(review => review.Text)
         </div>
         <div>
             <input class="button-send" type="submit" value="Изменить отзыв" />

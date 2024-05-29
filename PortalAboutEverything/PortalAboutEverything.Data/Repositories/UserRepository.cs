@@ -16,7 +16,7 @@ namespace PortalAboutEverything.Data.Repositories
                 .FirstOrDefault(x => x.UserName == login && x.Password == password);
         }
 
-        public User? GetWithFavoriteBoardGames(int id)
+        public User GetWithFavoriteBoardGames(int id)
              => _dbSet
             .Include(user => user.FavoriteBoardsGames)
             .Single(user => user.Id == id);
