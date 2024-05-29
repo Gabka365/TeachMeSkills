@@ -6,6 +6,7 @@ using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Traveling;
 using PortalAboutEverything.Services;
 using System.IO;
+using System.Xml.Linq;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 
@@ -91,6 +92,10 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult CreatePost(TravelingCreateViewModel createTravelingViewModel, IFormFile image)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(createTravelingViewModel);
+            }
             var userId = _authService.GetUserId();
             var user = _userRepository.Get(userId);
             var traveling = new Traveling
@@ -103,7 +108,7 @@ namespace PortalAboutEverything.Controllers
             _travelingRepositories.Create(traveling);
             if (image != null)
             {
-                var fileExt = Path.GetExtension(Path.GetFileName(image.FileName)).Substring(1);
+                var fileExt = Path.GetExtension(Path.GetFileName(image.FileName)).Substring(1).ToLower();
                 var imageName = $"{traveling.Id}.{fileExt}";
                 if (_validExtensions.Contains(fileExt))
                 {
@@ -121,11 +126,19 @@ namespace PortalAboutEverything.Controllers
             }
             return RedirectToAction("TravelingPosts");
         }
-        public IActionResult CreateComent(int id, string text)
+        public IActionResult CreateComment(int id, TravelingCreateComment travelingCreateComment)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage; //Задать вопрос
+
+                TempData["ErrorMessage"] = errors;
+
+                return RedirectToAction("TravelingPosts");
+            }
             var comment = new Comment
             {
-                Text = text,
+                Text = travelingCreateComment.Text,
                 Traveling = _travelingRepositories.Get(id)
             };
            
@@ -188,7 +201,11 @@ namespace PortalAboutEverything.Controllers
                Name = traveling.Name,
                TimeOfCreation = traveling.TimeOfCreation,
                UserId = traveling.User.Id,
-               Comments = _commentRepository.GetWithTravel(traveling.Id)
+               Comments = _commentRepository.GetWithTravel(traveling.Id).Select(c => new TravelingCreateComment
+               {
+                   Text = c.Text,
+    
+               }).ToList()
            };
 
     }
