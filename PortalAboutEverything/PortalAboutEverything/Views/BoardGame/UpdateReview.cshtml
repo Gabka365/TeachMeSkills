@@ -11,12 +11,14 @@
     <form method="post">
         @Html.HiddenFor(review => review.Id)
         @Html.HiddenFor(review => review.BoardGameId)
+        @Html.HiddenFor(review => review.BoardGameName)
         <div>
             @Html.TextBoxFor(review => review.Name, new
                 {
                     placeholder = "Ваше имя",
                     @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(review => review.Name)
         </div>
         <div>
             @Html.TextAreaFor(review => review.Text, new
@@ -24,6 +26,7 @@
                     placeholder = "Ваш отзыв",
                      @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(review => review.Text)
         </div>
         <div>
             <input class="button-send" type="submit" value="Изменить отзыв" />

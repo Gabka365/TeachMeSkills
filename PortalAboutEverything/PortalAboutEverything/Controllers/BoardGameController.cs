@@ -161,6 +161,11 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult CreateReview(BoardGameCreateReviewViewModel boardGameReviewViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(boardGameReviewViewModel);
+            }
+
             BoardGameReview review = BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
             _reviewRepositories.Create(review, boardGameReviewViewModel.BoardGameId);
 
@@ -180,6 +185,11 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult UpdateReview(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(boardGameReviewViewModel);
+            }
+
             BoardGameReview updatedReview = BuildBoardGameRewievDataModelFromUpdate(boardGameReviewViewModel);
             _reviewRepositories.Update(updatedReview, boardGameReviewViewModel.BoardGameId);
 

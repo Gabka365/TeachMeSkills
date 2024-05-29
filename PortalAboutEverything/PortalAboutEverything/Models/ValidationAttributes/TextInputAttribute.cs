@@ -36,13 +36,13 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
             if (valueInString.Length < _minLenght)
             {
-                _errorMessage = "Значения поля \"{0}\" не может быть короче " + _minLenght + " " + GetlWithCorrectEnding(_minLenght);
+                _errorMessage = "Значение поля \"{0}\" не может быть короче " + _minLenght + " " + GetlWithCorrectEnding(_minLenght);
                 return false;
             }
 
             if (valueInString.Length > _maxLenght)
             {
-                _errorMessage = "Значения поля \"{0}\" не может быть длиннее " + _maxLenght + " " + GetlWithCorrectEnding(_maxLenght);
+                _errorMessage = "Значение поля \"{0}\" не может быть длиннее " + _maxLenght + " " + GetlWithCorrectEnding(_maxLenght);
                 return false;
             }
 
