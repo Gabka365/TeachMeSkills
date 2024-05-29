@@ -1,0 +1,12 @@
+﻿@model PortalAboutEverything.Models.GameStore.GamerGameStoreViewModel
+<div>
+    Добро Пожаловать в наш магазин игр @Model.Name
+</div>
+
+@foreach (var game in Model.Games)
+{
+    <div>
+        Уже купленна:
+        @game.GameName
+    </div>
+}
