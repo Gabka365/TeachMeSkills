@@ -4,14 +4,15 @@
     <link rel="stylesheet" href="/css/Traveling/posts/style.css" />
     <link rel="stylesheet" href="/css/Traveling/nicepage.css" />
 }
-@if (Model != null && Model.Count != 0)
-{
-    <div class="u-body u-xl-mode" data-lang="ru">
-        <section class="u-align-center u-clearfix u-section-1" id="sec-b5d7">
-            <div class="u-clearfix u-sheet u-sheet-1">
-                <div class="custom-expanded u-container-style u-post-details u-post-details-1">
-                    <div class="u-container-layout u-container-layout-1">
 
+
+<div class="u-body u-xl-mode" data-lang="ru">
+    <section class="u-align-center u-clearfix u-section-1" id="sec-b5d7">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <div class="custom-expanded u-container-style u-post-details u-post-details-1">
+                <div class="u-container-layout u-container-layout-1">
+                    @if (Model != null && Model.Count != 0)
+                    {
                         @foreach (var post in Model)
                         {
                             <h3 class="u-blog-control u-text u-text-1">
@@ -49,22 +50,43 @@
                                     </div>
                                     <div class="u-clearfix u-group-elements u-group-elements-2">
                                         <!--blog_post_readmore-->
-                                        <a href="/Traveling/DeletePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-1">Удалить</a>
-                                        <a href="/Traveling/UpdatePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-2">Редактировать</a>
+                                        @if (User.Identity is not null && (User.Identity.IsAuthenticated && post.UserId.ToString() == User.Claims.FirstOrDefault(x => x.Type == "Id")?.Value))
+                                        {
+                                            <a href="/Traveling/DeletePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-1">Удалить</a>
+                                            <a href="/Traveling/UpdatePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-2">Редактировать</a>
+                                        }
                                     </div>
                                 </div>
                             </div>
+                            <div class="comments">
+                                @foreach (var comment in post.Comments)
+                                {
+                                    <div>
+                                        <p>@comment.Text</p>
+                                    </div>
+                                }
+                                <form action="/Traveling/CreateComent/@post.Id" method="post">
+                                    <textarea name="text" placeholder="Напиши свой отзыв здесь"></textarea>
+                                    <input type="submit" value="Отставить отзыв" />
+                                </form>
+                            </div>
+
                         }
-
-                        <p class="u-text u-text-default u-text-4">Ваши коментарии </p>
-
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
                         <a href="/Traveling/CreatePost" class="u-btn u-button-style u-btn-3">Создать новый пост</a>
-
-                    </div>
+                    }
+                    else
+                    {
+                        <p class="u-text u-text-default u-text-4">Для создания поста требуется зайти на сайт</p>
+                        <a href="/Auth/Login" class="u-btn u-button-style u-btn-3">Зайти на сайт</a>
+                    }
                 </div>
             </div>
-        </section>
-    </div>
-}
+        </div>
+    </section>
+</div>
+
 
 

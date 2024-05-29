@@ -1,4 +1,9 @@
-﻿@model PortalAboutEverything.Models.BookClub.BookClubReviewWritingPageViewModel;
+﻿@model PortalAboutEverything.Models.BookClub.BookClubReviewWritingViewModel;
+
+@section BookClubStyle {
+    <link rel="stylesheet" href="/css/BookClub/BookReviewWritingPage.css" />
+}
+
 
 <div class="content-page">
     <div class="content-page__wrapper">
@@ -20,35 +25,22 @@
         <div class="content-page__aside aside">
             <div class="aside__title">О книге</div>
             <div class="aside__summury">
-               @Model.SummaryOfBook
-            </div>
-            <div class="aside__subject subject">
-                @foreach (var subject in Model.SubjectsOfBook)
-                {
-                    <span class="subject__item">@subject</span>
-                }
+                @Model.SummaryOfBook
             </div>
         </div>
     </div>
 </div>
 
 <div class="container">
-    <form action="/BookClub/BookReviewPage" method="post">
-        <h2>Ваша оценка</h2>
+    <form action="/BookClub/AddBookReview" method="post">
+        <h2>Ваша оценка @Model.BookId</h2>
+        <input type="hidden" value="@Model.BookId" name="bookId" />
 
         <div class="row">
-            <div class="col-75" hidden>
+            <div class="col-75">
                 <label>
-                    Автор
-                    <input type="text" name="bookAuthor" value="@Model.BookAuthor" />
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-75" hidden>
-                <label>
-                    Нaзвание книги
-                    <input type="text" name="bookTitle" value="@Model.BookTitle" />
+                    Имя
+                    <input type="text" name="name" />
                 </label>
             </div>
         </div>
@@ -75,7 +67,7 @@
                 {
                     <label>
                         @rate
-                        <input type="radio" name="bookPrintRating" value=@rate>
+                        <input type="radio" name="printRating" value=@rate>
                     </label>
                 }
             </div>
@@ -89,18 +81,17 @@
                 {
                     <label>
                         @rate
-                        <input type="radio" name="bookIllustrationsRating" value=@rate>
+                        <input type="radio" name="ilustrationsRating" value=@rate>
                     </label>
                 }
             </div>
         </div>
-
         <div class="row">
             <div class="col-25">
                 <label for="subject">Рецензия</label>
             </div>
             <div class="col-75">
-                <textarea name="textReview" style="height:200px"></textarea>
+                <textarea name="text" style="height:500px"></textarea>
             </div>
         </div>
         <div class="row">

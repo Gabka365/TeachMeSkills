@@ -1,33 +1,28 @@
-﻿using PortalAboutEverything.Data.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using PortalAboutEverything.Data.Model.BookClub;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class BookRepositories
+    public class BookRepositories : BaseRepository<Book>
     {
-        private List<Book> _books = new();
-        private int _lastId = 1;
-        public void Create(Book book)
+
+        public BookRepositories(PortalDbContext db) : base(db) { }
+
+        public List<Book> GetAllWithReviews()
+       => _dbSet
+            .Include(x => x.BookReviews)
+            .ToList();
+
+        public void Update(Book book)
         {
-            book.Id = _lastId++;
-            _books.Add(book);
+            var dbBook = Get(book.Id);
+
+            dbBook.BookTitle = book.BookTitle;
+            dbBook.BookAuthor = book.BookAuthor;
+            dbBook.YearOfPublication = book.YearOfPublication;
+            dbBook.SummaryOfBook = book.SummaryOfBook;
+
+            _dbContext.SaveChanges();
         }
-
-		public void Delete(int bookId)
-		{
-			var book = _books.Single(x => x.Id == bookId);
-            _books.Remove(book);
-		}
-
-		public List<Book> GetAll()
-            => _books.ToList();
-
-		public Book Get(int bookId)
-		    => _books.Single(x =>x.Id == bookId);
-
-		public void Update(Book book)
-		{
-			Delete(book.Id);
-			Create(book);
-		}
-	}
+    }
 }

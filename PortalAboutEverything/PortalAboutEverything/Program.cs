@@ -30,9 +30,11 @@ builder.Services.AddScoped<MovieReviewRepositories>();
 builder.Services.AddScoped<BoardGameRepositories>();
 builder.Services.AddScoped<BoardGameReviewRepositories>();
 builder.Services.AddScoped<HistoryRepositories>();
-builder.Services.AddSingleton<BookRepositories>();
+builder.Services.AddScoped<BookRepositories>();
+builder.Services.AddScoped<BookReviewRepositories>();
 builder.Services.AddScoped<StoreRepositories>();
 builder.Services.AddScoped<GameStoreRepositories>();
+builder.Services.AddScoped<CommentRepository>();
 
 // Services
 builder.Services.AddScoped<AuthService>();
