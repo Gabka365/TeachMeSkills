@@ -15,6 +15,7 @@ builder.Services
     .AddCookie(AuthController.AUTH_METHOD, option =>
     {
         option.LoginPath = "/Auth/Login";
+        option.AccessDeniedPath = "/Auth/AccessDenied";
     });
 
 builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbContext.CONNECTION_STRING));

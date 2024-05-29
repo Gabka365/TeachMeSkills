@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Auth;
@@ -61,7 +62,8 @@ namespace PortalAboutEverything.Controllers
             var user = new User
             {
                 UserName = viewModel.Login,
-                Password = viewModel.Password
+                Password = viewModel.Password,
+                Role = UserRole.User,
             };
 
             _userRepository.Create(user);
@@ -77,6 +79,7 @@ namespace PortalAboutEverything.Controllers
             {
                 new Claim("Id", user.Id.ToString()),
                 new Claim("Name", user.UserName),
+                new Claim("Role", user.Role.ToString()),
                 new Claim(ClaimTypes.AuthenticationMethod,AUTH_METHOD)
             };
 
@@ -96,6 +99,11 @@ namespace PortalAboutEverything.Controllers
                 .Wait();
 
             return Redirect("/");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

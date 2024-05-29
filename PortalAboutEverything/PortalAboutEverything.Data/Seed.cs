@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 
@@ -10,12 +11,12 @@ namespace PortalAboutEverything.Data
         {
             using var service = serviceProvider.CreateScope();
 
-            fillUsers(service);
-            fillGames(service);
+            FillUsers(service);
+            FillGames(service);
             FillBoardGames(service);
         }
 
-        private void fillGames(IServiceScope service)
+        private void FillGames(IServiceScope service)
         {
             var gameRepositories = service.ServiceProvider.GetService<GameRepositories>()!;
 
@@ -73,7 +74,7 @@ namespace PortalAboutEverything.Data
             }
         }
 
-        private void fillUsers(IServiceScope service)
+        private void FillUsers(IServiceScope service)
         {
             var userRepository = service.ServiceProvider.GetService<UserRepository>()!;
 
@@ -82,14 +83,16 @@ namespace PortalAboutEverything.Data
                 var admin = new User
                 {
                     UserName = "admin",
-                    Password = "admin"
+                    Password = "admin",
+                    Role = UserRole.Admin,
                 };
                 userRepository.Create(admin);
 
                 var user = new User
                 {
                     UserName = "user",
-                    Password = "user"
+                    Password = "user",
+                    Role = UserRole.User,
                 };
                 userRepository.Create(user);
             }

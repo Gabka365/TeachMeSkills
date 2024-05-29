@@ -1,4 +1,5 @@
-﻿using PortalAboutEverything.Data.Model;
+﻿using PortalAboutEverything.Data.Enums;
+using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 
 namespace PortalAboutEverything.Services
@@ -24,26 +25,36 @@ namespace PortalAboutEverything.Services
         }
 
         public string GetUserName()
+            => GetClaimValue("Name");
+
+        public UserRole GetUserRole()
         {
-            var userName = _httpContextAccessor
-                .HttpContext!
-                .User
-                .Claims
-                .First(x => x.Type == "Name")
-                .Value;
-            return userName;
+            var userRole = GetClaimValue("Role");
+            return Enum.Parse<UserRole>(userRole);
+        }
+
+        public bool HasRoleOrHigher(UserRole role) {
+            return GetUserRole() >= role;
         }
 
         public int GetUserId()
         {
-            var userIdText = _httpContextAccessor
-                .HttpContext!
-                .User
-                .Claims
-                .First(x => x.Type == "Id")
-                .Value;
+            var userIdText = GetClaimValue("Id");
             var userId = int.Parse(userIdText);
             return userId;
         }
+
+        public bool IsAdmin()
+        {
+            return IsAuthenticated() && GetUserRole() == UserRole.Admin;
+        }
+
+        private string GetClaimValue(string claimType)
+            => _httpContextAccessor
+                .HttpContext!
+                .User
+                .Claims
+                .First(x => x.Type == claimType)
+                .Value;
     }
 }
