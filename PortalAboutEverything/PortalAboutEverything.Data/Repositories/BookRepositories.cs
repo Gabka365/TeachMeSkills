@@ -24,5 +24,10 @@ namespace PortalAboutEverything.Data.Repositories
 
             _dbContext.SaveChanges();
         }
+
+        public List<Book> GetFavoriteBooksByUserId(int userId)
+            => _dbSet
+                .Where(book => book.UsersWhoAddBookToFavorites.Any(u => u.Id == userId))
+                .ToList();
     }
 }
