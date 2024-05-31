@@ -2,15 +2,18 @@
 using PortalAboutEverything.Models.History;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Services;
 
 namespace PortalAboutEverything.Controllers
 {
     public class HistoryController : Controller
     {
         private HistoryRepositories _historyRepositories;
-        public HistoryController(HistoryRepositories historyRepository)
+        private AuthService _authService;
+        public HistoryController(HistoryRepositories historyRepository, AuthService authService)
         {
             _historyRepositories = historyRepository;
+            _authService = authService;
         }
         public IActionResult Index()
         {       
@@ -30,7 +33,7 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult Create(CreateEventViewModel createEventViewModel)
         {
-            var historicalEvent = new History
+            var historicalEvent = new HistoryEvent
             {
                 Name = createEventViewModel.Name,
                 Description = createEventViewModel.Description,
@@ -57,7 +60,7 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult Update (HistoryUpdateViewModel updateViewModel)
         {
-            var historicalEvents = new History
+            var historicalEvents = new HistoryEvent
             {
                 Id = updateViewModel.Id,
                 Name = updateViewModel.Name,
@@ -68,8 +71,25 @@ namespace PortalAboutEverything.Controllers
 
             return RedirectToAction("Index");
         }
+        public IActionResult Guest()
+        {
+            var userName = _authService.GetUserName();
 
-        private HistoryIndexViewModel BuildHistoryViewModel(History historicalEvent)
+            var userId = _authService.GetUserId();
+            var historyEvents = _historyRepositories.GetFavoriteHistoryEventsByUserId(userId);
+
+            var viewModel = new GuestViewModel
+            {
+                Name = userName,
+                HistoryEvents = historyEvents
+                    .Select(BuildFavoriteHistoryEventViewModel)
+                    .ToList(),
+            };
+
+            return View(viewModel);
+        }
+
+        private HistoryIndexViewModel BuildHistoryViewModel(HistoryEvent historicalEvent)
             => new HistoryIndexViewModel
             {
                 Id = historicalEvent.Id,
@@ -78,7 +98,7 @@ namespace PortalAboutEverything.Controllers
                 Description = historicalEvent.Description,               
             };
 
-        private HistoryUpdateViewModel BuildHistoryUpdateViewModel(History historicalEvent)
+        private HistoryUpdateViewModel BuildHistoryUpdateViewModel(HistoryEvent historicalEvent)
             => new HistoryUpdateViewModel
             {
                 Id = historicalEvent.Id,
@@ -86,5 +106,14 @@ namespace PortalAboutEverything.Controllers
                 YearOfEvent = historicalEvent.YearOfEvent,
                 Description = historicalEvent.Description,
             };
+
+        private FavoriteHistoryEventsViewModel BuildFavoriteHistoryEventViewModel(HistoryEvent historicalEvent)
+           => new FavoriteHistoryEventsViewModel
+           {
+               Id = historicalEvent.Id,
+               Name = historicalEvent.Name,
+               YearOfEvent = historicalEvent.YearOfEvent,
+               Description = historicalEvent.Description,
+           };
     }
 }

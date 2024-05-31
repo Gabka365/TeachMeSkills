@@ -1,0 +1,12 @@
+﻿@model PortalAboutEverything.Models.History.GuestViewModel
+
+<div>
+    @Model.Name
+</div>
+
+@foreach(var historyEvent in Model.HistoryEvents)
+{
+    <div>
+        @historyEvent.Name
+    </div>
+}

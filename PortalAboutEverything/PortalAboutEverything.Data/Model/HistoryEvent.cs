@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace PortalAboutEverything.Data.Model
 {
-    public class History
-    {
-        public int Id { get; set; }
-
+    public class HistoryEvent : BaseModel
+    {   
         public string Name { get; set; }
 
         public string Description { get; set; }
 
         public int YearOfEvent { get; set; }
-
+        public List<User> UserWhoFavoriteTheHistoryEvent { get; set; }
     }
 }
