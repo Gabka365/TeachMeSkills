@@ -237,8 +237,8 @@ namespace PortalAboutEverything.Controllers
                 Description = gameViewModel.Description,
                 Essence = gameViewModel.Essence,
                 Tags = gameViewModel.Tags,
-                Price = gameViewModel.Price,
-                ProductCode = gameViewModel.ProductCode,
+                Price = (double)gameViewModel.Price,
+                ProductCode = (long)gameViewModel.ProductCode,
             };
 
         private BoardGameUpdateViewModel BuildBoardGameUpdateDataModel(BoardGame game)
@@ -262,8 +262,8 @@ namespace PortalAboutEverything.Controllers
                  Description = gameViewModel.Description,
                  Essence = gameViewModel.Essence,
                  Tags = gameViewModel.Tags,
-                 Price = gameViewModel.Price,
-                 ProductCode = gameViewModel.ProductCode,
+                 Price = (double)gameViewModel.Price,
+                 ProductCode = (long)gameViewModel.ProductCode,
              };
 
         private BoardGameIndexViewModel BuildBoardGameIndexViewModel(BoardGame game)
