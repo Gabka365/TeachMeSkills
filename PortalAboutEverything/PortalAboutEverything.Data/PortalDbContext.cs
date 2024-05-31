@@ -31,6 +31,8 @@ namespace PortalAboutEverything.Data
         
         public DbSet<Book> Books { get; set; }
         public DbSet<BookReview> BookReviews { get; set; }
+
+        public DbSet<HistoryEvent> HistoryEvents { get; set; }
         public PortalDbContext() { }
         public PortalDbContext(DbContextOptions<PortalDbContext> contextOptions) : base(contextOptions) { }
 
@@ -97,6 +99,11 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<GameStore>()
                 .HasMany(x => x.UserTheGame)
                 .WithMany(x => x.MyGames);
+
+
+            modelBuilder.Entity<User>()
+               .HasMany(x => x.FavoriteHistoryEvents)
+               .WithMany(x => x.UserWhoFavoriteTheHistoryEvent);
 
             base.OnModelCreating(modelBuilder);
         }

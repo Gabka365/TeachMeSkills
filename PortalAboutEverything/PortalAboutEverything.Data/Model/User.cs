@@ -17,5 +17,7 @@ namespace PortalAboutEverything.Data.Model
         public virtual List<Traveling> Travelings { get; set; }
 
         public virtual List<GameStore> MyGames { get; set; }
+
+        public virtual List<HistoryEvent> FavoriteHistoryEvents { get; set; }
     }
 }
