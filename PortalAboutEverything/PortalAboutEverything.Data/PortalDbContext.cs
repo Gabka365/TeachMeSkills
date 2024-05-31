@@ -19,6 +19,9 @@ namespace PortalAboutEverything.Data
         public DbSet<MovieReview> MovieReviews { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Good> Goods { get; set; }
+
+        public DbSet<GoodReview> GoodReviews { get; set; }
+        public DbSet<VideoInfo> Videos { get; init; }
         public DbSet<BoardGame> BoardGames { get; set; }
         public DbSet<BoardGameReview> BoardGameReviews { get; set; }
         public DbSet<Traveling> Travelings { get; set; }
@@ -60,6 +63,12 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<Book>()
                 .HasMany(x => x.BookReviews)
                 .WithOne(x => x.Book)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Good>()
+                .HasMany(x => x.Reviews)
+                .WithOne(x => x.Good)
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
 
