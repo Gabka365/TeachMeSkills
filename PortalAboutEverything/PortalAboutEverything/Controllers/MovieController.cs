@@ -2,6 +2,8 @@
 using PortalAboutEverything.Models.Movie;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Model;
+using Microsoft.AspNetCore.Authorization;
+using PortalAboutEverything.Services;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -9,11 +11,15 @@ namespace PortalAboutEverything.Controllers
 	{
 		private MovieRepositories _movieRepositories;
 		private MovieReviewRepositories _movieReviewRepositories;
+		private AuthService _authService;
 
-		public MovieController(MovieRepositories movieRepositories, MovieReviewRepositories movieReviewRepositories)
+		public MovieController(MovieRepositories movieRepositories, 
+			MovieReviewRepositories movieReviewRepositories,
+			AuthService authService)
 		{
 			_movieRepositories = movieRepositories;
 			_movieReviewRepositories = movieReviewRepositories;
+			_authService = authService;
 		}
 
 		public IActionResult Index()
@@ -131,6 +137,30 @@ namespace PortalAboutEverything.Controllers
 			_movieReviewRepositories.AddReviewToMovie(movieAddReviewViewModel.MovieId, 
 				movieAddReviewViewModel.Comment, movieAddReviewViewModel.Rate);
 			return RedirectToAction("Index");
+		}
+
+		[Authorize]
+		public IActionResult MoviesFan()
+		{
+			var userName = _authService.GetUserName();
+			var userId = _authService.GetUserId();
+			var movies = _movieRepositories.GetFavoriteMoviesByUserId(userId);
+			var viewModel = new MoviesFanViewModel
+			{
+				Name = userName,
+				Movies = movies.Select(movie => new MovieIndexViewModel
+				{
+					Id = movie.Id,
+					Name = movie.Name,
+					Description = movie.Description,
+					ReleaseYear = movie.ReleaseYear,
+					Director = movie.Director,
+					Budget = movie.Budget,
+					CountryOfOrigin = movie.CountryOfOrigin,
+				}).ToList(),
+			};
+
+			return View(viewModel);
 		}
 	}
 }
