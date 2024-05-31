@@ -17,6 +17,9 @@
                 <div class="header__btn_wrapper">
                     <a class="header__btn btn btn_big" href="/BookClub/Create">Добавить новую книгу</a>
                 </div>
+                <div class="header__btn_wrapper">
+                    <a class="header__btn btn btn_big" href="/BookClub/FavoriteBooks">Список моих книг</a>
+                </div>
             </div>
             <div class="header__image">
                 <img src="/images/bookClub/header_image.webp" alt="A man read books">
@@ -59,7 +62,7 @@
 
         </div>
         <div class="content-page__reviews reviews">
-            @foreach (var review in book.Review)
+            @foreach (var review in book.Reviews)
             {
                 <div class="review">
                     <div>

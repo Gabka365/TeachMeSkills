@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Data.Model.BookClub;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.BookClub;
+using PortalAboutEverything.Services;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -10,10 +12,12 @@ namespace PortalAboutEverything.Controllers
 
         private BookRepositories _bookRepositories;
         private BookReviewRepositories _bookReviewRepositories;
-        public BookClubController(BookRepositories bookRepositories, BookReviewRepositories bookReviewRepositories)
+        private AuthService _authService;
+        public BookClubController(BookRepositories bookRepositories, BookReviewRepositories bookReviewRepositories, AuthService authService)
         {
             _bookRepositories = bookRepositories;
             _bookReviewRepositories = bookReviewRepositories;
+            _authService = authService;
         }
 
         public IActionResult Index()
@@ -91,6 +95,25 @@ namespace PortalAboutEverything.Controllers
             return View(bookClubReviewWritingViewModel);
         }
 
+        [Authorize]
+        public IActionResult FavoriteBooks()
+        {
+            var userName = _authService.GetUserName();
+
+            var userId = _authService.GetUserId();
+            var books = _bookRepositories.GetFavoriteBooksByUserId(userId);
+
+            var viewModel = new FavoriteBooksViewModel()
+            {
+                UserName = userName,
+                Books = books
+                .Select(BuildBookUpdateViewModel)
+                .ToList(),
+            };
+
+            return View(viewModel);
+        }
+
         [HttpPost]
         public IActionResult AddBookReview(BookClubReviewViewModel viewModel)
         {
@@ -101,28 +124,31 @@ namespace PortalAboutEverything.Controllers
         }
 
         private BookClubIndexViewModel BuildBookClubIndexViewModel(Book book)
-             => new BookClubIndexViewModel
-             {
-                 Id = book.Id,
-                 BookAuthor = book.BookAuthor,
-                 BookTitle = book.BookTitle,
-                 SummaryOfBook = book.SummaryOfBook,
-                 YearOfPublication = book.YearOfPublication,
-                 Review = book
-                        .BookReviews
-                        .Select(BuildBookClubReviewViewModel)
-                        .ToList()
-             };
+        {
+            return new BookClubIndexViewModel
+            {
+                Id = book.Id,
+                BookAuthor = book.BookAuthor,
+                BookTitle = book.BookTitle,
+                SummaryOfBook = book.SummaryOfBook,
+                YearOfPublication = book.YearOfPublication,
+                Reviews = book
+                          .BookReviews
+                          .Select(BuildBookClubReviewViewModel)
+                          .ToList()
+            };
+        }
+
 
         private BookUpdateViewModel BuildBookUpdateViewModel(Book book)
-             => new BookUpdateViewModel
-             {
-                 Id = book.Id,
-                 BookAuthor = book.BookAuthor,
-                 BookTitle = book.BookTitle,
-                 SummaryOfBook = book.SummaryOfBook,
-                 YearOfPublication = book.YearOfPublication
-             };
+                 => new BookUpdateViewModel
+                 {
+                     Id = book.Id,
+                     BookAuthor = book.BookAuthor,
+                     BookTitle = book.BookTitle,
+                     SummaryOfBook = book.SummaryOfBook,
+                     YearOfPublication = book.YearOfPublication
+                 };
 
         private BookClubReviewViewModel BuildBookClubReviewViewModel(BookReview review)
             => new BookClubReviewViewModel
@@ -134,7 +160,6 @@ namespace PortalAboutEverything.Controllers
                 IlustrationsRating = review.BookIllustrationsRating,
                 Text = review.Text
             };
-
 
     }
 }
