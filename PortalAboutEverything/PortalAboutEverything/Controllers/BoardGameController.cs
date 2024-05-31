@@ -2,6 +2,8 @@
 using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -9,11 +11,18 @@ namespace PortalAboutEverything.Controllers
     {
         private BoardGameRepositories _gameRepositories;
         private BoardGameReviewRepositories _reviewRepositories;
+        private UserRepository _userRepository;
+        private AuthService _authServise;
 
-        public BoardGameController(BoardGameRepositories gameRepositories, BoardGameReviewRepositories reviewRepositories)
+        public BoardGameController(BoardGameRepositories gameRepositories,
+            BoardGameReviewRepositories reviewRepositories,
+            UserRepository userRepository,
+            AuthService authService)
         {
             _gameRepositories = gameRepositories;
             _reviewRepositories = reviewRepositories;
+            _userRepository = userRepository;
+            _authServise = authService;
         }
 
         public IActionResult Index()
@@ -35,6 +44,11 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult CreateBoardGame(BoardGameCreateViewModel boardGameViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(boardGameViewModel);
+            }
+
             BoardGame game = BuildBoardGameDataModelFromCreate(boardGameViewModel);
 
             _gameRepositories.Create(game);
@@ -53,6 +67,11 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult UpdateBoardGame(BoardGameUpdateViewModel boardGameViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(boardGameViewModel);
+            }
+
             BoardGame updatedReview = BuildBoardGameDataModelFromUpdate(boardGameViewModel);
             _gameRepositories.Update(updatedReview);
 
@@ -71,7 +90,59 @@ namespace PortalAboutEverything.Controllers
             BoardGame gameViewModel = _gameRepositories.GetWithReviews(id);
             BoardGameViewModel viewModel = BuildBoardGameViewModel(gameViewModel);
 
+            if (_authServise.IsAuthenticated())
+            {
+                int userId = _authServise.GetUserId();
+                User user = _userRepository.GetWithFavoriteBoardGames(userId);
+                if (user.FavoriteBoardsGames.Any(boardGame => boardGame.Id == id))
+                {
+                    viewModel.IsFavoriteForUser = true;
+                }
+            }
+
             return View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult UserFavoriteBoardGames()
+        {
+            string userName = _authServise.GetUserName();
+            int userId = _authServise.GetUserId();
+
+            List<BoardGame> favoriteBoardGames = _gameRepositories.GetFavoriteBoardGamesForUser(userId);
+
+            UserFavoriteBoardGamesViewModel viewModel = new()
+            {
+                Name = userName,
+                FavoriteBoardGames = favoriteBoardGames.Select(BuildBoardGameViewModel).ToList()
+            };
+
+            return View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult AddFavoriteBoardGameForUser(int gameId)
+        {
+            User user = _authServise.GetUser();
+            _gameRepositories.AddUserWhoFavoriteThisBoardGame(user, gameId);
+
+            return RedirectToAction("BoardGame", new { id = gameId });
+        }
+
+        [Authorize]
+        public IActionResult RemoveFavoriteBoardGameForUser(int gameId, bool isGamePage)
+        {
+            User user = _authServise.GetUser();
+            _gameRepositories.RemoveUserWhoFavoriteThisBoardGame(user, gameId);
+
+            if (isGamePage)
+            {
+                return RedirectToAction("BoardGame", new { id = gameId });
+            }
+            else
+            {
+                return RedirectToAction("UserFavoriteBoardGames");
+            }
         }
 
         [HttpGet]
@@ -90,10 +161,15 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult CreateReview(BoardGameCreateReviewViewModel boardGameReviewViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(boardGameReviewViewModel);
+            }
+
             BoardGameReview review = BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
             _reviewRepositories.Create(review, boardGameReviewViewModel.BoardGameId);
 
-            return RedirectToAction("BoardGame", new {id = review.BoardGame.Id});
+            return RedirectToAction("BoardGame", new { id = review.BoardGame.Id });
         }
 
         [HttpGet]
@@ -102,13 +178,18 @@ namespace PortalAboutEverything.Controllers
             BoardGameReview reviewForUpdate = _reviewRepositories.GetWithBoardGame(id);
             BoardGameUpdateReviewViewModel viewModel = BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
             viewModel.BoardGameId = gameId;
-            
+
             return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult UpdateReview(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(boardGameReviewViewModel);
+            }
+
             BoardGameReview updatedReview = BuildBoardGameRewievDataModelFromUpdate(boardGameReviewViewModel);
             _reviewRepositories.Update(updatedReview, boardGameReviewViewModel.BoardGameId);
 
@@ -119,7 +200,7 @@ namespace PortalAboutEverything.Controllers
         {
             _reviewRepositories.Delete(id);
 
-            return RedirectToAction("BoardGame", new {id = gameId});
+            return RedirectToAction("BoardGame", new { id = gameId });
         }
 
         #region BoardGameBuilders

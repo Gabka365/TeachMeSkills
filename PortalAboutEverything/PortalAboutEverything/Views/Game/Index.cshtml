@@ -1,15 +1,21 @@
-﻿@model List<PortalAboutEverything.Models.Game.GameIndexViewModel>
+﻿@model PortalAboutEverything.Models.Game.IndexViewModel
 
 @section Style {
     <link rel="stylesheet" href="/css/Game/index.css?v=2" />
 }
 
 <div>
-    <a href="/Game/Create">Создать игру</a>
-    <a href="/Game/Gamer">Gamer</a>
-</div>
+    @if (Model.IsGameAdmin)
+    {
+        <a href="/Game/Create">Создать игру</a>
+    }
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <a href="/Game/Gamer">Gamer</a>
+    }
+    </div>
 <div class="games">
-    @foreach (var game in Model)
+    @foreach (var game in Model.Games)
     {
         <div class="game">
             Игра <a href="/Game/Update?id=@game.Id">@game.Name</a> была выпущена в @game.YearOfRelease Вот что о ней говорят @game.Description

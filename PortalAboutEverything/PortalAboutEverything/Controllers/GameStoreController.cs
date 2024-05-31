@@ -1,18 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.GameStore;
+using PortalAboutEverything.Services;
 
 namespace PortalAboutEverything.Controllers
 {
     public class GameStoreController : Controller
     {
         private GameStoreRepositories _gameStoreRepositories;
+        private AuthService _authService;
 
-        public GameStoreController(GameStoreRepositories gameStoreRepositories)
+        public GameStoreController(GameStoreRepositories gameStoreRepositories,
+            AuthService authService)
         {
             _gameStoreRepositories = gameStoreRepositories;
+            _authService = authService;
         }
 
         public IActionResult Index()
@@ -79,6 +84,20 @@ namespace PortalAboutEverything.Controllers
             _gameStoreRepositories.Update(game);
 
             return RedirectToAction("Index");
+        }
+        [Authorize]
+        public IActionResult GamerGameStore()
+        {
+            var userName = _authService.GetUserName();
+            var userId = _authService.GetUserId();
+            var games = _gameStoreRepositories.GetGamesByUserId(userId);
+
+            var viewModel = new GamerGameStoreViewModel
+            {
+                Name = userName,
+                Games = games.Select(BuildGameStoreUpdateViewModel).ToList(),
+            };
+            return View(viewModel);
         }
 
         private GameStoreIndexViewModel BuildGameStoreIndexViewModel(GameStore game)

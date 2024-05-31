@@ -1,0 +1,19 @@
+﻿@model PortalAboutEverything.Models.Auth.RegisrationViewModel
+
+<form method="post">
+    <div>
+        @Html.TextBoxFor(x => x.Login, new { placeholder = "Логин" })
+        @Html.ValidationMessageFor(x => x.Login)
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Password, new { @type = "password", placeholder = "Пароль" })
+        @Html.ValidationMessageFor(x => x.Password)
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.RepeatPassword, new { @type = "password", placeholder = "Повторите пароль" })
+        @Html.ValidationMessageFor(x => x.RepeatPassword)
+    </div>
+    <div>
+        <input type="submit" value="Зарегестрировтаься" />
+    </div>
+</form>

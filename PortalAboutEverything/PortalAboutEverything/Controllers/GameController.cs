@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data;
+using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Game;
@@ -31,7 +34,13 @@ namespace PortalAboutEverything.Controllers
                 .Select(BuildGameIndexViewModel)
                 .ToList();
 
-            return View(gamesViewModel);
+            var viewModel = new IndexViewModel()
+            {
+                Games = gamesViewModel,
+                IsGameAdmin = _authService.HasRoleOrHigher(UserRole.GameAdmin)
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -48,14 +57,23 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [HasRoleOrHigher(UserRole.GameAdmin)]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
+        [HasRoleOrHigher(UserRole.GameAdmin)]
         public IActionResult Create(GameCreateViewModel createGameViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(createGameViewModel);
+            }
+
             var game = new Game
             {
                 Name = createGameViewModel.Name,

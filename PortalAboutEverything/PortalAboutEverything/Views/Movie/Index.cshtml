@@ -1,7 +1,7 @@
 ﻿@model List<PortalAboutEverything.Models.Movie.MovieIndexViewModel>
 
 @section Style {
-				<link rel="stylesheet" href="/css/Movie/movieStyle.css" />
+				<link rel="stylesheet" href="/css/Movie/movieStyle.css?=1" />
 }
 
 <div>
@@ -31,8 +31,15 @@
 				<a href="/Movie/DeleteMovie?id=@movie.Id">Удалить</a> 
 			</div>
 			<div>
-				<a href="/Movie/MovieReview?id=@movie.Id">Написать отзыв фильму "@movie.Name"</a>
+				<a href="/Movie/MovieAddReview?id=@movie.Id">Написать отзыв фильму "@movie.Name"</a>
 			</div>
+			@foreach (var review in movie.Reviews)
+			{
+				<div class="review">
+					<div class="dateReview">@review.DateOfCreation</div>
+					<div class="comment">@review.Comment. Оценка: @review.Rate</div>
+				</div>
+			}
 		</div>
 	}
 </div>
