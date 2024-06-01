@@ -24,7 +24,12 @@ namespace PortalAboutEverything.Data.Repositories
         {
             var goodById = _dbContext.Goods.Include(x => x.Reviews).FirstOrDefault(x => x.Id == id);
             return goodById;
-        }                      
+        }
+        
+        public List<Good> GetFavouriteGoodsBuUserId(int userId)
+        {
+            return _dbSet.Where(good => good.UsersWhoLikedTheGood.Any(x => x.Id == userId)).ToList();
+        }
 
         public Good GetGoodForUpdate(int id)
         {
