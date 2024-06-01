@@ -4,6 +4,8 @@ using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Services;
 using Microsoft.AspNetCore.Authorization;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Data.Enums;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -27,21 +29,37 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult Index()
         {
-            List<BoardGameIndexViewModel> indexViewModel = _gameRepositories
+            var gamesViewModel = _gameRepositories
                 .GetAll()
                 .Select(BuildBoardGameIndexViewModel)
                 .ToList();
+
+            bool isBoardGameAdmin = false;
+            if (_authServise.IsAuthenticated())
+            {
+                isBoardGameAdmin = _authServise.HasRoleOrHigher(UserRole.BoardGameAdmin);
+            }
+
+            var indexViewModel = new IndexViewModel()
+            {
+                BoardGames = gamesViewModel,
+                IsBoardGameAdmin = isBoardGameAdmin
+            };
 
             return View(indexViewModel);
         }
 
         [HttpGet]
+        [Authorize]
+        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
         public IActionResult CreateBoardGame()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
+        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
         public IActionResult CreateBoardGame(BoardGameCreateViewModel boardGameViewModel)
         {
             if (!ModelState.IsValid)
@@ -56,6 +74,8 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
         public IActionResult UpdateBoardGame(int id)
         {
             BoardGame boardGameForUpdate = _gameRepositories.Get(id);
@@ -65,6 +85,8 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
         public IActionResult UpdateBoardGame(BoardGameUpdateViewModel boardGameViewModel)
         {
             if (!ModelState.IsValid)
@@ -78,6 +100,8 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
+        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
         public IActionResult DeleteBoardGame(int id)
         {
             _gameRepositories.Delete(id);
