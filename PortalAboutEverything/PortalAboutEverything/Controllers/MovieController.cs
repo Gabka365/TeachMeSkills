@@ -12,14 +12,17 @@ namespace PortalAboutEverything.Controllers
 		private MovieRepositories _movieRepositories;
 		private MovieReviewRepositories _movieReviewRepositories;
 		private AuthService _authService;
+		private UserRepository _userRepository;
 
-		public MovieController(MovieRepositories movieRepositories, 
+		public MovieController(MovieRepositories movieRepositories,
 			MovieReviewRepositories movieReviewRepositories,
-			AuthService authService)
+			AuthService authService,
+			UserRepository userRepository)
 		{
 			_movieRepositories = movieRepositories;
 			_movieReviewRepositories = movieReviewRepositories;
 			_authService = authService;
+			_userRepository = userRepository;
 		}
 
 		public IActionResult Index()
@@ -134,7 +137,7 @@ namespace PortalAboutEverything.Controllers
 		[HttpPost]
 		public IActionResult MovieAddReview(MovieAddReviewViewModel movieAddReviewViewModel)
 		{
-			_movieReviewRepositories.AddReviewToMovie(movieAddReviewViewModel.MovieId, 
+			_movieReviewRepositories.AddReviewToMovie(movieAddReviewViewModel.MovieId,
 				movieAddReviewViewModel.Comment, movieAddReviewViewModel.Rate);
 			return RedirectToAction("Index");
 		}
@@ -161,6 +164,15 @@ namespace PortalAboutEverything.Controllers
 			};
 
 			return View(viewModel);
+		}
+
+		[HttpPost]
+		public IActionResult AddMovieToMoviesFan(AddMovieToMoviesFanViewModel viewModel)
+		{
+			var userId = _authService.GetUserId();
+			var movie = _movieRepositories.Get(viewModel.MovieId);
+			_userRepository.AddMovieToMoviesFan(movie, userId);
+			return RedirectToAction("MoviesFan");
 		}
 	}
 }

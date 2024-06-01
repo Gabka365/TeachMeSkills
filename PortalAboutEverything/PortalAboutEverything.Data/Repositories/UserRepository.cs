@@ -28,5 +28,20 @@ namespace PortalAboutEverything.Data.Repositories
             user.Permission = userPermission;
             _dbContext.SaveChanges();
         }
-    }
+
+		public void AddMovieToMoviesFan(Movie movie, int userId)
+		{
+			var user = GetWithFavoriteMovies(userId);
+			var movies = user.FavoriteMovies;
+            movies.Add(movie);
+			user.FavoriteMovies = movies;
+
+			_dbContext.SaveChanges();
+		}
+
+		public User? GetWithFavoriteMovies(int id)
+			 => _dbSet
+			.Include(user => user.FavoriteMovies)
+			.Single(user => user.Id == id);
+	}
 }

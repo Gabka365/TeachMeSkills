@@ -33,6 +33,10 @@
 			<div>
 				<a href="/Movie/DeleteMovie?id=@movie.Id">Удалить</a> 
 			</div>
+			<form action="/Movie/AddMovieToMoviesFan" method="post">
+				<input type="hidden" value="@movie.Id" name="movieId" />
+				<input type="submit" value="Добавить @movie.Name в избранное" />
+			</form>
 			<div>
 				<a href="/Movie/MovieAddReview?id=@movie.Id">Написать отзыв фильму "@movie.Name"</a>
 			</div>
