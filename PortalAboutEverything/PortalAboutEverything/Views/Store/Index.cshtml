@@ -69,7 +69,7 @@
             @foreach (var good in Model)
             {
                 <div class="goodBlock">
-                    <a class="linkToReview" href="/Store/Good/@good.Id">
+                    <a class="linkToReview" href="/Store/Good">
                         <img class="good" src="https://source.unsplash.com/random" alt="random" />
                         <img class="likedIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
                     </a>
@@ -87,10 +87,10 @@
                         <img class="basketIconForBtn" src="/images/store/header/basketIcon.svg" alt="basket" />
                     </div>
                     <button class="updateGoodBtn">
-                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">Редактировать</a>
+                        <a href="/Store/UpdateGood?id=@good.Id" class="updateGoodLink">Редактировать</a>
                     </button>
                     <button class="deleteGoodBtn">
-                        <a href="/Store/DeleteGood/@good.Id" class="deleteGoodLink">Удалить товар</a>
+                        <a href="/Store/DeleteGood?id=@good.Id" class="deleteGoodLink">Удалить товар</a>
                     </button>
                 </div>
             }

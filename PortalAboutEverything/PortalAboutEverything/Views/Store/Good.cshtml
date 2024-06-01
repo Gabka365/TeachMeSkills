@@ -1,57 +1,40 @@
-﻿@model PortalAboutEverything.Models.Store.GoodViewModel;
+﻿@model List<PortalAboutEverything.Models.Store.CreateReviewViewModel>;
 
 @section Style {
     <link rel="stylesheet" href="/css/Store/style.css" />
 }
 
-<div class="goodPageWrapper">
-    <div class="goodDescriptionBlock">
-        <div>
-            <img class="goodImg" src="https://source.unsplash.com/random" alt="good" />
-        </div>
-        <div>
-            @if (Model.Reviews == null)
-            {
-                <div class="titleForBlockReviews">
-                    Здесь будут отзывы
-                </div>
-            }
-            else
-            {
-                <div class="titleForBlockReviews">
-                    Отзывы на товар
-                </div>
-                @foreach (var review in Model.Reviews)
-                {
-
-                    <div class="goodReview">
-                        @review.Text
-                    </div>
-
-                }
-            }
-            <form class="reviewForm" action="/Store/AddReview" method="post">
-                <h3 class="reviewTitle">Написать отзыв</h3>
-                <input type="hidden" value="@Model.Id" name="goodId" />
-                <textarea class="reviewField" name="text" placeholder="Оставьте свой отзыв"></textarea>
-                <input class="submitBtn" type="submit" value="Оставить отзыв" />
-            </form>
-        </div>
+<div class="title">
+    Страница товара
+</div>
+<div class="goodDescriptionBlock">
+    <div>
+        <img class="goodImg" src="https://source.unsplash.com/random" alt="good" />
     </div>
-    <div class="goodInfoBlock">
+    <div>
+        <div class="titleForBlockReviews">
+            Здесь будут отзывы
+        </div>
+        @if (Model.Count == 0)
+        {
+            <div>
+                Отзывы пока отсутствуют
+            </div>
+        }
         <div>
-            <div class="goodName">
-                @Model.Name
-            </div>
-            <div class="goodDescription">
-                @Model.Description
-            </div>
-            <p class="pricePretext">от<span class="price"> @Model.Price </span>р.</p>
+            @foreach (var review in Model)
+            {
+                <div>
+                    @review.Title
+                </div>
+                <div>
+                    @review.Description
+                </div>
+            }
         </div>
     </div>
 </div>
-
-
+<a href="/Store/AddReview" class="addReviewTitle">Добавить отзыв для товара</a>
 
 
 

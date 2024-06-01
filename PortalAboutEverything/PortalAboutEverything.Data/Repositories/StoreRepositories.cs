@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PortalAboutEverything.Data.Model;
+﻿using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Model.Store;
 using System;
 using System.Collections.Generic;
@@ -12,6 +11,9 @@ namespace PortalAboutEverything.Data.Repositories
 {
     public class StoreRepositories
     {
+        private List<GoodReview> _reviews = new List<GoodReview>();
+        private int _lastReviewId = 0;
+
         private PortalDbContext _dbContext;
 
         public StoreRepositories(PortalDbContext db)
@@ -24,21 +26,9 @@ namespace PortalAboutEverything.Data.Repositories
             return _dbContext.Goods.ToList();
         }
 
-        public List<Good> GetAllGoodsWithReviews()
+        public List<GoodReview> GetAllReviews()
         {
-            return _dbContext.Goods.Include(x => x.Reviews).ToList();
-        }
-
-        public Good GetGoodByIdWithReview(int id)
-        {
-            var goodById = _dbContext.Goods.Include(x => x.Reviews).FirstOrDefault(x => x.Id == id);
-            return goodById;
-        }
-
-        public Good GetGoodById(int id)
-        {
-            var goodById = _dbContext.Goods.FirstOrDefault(x => x.Id == id);
-            return goodById;
+            return _reviews.ToList();
         }
 
         public void AddGood(Good good)
@@ -47,40 +37,29 @@ namespace PortalAboutEverything.Data.Repositories
             _dbContext.SaveChanges();
         }
 
-        //public void Delete(int id)
-        //{
-        //    var good = _dbContext.Goods.First(x => x.Id == id);
-        //    _dbContext.Goods.Remove(good);
-        //    _dbContext.SaveChanges();
-        //}
-
         public void Delete(int id)
         {
-            var good = _dbContext.Goods.Include(x => x.Reviews).FirstOrDefault(x => x.Id == id);
-
-            if (good != null)
-            {
-                _dbContext.Goods.Remove(good);
-                _dbContext.SaveChanges();
-            }
+            var good = _dbContext.Goods.First(x => x.Id == id);
+            _dbContext.Goods.Remove(good);
+            _dbContext.SaveChanges();
         }
 
         public Good GetGoodForUpdate(int id)
         {
             return _dbContext.Goods.Single(x => x.Id == id);
-
+           
         }
 
         public void UpdateGood(Good good)
         {
-            var dbGood = GetGoodById(good.Id);
+            Delete(good.Id);
+            AddGood(good);
+        }
 
-
-            dbGood.Name = good.Name;
-            dbGood.Description = good.Description;
-            dbGood.Price = good.Price;
-
-            _dbContext.SaveChanges();
+        public void AddReview(GoodReview review)
+        {
+            review.Id = _lastReviewId++;
+            _reviews.Add(review);
         }
     }
 }

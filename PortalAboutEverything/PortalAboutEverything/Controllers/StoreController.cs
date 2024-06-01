@@ -12,12 +12,9 @@ namespace PortalAboutEverything.Controllers
     {
         private StoreRepositories _storeRepositories;
 
-        private GoodReviewRepositories _goodReviewRepositories;
-
-        public StoreController(StoreRepositories storeRepositories, GoodReviewRepositories goodReviewRepositories)
+        public StoreController(StoreRepositories storeRepositories)
         {
             _storeRepositories = storeRepositories;
-            _goodReviewRepositories = goodReviewRepositories;
         }
         public IActionResult Index()
         {
@@ -26,30 +23,29 @@ namespace PortalAboutEverything.Controllers
             return View(goodsViewModel);
         }
 
-        
-        public IActionResult Good(int id)
-        {           
-            var goodWithReview = _storeRepositories.GetGoodByIdWithReview(id);
+        public IActionResult Good()
+        {
+            var reviewsViewModel = _storeRepositories.GetAllReviews().Select(BuildGoodReviewViewModel).ToList();
+            return View(reviewsViewModel);
+        }
 
-            var goodViewModel = new GoodViewModel
-            {
-                Id = goodWithReview.Id,
-                Name = goodWithReview.Name,
-                Description = goodWithReview.Description,
-                Price = goodWithReview.Price,
-                Reviews = goodWithReview.Reviews?.Select(BuildGoodReviewViewModel).ToList(),
-            };
-
-            return View(goodViewModel);
+        [HttpGet]
+        public IActionResult AddReview()
+        {
+            return View();
         }
 
         [HttpPost]
-        public IActionResult AddReview(AddGoodReviewViewModel viewModel)
+        public IActionResult AddReview(CreateReviewViewModel viewModel)
         {
-            
-            _goodReviewRepositories.AddReview(viewModel.GoodId, viewModel.Text);
+            var newReview = new GoodReview
+            {
+                Title = viewModel.Title,
+                Description = viewModel.Description
+            };
+            _storeRepositories.AddReview(newReview);
 
-            return RedirectToAction("Good", new { id = viewModel.GoodId});
+            return RedirectToAction("Good");
         }
 
         [HttpGet]
@@ -59,13 +55,14 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddGood(GoodViewModel createGoodViewModel)
+        public IActionResult AddGood(AddGoodViewModel createGoodViewModel)
         {
             var good = new Good
-            {                
+            {
                 Name = createGoodViewModel.Name,
                 Description = createGoodViewModel.Description,
                 Price = createGoodViewModel.Price,
+
             };
             _storeRepositories.AddGood(good);
 
@@ -108,7 +105,7 @@ namespace PortalAboutEverything.Controllers
                 Id = good.Id,
                 Name = good.Name,
                 Description = good.Description,
-                Price = good.Price,                
+                Price = good.Price,
             };
         }
 
@@ -119,27 +116,17 @@ namespace PortalAboutEverything.Controllers
                 Id = good.Id,
                 Name = good.Name,
                 Description = good.Description,
-                Price = good.Price,               
-            };
-        }
-
-        private GoodViewModel BuildGoodViewModel(Good good)
-        {
-            return new GoodViewModel
-            {
-                
-                Name = good.Name,
-                Description = good.Description,
                 Price = good.Price,
-                Reviews = good.Reviews?.Select(BuildGoodReviewViewModel).ToList(),
             };
         }
 
-        private AddGoodReviewViewModel BuildGoodReviewViewModel(GoodReview goodReview)
+        private CreateReviewViewModel BuildGoodReviewViewModel(GoodReview review)
         {
-            return new AddGoodReviewViewModel
-            {                
-                Text = goodReview.Description,
+            return new CreateReviewViewModel
+            {
+                Id = review.Id,
+                Title = review.Title,
+                Description = review.Description,
             };
         }
     }
