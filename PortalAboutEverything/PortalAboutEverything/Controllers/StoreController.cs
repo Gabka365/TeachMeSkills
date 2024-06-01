@@ -21,7 +21,7 @@ namespace PortalAboutEverything.Controllers
         }
         public IActionResult Index()
         {
-            var goodsViewModel = _storeRepositories.GetAllGoods().Select(BuildStoreIndexViewModel).ToList();
+            var goodsViewModel = _storeRepositories.GetAll().Select(BuildStoreIndexViewModel).ToList();
 
             return View(goodsViewModel);
         }
@@ -67,14 +67,15 @@ namespace PortalAboutEverything.Controllers
                 Description = createGoodViewModel.Description,
                 Price = createGoodViewModel.Price,
             };
-            _storeRepositories.AddGood(good);
+            _storeRepositories.Create(good);
 
             return RedirectToAction("Index");
         }
 
         public IActionResult DeleteGood(int id)
         {
-            _storeRepositories.Delete(id);
+            var model = _storeRepositories.GetGoodByIdWithReview(id);
+            _storeRepositories.Delete(model);
             return RedirectToAction("Index");
         }
 
@@ -120,18 +121,6 @@ namespace PortalAboutEverything.Controllers
                 Name = good.Name,
                 Description = good.Description,
                 Price = good.Price,               
-            };
-        }
-
-        private GoodViewModel BuildGoodViewModel(Good good)
-        {
-            return new GoodViewModel
-            {
-                
-                Name = good.Name,
-                Description = good.Description,
-                Price = good.Price,
-                Reviews = good.Reviews?.Select(BuildGoodReviewViewModel).ToList(),
             };
         }
 

@@ -10,19 +10,10 @@ using System.Threading.Tasks;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class StoreRepositories
+    public class StoreRepositories : BaseRepository<Good>
     {
-        private PortalDbContext _dbContext;
 
-        public StoreRepositories(PortalDbContext db)
-        {
-            _dbContext = db;
-        }
-
-        public List<Good> GetAllGoods()
-        {
-            return _dbContext.Goods.ToList();
-        }
+        public StoreRepositories(PortalDbContext db) : base(db) { }        
 
         public List<Good> GetAllGoodsWithReviews()
         {
@@ -33,37 +24,7 @@ namespace PortalAboutEverything.Data.Repositories
         {
             var goodById = _dbContext.Goods.Include(x => x.Reviews).FirstOrDefault(x => x.Id == id);
             return goodById;
-        }
-
-        public Good GetGoodById(int id)
-        {
-            var goodById = _dbContext.Goods.FirstOrDefault(x => x.Id == id);
-            return goodById;
-        }
-
-        public void AddGood(Good good)
-        {
-            _dbContext.Goods.Add(good);
-            _dbContext.SaveChanges();
-        }
-
-        //public void Delete(int id)
-        //{
-        //    var good = _dbContext.Goods.First(x => x.Id == id);
-        //    _dbContext.Goods.Remove(good);
-        //    _dbContext.SaveChanges();
-        //}
-
-        public void Delete(int id)
-        {
-            var good = _dbContext.Goods.Include(x => x.Reviews).FirstOrDefault(x => x.Id == id);
-
-            if (good != null)
-            {
-                _dbContext.Goods.Remove(good);
-                _dbContext.SaveChanges();
-            }
-        }
+        }                      
 
         public Good GetGoodForUpdate(int id)
         {
@@ -73,8 +34,7 @@ namespace PortalAboutEverything.Data.Repositories
 
         public void UpdateGood(Good good)
         {
-            var dbGood = GetGoodById(good.Id);
-
+            var dbGood = Get(good.Id);
 
             dbGood.Name = good.Name;
             dbGood.Description = good.Description;
