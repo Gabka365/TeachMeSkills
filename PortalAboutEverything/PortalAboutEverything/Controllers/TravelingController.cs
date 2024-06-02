@@ -56,6 +56,8 @@ namespace PortalAboutEverything.Controllers
             model.TravelingDate.Add(dateTime5);
             model.TravelingDate.Add(dateTime6);
 
+            model.IsTravingAdmin = User.Identity!.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
+
             return View(model);
         }
 
