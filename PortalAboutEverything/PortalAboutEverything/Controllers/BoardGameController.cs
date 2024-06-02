@@ -318,7 +318,7 @@ namespace PortalAboutEverything.Controllers
         private BoardGameReview BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
             => new BoardGameReview
             {
-                Name = reviewViewModel.Name,
+                Name = _authServise.GetUserName(),
                 DateOfCreation = DateTime.Now,
                 Text = reviewViewModel.Text,
             };
@@ -327,7 +327,7 @@ namespace PortalAboutEverything.Controllers
             => new BoardGameReview
             {
                 Id = reviewViewModel.Id,
-                Name = reviewViewModel.Name,
+                Name = _authServise.GetUserName(),
                 Text = reviewViewModel.Text,
             };
 
@@ -335,7 +335,6 @@ namespace PortalAboutEverything.Controllers
             => new BoardGameUpdateReviewViewModel
             {
                 BoardGameName = review.BoardGame.Title,
-                Name = review.Name,
                 Text = review.Text,
             };
         #endregion
