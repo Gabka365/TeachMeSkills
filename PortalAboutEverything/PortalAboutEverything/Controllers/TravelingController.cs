@@ -1,14 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Traveling;
 using PortalAboutEverything.Services;
-using System.IO;
-using System.Xml.Linq;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
+using System.Reflection;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
+using System.Linq;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -19,18 +23,20 @@ namespace PortalAboutEverything.Controllers
         private IWebHostEnvironment _hostingEnvironment;
         private AuthService _authService;
         private readonly string _pathTravelingUserPictures;
+        private readonly string _pathTravelingIndexPictures;
         private readonly CommentRepository _commentRepository;
         private readonly string[] _validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 
-        public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment, 
+        public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment,
                                    UserRepository userRepository, AuthService authService, CommentRepository commentRepository)
         {
             _travelingRepositories = travelingRepositories;
             _hostingEnvironment = hostingEnvironment;
             _pathTravelingUserPictures = Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling", "UserPictures");
+            _pathTravelingIndexPictures = Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling");
             _userRepository = userRepository;
             _authService = authService;
-            _commentRepository = commentRepository; 
+            _commentRepository = commentRepository;
         }
 
         public IActionResult Index()
@@ -52,6 +58,40 @@ namespace PortalAboutEverything.Controllers
 
             return View(model);
         }
+
+        [Authorize]
+        [HttpGet]
+        [HasRoleOrHigher(UserRole.TravelingAdmin)]
+        public IActionResult ChengeIndexPage()
+        {
+            var images = Directory.EnumerateFiles(Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling"))
+                                .Select(fn => "~/images/Traveling/" + Path.GetFileName(fn));
+            return View(images);
+        }
+        [Authorize]
+        [HttpPost]
+        [HasRoleOrHigher(UserRole.TravelingAdmin)]
+        public IActionResult ChengeImageIndexPage(string oldImagePath, IFormFile newImage)
+        {
+            if (newImage != null)
+            {
+                string fileName = Path.GetFileName(oldImagePath);
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+                var fileExt = Path.GetExtension(Path.GetFileName(newImage.FileName)).Substring(1).ToLower();
+                var imageName = $"{fileNameWithoutExtension}.{fileExt}";
+
+                var path = Path.Combine(_pathTravelingIndexPictures, imageName);
+                System.IO.File.Delete(path);
+
+                if (_validExtensions.Contains(fileExt))
+                {
+                    SaveImageToDirectory(_pathTravelingIndexPictures, path, newImage);
+                }
+            }
+            return RedirectToAction("ChengeIndexPage");
+        }
+
 
         [HttpGet]
         public IActionResult TravelingPosts()
@@ -110,27 +150,21 @@ namespace PortalAboutEverything.Controllers
             {
                 var fileExt = Path.GetExtension(Path.GetFileName(image.FileName)).Substring(1).ToLower();
                 var imageName = $"{traveling.Id}.{fileExt}";
+                var path = Path.Combine(_pathTravelingUserPictures, imageName);
                 if (_validExtensions.Contains(fileExt))
                 {
-                    if (!Directory.Exists(_pathTravelingUserPictures))
-                    {
-                        Directory.CreateDirectory(_pathTravelingUserPictures);
-                    }
-
-                    var path = Path.Combine(_pathTravelingUserPictures, imageName);
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        image.CopyTo(stream);
-                    }
+                    SaveImageToDirectory(_pathTravelingUserPictures, path, image);
                 }
             }
             return RedirectToAction("TravelingPosts");
         }
+
+        [HttpPost]
         public IActionResult CreateComment(int id, TravelingCreateComment travelingCreateComment)
         {
             if (!ModelState.IsValid)
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage; //Задать вопрос
+                var errors = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage;
 
                 TempData["ErrorMessage"] = errors;
 
@@ -141,10 +175,10 @@ namespace PortalAboutEverything.Controllers
                 Text = travelingCreateComment.Text,
                 Traveling = _travelingRepositories.Get(id)
             };
-           
+
             _commentRepository.Create(comment);
 
-           return RedirectToAction("TravelingPosts");
+            return RedirectToAction("TravelingPosts");
         }
 
         public IActionResult DeletePost(int id)
@@ -204,9 +238,21 @@ namespace PortalAboutEverything.Controllers
                Comments = _commentRepository.GetWithTravel(traveling.Id).Select(c => new TravelingCreateComment
                {
                    Text = c.Text,
-    
+
                }).ToList()
            };
+        private void SaveImageToDirectory(string directoryPath, string filePath, IFormFile image)
+        {
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                image.CopyTo(stream);
+            }
+        }
 
     }
 }

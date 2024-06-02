@@ -95,6 +95,14 @@ namespace PortalAboutEverything.Data
                     Role = UserRole.User,
                 };
                 userRepository.Create(user);
+
+                var travelingAdmin = new User
+                {
+                    UserName = "travelingAdmin",
+                    Password = "travelingAdmin",
+                    Role = UserRole.TravelingAdmin,
+                };
+                userRepository.Create(travelingAdmin);
             }
         }
     }

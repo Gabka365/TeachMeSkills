@@ -6,6 +6,7 @@
         
         GameAdmin = 40,
         MovieAdmin = 41,
+        TravelingAdmin = 42,
 
         Moderator = 80,
         Admin = 99,
