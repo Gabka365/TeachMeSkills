@@ -6,6 +6,7 @@ namespace PortalAboutEverything.Models.BoardGame
     public class BoardGameUpdateViewModel
     {
         public int Id { get; set; }
+        public string OriginalTitle { get; set; }
         [Required(ErrorMessage = "Название не может быть пустым")]
         [TextInput(2, 35)]
         [Display(Name = "Название")]
