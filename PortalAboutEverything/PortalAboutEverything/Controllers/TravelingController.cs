@@ -162,7 +162,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateComment(int id, TravelingCreateComment travelingCreateComment)
+        public IActionResult CreateComment(TravelingCreateComment travelingCreateComment)
         {
             if (!ModelState.IsValid)
             {
@@ -175,7 +175,7 @@ namespace PortalAboutEverything.Controllers
             var comment = new Comment
             {
                 Text = travelingCreateComment.Text,
-                Traveling = _travelingRepositories.Get(id)
+                Traveling = _travelingRepositories.Get(travelingCreateComment.PostId)
             };
 
             _commentRepository.Create(comment);

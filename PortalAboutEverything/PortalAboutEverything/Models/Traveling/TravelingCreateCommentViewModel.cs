@@ -8,5 +8,7 @@ namespace PortalAboutEverything.Models.Traveling
         [Required(ErrorMessage = "Комментарии не должны быть пустыми")]
         [AntiSpam]
         public string Text { get; set; }
+
+        public int PostId { get; set; }
     }
 }
