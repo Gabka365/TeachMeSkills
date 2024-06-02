@@ -66,6 +66,11 @@ namespace PortalAboutEverything.Controllers
 		[HttpPost]
 		public IActionResult CreateMovie(MovieCreateViewModel movieCreateViewModel)
 		{
+			if (!ModelState.IsValid)
+			{
+				return View(movieCreateViewModel);
+			}
+
 			var movie = new Movie
 			{
 				Name = movieCreateViewModel.Name,
@@ -106,6 +111,11 @@ namespace PortalAboutEverything.Controllers
 		[HttpPost]
 		public IActionResult UpdateMovie(MovieUpdateViewModel movieUpdateViewModel)
 		{
+			if (!ModelState.IsValid)
+			{
+				return View(movieUpdateViewModel);
+			}
+
 			var movie = new Movie
 			{
 				Id = movieUpdateViewModel.Id,

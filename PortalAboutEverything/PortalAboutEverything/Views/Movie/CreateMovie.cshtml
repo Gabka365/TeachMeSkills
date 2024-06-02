@@ -7,21 +7,27 @@
 <form method="post">
 	<div>
 		@Html.TextBoxFor(x => x.Name, new { placeholder = "название фильма" })
+		@Html.ValidationMessageFor(x => x.Name)
 	</div>
 	 <div>
-		@Html.TextAreaFor(x => x.Description, new { placeholder = "комментарий" })
+		@Html.TextAreaFor(x => x.Description, new { placeholder = "описание" })
+		@Html.ValidationMessageFor(x => x.Description)
 	</div>
 	<div>
-		@Html.TextBoxFor(x => x.ReleaseYear, new { placeholder = "год выхода", type = "number", min = "1900", max = "2024" })
+		@Html.TextBoxFor(x => x.ReleaseYear, new { placeholder = "год выхода фильма" })
+		@Html.ValidationMessageFor(x => x.ReleaseYear)
 	</div>
 	<div>
 		@Html.TextBoxFor(x => x.Director, new { placeholder = "режиссер" })
+		@Html.ValidationMessageFor(x => x.Director)
 	</div>
 	<div>
 		@Html.TextBoxFor(x => x.Budget, new { placeholder = "бюджет", type = "number", min = "0" })
+		@Html.ValidationMessageFor(x => x.Budget)
 	</div>
 	<div>
 		@Html.TextBoxFor(x => x.CountryOfOrigin, new { placeholder = "страна производства" })
+		@Html.ValidationMessageFor(x => x.CountryOfOrigin)
 	</div>
 	<div>
 		<input type="submit" value="создать"/>
