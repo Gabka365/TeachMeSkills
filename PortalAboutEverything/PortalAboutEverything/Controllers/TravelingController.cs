@@ -82,10 +82,10 @@ namespace PortalAboutEverything.Controllers
                 var imageName = $"{fileNameWithoutExtension}.{fileExt}";
 
                 var path = Path.Combine(_pathTravelingIndexPictures, imageName);
-                System.IO.File.Delete(path);
 
                 if (_validExtensions.Contains(fileExt))
                 {
+                    System.IO.File.Delete(path);
                     SaveImageToDirectory(_pathTravelingIndexPictures, path, newImage);
                 }
             }
