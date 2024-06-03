@@ -33,6 +33,12 @@ namespace PortalAboutEverything.Services
             return Enum.Parse<UserRole>(userRole);
         }
 
+        public Permission GetUserPermission()
+        {
+            var userRole = GetClaimValue("Permission");
+            return Enum.Parse<Permission>(userRole);
+        }
+
         public bool HasRoleOrHigher(UserRole role) {
             return GetUserRole() >= role;
         }

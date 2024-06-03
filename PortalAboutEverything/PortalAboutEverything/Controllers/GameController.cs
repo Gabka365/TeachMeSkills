@@ -58,7 +58,7 @@ namespace PortalAboutEverything.Controllers
 
         [HttpGet]
         [Authorize]
-        [HasRoleOrHigher(UserRole.GameAdmin)]
+        [HasPermission(Permission.CanCreateGame)]
         public IActionResult Create()
         {
             return View();
@@ -66,7 +66,7 @@ namespace PortalAboutEverything.Controllers
 
         [HttpPost]
         [Authorize]
-        [HasRoleOrHigher(UserRole.GameAdmin)]
+        [HasPermission(Permission.CanCreateGame)]
         public IActionResult Create(GameCreateViewModel createGameViewModel)
         {
             if (!ModelState.IsValid)
@@ -86,6 +86,7 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
+        [HasPermission(Permission.CanDeleteGame)]
         public IActionResult Delete(int id)
         {
             _gameRepositories.Delete(id);
