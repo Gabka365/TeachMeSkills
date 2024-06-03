@@ -86,6 +86,7 @@ namespace PortalAboutEverything.Data
                     UserName = "admin",
                     Password = "admin",
                     Role = UserRole.Admin,
+                    Language = Language.En
                 };
                 userRepository.Create(admin);
 
@@ -94,6 +95,7 @@ namespace PortalAboutEverything.Data
                     UserName = "user",
                     Password = "user",
                     Role = UserRole.User,
+                    Language = Language.Ru
                 };
                 userRepository.Create(user);
             }

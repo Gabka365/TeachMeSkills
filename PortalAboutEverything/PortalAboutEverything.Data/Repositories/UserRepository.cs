@@ -18,6 +18,14 @@ namespace PortalAboutEverything.Data.Repositories
                 .FirstOrDefault(x => x.UserName == login && x.Password == password);
         }
 
+        public Language GetLanguage(int userId)
+        {
+            return _dbSet
+                .Where(x => x.Id == userId)
+                .Select(x => x.Language)
+                .First();
+        }
+
         public User? GetWithFavoriteBoardGames(int id)
              => _dbSet
             .Include(user => user.FavoriteBoardsGames)
@@ -44,5 +52,5 @@ namespace PortalAboutEverything.Data.Repositories
 			 => _dbSet
 			.Include(user => user.FavoriteMovies)
 			.Single(user => user.Id == id);
-	}
+    }
 }
