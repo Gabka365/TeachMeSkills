@@ -3,14 +3,9 @@ using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-	public class MovieReviewRepositories
+	public class MovieReviewRepositories : BaseRepository<MovieReview>
 	{
-		private PortalDbContext _dbContext;
-
-		public MovieReviewRepositories(PortalDbContext db)
-		{
-			_dbContext = db;
-		}
+		public MovieReviewRepositories(PortalDbContext db) : base(db) { }
 
 		public void AddReviewToMovie(int movieId, string comment, int rate)
 		{
@@ -19,7 +14,6 @@ namespace PortalAboutEverything.Data.Repositories
 			{
 				Comment = comment,
 				Movie = movie,
-				Name = "Movie Review",
 				DateOfCreation = DateTime.Now,
 				Rate = rate,
 			};

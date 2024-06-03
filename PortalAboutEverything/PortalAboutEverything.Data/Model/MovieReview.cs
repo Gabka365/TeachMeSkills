@@ -1,10 +1,8 @@
 ﻿
 namespace PortalAboutEverything.Data.Model
 {
-	public class MovieReview
+	public class MovieReview : BaseModel
 	{
-		public int Id { get; set; }
-		public string Name { get; set; }
 		public int Rate { get; set; }
 		public DateTime DateOfCreation { get; set; }
 		public string Comment { get; set; }

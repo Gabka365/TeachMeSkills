@@ -2,6 +2,10 @@
 using PortalAboutEverything.Models.Movie;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Model;
+using Microsoft.AspNetCore.Authorization;
+using PortalAboutEverything.Services;
+using PortalAboutEverything.Data.Enums;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -9,11 +13,18 @@ namespace PortalAboutEverything.Controllers
 	{
 		private MovieRepositories _movieRepositories;
 		private MovieReviewRepositories _movieReviewRepositories;
+		private AuthService _authService;
+		private UserRepository _userRepository;
 
-		public MovieController(MovieRepositories movieRepositories, MovieReviewRepositories movieReviewRepositories)
+		public MovieController(MovieRepositories movieRepositories,
+			MovieReviewRepositories movieReviewRepositories,
+			AuthService authService,
+			UserRepository userRepository)
 		{
 			_movieRepositories = movieRepositories;
 			_movieReviewRepositories = movieReviewRepositories;
+			_authService = authService;
+			_userRepository = userRepository;
 		}
 
 		public IActionResult Index()
@@ -35,9 +46,24 @@ namespace PortalAboutEverything.Controllers
 				}).ToList()
 			}).ToList();
 
-			return View(moviesViewModel);
+			var viewModel = new IndexMovieAdminViewModel()
+			{
+				Movies = moviesViewModel,
+			};
+
+			if (_authService.IsAuthenticated())
+			{
+				viewModel.IsMovieAdmin = _authService.HasRoleOrHigher(UserRole.MovieAdmin);
+			}
+			else 
+			{
+				viewModel.IsMovieAdmin = false;
+			}
+
+			return View(viewModel);
 		}
 
+		[Authorize]
 		public IActionResult GiveFeedback(MovieFeedbackViewModel movieFeedbackViewModel)
 		{
 			return View(movieFeedbackViewModel);
@@ -49,14 +75,23 @@ namespace PortalAboutEverything.Controllers
 		}
 
 		[HttpGet]
+		[Authorize]
+		[HasRoleOrHigher(UserRole.MovieAdmin)]
 		public IActionResult CreateMovie()
 		{
 			return View();
 		}
 
 		[HttpPost]
+		[Authorize]
+		[HasRoleOrHigher(UserRole.MovieAdmin)]
 		public IActionResult CreateMovie(MovieCreateViewModel movieCreateViewModel)
 		{
+			if (!ModelState.IsValid)
+			{
+				return View(movieCreateViewModel);
+			}
+
 			var movie = new Movie
 			{
 				Name = movieCreateViewModel.Name,
@@ -97,6 +132,11 @@ namespace PortalAboutEverything.Controllers
 		[HttpPost]
 		public IActionResult UpdateMovie(MovieUpdateViewModel movieUpdateViewModel)
 		{
+			if (!ModelState.IsValid)
+			{
+				return View(movieUpdateViewModel);
+			}
+
 			var movie = new Movie
 			{
 				Id = movieUpdateViewModel.Id,
@@ -128,9 +168,42 @@ namespace PortalAboutEverything.Controllers
 		[HttpPost]
 		public IActionResult MovieAddReview(MovieAddReviewViewModel movieAddReviewViewModel)
 		{
-			_movieReviewRepositories.AddReviewToMovie(movieAddReviewViewModel.MovieId, 
+			_movieReviewRepositories.AddReviewToMovie(movieAddReviewViewModel.MovieId,
 				movieAddReviewViewModel.Comment, movieAddReviewViewModel.Rate);
 			return RedirectToAction("Index");
+		}
+
+		[Authorize]
+		public IActionResult MoviesFan()
+		{
+			var userName = _authService.GetUserName();
+			var userId = _authService.GetUserId();
+			var movies = _movieRepositories.GetFavoriteMoviesByUserId(userId);
+			var viewModel = new MoviesFanViewModel
+			{
+				Name = userName,
+				Movies = movies.Select(movie => new MovieIndexViewModel
+				{
+					Id = movie.Id,
+					Name = movie.Name,
+					Description = movie.Description,
+					ReleaseYear = movie.ReleaseYear,
+					Director = movie.Director,
+					Budget = movie.Budget,
+					CountryOfOrigin = movie.CountryOfOrigin,
+				}).ToList(),
+			};
+
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public IActionResult AddMovieToMoviesFan(AddMovieToMoviesFanViewModel viewModel)
+		{
+			var userId = _authService.GetUserId();
+			var movie = _movieRepositories.Get(viewModel.MovieId);
+			_userRepository.AddMovieToMoviesFan(movie, userId);
+			return RedirectToAction("MoviesFan");
 		}
 	}
 }
