@@ -49,8 +49,16 @@ namespace PortalAboutEverything.Controllers
 			var viewModel = new IndexMovieAdminViewModel()
 			{
 				Movies = moviesViewModel,
-				IsMovieAdmin = _authService.HasRoleOrHigher(UserRole.MovieAdmin),
 			};
+
+			if (_authService.IsAuthenticated())
+			{
+				viewModel.IsMovieAdmin = _authService.HasRoleOrHigher(UserRole.MovieAdmin);
+			}
+			else 
+			{
+				viewModel.IsMovieAdmin = false;
+			}
 
 			return View(viewModel);
 		}
