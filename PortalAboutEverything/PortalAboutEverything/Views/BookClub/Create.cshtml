@@ -30,6 +30,7 @@
                 <div class="col-75">
                     @Html.LabelFor(x => x.BookTitle, "Название: ")
                     @Html.TextBoxFor(x => x.BookTitle)
+                    @Html.ValidationMessageFor(x => x.BookTitle)
                 </div>
             </div>
 
@@ -37,6 +38,7 @@
                 <div class="col-75">
                     @Html.LabelFor(x => x.BookAuthor, "Автор")
                     @Html.TextBoxFor(x => x.BookAuthor)
+                    @Html.ValidationMessageFor(x => x.BookAuthor)
                 </div>
             </div>
 
@@ -48,15 +50,16 @@
                              {
                                  placeholder = "Год",
                                  @type = "number",
-                                 @min = "2017",
-                                 @max = "2024"
                              })
+                    @Html.ValidationMessageFor(x => x.YearOfPublication)
+                    @Html.DisplayNameFor(x => x.YearOfPublication)
                 </div>
             </div>
 
             <div class="row">
                 @Html.LabelFor(x => x.SummaryOfBook, "Описание")
                 @Html.TextAreaFor(x => x.SummaryOfBook)
+                @Html.ValidationMessageFor(x => x.SummaryOfBook)
             </div>
 
             <div class="row">

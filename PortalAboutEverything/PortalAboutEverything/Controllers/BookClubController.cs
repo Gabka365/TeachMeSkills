@@ -39,6 +39,11 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult Create(CreateBookViewModel createBookViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(createBookViewModel);
+            }
+
             var book = new Book
             {
                 BookAuthor = createBookViewModel.BookAuthor,
