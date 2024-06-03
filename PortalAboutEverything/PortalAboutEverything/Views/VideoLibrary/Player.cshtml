@@ -1,8 +1,12 @@
 @model PortalAboutEverything.Models.VideoLibrary.VideoLibraryVideoViewModel
 
 @{
-    ViewBag.Title = $"{Model.FileName} - Player";
     Layout = "_LayoutVideoLibrary";
+}
+
+@section Title
+{
+    <title>@Model.FileName - Player</title>
 }
 
 @section Style

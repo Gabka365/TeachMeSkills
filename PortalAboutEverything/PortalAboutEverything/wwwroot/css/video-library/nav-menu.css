@@ -1,6 +1,7 @@
 .nav-menu{
     height: 3.5rem;
     margin: 1rem;
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     background-color: var(--nav-menu-bg);
     display: flex;
@@ -27,6 +28,7 @@
 
 .right-part{
     justify-content: flex-end;
+    gap: 1rem;
 }
 
 .home-button, .update-button{

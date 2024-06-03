@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Data.Enums;
+using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Model.VideoLibrary;
+using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Repositories.VideoLibrary;
 using PortalAboutEverything.Models.VideoLibrary;
 using PortalAboutEverything.VideoServices.Services;
@@ -11,12 +15,14 @@ namespace PortalAboutEverything.Controllers;
 public class VideoLibraryController : Controller
 {
     private readonly VideoFileSystemService _videoFileSystemService;
+    private readonly UserRepository _userRepository;
     private readonly VideoRepository _videoRepository;
 
-    public VideoLibraryController(VideoRepository videoRepository, VideoFileSystemService videoFileSystemService)
+    public VideoLibraryController(VideoRepository videoRepository, VideoFileSystemService videoFileSystemService, UserRepository userRepository)
     {
         _videoRepository = videoRepository;
         _videoFileSystemService = videoFileSystemService;
+        _userRepository = userRepository;
     }
 
     [Authorize]
@@ -69,6 +75,7 @@ public class VideoLibraryController : Controller
     }
 
     [Authorize]
+    [HasRoleOrHigher(UserRole.VideoLibraryAdmin)]
     [HttpGet]
     public void UpdateLibrary()
     {
@@ -99,6 +106,7 @@ public class VideoLibraryController : Controller
     }
 
     [Authorize]
+    [HasRoleOrHigher(UserRole.VideoLibraryAdmin)]
     [HttpGet]
     public void UpdateVideoLikeState(int id, [FromQuery] bool isLiked)
     {
@@ -106,10 +114,49 @@ public class VideoLibraryController : Controller
     }
 
     [Authorize]
+    [HasRoleOrHigher(UserRole.VideoLibraryAdmin)]
     [HttpGet]
     public void DeleteVideo(int id)
     {
         _ = _videoFileSystemService.DeleteVideo(id);
+    }
+
+    [Authorize]
+    [HasRoleOrHigher(UserRole.VideoLibraryAdmin)]
+    [HttpGet]
+    public IActionResult Settings()
+    {
+        var settingsUsersViewModel = new VideoLibrarySettingsUsersViewModel
+        {
+            Users = _userRepository.GetAll().OrderBy(user => user.UserName).Select(GenerateVideoLibraryUserRoleViewModel).ToList(),
+            AvailableRoles = Enum.GetValues<UserRole>().ToList()
+        };
+        
+        return View(settingsUsersViewModel);
+    }
+
+    [Authorize]
+    [HasRoleOrHigher(UserRole.VideoLibraryAdmin)]
+    [HttpGet]
+    public IActionResult AddUser()
+    {
+        return PartialView("_AddUser");
+    }
+    
+    [Authorize]
+    [HasRoleOrHigher(UserRole.VideoLibraryAdmin)]
+    [HttpGet]
+    public IActionResult EditUser()
+    {
+        return PartialView("_EditUser");
+    }
+
+    [Authorize]
+    [HasRoleOrHigher(UserRole.VideoLibraryAdmin)]
+    [HttpGet]
+    public IActionResult Users()
+    {
+        return PartialView("_Users");
     }
 
     private VideoLibraryVideoViewModel GenerateVideoViewModel(Video video)
@@ -120,6 +167,16 @@ public class VideoLibraryController : Controller
             FileName = Path.GetFileNameWithoutExtension(video.FilePath),
             FileFolder = Path.GetFileName(Path.GetDirectoryName(video.FilePath))!,
             VideoDuration = TimeSpan.FromSeconds(video.Duration).ToString(@"hh\:mm\:ss")
+        };
+    }
+
+    private VideoLibraryUserRoleViewModel GenerateVideoLibraryUserRoleViewModel(User user)
+    {
+        return new VideoLibraryUserRoleViewModel
+        {
+            Id = user.Id,
+            Name = user.UserName,
+            Role = user.Role
         };
     }
 }

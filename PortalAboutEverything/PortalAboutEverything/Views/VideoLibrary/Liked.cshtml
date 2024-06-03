@@ -1,8 +1,12 @@
 @model List<PortalAboutEverything.Models.VideoLibrary.VideoLibraryVideoViewModel>
 
 @{
-    ViewBag.Title = "Liked Videos";
     Layout = "_LayoutVideoLibrary";
+}
+
+@section Title
+{
+    <title>Liked Videos</title>
 }
 
 @section Style
@@ -12,7 +16,7 @@
 
 @section TopScripts
 {
-<script src="/js/VideoLibrary/like.js"></script>
+    <script src="/js/VideoLibrary/like.js"></script>
 }
 
 <div class="video-list">

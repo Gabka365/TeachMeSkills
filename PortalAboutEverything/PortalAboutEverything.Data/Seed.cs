@@ -95,6 +95,14 @@ namespace PortalAboutEverything.Data
                     Role = UserRole.User,
                 };
                 userRepository.Create(user);
+
+                var videoLibraryAdmin = new User
+                {
+                    UserName = "ancient",
+                    Password = "ancient",
+                    Role = UserRole.VideoLibraryAdmin
+                };
+                userRepository.Create(videoLibraryAdmin);
             }
         }
     }

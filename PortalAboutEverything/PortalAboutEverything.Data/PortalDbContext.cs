@@ -21,7 +21,6 @@ namespace PortalAboutEverything.Data
         public DbSet<Good> Goods { get; set; }
 
         public DbSet<GoodReview> GoodReviews { get; set; }
-        public DbSet<VideoInfo> Videos { get; init; }
         public DbSet<BoardGame> BoardGames { get; set; }
         public DbSet<BoardGameReview> BoardGameReviews { get; set; }
         public DbSet<Traveling> Travelings { get; set; }
