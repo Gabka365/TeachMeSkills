@@ -20,7 +20,7 @@ namespace PortalAboutEverything.Models.ValidationAttributes
         public override string FormatErrorMessage(string name)
         {
             var defaultErrorMessage = $"Поле {name} заполнено неправильно. Год не может быть меньше чем {MIN_YEAR}";
-            return !string.IsNullOrEmpty(ErrorMessage)
+            return string.IsNullOrEmpty(ErrorMessage)
                 ? defaultErrorMessage
                 : ErrorMessage;
         }
