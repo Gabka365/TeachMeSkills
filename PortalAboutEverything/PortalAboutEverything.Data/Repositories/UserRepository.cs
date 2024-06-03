@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 
