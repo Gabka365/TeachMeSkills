@@ -83,6 +83,11 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult AddGood(GoodViewModel createGoodViewModel)
         {
+            if(!ModelState.IsValid)
+            {
+                return View(createGoodViewModel);
+            }
+
             var good = new Good
             {
                 Name = createGoodViewModel.Name,
