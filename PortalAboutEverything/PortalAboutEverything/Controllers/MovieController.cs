@@ -4,6 +4,8 @@ using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Model;
 using Microsoft.AspNetCore.Authorization;
 using PortalAboutEverything.Services;
+using PortalAboutEverything.Data.Enums;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -44,9 +46,16 @@ namespace PortalAboutEverything.Controllers
 				}).ToList()
 			}).ToList();
 
-			return View(moviesViewModel);
+			var viewModel = new IndexMovieAdminViewModel()
+			{
+				Movies = moviesViewModel,
+				IsMovieAdmin = _authService.HasRoleOrHigher(UserRole.MovieAdmin),
+			};
+
+			return View(viewModel);
 		}
 
+		[Authorize]
 		public IActionResult GiveFeedback(MovieFeedbackViewModel movieFeedbackViewModel)
 		{
 			return View(movieFeedbackViewModel);
@@ -58,12 +67,16 @@ namespace PortalAboutEverything.Controllers
 		}
 
 		[HttpGet]
+		[Authorize]
+		[HasRoleOrHigher(UserRole.MovieAdmin)]
 		public IActionResult CreateMovie()
 		{
 			return View();
 		}
 
 		[HttpPost]
+		[Authorize]
+		[HasRoleOrHigher(UserRole.MovieAdmin)]
 		public IActionResult CreateMovie(MovieCreateViewModel movieCreateViewModel)
 		{
 			if (!ModelState.IsValid)

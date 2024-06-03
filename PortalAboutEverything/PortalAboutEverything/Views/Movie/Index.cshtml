@@ -1,4 +1,4 @@
-﻿@model List<PortalAboutEverything.Models.Movie.MovieIndexViewModel>
+﻿@model PortalAboutEverything.Models.Movie.IndexMovieAdminViewModel
 
 @section Style {
 				<link rel="stylesheet" href="/css/Movie/movieStyle.css?=1" />
@@ -8,19 +8,28 @@
 	Выберете действие:
 </div>
 <div>
-	 <a href="/Movie/GiveFeedback">Оставить отзыв</a>
+	@if (User.Identity?.IsAuthenticated ?? false)
+	{
+		<a href="/Movie/GiveFeedback">Оставить отзыв</a>
+	}
 </div>
 <div>
-	<a href="/Movie/CreateMovie">Создать фильм</a>
+	@if (Model.IsMovieAdmin)
+	{
+		<a href="/Movie/CreateMovie">Создать фильм</a>
+	}
 </div>
 <div>
-	<a href="/Movie/MoviesFan">Страничка киномана</a>
+	@if (User.Identity?.IsAuthenticated ?? false)
+	{
+		<a href="/Movie/MoviesFan">Страничка киномана</a>
+	}
 </div>
 <div>
 	Список фильмов:
 </div>
 <div class="movies">
-	@foreach (var movie in Model)
+	@foreach (var movie in Model.Movies)
 	{
 		<div class="infoAboutMovie">
 			<span class="movieName">Фильм <a href="/Movie/UpdateMovie?id=@movie.Id">@movie.Name</a></span> 
