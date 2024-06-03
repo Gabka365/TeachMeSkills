@@ -33,7 +33,7 @@ namespace PortalAboutEverything.Data.Repositories
 		{
 			var user = GetWithFavoriteMovies(userId);
 			var movies = user.FavoriteMovies;
-            movies.Add(movie);
+			movies.Add(movie);
 			user.FavoriteMovies = movies;
 
 			_dbContext.SaveChanges();
