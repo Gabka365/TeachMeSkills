@@ -50,6 +50,13 @@ namespace PortalAboutEverything.Services
             return userId;
         }
 
+        public Language GetUserLanguage()
+        {
+            var userLanguageText = GetClaimValue("Language");
+            var userLanguage = Enum.Parse<Language>(userLanguageText);
+            return userLanguage;
+        }
+
         public bool IsAdmin()
         {
             return IsAuthenticated() && GetUserRole() == UserRole.Admin;
