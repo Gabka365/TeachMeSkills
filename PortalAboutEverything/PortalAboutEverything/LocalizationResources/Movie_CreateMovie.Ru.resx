@@ -120,6 +120,9 @@
   <data name="Budget_LowerCase" xml:space="preserve">
     <value>бюджет</value>
   </data>
+  <data name="CountryOfOrigin_Display" xml:space="preserve">
+    <value>Страна производства</value>
+  </data>
   <data name="CountryOfOrigin_LowerCase" xml:space="preserve">
     <value>страна производства</value>
   </data>
@@ -129,13 +132,25 @@
   <data name="Description_LowerCase" xml:space="preserve">
     <value>описание</value>
   </data>
+  <data name="Director_Display" xml:space="preserve">
+    <value>Имя режиссера</value>
+  </data>
   <data name="Director_LowerCase" xml:space="preserve">
     <value>режиссер</value>
   </data>
   <data name="MovieTitle_LowerCase" xml:space="preserve">
     <value>название фильма</value>
   </data>
+  <data name="ReleaseYear_Display" xml:space="preserve">
+    <value>Год выхода фильма</value>
+  </data>
   <data name="ReleaseYear_LowerCase" xml:space="preserve">
     <value>год выхода фильма</value>
+  </data>
+  <data name="RequiredCountryOfOrigin_Error" xml:space="preserve">
+    <value>Не заполнена страна производства</value>
+  </data>
+  <data name="RequiredNameDirector_Error" xml:space="preserve">
+    <value>Не заполнено имя режиссера</value>
   </data>
 </root>

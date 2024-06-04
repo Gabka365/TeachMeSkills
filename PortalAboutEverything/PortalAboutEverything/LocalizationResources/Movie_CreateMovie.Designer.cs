@@ -70,6 +70,15 @@ namespace PortalAboutEverything.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Country of origin.
+        /// </summary>
+        public static string CountryOfOrigin_Display {
+            get {
+                return ResourceManager.GetString("CountryOfOrigin_Display", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to country of origin.
         /// </summary>
         public static string CountryOfOrigin_LowerCase {
@@ -97,6 +106,15 @@ namespace PortalAboutEverything.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name of director.
+        /// </summary>
+        public static string Director_Display {
+            get {
+                return ResourceManager.GetString("Director_Display", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to director.
         /// </summary>
         public static string Director_LowerCase {
@@ -115,11 +133,38 @@ namespace PortalAboutEverything.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Release year.
+        /// </summary>
+        public static string ReleaseYear_Display {
+            get {
+                return ResourceManager.GetString("ReleaseYear_Display", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to release year.
         /// </summary>
         public static string ReleaseYear_LowerCase {
             get {
                 return ResourceManager.GetString("ReleaseYear_LowerCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country of origin is not filled in.
+        /// </summary>
+        public static string RequiredCountryOfOrigin_Error {
+            get {
+                return ResourceManager.GetString("RequiredCountryOfOrigin_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the director is not filled in.
+        /// </summary>
+        public static string RequiredNameDirector_Error {
+            get {
+                return ResourceManager.GetString("RequiredNameDirector_Error", resourceCulture);
             }
         }
     }

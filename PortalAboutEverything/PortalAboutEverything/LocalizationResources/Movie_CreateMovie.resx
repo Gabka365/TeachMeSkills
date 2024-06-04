@@ -120,6 +120,9 @@
   <data name="Budget_LowerCase" xml:space="preserve">
     <value>budget</value>
   </data>
+  <data name="CountryOfOrigin_Display" xml:space="preserve">
+    <value>Country of origin</value>
+  </data>
   <data name="CountryOfOrigin_LowerCase" xml:space="preserve">
     <value>country of origin</value>
   </data>
@@ -129,13 +132,25 @@
   <data name="Description_LowerCase" xml:space="preserve">
     <value>description</value>
   </data>
+  <data name="Director_Display" xml:space="preserve">
+    <value>Name of director</value>
+  </data>
   <data name="Director_LowerCase" xml:space="preserve">
     <value>director</value>
   </data>
   <data name="MovieTitle_LowerCase" xml:space="preserve">
     <value>movie title</value>
   </data>
+  <data name="ReleaseYear_Display" xml:space="preserve">
+    <value>Release year</value>
+  </data>
   <data name="ReleaseYear_LowerCase" xml:space="preserve">
     <value>release year</value>
+  </data>
+  <data name="RequiredCountryOfOrigin_Error" xml:space="preserve">
+    <value>Country of origin is not filled in</value>
+  </data>
+  <data name="RequiredNameDirector_Error" xml:space="preserve">
+    <value>The name of the director is not filled in</value>
   </data>
 </root>
