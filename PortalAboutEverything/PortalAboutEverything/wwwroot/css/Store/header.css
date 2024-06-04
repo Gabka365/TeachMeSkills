@@ -89,3 +89,7 @@
   font-weight: 500;
   color: #ffffff;
 }
+
+.linkToFavouriteGoods {
+    text-decoration: none;
+}

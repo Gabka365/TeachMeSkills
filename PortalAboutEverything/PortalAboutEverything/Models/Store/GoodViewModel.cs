@@ -9,6 +9,6 @@
 
         public int Price { get; set; }
 
-        public List<AddGoodReviewViewModel> Reviews { get; set; }
+        public List<AddGoodReviewViewModel>? Reviews { get; set; }
     }
 }
