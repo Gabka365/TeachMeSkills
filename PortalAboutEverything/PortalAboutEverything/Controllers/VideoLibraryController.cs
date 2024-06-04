@@ -135,30 +135,6 @@ public class VideoLibraryController : Controller
         return View(settingsUsersViewModel);
     }
 
-    [Authorize]
-    [HasRoleOrHigher(UserRole.VideoLibraryAdmin)]
-    [HttpGet]
-    public IActionResult AddUser()
-    {
-        return PartialView("_AddUser");
-    }
-    
-    [Authorize]
-    [HasRoleOrHigher(UserRole.VideoLibraryAdmin)]
-    [HttpGet]
-    public IActionResult EditUser()
-    {
-        return PartialView("_EditUser");
-    }
-
-    [Authorize]
-    [HasRoleOrHigher(UserRole.VideoLibraryAdmin)]
-    [HttpGet]
-    public IActionResult Users()
-    {
-        return PartialView("_Users");
-    }
-
     private VideoLibraryVideoViewModel GenerateVideoViewModel(Video video)
     {
         return new VideoLibraryVideoViewModel

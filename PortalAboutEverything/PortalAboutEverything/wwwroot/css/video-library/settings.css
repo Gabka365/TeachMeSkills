@@ -21,13 +21,13 @@
 .settings-button {
     border: 1px solid var(--border-color);
     height: 2.2rem;
-    width: 10rem;
     text-decoration: none;
     border-radius: var(--border-radius);
     background-color: var(--button-color);
     position: relative;
     cursor: pointer;
     overflow: hidden;
+    padding-inline: 0.5rem;
 }
 
 .settings-button-info {

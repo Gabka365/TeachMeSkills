@@ -103,7 +103,8 @@ namespace PortalAboutEverything.Data
                 {
                     UserName = "ancient",
                     Password = "ancient",
-                    Role = UserRole.VideoLibraryAdmin
+                    Role = UserRole.VideoLibraryAdmin,
+                    Language = Language.En
                 };
                 userRepository.Create(videoLibraryAdmin);
             }

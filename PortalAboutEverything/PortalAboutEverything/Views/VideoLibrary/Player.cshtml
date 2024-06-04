@@ -1,3 +1,4 @@
+@using PortalAboutEverything.LocalizationResources
 @model PortalAboutEverything.Models.VideoLibrary.VideoLibraryVideoViewModel
 
 @{
@@ -6,7 +7,7 @@
 
 @section Title
 {
-    <title>@Model.FileName - Player</title>
+    <title>@Model.FileName - @VideoLibrary_Player.PageTitle</title>
 }
 
 @section Style
@@ -30,7 +31,7 @@
                     </svg>
                 </div>
                 <div class="video-state-button-title">
-                    <span>Like</span>
+                    <span>@VideoLibrary_Player.Like</span>
                 </div>
             </div>
             <div class="video-state-button-like-active-mark"></div>
@@ -43,7 +44,7 @@
                     </svg>
                 </div>
                 <div class="video-state-button-title">
-                    <span>Delete</span>
+                    <span>@VideoLibrary_Player.Delete</span>
                 </div>
             </div>
             <div class="video-state-button-delete-active-mark"></div>
