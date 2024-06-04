@@ -12,6 +12,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="LocalizationResources\BoardGame\BoardGame_CreateGame.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BoardGame_CreateGame.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationResources\BoardGame\BoardGame_GamePage.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BoardGame_GamePage.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationResources\BoardGame\BoardGame_Index.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BoardGame_Index.resx</DependentUpon>
+    </Compile>
     <Compile Update="LocalizationResources\Game_Index.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -20,6 +35,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateGame.Ru.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateGame.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoardGame_CreateGame.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_GamePage.Ru.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_GamePage.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoardGame_GamePage.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_Index.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoardGame_Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="LocalizationResources\Game_Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Game_Index.Designer.cs</LastGenOutput>
