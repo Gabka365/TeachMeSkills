@@ -3,11 +3,18 @@ using System.Text.RegularExpressions;
 
 namespace PortalAboutEverything.Models.ValidationAttributes
 {
-	public class ValidSymbolsAttribute : ValidationAttribute
+	public class ForbiddenSymbolsAttribute : ValidationAttribute
 	{
+		private string _forbiddenSymbols;
+
+		public ForbiddenSymbolsAttribute(string forbiddenSymbols) 
+		{
+			_forbiddenSymbols = forbiddenSymbols;
+		}
+
 		public override string FormatErrorMessage(string name)
 		{
-			var defaultErrorMessage = $"""Поле "{name}" Содержит некорректные символы""";
+			var defaultErrorMessage = $"""Поле "{name}" содержит некорректные символы""";
 
 			return string.IsNullOrEmpty(ErrorMessage)
 				? defaultErrorMessage
@@ -22,7 +29,7 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 			}
 
 			var text = (string)value;
-			var expression = new Regex(@"[!#@%*?$№<>]");
+			var expression = new Regex($"[{ _forbiddenSymbols }]");
 			var match = expression.Match(text);
 			return !match.Success;
 		}

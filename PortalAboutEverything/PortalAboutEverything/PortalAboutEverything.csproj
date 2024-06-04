@@ -12,6 +12,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="LocalizationResources\Movie_CreateMovie.Ru.Designer.cs">
+      <DependentUpon>Movie_CreateMovie.Ru.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="LocalizationResources\Movie_CreateMovie.Designer.cs">
+      <DependentUpon>Movie_CreateMovie.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="LocalizationResources\Movie_Index.Ru.Designer.cs">
+      <DependentUpon>Movie_Index.Ru.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="LocalizationResources\Movie_Index.Designer.cs">
+      <DependentUpon>Movie_Index.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="LocalizationResources\Game_Index.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -20,6 +40,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="LocalizationResources\Movie_CreateMovie.Ru.resx">
+      <LastGenOutput>Movie_CreateMovie.Ru.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\Movie_CreateMovie.resx">
+      <LastGenOutput>Movie_CreateMovie.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\Movie_Index.Ru.resx">
+      <LastGenOutput>Movie_Index.Ru.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\Movie_Index.resx">
+      <LastGenOutput>Movie_Index.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="LocalizationResources\Game_Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Game_Index.Designer.cs</LastGenOutput>
