@@ -2,7 +2,7 @@
 
 namespace PortalAboutEverything.Models.ValidationAttributes
 {
-    public class GoodNameAttribute : ValidationAttribute
+    public class GoodDescriptionAttribute : ValidationAttribute
     {
         private string _defaultErrorMessage;
 
@@ -12,19 +12,19 @@ namespace PortalAboutEverything.Models.ValidationAttributes
         }
 
         public override bool IsValid(object? value)
-        {            
+        {
             if (value == null)
             {
-                _defaultErrorMessage = "Введите название товара.";
+                _defaultErrorMessage = "Введите описание товара.";
                 return false;
             }
 
             string strValue = value.ToString()!;
             int length = strValue.Length;
 
-            if (length < 5 || length > 20)
+            if (length < 10 || length > 30)
             {
-                _defaultErrorMessage = "Название товара должно быть не менее 5 и не боее 20 символов.";
+                _defaultErrorMessage = "Описание товара должно быть не менее 10 и не боее 30 символов.";
                 return false;
             }
 
@@ -32,3 +32,4 @@ namespace PortalAboutEverything.Models.ValidationAttributes
         }
     }
 }
+

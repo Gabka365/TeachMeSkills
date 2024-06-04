@@ -10,7 +10,7 @@ namespace PortalAboutEverything.Models.Store
         [GoodName]
         public string? Name { get; set; }
 
-        [GoodName]
+        [GoodDescription]
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "Это поле должно быть заполнено.")]
