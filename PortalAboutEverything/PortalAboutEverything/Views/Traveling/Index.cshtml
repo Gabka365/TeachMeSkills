@@ -5,7 +5,6 @@
 }
 
 <div class="site-container">
-    <!-- Верхняя часть страницы -->
     <div class="site-bg">
         <div class="header container flex">
 
@@ -36,6 +35,15 @@
                         Contact
                     </a>
                 </li>
+
+                @if (Model.IsTravingAdmin)
+                {
+                    <li class="header_list-items">
+                        <a href="ChengeIndexPage" class="header_list-item">
+                            Cheng Index
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
         <div class="wrapper_title grid">
