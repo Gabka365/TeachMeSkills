@@ -13,9 +13,8 @@ namespace PortalAboutEverything.Models.Store
         [GoodDescription]
         public string? Description { get; set; }
 
-        [Required(ErrorMessage = "Это поле должно быть заполнено.")]
         [GoodPrice]       
-        public int Price { get; set; }
+        public int? Price { get; set; }
 
         public List<AddGoodReviewViewModel>? Reviews { get; set; }
     }
