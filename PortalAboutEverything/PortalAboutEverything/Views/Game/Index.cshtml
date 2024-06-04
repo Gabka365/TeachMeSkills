@@ -1,4 +1,5 @@
 ﻿@model PortalAboutEverything.Models.Game.IndexViewModel
+@using PortalAboutEverything.LocalizationResources
 
 @section Style {
     <link rel="stylesheet" href="/css/Game/index.css?v=2" />
@@ -7,18 +8,20 @@
 <div>
     @if (Model.IsGameAdmin)
     {
-        <a href="/Game/Create">Создать игру</a>
+        <a href="/Game/Create">@Game_Index.CreateGame</a>
     }
     @if (User.Identity?.IsAuthenticated ?? false)
     {
-        <a href="/Game/Gamer">Gamer</a>
+        <a href="/Game/Gamer">@Game_Index.Gamer</a>
     }
     </div>
 <div class="games">
     @foreach (var game in Model.Games)
     {
         <div class="game">
-            Игра <a href="/Game/Update?id=@game.Id">@game.Name</a> была выпущена в @game.YearOfRelease Вот что о ней говорят @game.Description
+            @Game_Index.Game <a href="/Game/Update?id=@game.Id">@game.Name</a> @Game_Index.ReleaseDate_LowerCase @game.YearOfRelease
+            
+            <span> Вот что о ней говорят @game.Description</span>
             <a href="/Game/Delete?id=@game.Id" class="delete">Х</a>
         </div>
         @foreach (var review in game.Reviews)

@@ -6,7 +6,8 @@
         
         GameAdmin = 40,
         MovieAdmin = 41,
-        VideoLibraryAdmin = 42,
+        BoardGameAdmin = 42,
+        VideoLibraryAdmin = 44,
 
         Moderator = 80,
         Admin = 99,

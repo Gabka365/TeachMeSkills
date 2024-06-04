@@ -1,0 +1,18 @@
+﻿@model PortalAboutEverything.Models.Movie.MoviesFanViewModel
+
+@section Style {
+				<link rel="stylesheet" href="/css/Movie/movieStyle.css?=1" />
+}
+
+<div>
+	Пользователь с именем @Model.Name
+</div>
+<div>
+	Любимые фильмы:
+</div>
+@foreach (var movie in Model.Movies)
+{
+	<div>
+		@movie.Name
+	</div>
+}

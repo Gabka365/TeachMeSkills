@@ -4,6 +4,8 @@ using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Services;
 using Microsoft.AspNetCore.Authorization;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Data.Enums;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -27,21 +29,37 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult Index()
         {
-            List<BoardGameIndexViewModel> indexViewModel = _gameRepositories
+            var gamesViewModel = _gameRepositories
                 .GetAll()
                 .Select(BuildBoardGameIndexViewModel)
                 .ToList();
+
+            bool isBoardGameAdmin = false;
+            if (_authServise.IsAuthenticated())
+            {
+                isBoardGameAdmin = _authServise.HasRoleOrHigher(UserRole.BoardGameAdmin);
+            }
+
+            var indexViewModel = new IndexViewModel()
+            {
+                BoardGames = gamesViewModel,
+                IsBoardGameAdmin = isBoardGameAdmin
+            };
 
             return View(indexViewModel);
         }
 
         [HttpGet]
+        [Authorize]
+        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
         public IActionResult CreateBoardGame()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
+        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
         public IActionResult CreateBoardGame(BoardGameCreateViewModel boardGameViewModel)
         {
             if (!ModelState.IsValid)
@@ -56,6 +74,8 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
         public IActionResult UpdateBoardGame(int id)
         {
             BoardGame boardGameForUpdate = _gameRepositories.Get(id);
@@ -65,6 +85,8 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
         public IActionResult UpdateBoardGame(BoardGameUpdateViewModel boardGameViewModel)
         {
             if (!ModelState.IsValid)
@@ -78,6 +100,8 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
+        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
         public IActionResult DeleteBoardGame(int id)
         {
             _gameRepositories.Delete(id);
@@ -146,6 +170,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult CreateReview(int gameId)
         {
             BoardGameCreateReviewViewModel createReviewViewModel =
@@ -159,6 +184,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult CreateReview(BoardGameCreateReviewViewModel boardGameReviewViewModel)
         {
             if (!ModelState.IsValid)
@@ -173,6 +199,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult UpdateReview(int id, int gameId)
         {
             BoardGameReview reviewForUpdate = _reviewRepositories.GetWithBoardGame(id);
@@ -183,6 +210,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult UpdateReview(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
         {
             if (!ModelState.IsValid)
@@ -196,6 +224,7 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("BoardGame", new { id = updatedReview.BoardGame.Id });
         }
 
+        [Authorize]
         public IActionResult DeleteReview(int id, int gameId)
         {
             _reviewRepositories.Delete(id);
@@ -237,13 +266,14 @@ namespace PortalAboutEverything.Controllers
                 Description = gameViewModel.Description,
                 Essence = gameViewModel.Essence,
                 Tags = gameViewModel.Tags,
-                Price = gameViewModel.Price,
-                ProductCode = gameViewModel.ProductCode,
+                Price = (double)gameViewModel.Price,
+                ProductCode = (long)gameViewModel.ProductCode,
             };
 
         private BoardGameUpdateViewModel BuildBoardGameUpdateDataModel(BoardGame game)
             => new BoardGameUpdateViewModel
             {
+                OriginalTitle = game.Title,
                 Title = game.Title,
                 MiniTitle = game.MiniTitle,
                 Description = game.Description,
@@ -262,8 +292,8 @@ namespace PortalAboutEverything.Controllers
                  Description = gameViewModel.Description,
                  Essence = gameViewModel.Essence,
                  Tags = gameViewModel.Tags,
-                 Price = gameViewModel.Price,
-                 ProductCode = gameViewModel.ProductCode,
+                 Price = (double)gameViewModel.Price,
+                 ProductCode = (long)gameViewModel.ProductCode,
              };
 
         private BoardGameIndexViewModel BuildBoardGameIndexViewModel(BoardGame game)
@@ -288,7 +318,7 @@ namespace PortalAboutEverything.Controllers
         private BoardGameReview BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
             => new BoardGameReview
             {
-                Name = reviewViewModel.Name,
+                Name = _authServise.GetUserName(),
                 DateOfCreation = DateTime.Now,
                 Text = reviewViewModel.Text,
             };
@@ -297,7 +327,7 @@ namespace PortalAboutEverything.Controllers
             => new BoardGameReview
             {
                 Id = reviewViewModel.Id,
-                Name = reviewViewModel.Name,
+                Name = _authServise.GetUserName(),
                 Text = reviewViewModel.Text,
             };
 
@@ -305,7 +335,6 @@ namespace PortalAboutEverything.Controllers
             => new BoardGameUpdateReviewViewModel
             {
                 BoardGameName = review.BoardGame.Title,
-                Name = review.Name,
                 Text = review.Text,
             };
         #endregion
