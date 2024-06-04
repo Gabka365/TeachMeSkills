@@ -25,17 +25,17 @@ namespace PortalAboutEverything.Services
         }
 
         public string GetUserName()
-            => GetClaimValue("Name");
+            => GetClaimValue(AuthClaims.NAME);
 
         public UserRole GetUserRole()
         {
-            var userRole = GetClaimValue("Role");
+            var userRole = GetClaimValue(AuthClaims.ROLE);
             return Enum.Parse<UserRole>(userRole);
         }
 
         public Permission GetUserPermission()
         {
-            var userRole = GetClaimValue("Permission");
+            var userRole = GetClaimValue(AuthClaims.PERMISSION);
             return Enum.Parse<Permission>(userRole);
         }
 
@@ -45,7 +45,7 @@ namespace PortalAboutEverything.Services
 
         public int GetUserId()
         {
-            var userIdText = GetClaimValue("Id");
+            var userIdText = GetClaimValue(AuthClaims.ID);
             var userId = int.Parse(userIdText);
             return userId;
         }

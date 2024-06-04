@@ -77,10 +77,10 @@ namespace PortalAboutEverything.Controllers
         {
             var claims = new List<Claim>()
             {
-                new Claim("Id", user.Id.ToString()),
-                new Claim("Name", user.UserName),
-                new Claim("Role", user.Role.ToString()),
-                new Claim("Permission", user.Permission.ToString()),
+                new Claim(AuthClaims.ID, user.Id.ToString()),
+                new Claim(AuthClaims.NAME, user.UserName),
+                new Claim(AuthClaims.ROLE, user.Role.ToString()),
+                new Claim(AuthClaims.PERMISSION, user.Permission.ToString()),
                 new Claim(ClaimTypes.AuthenticationMethod,AUTH_METHOD)
             };
 
