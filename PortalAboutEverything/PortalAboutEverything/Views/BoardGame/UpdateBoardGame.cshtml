@@ -6,10 +6,11 @@
 
 <div class="board-game-or-review-form">
     <h2>
-        Редактирование игры @Model.Title
+        Редактирование игры @Model.OriginalTitle
     </h2>
     <form method="post">
         @Html.HiddenFor(boardGame => boardGame.Id)
+        @Html.HiddenFor(boardGame => boardGame.OriginalTitle)
         <div>
             @Html.TextBoxFor(boardGame => boardGame.Title, new
                 {
