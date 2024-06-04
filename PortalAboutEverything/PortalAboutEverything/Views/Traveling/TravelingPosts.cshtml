@@ -68,7 +68,8 @@
                                     }
                                 }
                                 
-                                <form action="/Traveling/CreateComment/@post.Id" method="post">
+                                <form action="/Traveling/CreateComment/" method="post">
+                                    <input type="hidden" name="PostId" value="@post.Id" />
                                     <textarea name="text" placeholder="@((TempData["ErrorMessage"] != null) ? TempData["ErrorMessage"].ToString() : "Введите сообщение")"></textarea>
                                     <input type="submit" value="Отставить отзыв" />
                                 </form>
