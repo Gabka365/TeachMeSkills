@@ -126,6 +126,12 @@
   <data name="Gamer" xml:space="preserve">
     <value>Gamer</value>
   </data>
+  <data name="Placeholder_GameDescription" xml:space="preserve">
+    <value>Desc</value>
+  </data>
+  <data name="Placeholder_GameName" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="RelaseDate_ValidationErrorMessage" xml:space="preserve">
     <value>Field "{0}" invalid. Relase date must be more then {1} and less then {2}</value>
   </data>

@@ -19,6 +19,15 @@
     @foreach (var game in Model.Games)
     {
         <div class="game">
+            @if (game.HasCover)
+            {
+                <img class="cover" src="/images/Game/cover-@(game.Id).jpg" />
+            }
+            else
+            {
+                <img class="cover" src="/images/Game/cover-default.jpg" />
+            }
+            
             @Game_Index.Game <a href="/Game/Update?id=@game.Id">@game.Name</a> @Game_Index.ReleaseDate_LowerCase @game.YearOfRelease
 
             <span> Вот что о ней говорят @game.Description</span>

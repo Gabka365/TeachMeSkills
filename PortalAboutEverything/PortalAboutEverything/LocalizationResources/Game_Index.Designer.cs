@@ -88,6 +88,24 @@ namespace PortalAboutEverything.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Desc.
+        /// </summary>
+        public static string Placeholder_GameDescription {
+            get {
+                return ResourceManager.GetString("Placeholder_GameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Placeholder_GameName {
+            get {
+                return ResourceManager.GetString("Placeholder_GameName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field &quot;{0}&quot; invalid. Relase date must be more then {1} and less then {2}.
         /// </summary>
         public static string RelaseDate_ValidationErrorMessage {

@@ -17,5 +17,8 @@ namespace PortalAboutEverything.Models.Game
             ErrorMessageResourceName = nameof(Game_Index.RelaseDate_ValidationErrorMessage))]
         [Display(Name = "Год выпуска игры")]
         public int YearOfRelease { get; set; }
+
+        [MaxImageSize(200, 200)]
+        public IFormFile Cover { get; set; }
     }
 }
