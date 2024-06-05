@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using PortalAboutEverything.Data.Enums;
-using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers.ActionFilterAttributes
 {

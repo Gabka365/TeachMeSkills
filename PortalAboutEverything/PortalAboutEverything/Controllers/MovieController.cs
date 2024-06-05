@@ -3,9 +3,9 @@ using PortalAboutEverything.Models.Movie;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Model;
 using Microsoft.AspNetCore.Authorization;
-using PortalAboutEverything.Services;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers
 {

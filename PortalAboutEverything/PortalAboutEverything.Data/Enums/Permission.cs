@@ -12,5 +12,8 @@
         CanDeleteMovie = 32,
         CanUpdateMovie = 64,
         CanLeaveReviewForMovie = 128,
+        CanCreateAndUpdateBoardGames = 256,
+        CanDeleteBoardGames = 512,
+        CanModerateReviewsOfBoardGames = 1024,
     }
 }

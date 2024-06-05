@@ -98,7 +98,7 @@ namespace PortalAboutEverything.Data
                     Language = Language.Ru
                 };
                 userRepository.Create(user);
-
+              
                 var travelingAdmin = new User
                 {
                     UserName = "travelingAdmin",
@@ -106,6 +106,15 @@ namespace PortalAboutEverything.Data
                     Role = UserRole.TravelingAdmin,
                 };
                 userRepository.Create(travelingAdmin);
+              
+                var videoLibraryAdmin = new User
+                {
+                    UserName = "ancient",
+                    Password = "ancient",
+                    Role = UserRole.VideoLibraryAdmin,
+                    Language = Language.En
+                };
+                userRepository.Create(videoLibraryAdmin);
             }
         }
 

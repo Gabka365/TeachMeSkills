@@ -1,6 +1,7 @@
 .nav-menu{
     height: 3.5rem;
     margin: 1rem;
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     background-color: var(--nav-menu-bg);
     display: flex;
@@ -27,12 +28,12 @@
 
 .right-part{
     justify-content: flex-end;
+    gap: 1rem;
 }
 
 .home-button, .update-button{
     border: 1px solid var(--border-color);
     height: 2.2rem;
-    width: 12rem;
     text-decoration: none;
     border-radius: var(--border-radius);
     background-color: var(--button-color);
@@ -42,6 +43,7 @@
     justify-content: center;
     gap: 0.5rem;
     position: relative;
+    padding-inline: 0.5rem;
 }
 
 .home-button:hover .button-active-mark, .update-button:hover .button-active-mark {
@@ -79,12 +81,12 @@
 .menu-button{
     border: 1px solid var(--border-color);
     height: 2.2rem;
-    width: 13rem;
     text-decoration: none;
     border-radius: var(--border-radius);
     background-color: var(--button-color);
     overflow: hidden;
     position: relative;
+    padding-inline: 0.5rem;
 }
 
 .menu-button-info{

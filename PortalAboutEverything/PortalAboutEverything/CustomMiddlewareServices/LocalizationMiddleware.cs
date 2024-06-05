@@ -1,5 +1,5 @@
 ﻿using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.AuthStuff;
 using System.Globalization;
 
 namespace PortalAboutEverything.CustomMiddlewareServices
@@ -18,8 +18,7 @@ namespace PortalAboutEverything.CustomMiddlewareServices
             var authService = context.RequestServices.GetRequiredService<AuthService>();
             if (authService.IsAuthenticated())
             {
-                var userRepositry = context.RequestServices.GetService<UserRepository>();
-                var lang = userRepositry!.GetLanguage(authService.GetUserId());
+                var lang = authService.GetUserLanguage();
 
                 CultureInfo culture;
                 switch (lang)
