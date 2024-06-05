@@ -25,17 +25,17 @@ namespace PortalAboutEverything.Services.AuthStuff
         }
 
         public string GetUserName()
-            => GetClaimValue(AuthClaimsConstatns.NAME);
+            => GetClaimValue(AuthClaimsConstants.NAME);
 
         public UserRole GetUserRole()
         {
-            var userRole = GetClaimValue(AuthClaimsConstatns.ROLE);
+            var userRole = GetClaimValue(AuthClaimsConstants.ROLE);
             return Enum.Parse<UserRole>(userRole);
         }
 
         public Permission GetUserPermission()
         {
-            var userRole = GetClaimValue(AuthClaimsConstatns.PERMISSION);
+            var userRole = GetClaimValue(AuthClaimsConstants.PERMISSION);
             return Enum.Parse<Permission>(userRole);
         }
 
@@ -46,14 +46,14 @@ namespace PortalAboutEverything.Services.AuthStuff
 
         public int GetUserId()
         {
-            var userIdText = GetClaimValue(AuthClaimsConstatns.ID);
+            var userIdText = GetClaimValue(AuthClaimsConstants.ID);
             var userId = int.Parse(userIdText);
             return userId;
         }
 
         public Language GetUserLanguage()
         {
-            var userLanguageText = GetClaimValue("Language");
+            var userLanguageText = GetClaimValue(AuthClaimsConstants.LANGUAGE);
             var userLanguage = Enum.Parse<Language>(userLanguageText);
             return userLanguage;
         }
