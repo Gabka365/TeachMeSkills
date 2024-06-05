@@ -1,11 +1,14 @@
-﻿using PortalAboutEverything.Models.ValidationAttributes;
+﻿using PortalAboutEverything.LocalizationResources;
+using PortalAboutEverything.Models.ValidationAttributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace PortalAboutEverything.Models.Game
 {
     public class GameCreateViewModel
     {
-        [Required(ErrorMessage = "Я не верю в игры, у которых нет называния")]
+        [Required(
+            ErrorMessageResourceType = typeof(Game_Index),
+            ErrorMessageResourceName = nameof(Game_Index.RequiredName_ErrorMessage))]
         public string Name { get; set; }
         public string? Description { get; set; }
 

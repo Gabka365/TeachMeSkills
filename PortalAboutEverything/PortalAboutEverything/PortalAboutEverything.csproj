@@ -17,12 +17,57 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Game_Index.resx</DependentUpon>
     </Compile>
+    <Compile Update="LocalizationResources\VideoLibrary_Settings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VideoLibrary_Settings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationResources\VideoLibrary_Index.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VideoLibrary_Index.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationResources\VideoLibrary_Liked.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VideoLibrary_Liked.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationResources\VideoLibrary_Player.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VideoLibrary_Player.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationResources\VideoLibrary_Layout.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VideoLibrary_Layout.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="LocalizationResources\Game_Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Game_Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\VideoLibrary_Settings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VideoLibrary_Settings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\VideoLibrary_Index.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VideoLibrary_Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\VideoLibrary_Liked.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VideoLibrary_Liked.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\VideoLibrary_Player.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VideoLibrary_Player.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\VideoLibrary_Layout.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VideoLibrary_Layout.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
