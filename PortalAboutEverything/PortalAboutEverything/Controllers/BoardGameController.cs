@@ -266,8 +266,8 @@ namespace PortalAboutEverything.Controllers
                 Description = gameViewModel.Description,
                 Essence = gameViewModel.Essence,
                 Tags = gameViewModel.Tags,
-                Price = (double)gameViewModel.Price,
-                ProductCode = (long)gameViewModel.ProductCode,
+                Price = gameViewModel.Price.Value,
+                ProductCode = gameViewModel.ProductCode.Value,
             };
 
         private BoardGameUpdateViewModel BuildBoardGameUpdateDataModel(BoardGame game)
@@ -292,8 +292,8 @@ namespace PortalAboutEverything.Controllers
                  Description = gameViewModel.Description,
                  Essence = gameViewModel.Essence,
                  Tags = gameViewModel.Tags,
-                 Price = (double)gameViewModel.Price,
-                 ProductCode = (long)gameViewModel.ProductCode,
+                 Price = gameViewModel.Price.Value,
+                 ProductCode = gameViewModel.ProductCode.Value,
              };
 
         private BoardGameIndexViewModel BuildBoardGameIndexViewModel(BoardGame game)
@@ -327,7 +327,6 @@ namespace PortalAboutEverything.Controllers
             => new BoardGameReview
             {
                 Id = reviewViewModel.Id,
-                Name = _authServise.GetUserName(),
                 Text = reviewViewModel.Text,
             };
 
