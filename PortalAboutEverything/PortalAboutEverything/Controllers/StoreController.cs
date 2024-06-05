@@ -83,11 +83,16 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult AddGood(GoodViewModel createGoodViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(createGoodViewModel);
+            }
+
             var good = new Good
             {
-                Name = createGoodViewModel.Name,
-                Description = createGoodViewModel.Description,
-                Price = createGoodViewModel.Price,
+                Name = createGoodViewModel.Name!,
+                Description = createGoodViewModel.Description!,
+                Price = createGoodViewModel.Price.Value,
             };
             _storeRepositories.Create(good);
 
@@ -112,12 +117,17 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult UpdateGood(GoodUpdateViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             var good = new Good
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
                 Description = viewModel.Description,
-                Price = viewModel.Price,
+                Price = viewModel.Price.Value,
             };
             _storeRepositories.UpdateGood(good);
 
