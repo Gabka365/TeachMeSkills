@@ -1,4 +1,5 @@
 ﻿using PortalAboutEverything.Data.Enums;
+using PortalAboutEverything.Data.Model.Store;
 using System.Security.Principal;
 
 namespace PortalAboutEverything.Data.Model
@@ -20,5 +21,7 @@ namespace PortalAboutEverything.Data.Model
         public virtual List<Movie> FavoriteMovies { get; set; }
 
         public virtual List<GameStore> MyGames { get; set; }
+
+        public virtual List<Good> FavouriteGoods { get; set; }
     }
 }

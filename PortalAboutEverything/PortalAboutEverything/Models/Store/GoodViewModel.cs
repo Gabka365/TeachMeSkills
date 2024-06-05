@@ -1,14 +1,21 @@
-﻿namespace PortalAboutEverything.Models.Store
+﻿using PortalAboutEverything.Models.ValidationAttributes;
+using System.ComponentModel.DataAnnotations;
+
+namespace PortalAboutEverything.Models.Store
 {
     public class GoodViewModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
 
-        public string Description { get; set; }
+        [GoodName]
+        public string? Name { get; set; }
 
-        public int Price { get; set; }
+        [GoodDescription]
+        public string? Description { get; set; }
 
-        public List<AddGoodReviewViewModel> Reviews { get; set; }
+        [GoodPrice]       
+        public int? Price { get; set; }
+
+        public List<AddGoodReviewViewModel>? Reviews { get; set; }
     }
 }
