@@ -9,6 +9,7 @@ using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers
 {
+    [Authorize]
     public class BoardGameController : Controller
     {
         private BoardGameRepositories _gameRepositories;
@@ -27,6 +28,7 @@ namespace PortalAboutEverything.Controllers
             _authServise = authService;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var gamesViewModel = _gameRepositories
@@ -50,16 +52,14 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
+        [HasPermission(Permission.CanCreateAndUpdateBoardGames)]
         public IActionResult CreateBoardGame()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
-        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
+        [HasPermission(Permission.CanCreateAndUpdateBoardGames)]
         public IActionResult CreateBoardGame(BoardGameCreateViewModel boardGameViewModel)
         {
             if (!ModelState.IsValid)
@@ -74,8 +74,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
+        [HasPermission(Permission.CanCreateAndUpdateBoardGames)]
         public IActionResult UpdateBoardGame(int id)
         {
             BoardGame boardGameForUpdate = _gameRepositories.Get(id);
@@ -85,8 +84,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        [Authorize]
-        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
+        [HasPermission(Permission.CanCreateAndUpdateBoardGames)]
         public IActionResult UpdateBoardGame(BoardGameUpdateViewModel boardGameViewModel)
         {
             if (!ModelState.IsValid)
@@ -100,8 +98,7 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize]
-        [HasRoleOrHigher(UserRole.BoardGameAdmin)]
+        [HasPermission(Permission.CanDeleteBoardGames)]
         public IActionResult DeleteBoardGame(int id)
         {
             _gameRepositories.Delete(id);
@@ -109,6 +106,7 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         public IActionResult BoardGame(int id)
         {
             BoardGame gameViewModel = _gameRepositories.GetWithReviews(id);
@@ -127,7 +125,6 @@ namespace PortalAboutEverything.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
         public IActionResult UserFavoriteBoardGames()
         {
             string userName = _authServise.GetUserName();
@@ -144,7 +141,6 @@ namespace PortalAboutEverything.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
         public IActionResult AddFavoriteBoardGameForUser(int gameId)
         {
             User user = _authServise.GetUser();
@@ -153,7 +149,6 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("BoardGame", new { id = gameId });
         }
 
-        [Authorize]
         public IActionResult RemoveFavoriteBoardGameForUser(int gameId, bool isGamePage)
         {
             User user = _authServise.GetUser();
@@ -170,7 +165,6 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult CreateReview(int gameId)
         {
             BoardGameCreateReviewViewModel createReviewViewModel =
@@ -184,7 +178,6 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult CreateReview(BoardGameCreateReviewViewModel boardGameReviewViewModel)
         {
             if (!ModelState.IsValid)
@@ -199,7 +192,6 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult UpdateReview(int id, int gameId)
         {
             BoardGameReview reviewForUpdate = _reviewRepositories.GetWithBoardGame(id);
@@ -210,7 +202,6 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult UpdateReview(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
         {
             if (!ModelState.IsValid)
@@ -224,7 +215,6 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("BoardGame", new { id = updatedReview.BoardGame.Id });
         }
 
-        [Authorize]
         public IActionResult DeleteReview(int id, int gameId)
         {
             _reviewRepositories.Delete(id);
@@ -266,8 +256,8 @@ namespace PortalAboutEverything.Controllers
                 Description = gameViewModel.Description,
                 Essence = gameViewModel.Essence,
                 Tags = gameViewModel.Tags,
-                Price = (double)gameViewModel.Price,
-                ProductCode = (long)gameViewModel.ProductCode,
+                Price = gameViewModel.Price.Value,
+                ProductCode = gameViewModel.ProductCode.Value,
             };
 
         private BoardGameUpdateViewModel BuildBoardGameUpdateDataModel(BoardGame game)
@@ -292,8 +282,8 @@ namespace PortalAboutEverything.Controllers
                  Description = gameViewModel.Description,
                  Essence = gameViewModel.Essence,
                  Tags = gameViewModel.Tags,
-                 Price = (double)gameViewModel.Price,
-                 ProductCode = (long)gameViewModel.ProductCode,
+                 Price = gameViewModel.Price.Value,
+                 ProductCode = gameViewModel.ProductCode.Value,
              };
 
         private BoardGameIndexViewModel BuildBoardGameIndexViewModel(BoardGame game)
@@ -327,7 +317,6 @@ namespace PortalAboutEverything.Controllers
             => new BoardGameReview
             {
                 Id = reviewViewModel.Id,
-                Name = _authServise.GetUserName(),
                 Text = reviewViewModel.Text,
             };
 

@@ -12,6 +12,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateGame.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BoardGame_CreateAndUpdateGame.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateReview.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BoardGame_CreateAndUpdateReview.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationResources\BoardGame\BoardGame_GamePage.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BoardGame_GamePage.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationResources\BoardGame\BoardGame_Index.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BoardGame_Index.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LocalizationResources\BoardGame\BoardGame_UserFavoritesGame.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BoardGame_UserFavoritesGame.resx</DependentUpon>
+    </Compile>
     <Compile Update="LocalizationResources\Game_Index.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -45,6 +70,38 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateGame.Ru.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateGame.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoardGame_CreateAndUpdateGame.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateReview.Ru.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateReview.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoardGame_CreateAndUpdateReview.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_GamePage.Ru.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_GamePage.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoardGame_GamePage.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_Index.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoardGame_Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_UserFavoritesGame.Ru.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_UserFavoritesGame.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoardGame_UserFavoritesGame.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="LocalizationResources\Game_Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Game_Index.Designer.cs</LastGenOutput>
