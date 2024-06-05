@@ -9,10 +9,6 @@ using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Traveling;
 using PortalAboutEverything.Services;
 using static System.Net.Mime.MediaTypeNames;
-using System.Drawing;
-using System.Reflection;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
-using System.Linq;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -68,7 +64,21 @@ namespace PortalAboutEverything.Controllers
         {
             var images = Directory.EnumerateFiles(Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling"))
                                 .Select(fn => "~/images/Traveling/" + Path.GetFileName(fn));
-            return View(images);
+
+            var model = new List<TravelingChengeIndexPageImageViewModel>();
+
+            foreach (var imageUrl in images)
+            {
+                var imageName = Path.GetFileName(imageUrl);
+                var imageModel = new TravelingChengeIndexPageImageViewModel
+                {
+                    ImageName = imageName,
+                    ImageUrl = imageUrl
+                };
+                model.Add(imageModel);
+            };
+
+            return View(model);
         }
         [Authorize]
         [HttpPost]
