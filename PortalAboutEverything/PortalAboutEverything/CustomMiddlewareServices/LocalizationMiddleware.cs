@@ -18,8 +18,7 @@ namespace PortalAboutEverything.CustomMiddlewareServices
             var authService = context.RequestServices.GetRequiredService<AuthService>();
             if (authService.IsAuthenticated())
             {
-                var userRepositry = context.RequestServices.GetRequiredService<UserRepository>();
-                var lang = userRepositry.GetLanguage(authService.GetUserId());
+                var lang = authService.GetUserLanguage();
 
                 CultureInfo culture;
                 switch (lang)
