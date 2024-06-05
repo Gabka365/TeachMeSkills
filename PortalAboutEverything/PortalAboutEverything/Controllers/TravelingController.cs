@@ -63,7 +63,7 @@ namespace PortalAboutEverything.Controllers
         public IActionResult ChengeIndexPage()
         {
             var images = Directory.EnumerateFiles(Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling"))
-                                .Select(fn => "~/images/Traveling/" + Path.GetFileName(fn));
+                                  .Select(fn => "~/images/Traveling/" + Path.GetFileName(fn));
 
             var model = new List<TravelingChengeIndexPageImageViewModel>();
 
