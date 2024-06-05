@@ -7,13 +7,13 @@
 
 <div class="board-game-or-review-form">
     <h2>
-        @BoardGame_CreateGame.TitleOfPage
+        @BoardGame_CreateAndUpdateGame.TitleOfPageCreate
     </h2>
     <form method="post">
         <div>
             @Html.TextBoxFor(boardGame => boardGame.Title, new
                 {
-                    placeholder = $"{BoardGame_CreateGame.Title}",
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.Title}",
                     @class = "foarm-field"
                 })
             @Html.ValidationMessageFor(boardGame => boardGame.Title)
@@ -21,7 +21,7 @@
         <div>
             @Html.TextBoxFor(boardGame => boardGame.MiniTitle, new
                 {
-                    placeholder = $"{BoardGame_CreateGame.MiniTitle}",
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.MiniTitle}",
                     @class = "foarm-field"
                 })
             @Html.ValidationMessageFor(boardGame => boardGame.MiniTitle)
@@ -29,7 +29,7 @@
         <div>
             @Html.TextAreaFor(boardGame => boardGame.Description, new
                 {
-                    placeholder = $"{BoardGame_CreateGame.Description}",
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.Description}",
                     @class = "foarm-field"
                 })
             @Html.ValidationMessageFor(boardGame => boardGame.Description)
@@ -37,21 +37,21 @@
         <div>
             @Html.TextAreaFor(boardGame => boardGame.Essence, new
                 {
-                    placeholder = $"{BoardGame_CreateGame.Essence}",
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.Essence}",
                     @class = "foarm-field"
                 })
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.Tags, new
                 {
-                    placeholder = $"{BoardGame_CreateGame.Tags}",
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.Tags}",
                     @class = "foarm-field"
                 })
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.Price, new
                 {
-                    placeholder = $"{BoardGame_CreateGame.Price}",
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.Price}",
                     @class = "foarm-field",
                     @type = "number"
                 })
@@ -60,14 +60,14 @@
         <div>
             @Html.TextBoxFor(boardGame => boardGame.ProductCode, new
                 {
-                    placeholder = $"{BoardGame_CreateGame.ProductCode}",
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.ProductCode}",
                     @class = "foarm-field",
                     @type = "number"
                 })
             @Html.ValidationMessageFor(boardGame => boardGame.ProductCode)
         </div>
         <div>
-            <input class="button-send" type="submit" value="@BoardGame_CreateGame.AddButton" />
+            <input class="button-send" type="submit" value="@BoardGame_CreateAndUpdateGame.AddButton" />
         </div>
     </form>
 </div>

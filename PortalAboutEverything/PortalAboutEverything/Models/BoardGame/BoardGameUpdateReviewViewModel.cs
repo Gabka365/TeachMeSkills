@@ -1,4 +1,5 @@
-﻿using PortalAboutEverything.Models.ValidationAttributes;
+﻿using PortalAboutEverything.LocalizationResources.BoardGame;
+using PortalAboutEverything.Models.ValidationAttributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace PortalAboutEverything.Models.BoardGame
@@ -9,9 +10,13 @@ namespace PortalAboutEverything.Models.BoardGame
         public string BoardGameName { get; set; }
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Отзыв не может быть пустым")]
+        [Required(
+            ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateReview),
+            ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateReview.RequiredText_ErrorMessage))]
         [TextInput(10, 500)]
-        [Display(Name = "Отзыв")]
+        [Display(
+            ResourceType = typeof(BoardGame_CreateAndUpdateReview),
+            Name = nameof(BoardGame_CreateAndUpdateReview.DisplayText_Name))]
         public string Text { get; set; }
     }
 }

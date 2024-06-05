@@ -123,6 +123,15 @@
   <data name="Description" xml:space="preserve">
     <value>Описание игры</value>
   </data>
+  <data name="DisplayDescription_Name" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="DisplayMiniTitle_Name" xml:space="preserve">
+    <value>Слоган</value>
+  </data>
+  <data name="DisplayTitle_Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
   <data name="Essence" xml:space="preserve">
     <value>Суть игры</value>
   </data>
@@ -135,13 +144,34 @@
   <data name="ProductCode" xml:space="preserve">
     <value>Код товара</value>
   </data>
+  <data name="RequiredDescription_ErrorMessage" xml:space="preserve">
+    <value>Описание не может быть пустым</value>
+  </data>
+  <data name="RequiredMiniTitle_ErrorMessage" xml:space="preserve">
+    <value>Слоган не может быть пустым</value>
+  </data>
+  <data name="RequiredPrice_ErrorMessage" xml:space="preserve">
+    <value>Цена не может быть пустой</value>
+  </data>
+  <data name="RequiredProductCode_ErrorMessage" xml:space="preserve">
+    <value>Код товара не может быть пустым</value>
+  </data>
+  <data name="RequiredTitle_ErrorMessage" xml:space="preserve">
+    <value>Название не может быть пустым</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
   <data name="Tags" xml:space="preserve">
     <value>Тег для игры</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Название игры</value>
   </data>
-  <data name="TitleOfPage" xml:space="preserve">
+  <data name="TitleOfPageCreate" xml:space="preserve">
     <value>Добавьте новую игру</value>
+  </data>
+  <data name="TitleOfPageUpdate" xml:space="preserve">
+    <value>Редактирование игры</value>
   </data>
 </root>

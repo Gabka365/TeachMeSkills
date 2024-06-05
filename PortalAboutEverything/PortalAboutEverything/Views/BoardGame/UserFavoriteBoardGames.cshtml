@@ -1,22 +1,23 @@
 ﻿@model PortalAboutEverything.Models.BoardGame.UserFavoriteBoardGamesViewModel
+@using PortalAboutEverything.LocalizationResources.BoardGame
 
 @section Style {
     <link href="/css/BoardGame/boardGamesFavorite.css" rel="stylesheet" />
 }
 
 <div class="board-game-list">
-    <h2 class="title">Список любимых настольных игр пользователя "@Model.Name"</h2>
+    <h2 class="title">@BoardGame_UserFavoritesGame.TitleOfPage "@Model.Name"</h2>
     @if (Model.FavoriteBoardGames.Any())
     {
         <table>
         <thead>
             <tr>
-                <th>Название</th>
-                <th>Цена</th>
+                <th>@BoardGame_UserFavoritesGame.Title</th>
+                <th>@BoardGame_UserFavoritesGame.Price</th>
                 <th>
                     <div class="vk-share">
                         <span></span>
-                        <button class="highlighted-button">Поделиться в VK</button>
+                        <button class="highlighted-button">@BoardGame_UserFavoritesGame.Share</button>
                     </div>
                 </th>
             </tr>
@@ -35,7 +36,7 @@
                         <div class="delete-and-add">
                             <span></span>
                             <a class="delete-link" href="/BoardGame/RemoveFavoriteBoardGameForUser?GameId=@boardGame.Id&IsGamePage=@false">x</a>
-                            <button class="highlighted-button card-button">Добавить в корзину</button>
+                            <button class="highlighted-button card-button">@BoardGame_UserFavoritesGame.AddToCart</button>
                         </div>
                     </td>
                 </tr>
@@ -45,7 +46,7 @@
     }
     else
     {
-        <p>Вы ещё не добавили ни одну игру в избранное</p>
+        <p>@BoardGame_UserFavoritesGame.AbsenceOfGamesText</p>
     }
 </div>
     

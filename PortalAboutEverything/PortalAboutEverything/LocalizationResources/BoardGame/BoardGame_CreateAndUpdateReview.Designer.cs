@@ -22,14 +22,14 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class BoardGame_CreateGame {
+    public class BoardGame_CreateAndUpdateReview {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal BoardGame_CreateGame() {
+        internal BoardGame_CreateAndUpdateReview() {
         }
         
         /// <summary>
@@ -39,7 +39,8 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PortalAboutEverything.LocalizationResources.BoardGame.BoardGame_CreateGame", typeof(BoardGame_CreateGame).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PortalAboutEverything.LocalizationResources.BoardGame.BoardGame_CreateAndUpdateRe" +
+                            "view", typeof(BoardGame_CreateAndUpdateReview).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +62,65 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Add a game.
+        ///   Ищет локализованную строку, похожую на Post a review.
         /// </summary>
-        public static string AddButton {
+        public static string CreateButton {
             get {
-                return ResourceManager.GetString("AddButton", resourceCulture);
+                return ResourceManager.GetString("CreateButton", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Description of the game.
+        ///   Ищет локализованную строку, похожую на Review.
         /// </summary>
-        public static string Description {
+        public static string DisplayText_Name {
             get {
-                return ResourceManager.GetString("Description", resourceCulture);
+                return ResourceManager.GetString("DisplayText_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на The essence of the game.
+        ///   Ищет локализованную строку, похожую на The review cannot be empty.
         /// </summary>
-        public static string Essence {
+        public static string RequiredText_ErrorMessage {
             get {
-                return ResourceManager.GetString("Essence", resourceCulture);
+                return ResourceManager.GetString("RequiredText_ErrorMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на The slogan of the game.
+        ///   Ищет локализованную строку, похожую на Your review.
         /// </summary>
-        public static string MiniTitle {
+        public static string Text {
             get {
-                return ResourceManager.GetString("MiniTitle", resourceCulture);
+                return ResourceManager.GetString("Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на The price of the game.
+        ///   Ищет локализованную строку, похожую на Write your opinion about the game.
         /// </summary>
-        public static string Price {
+        public static string TitleOfPageCreate {
             get {
-                return ResourceManager.GetString("Price", resourceCulture);
+                return ResourceManager.GetString("TitleOfPageCreate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Product code.
+        ///   Ищет локализованную строку, похожую на Your opinion about the game.
         /// </summary>
-        public static string ProductCode {
+        public static string TitleOfPageUpdate {
             get {
-                return ResourceManager.GetString("ProductCode", resourceCulture);
+                return ResourceManager.GetString("TitleOfPageUpdate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Tag for the game.
+        ///   Ищет локализованную строку, похожую на Edit a review.
         /// </summary>
-        public static string Tags {
+        public static string UpdateButton {
             get {
-                return ResourceManager.GetString("Tags", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на The name of the game.
-        /// </summary>
-        public static string Title {
-            get {
-                return ResourceManager.GetString("Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Add a new game.
-        /// </summary>
-        public static string TitleOfPage {
-            get {
-                return ResourceManager.GetString("TitleOfPage", resourceCulture);
+                return ResourceManager.GetString("UpdateButton", resourceCulture);
             }
         }
     }
