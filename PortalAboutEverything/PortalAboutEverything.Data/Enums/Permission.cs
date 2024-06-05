@@ -8,5 +8,8 @@
         CanDeleteGame = 2,      // 0010
         CanViewPremission = 4,  // 0100
         CanEditPremission = 8,  // 1000
+        CanCreateAndUpdateBoardGames = 256,
+        CanDeleteBoardGames = 512,
+        CanModerateReviewsOfBoardGames = 1024,
     }
 }
