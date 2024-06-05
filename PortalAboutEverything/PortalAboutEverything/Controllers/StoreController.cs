@@ -6,7 +6,7 @@ using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.BookClub;
 using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Store;
-using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers
 {

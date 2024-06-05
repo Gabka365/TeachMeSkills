@@ -1,5 +1,5 @@
 ﻿using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.AuthStuff;
 using System.Globalization;
 
 namespace PortalAboutEverything.CustomMiddlewareServices
