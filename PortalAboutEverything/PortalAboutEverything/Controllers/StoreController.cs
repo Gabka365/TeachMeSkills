@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Model.Store;
 using PortalAboutEverything.Data.Repositories;
@@ -29,8 +30,13 @@ namespace PortalAboutEverything.Controllers
         public IActionResult Index()
         {
             var goodsViewModel = _storeRepositories.GetAll().Select(BuildStoreIndexViewModel).ToList();
+            var viewModel = new BaseForStoreIndexViewModel
+            {
+                Goods = goodsViewModel,
+                IsAdmin = _authService.IsAdmin()
+            };
 
-            return View(goodsViewModel);
+            return View(viewModel);
         }
 
 
@@ -74,12 +80,14 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Good", new { id = viewModel.GoodId });
         }
 
+        [IsAdmin]
         [HttpGet]
         public IActionResult AddGood()
         {
             return View();
         }
 
+        [IsAdmin]
         [HttpPost]
         public IActionResult AddGood(GoodViewModel createGoodViewModel)
         {
