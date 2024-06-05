@@ -67,20 +67,20 @@ namespace PortalAboutEverything.Data.Migrations
                     b.ToTable("GameUser");
                 });
 
-            modelBuilder.Entity("MovieUser", b =>
-                {
-                    b.Property<int>("FavoriteMoviesId")
-                        .HasColumnType("int");
+			modelBuilder.Entity("MovieUser", b =>
+			{
+				b.Property<int>("FavoriteMoviesId")
+					.HasColumnType("int");
 
-                    b.Property<int>("UsersWhoFavoriteTheMovieId")
-                        .HasColumnType("int");
+				b.Property<int>("UsersWhoFavoriteTheMovieId")
+					.HasColumnType("int");
 
-                    b.HasKey("FavoriteMoviesId", "UsersWhoFavoriteTheMovieId");
+				b.HasKey("FavoriteMoviesId", "UsersWhoFavoriteTheMovieId");
 
-                    b.HasIndex("UsersWhoFavoriteTheMovieId");
+				b.HasIndex("UsersWhoFavoriteTheMovieId");
 
-                    b.ToTable("MovieUser");
-                });
+				b.ToTable("MovieUser");
+			});
 
 			modelBuilder.Entity("GoodUser", b =>
 			{
@@ -608,20 +608,20 @@ namespace PortalAboutEverything.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MovieUser", b =>
-                {
-                    b.HasOne("PortalAboutEverything.Data.Model.Movie", null)
-                        .WithMany()
-                        .HasForeignKey("FavoriteMoviesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+			modelBuilder.Entity("MovieUser", b =>
+			{
+				b.HasOne("PortalAboutEverything.Data.Model.Movie", null)
+					.WithMany()
+					.HasForeignKey("FavoriteMoviesId")
+					.OnDelete(DeleteBehavior.Cascade)
+					.IsRequired();
 
-                    b.HasOne("PortalAboutEverything.Data.Model.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersWhoFavoriteTheMovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+				b.HasOne("PortalAboutEverything.Data.Model.User", null)
+					.WithMany()
+					.HasForeignKey("UsersWhoFavoriteTheMovieId")
+					.OnDelete(DeleteBehavior.Cascade)
+					.IsRequired();
+			});
 
 			modelBuilder.Entity("GoodUser", b =>
 			{
@@ -638,7 +638,7 @@ namespace PortalAboutEverything.Data.Migrations
 					.IsRequired();
 			});
 
-			modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGameReview", b =>
+				modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGameReview", b =>
                 {
                     b.HasOne("PortalAboutEverything.Data.Model.BoardGame", "BoardGame")
                         .WithMany("Reviews")
