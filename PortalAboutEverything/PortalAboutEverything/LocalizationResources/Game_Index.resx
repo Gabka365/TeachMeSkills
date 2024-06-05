@@ -129,4 +129,7 @@
   <data name="ReleaseDate_LowerCase" xml:space="preserve">
     <value>Release date</value>
   </data>
+  <data name="RequiredName_ErrorMessage" xml:space="preserve">
+    <value>Just No</value>
+  </data>
 </root>

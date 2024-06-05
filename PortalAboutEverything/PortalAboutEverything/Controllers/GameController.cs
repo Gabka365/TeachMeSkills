@@ -37,7 +37,8 @@ namespace PortalAboutEverything.Controllers
             var viewModel = new IndexViewModel()
             {
                 Games = gamesViewModel,
-                IsGameAdmin = _authService.HasRoleOrHigher(UserRole.GameAdmin)
+                CanCreateGame = _authService.GetUserPermission().HasFlag(Permission.CanCreateGame),
+                CanDeleteGame = _authService.GetUserPermission().HasFlag(Permission.CanDeleteGame)
             };
 
             return View(viewModel);

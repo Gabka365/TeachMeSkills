@@ -95,5 +95,14 @@ namespace PortalAboutEverything.LocalizationResources {
                 return ResourceManager.GetString("ReleaseDate_LowerCase", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Just No.
+        /// </summary>
+        public static string RequiredName_ErrorMessage {
+            get {
+                return ResourceManager.GetString("RequiredName_ErrorMessage", resourceCulture);
+            }
+        }
     }
 }
