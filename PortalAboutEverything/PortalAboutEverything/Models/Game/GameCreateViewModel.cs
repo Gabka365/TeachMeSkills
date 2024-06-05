@@ -12,7 +12,9 @@ namespace PortalAboutEverything.Models.Game
         public string Name { get; set; }
         public string? Description { get; set; }
 
-        [ComputerYear]
+        [ReleaseYear(
+            ErrorMessageResourceType = typeof(Game_Index),
+            ErrorMessageResourceName = nameof(Game_Index.RelaseDate_ValidationErrorMessage))]
         [Display(Name = "Год выпуска игры")]
         public int YearOfRelease { get; set; }
     }

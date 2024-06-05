@@ -88,6 +88,15 @@ namespace PortalAboutEverything.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Field &quot;{0}&quot; invalid. Relase date must be more then {1} and less then {2}.
+        /// </summary>
+        public static string RelaseDate_ValidationErrorMessage {
+            get {
+                return ResourceManager.GetString("RelaseDate_ValidationErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Release date.
         /// </summary>
         public static string ReleaseDate_LowerCase {

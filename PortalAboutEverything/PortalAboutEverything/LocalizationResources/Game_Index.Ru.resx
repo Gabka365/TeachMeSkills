@@ -126,6 +126,9 @@
   <data name="Gamer" xml:space="preserve">
     <value>Игрок</value>
   </data>
+  <data name="RelaseDate_ValidationErrorMessage" xml:space="preserve">
+    <value>Поле "{0}" не правильное. Год должен быть больше чем {1} и меньше чем {2}</value>
+  </data>
   <data name="ReleaseDate_LowerCase" xml:space="preserve">
     <value>дата выхода</value>
   </data>
