@@ -3,7 +3,7 @@ using PortalAboutEverything.Controllers;
 using PortalAboutEverything.CustomMiddlewareServices;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.VideoServices.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
