@@ -2,7 +2,7 @@
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 
-namespace PortalAboutEverything.Services
+namespace PortalAboutEverything.Services.AuthStuff
 {
     public class AuthService
     {
@@ -25,27 +25,28 @@ namespace PortalAboutEverything.Services
         }
 
         public string GetUserName()
-            => GetClaimValue("Name");
+            => GetClaimValue(AuthClaimsConstatns.NAME);
 
         public UserRole GetUserRole()
         {
-            var userRole = GetClaimValue("Role");
+            var userRole = GetClaimValue(AuthClaimsConstatns.ROLE);
             return Enum.Parse<UserRole>(userRole);
         }
 
         public Permission GetUserPermission()
         {
-            var userRole = GetClaimValue("Permission");
+            var userRole = GetClaimValue(AuthClaimsConstatns.PERMISSION);
             return Enum.Parse<Permission>(userRole);
         }
 
-        public bool HasRoleOrHigher(UserRole role) {
+        public bool HasRoleOrHigher(UserRole role)
+        {
             return GetUserRole() >= role;
         }
 
         public int GetUserId()
         {
-            var userIdText = GetClaimValue("Id");
+            var userIdText = GetClaimValue(AuthClaimsConstatns.ID);
             var userId = int.Parse(userIdText);
             return userId;
         }
