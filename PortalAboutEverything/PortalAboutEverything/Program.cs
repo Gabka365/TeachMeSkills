@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Controllers;
+using PortalAboutEverything.CustomMiddlewareServices;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Services;
@@ -63,6 +64,8 @@ app.UseRouting();
 
 app.UseAuthentication(); // Who I am?
 app.UseAuthorization(); // May I?
+
+app.UseMiddleware<LocalizationMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

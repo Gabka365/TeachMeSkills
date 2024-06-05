@@ -80,6 +80,7 @@ namespace PortalAboutEverything.Controllers
                 new Claim("Id", user.Id.ToString()),
                 new Claim("Name", user.UserName),
                 new Claim("Role", user.Role.ToString()),
+                new Claim("Permission", user.Permission.ToString()),
                 new Claim(ClaimTypes.AuthenticationMethod,AUTH_METHOD)
             };
 
