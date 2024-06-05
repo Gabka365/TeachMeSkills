@@ -49,14 +49,14 @@ namespace PortalAboutEverything.Controllers
             var dateTime6 = new DateTime(2010, 2, 21);
 
             var model = new TravelingIndexViewModel();
-            model.TravelingDate.Add(dateTime1);
-            model.TravelingDate.Add(dateTime2);
-            model.TravelingDate.Add(dateTime3);
-            model.TravelingDate.Add(dateTime4);
-            model.TravelingDate.Add(dateTime5);
-            model.TravelingDate.Add(dateTime6);
+            model.TravelingDates.Add(dateTime1);
+            model.TravelingDates.Add(dateTime2);
+            model.TravelingDates.Add(dateTime3);
+            model.TravelingDates.Add(dateTime4);
+            model.TravelingDates.Add(dateTime5);
+            model.TravelingDates.Add(dateTime6);
 
-            model.IsTravingAdmin = User.Identity!.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
+            model.IsTravingAdmin = User.Identity.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
 
             return View(model);
         }

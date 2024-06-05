@@ -104,6 +104,7 @@ namespace PortalAboutEverything.Data
                     UserName = "travelingAdmin",
                     Password = "travelingAdmin",
                     Role = UserRole.TravelingAdmin,
+                    Language= Language.En   
                 };
                 userRepository.Create(travelingAdmin);
             }
