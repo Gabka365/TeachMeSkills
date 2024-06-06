@@ -62,7 +62,7 @@
                 Товары отсутствуют. Добавьте хотя бы один товар.
             </div>
         }
-        @if (Model.IsAdmin)
+        @if (Model.IsStoreAdmin)
         {
             <a href="/Store/AddGood" class="addGoodLink">
                 Добавить товар
@@ -90,7 +90,7 @@
                         <button class="buyBtn">5 мая</button>
                         <img class="basketIconForBtn" src="/images/store/header/basketIcon.svg" alt="basket" />
                     </div>
-                    @if (Model.IsAdmin)
+                    @if (Model.IsStoreAdmin)
                     {
                         <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">Редактировать</a>
                         <a href="/Store/DeleteGood/@good.Id" class="deleteGoodLink">Удалить товар</a>

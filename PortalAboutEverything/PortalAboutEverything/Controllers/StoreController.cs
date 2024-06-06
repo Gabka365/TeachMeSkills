@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Model.Store;
 using PortalAboutEverything.Data.Repositories;
@@ -33,7 +34,7 @@ namespace PortalAboutEverything.Controllers
             var viewModel = new BaseForStoreIndexViewModel
             {
                 Goods = goodsViewModel,
-                IsAdmin = _authService.IsAdmin()
+                IsStoreAdmin = _authService.HasRoleOrHigher(UserRole.StoreAdmin),
             };
 
             return View(viewModel);
@@ -80,14 +81,14 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Good", new { id = viewModel.GoodId });
         }
 
-        [IsAdmin]
+        [HasRoleOrHigher(UserRole.StoreAdmin)]
         [HttpGet]
         public IActionResult AddGood()
         {
             return View();
         }
 
-        [IsAdmin]
+        [HasRoleOrHigher(UserRole.StoreAdmin)]
         [HttpPost]
         public IActionResult AddGood(GoodViewModel createGoodViewModel)
         {
