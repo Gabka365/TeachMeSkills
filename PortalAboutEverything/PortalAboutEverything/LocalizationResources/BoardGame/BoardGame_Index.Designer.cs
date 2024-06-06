@@ -10,8 +10,8 @@
 
 namespace PortalAboutEverything.LocalizationResources.BoardGame {
     using System;
-
-
+    
+    
     /// <summary>
     ///   Класс ресурса со строгой типизацией для поиска локализованных строк и т.д.
     /// </summary>
@@ -31,7 +31,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal BoardGame_Index() {
         }
-
+        
         /// <summary>
         ///   Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
         /// </summary>
@@ -45,7 +45,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Перезаписывает свойство CurrentUICulture текущего потока для всех
         ///   обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
@@ -59,7 +59,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Add a game.
         /// </summary>
@@ -68,7 +68,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("AddButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Delete.
         /// </summary>
@@ -77,7 +77,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("DeleteButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Your favorite games.
         /// </summary>
@@ -86,7 +86,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("FavoriteButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на List of our board games.
         /// </summary>
@@ -95,7 +95,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("PageTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Edit.
         /// </summary>

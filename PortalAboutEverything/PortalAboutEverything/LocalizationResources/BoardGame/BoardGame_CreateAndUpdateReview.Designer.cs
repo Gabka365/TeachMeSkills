@@ -10,8 +10,8 @@
 
 namespace PortalAboutEverything.LocalizationResources.BoardGame {
     using System;
-
-
+    
+    
     /// <summary>
     ///   Класс ресурса со строгой типизацией для поиска локализованных строк и т.д.
     /// </summary>
@@ -31,7 +31,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal BoardGame_CreateAndUpdateReview() {
         }
-
+        
         /// <summary>
         ///   Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
         /// </summary>
@@ -46,7 +46,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Перезаписывает свойство CurrentUICulture текущего потока для всех
         ///   обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
@@ -60,7 +60,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Post a review.
         /// </summary>
@@ -69,7 +69,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("CreateButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Review.
         /// </summary>
@@ -78,7 +78,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("DisplayText_Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на The review cannot be empty.
         /// </summary>
@@ -87,7 +87,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("RequiredText_ErrorMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Your review.
         /// </summary>
@@ -96,7 +96,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("Text", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Write your opinion about the game.
         /// </summary>
@@ -105,7 +105,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("TitleOfPageCreate", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Your opinion about the game.
         /// </summary>
@@ -114,7 +114,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("TitleOfPageUpdate", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Edit a review.
         /// </summary>

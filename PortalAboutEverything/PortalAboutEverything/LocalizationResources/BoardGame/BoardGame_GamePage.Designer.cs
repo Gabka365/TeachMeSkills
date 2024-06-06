@@ -10,8 +10,8 @@
 
 namespace PortalAboutEverything.LocalizationResources.BoardGame {
     using System;
-
-
+    
+    
     /// <summary>
     ///   Класс ресурса со строгой типизацией для поиска локализованных строк и т.д.
     /// </summary>
@@ -31,7 +31,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal BoardGame_GamePage() {
         }
-
+        
         /// <summary>
         ///   Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
         /// </summary>
@@ -45,7 +45,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Перезаписывает свойство CurrentUICulture текущего потока для всех
         ///   обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
@@ -59,7 +59,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на There are no reviews yet. Leave the first one!.
         /// </summary>
@@ -68,7 +68,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("AbsenceOfReviewsText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Write a review.
         /// </summary>
@@ -77,7 +77,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("AddReview", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Add to cart.
         /// </summary>
@@ -86,7 +86,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("AddToCart", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на To favorites.
         /// </summary>
@@ -95,7 +95,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("AddToFavorites", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Advertising banner.
         /// </summary>
@@ -104,7 +104,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("AdvertisingBanner", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Description.
         /// </summary>
@@ -113,7 +113,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Essence.
         /// </summary>
@@ -122,7 +122,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("Essence", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Foto of game.
         /// </summary>
@@ -131,7 +131,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("FotoOfGame", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Game libraries.
         /// </summary>
@@ -140,7 +140,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("GameLibraries", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Manufacturer - hobbygames.
         /// </summary>
@@ -149,7 +149,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("Manufacturer", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Product code.
         /// </summary>
@@ -158,7 +158,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("ProductCode", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Remove from favorites.
         /// </summary>
@@ -167,7 +167,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("RemoveFromFavorites", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Reviews.
         /// </summary>
@@ -176,7 +176,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("Reviews", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на The shops.
         /// </summary>
@@ -185,7 +185,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("Shops", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Show more.
         /// </summary>
@@ -194,7 +194,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("ShowMore", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Side images.
         /// </summary>
@@ -203,7 +203,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return ResourceManager.GetString("SideImages", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Ищет локализованную строку, похожую на Work schedule.
         /// </summary>
