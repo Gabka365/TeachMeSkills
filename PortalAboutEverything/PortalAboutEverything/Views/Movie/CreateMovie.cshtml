@@ -1,4 +1,5 @@
 ﻿@model PortalAboutEverything.Models.Movie.MovieCreateViewModel
+@using PortalAboutEverything.LocalizationResources
 
 @section Style {
 			<link rel="stylesheet" href="/css/Movie/movieStyle.css" />
@@ -6,30 +7,30 @@
 
 <form method="post">
 	<div>
-		@Html.TextBoxFor(x => x.Name, new { placeholder = "название фильма" })
+		@Html.TextBoxFor(x => x.Name, new { placeholder = Movie_CreateMovie.MovieTitle_LowerCase })
 		@Html.ValidationMessageFor(x => x.Name)
 	</div>
 	 <div>
-		@Html.TextAreaFor(x => x.Description, new { placeholder = "описание" })
+		@Html.TextAreaFor(x => x.Description, new { placeholder = Movie_CreateMovie.Description_LowerCase })
 		@Html.ValidationMessageFor(x => x.Description)
 	</div>
 	<div>
-		@Html.TextBoxFor(x => x.ReleaseYear, new { placeholder = "год выхода фильма" })
+		@Html.TextBoxFor(x => x.ReleaseYear, new { placeholder = Movie_CreateMovie.ReleaseYear_LowerCase })
 		@Html.ValidationMessageFor(x => x.ReleaseYear)
 	</div>
 	<div>
-		@Html.TextBoxFor(x => x.Director, new { placeholder = "режиссер" })
+		@Html.TextBoxFor(x => x.Director, new { placeholder = Movie_CreateMovie.Director_LowerCase })
 		@Html.ValidationMessageFor(x => x.Director)
 	</div>
 	<div>
-		@Html.TextBoxFor(x => x.Budget, new { placeholder = "бюджет", type = "number", min = "0" })
+		@Html.TextBoxFor(x => x.Budget, new { placeholder = Movie_CreateMovie.Budget_LowerCase, type = "number", min = "0" })
 		@Html.ValidationMessageFor(x => x.Budget)
 	</div>
 	<div>
-		@Html.TextBoxFor(x => x.CountryOfOrigin, new { placeholder = "страна производства" })
+		@Html.TextBoxFor(x => x.CountryOfOrigin, new { placeholder = Movie_CreateMovie.CountryOfOrigin_LowerCase })
 		@Html.ValidationMessageFor(x => x.CountryOfOrigin)
 	</div>
 	<div>
-		<input type="submit" value="создать"/>
+		<input type="submit" value="@Movie_CreateMovie.Create_LowerCase"/>
 	</div>
  </form>
