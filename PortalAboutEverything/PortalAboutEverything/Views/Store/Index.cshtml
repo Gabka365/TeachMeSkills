@@ -62,7 +62,7 @@
                 Товары отсутствуют. Добавьте хотя бы один товар.
             </div>
         }
-        @if (Model.IsStoreAdmin)
+        @if (Model.IsAdmin)
         {
             <a href="/Store/AddGood" class="addGoodLink">
                 Добавить товар
@@ -92,7 +92,10 @@
                     </div>
                     @if (Model.IsStoreAdmin)
                     {
-                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">Редактировать</a>
+                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">Редактировать</a>                       
+                    }
+                    @if (Model.IsAdmin)
+                    {                       
                         <a href="/Store/DeleteGood/@good.Id" class="deleteGoodLink">Удалить товар</a>
                     }
                 </div>

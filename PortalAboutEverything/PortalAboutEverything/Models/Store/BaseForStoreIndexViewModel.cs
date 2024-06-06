@@ -4,6 +4,8 @@
     {
         public List<StoreIndexViewModel>? Goods { get; set; }
 
-        public bool IsStoreAdmin { get; set; }
+        public bool IsAdmin { get; set; }
+
+        public bool IsStoreAdmin {  get; set; }
     }
 }
