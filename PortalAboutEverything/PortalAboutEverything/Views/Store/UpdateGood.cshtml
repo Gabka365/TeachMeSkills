@@ -19,7 +19,7 @@
         @Html.ValidationMessageFor(x => x.Description)
     </div>
     <div>
-        @Html.TextBoxFor(x => x.Price, new { placeholder = "Введите цену товара", @class = "goodPriceInput" })
+        @Html.TextBoxFor(x => x.Price, new { placeholder = "Введите цену товара", @class = "goodPriceInput", type = "number" })
         @Html.ValidationMessageFor(x => x.Price)
     </div>
     <div class="addGoodBtnBlock">

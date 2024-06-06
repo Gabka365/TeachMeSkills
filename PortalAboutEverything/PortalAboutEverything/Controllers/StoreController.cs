@@ -8,7 +8,7 @@ using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.BookClub;
 using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Store;
-using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -102,7 +102,7 @@ namespace PortalAboutEverything.Controllers
             {
                 Name = createGoodViewModel.Name!,
                 Description = createGoodViewModel.Description!,
-                Price = createGoodViewModel.Price!,
+                Price = createGoodViewModel.Price.Value,
             };
             _storeRepositories.Create(good);
 
@@ -140,7 +140,7 @@ namespace PortalAboutEverything.Controllers
                 Id = viewModel.Id,
                 Name = viewModel.Name,
                 Description = viewModel.Description,
-                Price = viewModel.Price,
+                Price = viewModel.Price.Value,
             };
             _storeRepositories.UpdateGood(good);
 

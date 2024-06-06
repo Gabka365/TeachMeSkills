@@ -10,6 +10,6 @@ namespace PortalAboutEverything.Models.Store
         [GoodDescription]
         public string? Description { get; set; }
         [GoodPrice]
-        public int Price { get; set; }
+        public int? Price { get; set; }
     }
 }

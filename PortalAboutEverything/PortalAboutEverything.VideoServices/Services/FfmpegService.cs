@@ -36,8 +36,6 @@ public class FfmpegService : BackgroundService
 
     private async Task StartListenProcess(CancellationToken stoppingToken)
     {
-        await CheckFfmpegFiles();
-
         while (!stoppingToken.IsCancellationRequested)
         {
             if (_queue.VideoToProcessQueue.IsEmpty)
@@ -45,6 +43,8 @@ public class FfmpegService : BackgroundService
                 await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
                 continue;
             }
+            
+            await CheckFfmpegFiles();
 
             while (!_queue.VideoToProcessQueue.IsEmpty)
             {

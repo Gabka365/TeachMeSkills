@@ -7,6 +7,8 @@
         public string Description { get; set; }
         public int YearOfRelease { get; set; }
 
+        public bool HasCover { get; set; }
+
         public List<GameReviewViewModel> Reviews { get; set; }
     }
 }
