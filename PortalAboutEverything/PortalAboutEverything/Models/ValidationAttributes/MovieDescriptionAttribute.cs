@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PortalAboutEverything.LocalizationResources;
+using System.ComponentModel.DataAnnotations;
 
 namespace PortalAboutEverything.Models.ValidationAttributes
 {
@@ -8,7 +9,17 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
 		public override string FormatErrorMessage(string name)
 		{
-			var defaultErrorMessage = $"""Описание фильма не должно быть больше {MAX_SYMBOLS} знаков""";
+            var defaultErrorMessageTemplate = Movie_CreateMovie.MovieDescription_ValidationErrorMessage;
+
+            if (ErrorMessageResourceType is not null
+                && ErrorMessageResourceName is not null)
+            {
+                var property = ErrorMessageResourceType.GetProperty(ErrorMessageResourceName);
+                var value = property!.GetValue(null);
+                defaultErrorMessageTemplate = (string)value!;
+            }
+
+            var defaultErrorMessage = string.Format(defaultErrorMessageTemplate, MAX_SYMBOLS);
 
 			return string.IsNullOrEmpty(ErrorMessage)
 				? defaultErrorMessage

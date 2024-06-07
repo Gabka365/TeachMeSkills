@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PortalAboutEverything.LocalizationResources;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
 namespace PortalAboutEverything.Models.ValidationAttributes
@@ -14,7 +15,17 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
 		public override string FormatErrorMessage(string name)
 		{
-			var defaultErrorMessage = $"""Поле "{name}" содержит некорректные символы""";
+            var defaultErrorMessageTemplate = Movie_CreateMovie.ForbiddenSymbols_ValidationErrorMessage;
+
+            if (ErrorMessageResourceType is not null
+                && ErrorMessageResourceName is not null)
+            {
+                var property = ErrorMessageResourceType.GetProperty(ErrorMessageResourceName);
+                var value = property!.GetValue(null);
+                defaultErrorMessageTemplate = (string)value!;
+            }
+
+            var defaultErrorMessage = string.Format(defaultErrorMessageTemplate, name);
 
 			return string.IsNullOrEmpty(ErrorMessage)
 				? defaultErrorMessage

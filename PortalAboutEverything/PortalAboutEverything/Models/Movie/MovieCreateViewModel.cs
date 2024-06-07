@@ -9,7 +9,9 @@ namespace PortalAboutEverything.Models.Movie
     {
         public string Name { get; set; }
 
-        [MovieDescription]
+        [MovieDescription(
+            ErrorMessageResourceType = typeof(Movie_CreateMovie),
+            ErrorMessageResourceName = nameof(Movie_CreateMovie.MovieDescription_ValidationErrorMessage))]
         public string? Description { get; set; }
 
         [ReleaseYear]
@@ -19,7 +21,10 @@ namespace PortalAboutEverything.Models.Movie
         [Required(
             ErrorMessageResourceType = typeof(Movie_CreateMovie), 
             ErrorMessageResourceName = nameof(Movie_CreateMovie.RequiredNameDirector_Error))]
-        [ForbiddenSymbols("#@%*<>")]
+        [ForbiddenSymbols(
+            "#@%*<>",
+            ErrorMessageResourceType = typeof(Movie_CreateMovie),
+            ErrorMessageResourceName = nameof(Movie_CreateMovie.ForbiddenSymbols_ValidationErrorMessage))]
 		[Display(ResourceType = typeof(Movie_CreateMovie), Name = "Director_Display")]
         public string Director { get; set; }
 
@@ -28,7 +33,10 @@ namespace PortalAboutEverything.Models.Movie
 		[Required(
 			ErrorMessageResourceType = typeof(Movie_CreateMovie),
 			ErrorMessageResourceName = nameof(Movie_CreateMovie.RequiredCountryOfOrigin_Error))]
-		[ForbiddenSymbols("!#@%*?$№<>")]
+		[ForbiddenSymbols(
+            "!#@%*?$№<>",
+            ErrorMessageResourceType = typeof(Movie_CreateMovie),
+            ErrorMessageResourceName = nameof(Movie_CreateMovie.ForbiddenSymbols_ValidationErrorMessage))]
 		[Display(ResourceType = typeof(Movie_CreateMovie), Name = "CountryOfOrigin_Display")]
         public string CountryOfOrigin { get; set; }
     }
