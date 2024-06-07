@@ -34,6 +34,14 @@
 	{
 		<div class="infoAboutMovie">
 			<span class="movieName">@Movie_Index.Movie <a href="/Movie/UpdateMovie?id=@movie.Id">@movie.Name</a></span> 
+			@if (movie.HasCover)
+			{
+				<img class="movieImage" src="/images/Movie/cover-@(movie.Id).jpg" />
+			}
+			else
+			{
+				<img class="movieImage" src="/images/Movie/cover-default.jpg" />
+			}
 			<div>@Movie_Index.ReleaseYear @movie.ReleaseYear год</div>
 			<div>@Movie_Index.MovieDirector @movie.Director</div>
 			<div>@Movie_Index.CountryOfOrigin @movie.CountryOfOrigin</div>

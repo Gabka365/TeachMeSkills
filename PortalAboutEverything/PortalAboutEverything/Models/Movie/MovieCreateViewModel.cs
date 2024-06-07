@@ -39,5 +39,8 @@ namespace PortalAboutEverything.Models.Movie
             ErrorMessageResourceName = nameof(Movie_CreateMovie.ForbiddenSymbols_ValidationErrorMessage))]
 		[Display(ResourceType = typeof(Movie_CreateMovie), Name = "CountryOfOrigin_Display")]
         public string CountryOfOrigin { get; set; }
-    }
+
+		[MaxImageMovieSize(600, 600)]
+		public IFormFile? MovieImage { get; set; }
+	}
 }
