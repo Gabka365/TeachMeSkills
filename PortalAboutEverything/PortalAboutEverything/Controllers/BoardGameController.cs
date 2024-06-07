@@ -12,10 +12,10 @@ namespace PortalAboutEverything.Controllers
     [Authorize]
     public class BoardGameController : Controller
     {
-        private BoardGameRepositories _gameRepositories;
-        private BoardGameReviewRepositories _reviewRepositories;
-        private UserRepository _userRepository;
-        private AuthService _authServise;
+        private readonly BoardGameRepositories _gameRepositories;
+        private readonly BoardGameReviewRepositories _reviewRepositories;
+        private readonly UserRepository _userRepository;
+        private readonly AuthService _authServise;
 
         public BoardGameController(BoardGameRepositories gameRepositories,
             BoardGameReviewRepositories reviewRepositories,
@@ -36,16 +36,19 @@ namespace PortalAboutEverything.Controllers
                 .Select(BuildBoardGameIndexViewModel)
                 .ToList();
 
-            bool isBoardGameAdmin = false;
+            var canCreateAndUpdate = false;
+            var canDelete = false;
             if (_authServise.IsAuthenticated())
             {
-                isBoardGameAdmin = _authServise.HasRoleOrHigher(UserRole.BoardGameAdmin);
+                canCreateAndUpdate = _authServise.HasPermission(Permission.CanCreateAndUpdateBoardGames);
+                canDelete = _authServise.HasPermission(Permission.CanDeleteBoardGames);
             }
 
             var indexViewModel = new IndexViewModel()
             {
                 BoardGames = gamesViewModel,
-                IsBoardGameAdmin = isBoardGameAdmin
+                CanCreateAndUpdateBoardGames = canCreateAndUpdate,
+                CanDeleteBoardGames = canDelete
             };
 
             return View(indexViewModel);
