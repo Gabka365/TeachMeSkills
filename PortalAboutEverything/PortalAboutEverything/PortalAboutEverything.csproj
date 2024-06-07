@@ -62,6 +62,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Game_Index.resx</DependentUpon>
     </Compile>
+    <Compile Update="LocalizationResources\Traveling_Index.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Traveling_Index.resx</DependentUpon>
     <Compile Update="LocalizationResources\VideoLibrary_Settings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -141,6 +145,10 @@
     <EmbeddedResource Update="LocalizationResources\Game_Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Game_Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\Traveling_Index.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Traveling_Index.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="LocalizationResources\VideoLibrary_Settings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
