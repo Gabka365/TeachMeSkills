@@ -5,6 +5,7 @@ using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Auth;
+using PortalAboutEverything.Services.AuthStuff;
 using System.Security.Claims;
 
 namespace PortalAboutEverything.Controllers
@@ -77,10 +78,11 @@ namespace PortalAboutEverything.Controllers
         {
             var claims = new List<Claim>()
             {
-                new Claim("Id", user.Id.ToString()),
-                new Claim("Name", user.UserName),
-                new Claim("Role", user.Role.ToString()),
-                new Claim("Permission", user.Permission.ToString()),
+                new Claim(AuthClaimsConstants.ID, user.Id.ToString()),
+                new Claim(AuthClaimsConstants.NAME, user.UserName),
+                new Claim(AuthClaimsConstants.ROLE, user.Role.ToString()),
+                new Claim(AuthClaimsConstants.PERMISSION, user.Permission.ToString()),
+                new Claim(AuthClaimsConstants.LANGUAGE, user.Language.ToString()),
                 new Claim(ClaimTypes.AuthenticationMethod,AUTH_METHOD)
             };
 

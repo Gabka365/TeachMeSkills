@@ -6,7 +6,7 @@
 }
 
 <div>
-    @if (Model.IsGameAdmin)
+    @if (Model.CanCreateGame)
     {
         <a href="/Game/Create">@Game_Index.CreateGame</a>
     }
@@ -14,15 +14,27 @@
     {
         <a href="/Game/Gamer">@Game_Index.Gamer</a>
     }
-    </div>
+</div>
 <div class="games">
     @foreach (var game in Model.Games)
     {
         <div class="game">
-            @Game_Index.Game <a href="/Game/Update?id=@game.Id">@game.Name</a> @Game_Index.ReleaseDate_LowerCase @game.YearOfRelease
+            @if (game.HasCover)
+            {
+                <img class="cover" src="/images/Game/cover-@(game.Id).jpg" />
+            }
+            else
+            {
+                <img class="cover" src="/images/Game/cover-default.jpg" />
+            }
             
+            @Game_Index.Game <a href="/Game/Update?id=@game.Id">@game.Name</a> @Game_Index.ReleaseDate_LowerCase @game.YearOfRelease
+
             <span> Вот что о ней говорят @game.Description</span>
-            <a href="/Game/Delete?id=@game.Id" class="delete">Х</a>
+            @if (Model.CanDeleteGame)
+            {
+                <a href="/Game/Delete?id=@game.Id" class="delete">Х</a>
+            }
         </div>
         @foreach (var review in game.Reviews)
         {

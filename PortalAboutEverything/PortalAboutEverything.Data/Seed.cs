@@ -98,7 +98,7 @@ namespace PortalAboutEverything.Data
                     Language = Language.Ru
                 };
                 userRepository.Create(user);
-
+              
                 var travelingAdmin = new User
                 {
                     UserName = "travelingAdmin",
@@ -107,6 +107,15 @@ namespace PortalAboutEverything.Data
                     Language= Language.En   
                 };
                 userRepository.Create(travelingAdmin);
+              
+                var videoLibraryAdmin = new User
+                {
+                    UserName = "ancient",
+                    Password = "ancient",
+                    Role = UserRole.VideoLibraryAdmin,
+                    Language = Language.En
+                };
+                userRepository.Create(videoLibraryAdmin);
             }
         }
 
@@ -122,7 +131,7 @@ namespace PortalAboutEverything.Data
                     Description = "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.",
                     ReleaseYear = 2010,
                     Director = "Christopher Nolan",
-                    Budget = 160000000,
+                    Budget = 160_000_000,
                     CountryOfOrigin = "USA",
                 };
                 movieRepositories.Create(inception);
@@ -133,7 +142,7 @@ namespace PortalAboutEverything.Data
                     Description = "After young Riley is uprooted from her Midwest life and moved to San Francisco, her emotions - Joy, Fear, Anger, Disgust and Sadness - conflict on how best to navigate a new city, house, and school.",
                     ReleaseYear = 2015,
                     Director = "Pete Docter",
-                    Budget = 175000000,
+                    Budget = 175_000_000,
                     CountryOfOrigin = "USA",
                 };
                 movieRepositories.Create(insideOut);

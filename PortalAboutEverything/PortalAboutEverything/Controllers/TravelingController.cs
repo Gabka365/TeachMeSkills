@@ -9,6 +9,12 @@ using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Traveling;
 using PortalAboutEverything.Services;
 using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
+using System.Reflection;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
+using System.Linq;
+using PortalAboutEverything.Services.AuthStuff;
+
 
 namespace PortalAboutEverything.Controllers
 {

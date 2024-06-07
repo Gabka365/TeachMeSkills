@@ -126,7 +126,19 @@
   <data name="Gamer" xml:space="preserve">
     <value>Игрок</value>
   </data>
+  <data name="Placeholder_GameDescription" xml:space="preserve">
+    <value>Вкраце об игре</value>
+  </data>
+  <data name="Placeholder_GameName" xml:space="preserve">
+    <value>Название игры</value>
+  </data>
+  <data name="RelaseDate_ValidationErrorMessage" xml:space="preserve">
+    <value>Поле "{0}" не правильное. Год должен быть больше чем {1} и меньше чем {2}</value>
+  </data>
   <data name="ReleaseDate_LowerCase" xml:space="preserve">
     <value>дата выхода</value>
+  </data>
+  <data name="RequiredName_ErrorMessage" xml:space="preserve">
+    <value>Я не верю в игры, у которых нет называния</value>
   </data>
 </root>

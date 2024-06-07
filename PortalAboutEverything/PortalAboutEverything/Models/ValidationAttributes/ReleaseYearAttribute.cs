@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PortalAboutEverything.LocalizationResources;
+using System.ComponentModel.DataAnnotations;
 
 namespace PortalAboutEverything.Models.ValidationAttributes
 {
@@ -20,7 +21,17 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
         public override string FormatErrorMessage(string name)
         {
-            var defaultErrorMessage = $"""Поле "{name}" не правильное. Год должен быть больше чем {MIN_YEAR} и меньше чем {_maxYear}""";
+            var defaultErrorMessageTemplate = Game_Index.RelaseDate_ValidationErrorMessage;
+
+            if (ErrorMessageResourceType is not null 
+                && ErrorMessageResourceName is not null)
+            {
+                var property = ErrorMessageResourceType.GetProperty(ErrorMessageResourceName);
+                var value = property!.GetValue(null);
+                defaultErrorMessageTemplate = (string)value!;
+            }
+
+            var defaultErrorMessage = string.Format(defaultErrorMessageTemplate, name, MIN_YEAR, _maxYear);
 
             return string.IsNullOrEmpty(ErrorMessage)
                 ? defaultErrorMessage

@@ -20,6 +20,14 @@
     padding: 10px;
 }
 
+    .goodPriceInput::-webkit-inner-spin-button,
+    .goodPriceInput::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+
+
 .addGoodBtn {
     width: 200px;
     padding: 10px;

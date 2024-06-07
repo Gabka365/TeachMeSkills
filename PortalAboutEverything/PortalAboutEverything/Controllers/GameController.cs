@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
-using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -17,14 +15,17 @@ namespace PortalAboutEverything.Controllers
         private GameRepositories _gameRepositories;
         private BoardGameReviewRepositories _boardGameReviewRepositories;
         private AuthService _authService;
+        private PathHelper _pathHelper;
 
         public GameController(GameRepositories gameRepositories,
             BoardGameReviewRepositories boardGameReviewRepositories,
-            AuthService authService)
+            AuthService authService,
+            PathHelper pathBuilder)
         {
             _gameRepositories = gameRepositories;
             _boardGameReviewRepositories = boardGameReviewRepositories;
             _authService = authService;
+            _pathHelper = pathBuilder;
         }
 
         public IActionResult Index()
@@ -37,7 +38,8 @@ namespace PortalAboutEverything.Controllers
             var viewModel = new IndexViewModel()
             {
                 Games = gamesViewModel,
-                IsGameAdmin = _authService.HasRoleOrHigher(UserRole.GameAdmin)
+                CanCreateGame = _authService.GetUserPermission().HasFlag(Permission.CanCreateGame),
+                CanDeleteGame = _authService.GetUserPermission().HasFlag(Permission.CanDeleteGame)
             };
 
             return View(viewModel);
@@ -83,6 +85,12 @@ namespace PortalAboutEverything.Controllers
 
             _gameRepositories.Create(game);
 
+            var path = _pathHelper.GetPathToGameCover(game.Id);
+            using (var fs = new FileStream(path, FileMode.Create))// file size 0 bite
+            {
+                createGameViewModel.Cover.CopyTo(fs);// full file size
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -90,6 +98,10 @@ namespace PortalAboutEverything.Controllers
         public IActionResult Delete(int id)
         {
             _gameRepositories.Delete(id);
+
+            var path = _pathHelper.GetPathToGameCover(id);
+            System.IO.File.Delete(path);
+
             return RedirectToAction("Index");
         }
 
@@ -145,7 +157,8 @@ namespace PortalAboutEverything.Controllers
                 Reviews = game
                     .Reviews
                     .Select(BuildGameReviewViewModel)
-                    .ToList()
+                    .ToList(),
+                HasCover = _pathHelper.IsGameCoverExist(game.Id)
             };
 
         private GameReviewViewModel BuildGameReviewViewModel(BoardGameReview review)

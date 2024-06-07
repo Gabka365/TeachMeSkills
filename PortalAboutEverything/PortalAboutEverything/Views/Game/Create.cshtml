@@ -1,12 +1,14 @@
-﻿@model PortalAboutEverything.Models.Game.GameCreateViewModel
+﻿@using PortalAboutEverything.Models.Game
+@using PortalAboutEverything.LocalizationResources
+@model GameCreateViewModel
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div>
-        @Html.TextBoxFor(x => x.Name)
+        @Html.TextBoxFor(x => x.Name, new { placeholder = Game_Index.Placeholder_GameName })
         @Html.ValidationMessageFor(x => x.Name)
     </div>
     <div>
-        @Html.TextAreaFor(x => x.Description)
+        @Html.TextAreaFor(x => x.Description, new { placeholder = Game_Index.Placeholder_GameDescription })
         @Html.ValidationMessageFor(x => x.Description)
     </div>
     <div>
@@ -21,6 +23,10 @@
                      // @max = "2020"
                  })
         @Html.ValidationMessageFor(x => x.YearOfRelease)
+    </div>
+    <div>
+        <input type="file" name="@nameof(GameCreateViewModel.Cover)" accept="image/png, image/jpeg" />
+        @Html.ValidationMessageFor(x => x.Cover)
     </div>
     <div>
         <input type="submit" value="Создать" />

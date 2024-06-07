@@ -47,9 +47,8 @@ public class VideoRepository : BaseRepository<Video>
             .Include(video => video.Folder)
             .Where(video => video.IsLiked == isLiked)
             .OrderBy(video => Guid.NewGuid())
-            .Take(1)
-            .FirstOrDefault()?
-            .Id;
+            .Select(video => video.Id)
+            .FirstOrDefault();
     }
 
     public void DeleteMany(List<Video> videoList)

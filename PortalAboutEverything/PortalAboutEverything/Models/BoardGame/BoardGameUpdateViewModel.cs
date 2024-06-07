@@ -1,4 +1,5 @@
-﻿using PortalAboutEverything.Models.ValidationAttributes;
+﻿using PortalAboutEverything.LocalizationResources.BoardGame;
+using PortalAboutEverything.Models.ValidationAttributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace PortalAboutEverything.Models.BoardGame
@@ -7,24 +8,45 @@ namespace PortalAboutEverything.Models.BoardGame
     {
         public int Id { get; set; }
         public string OriginalTitle { get; set; }
-        [Required(ErrorMessage = "Название не может быть пустым")]
+
+        [Required(
+            ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredTitle_ErrorMessage))]
         [TextInput(2, 35)]
-        [Display(Name = "Название")]
+        [Display(
+            ResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            Name = nameof(BoardGame_CreateAndUpdateGame.DisplayTitle_Name))]
         public string Title { get; set; }
-        [Required(ErrorMessage = "Слоган не может быть пустым")]
+
+        [Required(
+            ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredMiniTitle_ErrorMessage))]
         [TextInput(2, 50)]
-        [Display(Name = "Слоган")]
+        [Display(
+            ResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            Name = nameof(BoardGame_CreateAndUpdateGame.DisplayMiniTitle_Name))]
         public string MiniTitle { get; set; }
-        [Required(ErrorMessage = "Описание не может быть пустым")]
+
+        [Required(
+            ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredDescription_ErrorMessage))]
         [TextInput(90)]
-        [Display(Name = "Описание")]
+        [Display(
+            ResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            Name = nameof(BoardGame_CreateAndUpdateGame.DisplayDescription_Name))]
         public string Description { get; set; }
         public string? Essence { get; set; }
         public string? Tags { get; set; }
-        [Required(ErrorMessage = "Цена не может быть пустой")]
+
+        [Required(
+            ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredPrice_ErrorMessage))]
         [Price]
         public double? Price { get; set; }
-        [Required(ErrorMessage = "Код товара не может быть пустым")]
+
+        [Required(
+            ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredProductCode_ErrorMessage))]
         [ProductCode]
         public long? ProductCode { get; set; }
     }
