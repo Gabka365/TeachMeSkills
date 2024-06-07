@@ -15,7 +15,7 @@
         <div>
             @Html.TextAreaFor(review => review.Text, new
                 {
-                    placeholder = $"{BoardGame_CreateAndUpdateReview.Text}",
+                    placeholder = BoardGame_CreateAndUpdateReview.Text,
                     @class = "foarm-field"
                 })
             @Html.ValidationMessageFor(review => review.Text)
