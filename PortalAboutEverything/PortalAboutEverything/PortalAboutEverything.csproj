@@ -32,6 +32,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>BoardGame_Index.resx</DependentUpon>
     </Compile>
+    <Compile Update="LocalizationResources\BoardGame\BoardGame_UniversalAttributes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BoardGame_UniversalAttributes.resx</DependentUpon>
+    </Compile>
     <Compile Update="LocalizationResources\BoardGame\BoardGame_UserFavoritesGame.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -94,6 +99,13 @@
     <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BoardGame_Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_UniversalAttributes.Ru.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_UniversalAttributes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoardGame_UniversalAttributes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_UserFavoritesGame.Ru.resx">
       <Generator></Generator>

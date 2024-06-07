@@ -134,11 +134,29 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на The price cannot be negative or equal to 0.
+        /// </summary>
+        public static string Price_ValidationErrorMessage {
+            get {
+                return ResourceManager.GetString("Price_ValidationErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Product code.
         /// </summary>
         public static string ProductCode {
             get {
                 return ResourceManager.GetString("ProductCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The product code must be a positive number of 5 digits.
+        /// </summary>
+        public static string ProductCode_ValidationErrorMessage {
+            get {
+                return ResourceManager.GetString("ProductCode_ValidationErrorMessage", resourceCulture);
             }
         }
         

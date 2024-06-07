@@ -141,8 +141,14 @@
   <data name="Price" xml:space="preserve">
     <value>The price of the game</value>
   </data>
+  <data name="Price_ValidationErrorMessage" xml:space="preserve">
+    <value>The price cannot be negative or equal to 0</value>
+  </data>
   <data name="ProductCode" xml:space="preserve">
     <value>Product code</value>
+  </data>
+  <data name="ProductCode_ValidationErrorMessage" xml:space="preserve">
+    <value>The product code must be a positive number of 5 digits</value>
   </data>
   <data name="RequiredDescription_ErrorMessage" xml:space="preserve">
     <value>The description cannot be empty</value>

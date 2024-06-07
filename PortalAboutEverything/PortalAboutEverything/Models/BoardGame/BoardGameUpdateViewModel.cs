@@ -41,13 +41,17 @@ namespace PortalAboutEverything.Models.BoardGame
         [Required(
             ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
             ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredPrice_ErrorMessage))]
-        [Price]
+        [Price(
+            ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.Price_ValidationErrorMessage))]
         public double? Price { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
             ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredProductCode_ErrorMessage))]
-        [ProductCode]
+        [ProductCode(
+            ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.ProductCode_ValidationErrorMessage))]
         public long? ProductCode { get; set; }
     }
 }
