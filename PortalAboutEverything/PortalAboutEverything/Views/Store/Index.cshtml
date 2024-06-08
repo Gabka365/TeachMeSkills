@@ -1,4 +1,5 @@
 ﻿@model PortalAboutEverything.Models.Store.BaseForStoreIndexViewModel
+@using PortalAboutEverything.LocalizationResources.Store
 
 @section Style {
     <link rel="stylesheet" href="/css/Store/style.css" />
@@ -9,7 +10,7 @@
         <div class="changeThemeBlock">
             <form method="get" class="formMode">
                 <div class="themeDecor">
-                    <p class="nameTheme">Светлый режим</p>
+                    <p class="nameTheme">@Store_Index.LightMode</p>
                     <label class="switch">
                         <input type="checkbox" class="switchInput">
                         <span id="changeTheme" class="switchSlider"></span>
@@ -25,27 +26,27 @@
                 <img class="menuImg" src="/images/store/header/burgerMenuIcon.png" alt="menu" />
             </button>
             <div class="searchBlock">
-                <input class="searchField" placeholder="Найти товары" />
+                <input class="searchField" placeholder="@Store_Index.FindGoods" />
                 <img class="searchImg" src="/images/store/header/searchIcon.svg" alt="search" />
             </div>
             <ul class="featuresList">
                 <li class="headerFeaturesBlock">
                     <img class="featureIcon" src="/images/store/header/deliveryIcon.svg" alt="delivery" />
-                    <p class="featuresTitle">Доставки</p>
+                    <p class="featuresTitle">@Store_Index.Delivery</p>
                 </li>
                 <li class="headerFeaturesBlock">
                     <a href="/Store/FavouriteGoods" class="linkToFavouriteGoods">
                         <img class="featureIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
-                        <p class="featuresTitle">Избр.</p>
+                        <p class="featuresTitle">@Store_Index.Liked</p>
                     </a>
                 </li>
                 <li class="headerFeaturesBlock">
                     <img class="featureIcon" src="/images/store/header/loginIcon.svg" alt="login" />
-                    <p class="featuresTitle">Войти</p>
+                    <p class="featuresTitle">@Store_Index.LogIn</p>
                 </li>
                 <li class="headerFeaturesBlock">
                     <img class="featureIcon" src="/images/store/header/basketIcon.svg" alt="basket" />
-                    <p class="featuresTitle">Корзина</p>
+                    <p class="featuresTitle">@Store_Index.Cart</p>
                 </li>
             </ul>
         </div>
@@ -59,13 +60,13 @@
         @if (Model.Goods?.Count == 0)
         {
             <div class="goodsTitle">
-                Товары отсутствуют. Добавьте хотя бы один товар.
+                @Store_Index.NoGoods
             </div>
         }
         @if (Model.IsAdmin)
         {
             <a href="/Store/AddGood" class="addGoodLink">
-                Добавить товар
+                @Store_Index.AddGood
             </a>
         }
 
@@ -77,7 +78,7 @@
                         <img class="good" src="https://source.unsplash.com/random" alt="random" />
                         <img class="likedIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
                     </a>
-                    <p class="pricePretext">от<span class="price"> @good.Price </span>р.</p>
+                    <p class="pricePretext">@Store_Index.PriceFrom<span class="price"> @good.Price </span>@Store_Index.Value</p>
                     <p class="salor">Valencia med - @good.Name</p>
                     <p class="goodDescription">@good.Description</p>
                     <div class="raitingBlock">
@@ -92,11 +93,11 @@
                     </div>
                     @if (Model.IsStoreAdmin)
                     {
-                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">Редактировать</a>                       
+                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">@Store_Index.UpdateGoodInfo</a>                       
                     }
                     @if (Model.IsAdmin)
                     {                       
-                        <a href="/Store/DeleteGood/@good.Id" class="deleteGoodLink">Удалить товар</a>
+                        <a href="/Store/DeleteGood/@good.Id" class="deleteGoodLink">@Store_Index.DeleteGood</a>
                     }
                 </div>
             }
