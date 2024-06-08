@@ -6,21 +6,26 @@
 
 <form method="post">
     <div>
-        @Html.TextBoxFor(x => x.GameName, new { pleceholder = "Название игры", @class = "my-input" })
+        @Html.TextBoxFor(x => x.GameName, new { placeholder = "Название игры", @class = "my-input" })
+        @Html.ValidationMessageFor(x => x.GameName)
     </div>
     <div>
-        @Html.TextBoxFor(x => x.Developer, new { pleceholder = "Разработчик", @class = "my-input" })
+        @Html.TextBoxFor(x => x.Developer, new { placeholder = "Разработчик", @class = "my-input" })
+        @Html.ValidationMessageFor(x => x.Developer)
+
     </div>
     <div>
         @Html.TextBoxFor(x => x.YearOfRelease,
                           new
                           {
-                              pleceholder = "Год выпуска",
+                              placeholder = "Год выпуска",
                               @class = "my-input",
                               @type = "number",
                               @min = "1990",
                               @max = "2024"
                           })
+        @Html.ValidationMessageFor(x => x.YearOfRelease)
+
     </div>
     <div>
         <input type="submit" value="Создать пост" />

@@ -45,6 +45,10 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult CreateGame(CreateGameStoreViewModel createGameStoreViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(createGameStoreViewModel);
+            }
             var game = new GameStore
             {
                 GameName = createGameStoreViewModel.GameName,
