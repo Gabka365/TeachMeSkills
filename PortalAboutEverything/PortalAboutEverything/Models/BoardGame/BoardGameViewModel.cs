@@ -5,6 +5,8 @@
         public int Id { get; set; }
         public string Title { get; set; }
         public string MiniTitle { get; set; }
+        public bool HasMainImage { get; set; }
+        public bool HasSideImage { get; set; }
         public string Description { get; set; }
         public string? Essence { get; set; }
         public string? Tags { get; set; }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Services.AuthStuff;
+using PortalAboutEverything.Services;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -16,16 +17,19 @@ namespace PortalAboutEverything.Controllers
         private readonly BoardGameReviewRepositories _reviewRepositories;
         private readonly UserRepository _userRepository;
         private readonly AuthService _authServise;
+        private readonly PathHelper _pathHelper;
 
         public BoardGameController(BoardGameRepositories gameRepositories,
             BoardGameReviewRepositories reviewRepositories,
             UserRepository userRepository,
-            AuthService authService)
+            AuthService authService,
+            PathHelper pathHelper)
         {
             _gameRepositories = gameRepositories;
             _reviewRepositories = reviewRepositories;
             _userRepository = userRepository;
             _authServise = authService;
+            _pathHelper = pathHelper;
         }
 
         [AllowAnonymous]
@@ -73,6 +77,22 @@ namespace PortalAboutEverything.Controllers
             BoardGame game = BuildBoardGameDataModelFromCreate(boardGameViewModel);
 
             _gameRepositories.Create(game);
+
+            var pathToMainImage = _pathHelper.GetPathToBoardGameMainImage(game.Id);
+            using (var fs = new FileStream(pathToMainImage, FileMode.Create))
+            {
+                boardGameViewModel.MainImage.CopyTo(fs);
+            }
+
+            if (boardGameViewModel.SideImage is not null)
+            {
+                var pathToSideImage = _pathHelper.GetPathToBoardGameSideImage(game.Id);
+                using (var fs = new FileStream(pathToSideImage, FileMode.Create))
+                {
+                    boardGameViewModel.SideImage.CopyTo(fs);
+                }
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -98,6 +118,28 @@ namespace PortalAboutEverything.Controllers
             BoardGame updatedReview = BuildBoardGameDataModelFromUpdate(boardGameViewModel);
             _gameRepositories.Update(updatedReview);
 
+            var pathToMainImage = _pathHelper.GetPathToBoardGameMainImage(boardGameViewModel.Id);
+            System.IO.File.Delete(pathToMainImage);
+            using (var fs = new FileStream(pathToMainImage, FileMode.Create))
+            {
+                boardGameViewModel.MainImage.CopyTo(fs);
+            }
+
+            if (_pathHelper.IsBoardGameSideImageExist(boardGameViewModel.Id))
+            {
+                var pathToSideImage = _pathHelper.GetPathToBoardGameSideImage(boardGameViewModel.Id);
+                System.IO.File.Delete(pathToSideImage);
+            }
+
+            if (boardGameViewModel.SideImage is not null)
+            {
+                var pathToSideImage = _pathHelper.GetPathToBoardGameSideImage(boardGameViewModel.Id);
+                using (var fs = new FileStream(pathToSideImage, FileMode.Create))
+                {
+                    boardGameViewModel.SideImage.CopyTo(fs);
+                }
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -105,6 +147,15 @@ namespace PortalAboutEverything.Controllers
         public IActionResult DeleteBoardGame(int id)
         {
             _gameRepositories.Delete(id);
+
+            var pathToMainImage = _pathHelper.GetPathToBoardGameMainImage(id);
+            System.IO.File.Delete(pathToMainImage);
+
+            if (_pathHelper.IsBoardGameSideImageExist(id))
+            {
+                var pathToSideImage = _pathHelper.GetPathToBoardGameSideImage(id);
+                System.IO.File.Delete(pathToSideImage);
+            }
 
             return RedirectToAction("Index");
         }
@@ -229,7 +280,7 @@ namespace PortalAboutEverything.Controllers
         private BoardGameViewModel BuildBoardGameViewModel(BoardGame game)
         {
             List<BoardGameReviewViewModel> reviewViewModels = new();
-            if (game.Reviews != null)
+            if (game.Reviews is not null)
             {
                 foreach (var review in game.Reviews)
                 {
@@ -242,6 +293,8 @@ namespace PortalAboutEverything.Controllers
                 Id = game.Id,
                 Title = game.Title,
                 MiniTitle = game.MiniTitle,
+                HasMainImage = _pathHelper.IsBoardGameMainImageExist(game.Id),
+                HasSideImage = _pathHelper.IsBoardGameSideImageExist(game.Id),
                 Description = game.Description,
                 Essence = game.Essence,
                 Tags = game.Tags,

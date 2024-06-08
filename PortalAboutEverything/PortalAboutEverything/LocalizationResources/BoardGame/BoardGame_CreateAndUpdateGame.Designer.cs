@@ -89,11 +89,29 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Main image.
+        /// </summary>
+        public static string DisplayMainImage_Name {
+            get {
+                return ResourceManager.GetString("DisplayMainImage_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Slogan.
         /// </summary>
         public static string DisplayMiniTitle_Name {
             get {
                 return ResourceManager.GetString("DisplayMiniTitle_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Side image.
+        /// </summary>
+        public static string DisplaySideImage_Name {
+            get {
+                return ResourceManager.GetString("DisplaySideImage_Name", resourceCulture);
             }
         }
         
@@ -166,6 +184,15 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         public static string RequiredDescription_ErrorMessage {
             get {
                 return ResourceManager.GetString("RequiredDescription_ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The main image of the game cannot be missing.
+        /// </summary>
+        public static string RequiredMainImage_ErrorMessage {
+            get {
+                return ResourceManager.GetString("RequiredMainImage_ErrorMessage", resourceCulture);
             }
         }
         

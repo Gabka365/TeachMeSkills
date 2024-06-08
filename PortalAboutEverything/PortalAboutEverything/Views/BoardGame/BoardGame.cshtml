@@ -36,21 +36,28 @@
         <div class="main-wraper">
             <div class="left-part">
                 <div class="images">
-                    @if (Model.Title == "Ticket to Ride: Европа")
+                    @if (Model.HasSideImage)
                     {
-                        <img src="/images/BoardGame/images.png"
+                        <img src="/images/BoardGame/sideImage-@(Model.Id).jpg"
                              alt="@BoardGame_GamePage.SideImages"
                              class="elongated-image" />
-                        <img src="/images/BoardGame/mainImage.jpg"
+                    }
+                    else if (Model.ProductCode == 31458)
+                    {
+                        <img src="/images/BoardGame/sideImage-default.png"
+                             alt="@BoardGame_GamePage.SideImages"
+                             class="elongated-image" />
+                    }
+
+                    @if (Model.HasMainImage)
+                    {
+                        <img src="/images/BoardGame/mainImage-@(Model.Id).jpg"
                              alt="@BoardGame_GamePage.FotoOfGame"
                              class="square-image" />
                     }
-                    else
+                    else if (Model.ProductCode == 31458)
                     {
-                        <img src="https://placehold.co/89x322"
-                             alt="@BoardGame_GamePage.SideImages"
-                             class="elongated-image" />
-                        <img src="https://placehold.co/322x322"
+                        <img src="/images/BoardGame/mainImage-default.jpg"
                              alt="@BoardGame_GamePage.FotoOfGame"
                              class="square-image" />
                     }

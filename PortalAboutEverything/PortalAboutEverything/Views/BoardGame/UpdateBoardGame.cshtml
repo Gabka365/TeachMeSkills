@@ -1,5 +1,6 @@
 ﻿@model PortalAboutEverything.Models.BoardGame.BoardGameUpdateViewModel
 @using PortalAboutEverything.LocalizationResources.BoardGame
+@using PortalAboutEverything.Models.BoardGame;
 
 @section Style {
     <link href="/css/BoardGame/forms.css" rel="stylesheet" />
@@ -9,7 +10,7 @@
     <h2>
         @BoardGame_CreateAndUpdateGame.TitleOfPageUpdate @Model.OriginalTitle
     </h2>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         @Html.HiddenFor(boardGame => boardGame.Id)
         @Html.HiddenFor(boardGame => boardGame.OriginalTitle)
         <div>
@@ -27,6 +28,16 @@
                     @class = "foarm-field"
                 })
             @Html.ValidationMessageFor(boardGame => boardGame.MiniTitle)
+        </div>
+        <div>
+            @Html.DisplayNameFor(boardGame => boardGame.MainImage)
+            <input type="file" name="@nameof(BoardGameUpdateViewModel.MainImage)" accept="image/png, image/jpeg" />
+            @Html.ValidationMessageFor(boardGame => boardGame.MainImage)
+        </div>
+        <div>
+            @Html.DisplayNameFor(boardGame => boardGame.SideImage)
+            <input type="file" name="@nameof(BoardGameCreateViewModel.SideImage)" accept="image/png, image/jpeg" />
+            @Html.ValidationMessageFor(boardGame => boardGame.SideImage)
         </div>
         <div>
             @Html.TextAreaFor(boardGame => boardGame.Description, new

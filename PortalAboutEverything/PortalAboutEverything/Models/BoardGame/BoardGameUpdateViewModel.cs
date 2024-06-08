@@ -39,6 +39,19 @@ namespace PortalAboutEverything.Models.BoardGame
 
         [Required(
             ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredMainImage_ErrorMessage))]
+        [Display(
+            ResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            Name = nameof(BoardGame_CreateAndUpdateGame.DisplayMainImage_Name))]
+        public IFormFile MainImage { get; set; }
+
+        [Display(
+            ResourceType = typeof(BoardGame_CreateAndUpdateGame),
+            Name = nameof(BoardGame_CreateAndUpdateGame.DisplaySideImage_Name))]
+        public IFormFile? SideImage { get; set; }
+
+        [Required(
+            ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
             ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredDescription_ErrorMessage))]
         [TextInput(90,
             ErrorMessageResourceType = typeof(BoardGame_UniversalAttributes),

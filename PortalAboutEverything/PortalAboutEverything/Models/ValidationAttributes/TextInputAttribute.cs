@@ -14,7 +14,6 @@ namespace PortalAboutEverything.Models.ValidationAttributes
         private readonly int _maxLenght;
         private string _errorMessageTemplate;
         private bool _isFew;
-        private bool _isDefault;
 
         public TextInputAttribute(int minLenght, int maxLenght)
         {
