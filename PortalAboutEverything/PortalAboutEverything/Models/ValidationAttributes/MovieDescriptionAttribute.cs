@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PortalAboutEverything.Models.ValidationAttributes
 {
-	public class MovieDescriptionAttribute : ValidationAttribute
-	{
-		private const int MAX_SYMBOLS = 100;
+    public class MovieDescriptionAttribute : ValidationAttribute
+    {
+        private const int MAX_SYMBOLS = 100;
 
-		public override string FormatErrorMessage(string name)
-		{
+        public override string FormatErrorMessage(string name)
+        {
             var defaultErrorMessageTemplate = Movie_CreateMovie.MovieDescription_ValidationErrorMessage;
 
             if (ErrorMessageResourceType is not null
@@ -21,20 +21,20 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
             var defaultErrorMessage = string.Format(defaultErrorMessageTemplate, MAX_SYMBOLS);
 
-			return string.IsNullOrEmpty(ErrorMessage)
-				? defaultErrorMessage
-				: ErrorMessage;
-		}
+            return string.IsNullOrEmpty(ErrorMessage)
+                ? defaultErrorMessage
+                : ErrorMessage;
+        }
 
-		public override bool IsValid(object? value)
-		{
-			if (value is null)
-			{
-				return true;
-			}
+        public override bool IsValid(object? value)
+        {
+            if (value is null)
+            {
+                return true;
+            }
 
-			var text = (string)value;
-			return text.Length <= MAX_SYMBOLS;
-		}
-	}
+            var text = (string)value;
+            return text.Length <= MAX_SYMBOLS;
+        }
+    }
 }

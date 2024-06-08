@@ -16,9 +16,9 @@ namespace PortalAboutEverything.Controllers
         private MovieReviewRepositories _movieReviewRepositories;
         private AuthService _authService;
         private UserRepository _userRepository;
-		private PathHelper _pathHelper;
+        private PathHelper _pathHelper;
 
-		public MovieController(MovieRepositories movieRepositories,
+        public MovieController(MovieRepositories movieRepositories,
             MovieReviewRepositories movieReviewRepositories,
             AuthService authService,
             UserRepository userRepository,
@@ -42,8 +42,8 @@ namespace PortalAboutEverything.Controllers
                 Director = movie.Director,
                 Budget = movie.Budget,
                 CountryOfOrigin = movie.CountryOfOrigin,
-				HasCover = _pathHelper.IsMovieImageExist(movie.Id),
-				Reviews = movie.Reviews.Select(review => new MovieReviewViewModel
+                HasCover = _pathHelper.IsMovieImageExist(movie.Id),
+                Reviews = movie.Reviews.Select(review => new MovieReviewViewModel
                 {
                     Rate = review.Rate,
                     DateOfCreation = review.DateOfCreation,
@@ -105,22 +105,22 @@ namespace PortalAboutEverything.Controllers
                 Director = movieCreateViewModel.Director,
                 Budget = movieCreateViewModel.Budget,
                 CountryOfOrigin = movieCreateViewModel.CountryOfOrigin,
-			};
+            };
 
             _movieRepositories.Create(movie);
 
             if (movieCreateViewModel.MovieImage == null)
             {
-				return RedirectToAction("Index");
-			}
+                return RedirectToAction("Index");
+            }
 
-			var path = _pathHelper.GetPathToMovieImage(movie.Id);
-			using (var fs = new FileStream(path, FileMode.Create))
-			{
-				movieCreateViewModel.MovieImage.CopyTo(fs);
-			}
+            var path = _pathHelper.GetPathToMovieImage(movie.Id);
+            using (var fs = new FileStream(path, FileMode.Create))
+            {
+                movieCreateViewModel.MovieImage.CopyTo(fs);
+            }
 
-			return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [Authorize]
@@ -129,10 +129,10 @@ namespace PortalAboutEverything.Controllers
         {
             _movieRepositories.Delete(id);
 
-			var path = _pathHelper.GetPathToMovieImage(id);
-			System.IO.File.Delete(path);
+            var path = _pathHelper.GetPathToMovieImage(id);
+            System.IO.File.Delete(path);
 
-			return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

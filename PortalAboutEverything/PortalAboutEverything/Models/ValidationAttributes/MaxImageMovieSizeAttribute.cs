@@ -18,9 +18,9 @@ namespace PortalAboutEverything.Models.ValidationAttributes
         {
             if (value == null)
             {
-				return ValidationResult.Success;
-			}
-            
+                return ValidationResult.Success;
+            }
+
             if (value is not IFormFile)
 
             {
@@ -31,7 +31,7 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
             using var stream = formFile.OpenReadStream();
             var image = Image.FromStream(stream);
-            
+
             if (image.Width > _maxImageWidth || image.Height > _maxImageHeight)
             {
                 return new ValidationResult(
@@ -40,6 +40,6 @@ namespace PortalAboutEverything.Models.ValidationAttributes
             }
 
             return ValidationResult.Success;
-		}
+        }
     }
 }

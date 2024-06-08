@@ -4,17 +4,17 @@ using System.Text.RegularExpressions;
 
 namespace PortalAboutEverything.Models.ValidationAttributes
 {
-	public class ForbiddenSymbolsAttribute : ValidationAttribute
-	{
-		private string _forbiddenSymbols;
+    public class ForbiddenSymbolsAttribute : ValidationAttribute
+    {
+        private string _forbiddenSymbols;
 
-		public ForbiddenSymbolsAttribute(string forbiddenSymbols) 
-		{
-			_forbiddenSymbols = forbiddenSymbols;
-		}
+        public ForbiddenSymbolsAttribute(string forbiddenSymbols)
+        {
+            _forbiddenSymbols = forbiddenSymbols;
+        }
 
-		public override string FormatErrorMessage(string name)
-		{
+        public override string FormatErrorMessage(string name)
+        {
             var defaultErrorMessageTemplate = Movie_CreateMovie.ForbiddenSymbols_ValidationErrorMessage;
 
             if (ErrorMessageResourceType is not null
@@ -27,22 +27,22 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
             var defaultErrorMessage = string.Format(defaultErrorMessageTemplate, name);
 
-			return string.IsNullOrEmpty(ErrorMessage)
-				? defaultErrorMessage
-				: ErrorMessage;
-		}
+            return string.IsNullOrEmpty(ErrorMessage)
+                ? defaultErrorMessage
+                : ErrorMessage;
+        }
 
-		public override bool IsValid(object? value)
-		{
-			if (value is null)
-			{
-				return true;
-			}
+        public override bool IsValid(object? value)
+        {
+            if (value is null)
+            {
+                return true;
+            }
 
-			var text = (string)value;
-			var expression = new Regex($"[{ _forbiddenSymbols }]");
-			var match = expression.Match(text);
-			return !match.Success;
-		}
-	}
+            var text = (string)value;
+            var expression = new Regex($"[{_forbiddenSymbols}]");
+            var match = expression.Match(text);
+            return !match.Success;
+        }
+    }
 }

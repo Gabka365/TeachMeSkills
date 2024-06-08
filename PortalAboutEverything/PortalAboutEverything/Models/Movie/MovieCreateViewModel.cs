@@ -19,28 +19,28 @@ namespace PortalAboutEverything.Models.Movie
         public int ReleaseYear { get; set; }
 
         [Required(
-            ErrorMessageResourceType = typeof(Movie_CreateMovie), 
+            ErrorMessageResourceType = typeof(Movie_CreateMovie),
             ErrorMessageResourceName = nameof(Movie_CreateMovie.RequiredNameDirector_Error))]
         [ForbiddenSymbols(
             "#@%*<>",
             ErrorMessageResourceType = typeof(Movie_CreateMovie),
             ErrorMessageResourceName = nameof(Movie_CreateMovie.ForbiddenSymbols_ValidationErrorMessage))]
-		[Display(ResourceType = typeof(Movie_CreateMovie), Name = "Director_Display")]
+        [Display(ResourceType = typeof(Movie_CreateMovie), Name = "Director_Display")]
         public string Director { get; set; }
 
         public int Budget { get; set; }
 
-		[Required(
-			ErrorMessageResourceType = typeof(Movie_CreateMovie),
-			ErrorMessageResourceName = nameof(Movie_CreateMovie.RequiredCountryOfOrigin_Error))]
-		[ForbiddenSymbols(
+        [Required(
+            ErrorMessageResourceType = typeof(Movie_CreateMovie),
+            ErrorMessageResourceName = nameof(Movie_CreateMovie.RequiredCountryOfOrigin_Error))]
+        [ForbiddenSymbols(
             "!#@%*?$№<>",
             ErrorMessageResourceType = typeof(Movie_CreateMovie),
             ErrorMessageResourceName = nameof(Movie_CreateMovie.ForbiddenSymbols_ValidationErrorMessage))]
-		[Display(ResourceType = typeof(Movie_CreateMovie), Name = "CountryOfOrigin_Display")]
+        [Display(ResourceType = typeof(Movie_CreateMovie), Name = "CountryOfOrigin_Display")]
         public string CountryOfOrigin { get; set; }
 
-		[MaxImageMovieSize(600, 600)]
-		public IFormFile? MovieImage { get; set; }
-	}
+        [MaxImageMovieSize(600, 600)]
+        public IFormFile? MovieImage { get; set; }
+    }
 }
