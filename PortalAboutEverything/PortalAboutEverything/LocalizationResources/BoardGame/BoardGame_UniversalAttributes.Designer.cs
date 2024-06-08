@@ -62,7 +62,25 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 1.
+        ///   Ищет локализованную строку, похожую на characters.
+        /// </summary>
+        public static string TextInput_SymbolEndingFirstForm {
+            get {
+                return ResourceManager.GetString("TextInput_SymbolEndingFirstForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на characters.
+        /// </summary>
+        public static string TextInput_SymbolEndingSecondForm {
+            get {
+                return ResourceManager.GetString("TextInput_SymbolEndingSecondForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The value of the &quot;{0}&quot; field cannot be shorter than {1}  {2}.
         /// </summary>
         public static string TextInput_ValidationErrorMessageFew {
             get {
@@ -71,7 +89,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 2.
+        ///   Ищет локализованную строку, похожую на The value of the field &quot;{0}&quot; cannot be longer than {1} {2}.
         /// </summary>
         public static string TextInput_ValidationErrorMessageMany {
             get {

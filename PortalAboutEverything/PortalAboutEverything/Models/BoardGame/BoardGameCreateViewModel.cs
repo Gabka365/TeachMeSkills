@@ -9,7 +9,12 @@ namespace PortalAboutEverything.Models.BoardGame
         [Required(
             ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
             ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredTitle_ErrorMessage))]
-        [TextInput(2, 35)]
+        [TextInput(2, 35,
+            ErrorMessageResourceType = typeof(BoardGame_UniversalAttributes),
+            ErrorMessageResourceNameFew = nameof(BoardGame_UniversalAttributes.TextInput_ValidationErrorMessageFew),
+            ErrorMessageResourceNameMany = nameof(BoardGame_UniversalAttributes.TextInput_ValidationErrorMessageMany),
+            ResourceNameSymbolFirstForm = nameof(BoardGame_UniversalAttributes.TextInput_SymbolEndingFirstForm),
+            ResourceNameSymbolSecondForm = nameof(BoardGame_UniversalAttributes.TextInput_SymbolEndingSecondForm))]
         [Display(
             ResourceType = typeof(BoardGame_CreateAndUpdateGame),
             Name = nameof(BoardGame_CreateAndUpdateGame.DisplayTitle_Name))]
@@ -18,7 +23,12 @@ namespace PortalAboutEverything.Models.BoardGame
         [Required(
             ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
             ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredMiniTitle_ErrorMessage))]
-        [TextInput(2, 50)]
+        [TextInput(2, 50,
+            ErrorMessageResourceType = typeof(BoardGame_UniversalAttributes),
+            ErrorMessageResourceNameFew = nameof(BoardGame_UniversalAttributes.TextInput_ValidationErrorMessageFew),
+            ErrorMessageResourceNameMany = nameof(BoardGame_UniversalAttributes.TextInput_ValidationErrorMessageMany),
+            ResourceNameSymbolFirstForm = nameof(BoardGame_UniversalAttributes.TextInput_SymbolEndingFirstForm),
+            ResourceNameSymbolSecondForm = nameof(BoardGame_UniversalAttributes.TextInput_SymbolEndingSecondForm))]
         [Display(
             ResourceType = typeof(BoardGame_CreateAndUpdateGame),
             Name = nameof(BoardGame_CreateAndUpdateGame.DisplayMiniTitle_Name))]
@@ -27,7 +37,12 @@ namespace PortalAboutEverything.Models.BoardGame
         [Required(
             ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateGame),
             ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateGame.RequiredDescription_ErrorMessage))]
-        [TextInput(90)]
+        [TextInput(90,
+            ErrorMessageResourceType = typeof(BoardGame_UniversalAttributes),
+            ErrorMessageResourceNameFew = nameof(BoardGame_UniversalAttributes.TextInput_ValidationErrorMessageFew),
+            ErrorMessageResourceNameMany = nameof(BoardGame_UniversalAttributes.TextInput_ValidationErrorMessageMany),
+            ResourceNameSymbolFirstForm = nameof(BoardGame_UniversalAttributes.TextInput_SymbolEndingFirstForm),
+            ResourceNameSymbolSecondForm = nameof(BoardGame_UniversalAttributes.TextInput_SymbolEndingSecondForm))]
         [Display(
             ResourceType = typeof(BoardGame_CreateAndUpdateGame),
             Name = nameof(BoardGame_CreateAndUpdateGame.DisplayDescription_Name))]

@@ -1,12 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using PortalAboutEverything.LocalizationResources.BoardGame;
 
 namespace PortalAboutEverything.Models.ValidationAttributes
 {
     public class TextInputAttribute : ValidationAttribute
     {
+        public string ErrorMessageResourceNameFew { get; set; }
+        public string ErrorMessageResourceNameMany { get; set; }
+        public string ResourceNameSymbolFirstForm { get; set; }
+        public string ResourceNameSymbolSecondForm { get; set; }
+
         private readonly int _minLenght;
         private readonly int _maxLenght;
-        private string _errorMessage;
+        private string _errorMessageTemplate;
+        private bool _isFew;
+        private bool _isDefault;
 
         public TextInputAttribute(int minLenght, int maxLenght)
         {
@@ -22,16 +30,19 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
         public override string FormatErrorMessage(string name)
         {
-            var errorMessageWithFormat = string.Empty;
-
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 return ErrorMessage;
             }
 
-            if (_errorMessage is not null)
+            var errorMessageWithFormat = string.Empty;
+
+            if (_errorMessageTemplate is not null)
             {
-                errorMessageWithFormat = string.Format(_errorMessage, name);
+                var countOfSymbols = _isFew ? _minLenght : _maxLenght;
+                string symbolWithCorrectEnding = GetlWithCorrectEnding(countOfSymbols);
+
+                errorMessageWithFormat = string.Format(_errorMessageTemplate, name, countOfSymbols, symbolWithCorrectEnding);
             }
 
             return errorMessageWithFormat;
@@ -48,13 +59,35 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
             if (valueInString.Length < _minLenght)
             {
-                _errorMessage = $"Значение поля \"{{0}}\" не может быть короче {_minLenght} {GetlWithCorrectEnding(_minLenght)}";
+                _isFew = true;
+                if (ErrorMessageResourceType is not null
+                    && ErrorMessageResourceNameFew is not null)
+                {                   
+                    var property = ErrorMessageResourceType.GetProperty(ErrorMessageResourceNameFew);
+                    var valueOfProperty = property!.GetValue(null);
+                    _errorMessageTemplate = (string)valueOfProperty!;
+                }
+                else
+                {
+                    _errorMessageTemplate = BoardGame_UniversalAttributes.TextInput_ValidationErrorMessageFew;
+                }
                 return false;
             }
 
             if (valueInString.Length > _maxLenght)
             {
-                _errorMessage = $"Значение поля \"{{0}}\" не может быть длиннее {_maxLenght} {GetlWithCorrectEnding(_maxLenght)}";
+                _isFew = false;
+                if (ErrorMessageResourceType is not null
+                   && ErrorMessageResourceNameMany is not null)
+                {
+                    var property = ErrorMessageResourceType.GetProperty(ErrorMessageResourceNameMany);
+                    var valueOfProperty = property!.GetValue(null);
+                    _errorMessageTemplate = (string)valueOfProperty!;
+                }
+                else
+                {
+                    _errorMessageTemplate = BoardGame_UniversalAttributes.TextInput_ValidationErrorMessageMany;
+                }
                 return false;
             }
 
@@ -63,16 +96,32 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
         private string GetlWithCorrectEnding(int number)
         {
+            string symbolEndingFirstForm;
+            string symbolEndingSecondForm;
+
+            if (ErrorMessageResourceType is not null 
+                && ResourceNameSymbolFirstForm is not null
+                && ResourceNameSymbolSecondForm is not null)
+            {
+                symbolEndingFirstForm = (string)ErrorMessageResourceType.GetProperty(ResourceNameSymbolFirstForm)!.GetValue(null)!;
+                symbolEndingSecondForm = (string)ErrorMessageResourceType.GetProperty(ResourceNameSymbolSecondForm)!.GetValue(null)!;
+            }
+            else
+            {
+                symbolEndingFirstForm = BoardGame_UniversalAttributes.TextInput_SymbolEndingFirstForm;
+                symbolEndingSecondForm = BoardGame_UniversalAttributes.TextInput_SymbolEndingSecondForm;
+            }
+
             int lastDigit = number % 10;
             int lastTwoDigit = number % 100;
 
             if (lastDigit == 1 && lastTwoDigit != 11)
-            { 
-                return "символа"; 
+            {
+                return symbolEndingFirstForm;
             }
             else
-            { 
-                return "символов"; 
+            {
+                return symbolEndingSecondForm;
             }
         }
     }
