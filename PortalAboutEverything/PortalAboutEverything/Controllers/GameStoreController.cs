@@ -78,6 +78,10 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult Update(GameStoreUpdateViewModel viewModel)
         {
+            if (ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
             var game = new GameStore
             {
                 Id = viewModel.Id,
@@ -89,6 +93,7 @@ namespace PortalAboutEverything.Controllers
 
             return RedirectToAction("Index");
         }
+
         [Authorize]
         public IActionResult GamerGameStore()
         {

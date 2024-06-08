@@ -1,7 +1,7 @@
 ﻿@model PortalAboutEverything.Models.GameStore.CreateGameStoreViewModel
 
 @section Style {
-        <link rel="stylesheet" href="/css/GameStore/style.css?v=1" />
+    <link rel="stylesheet" href="/css/GameStore/style.css?v=1" />
 }
 
 <form method="post">
@@ -12,20 +12,17 @@
     <div>
         @Html.TextBoxFor(x => x.Developer, new { placeholder = "Разработчик", @class = "my-input" })
         @Html.ValidationMessageFor(x => x.Developer)
-
     </div>
     <div>
+        @Html.DisplayNameFor(x => x.YearOfRelease)
         @Html.TextBoxFor(x => x.YearOfRelease,
-                          new
-                          {
-                              placeholder = "Год выпуска",
-                              @class = "my-input",
-                              @type = "number",
-                              @min = "1990",
-                              @max = "2024"
-                          })
+                 new
+                 {
+                     placeholder = "Год выпуска игры",
+                     @class = "my-input",
+                     @type = "number",
+                 })
         @Html.ValidationMessageFor(x => x.YearOfRelease)
-
     </div>
     <div>
         <input type="submit" value="Создать пост" />
