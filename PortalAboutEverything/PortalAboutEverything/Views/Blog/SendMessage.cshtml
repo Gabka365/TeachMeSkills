@@ -1,33 +1,40 @@
-﻿@model PortalAboutEverything.Models.Blog.MessageMetadataViewModel
-
-
-
+﻿@model PortalAboutEverything.Models.Blog.MessageViewModel
 
 <div class="section-output">
     <header>
-        <link href="/css/Blog/menu.css" rel="stylesheet" />
+        <link href="/css/Blog/menu.css?v=1.1" rel="stylesheet" />
     </header>
     <body>
         <form action="/Blog/ReceiveMessage" method="post">
-
             <div class="sending">
                 <div class="header">
                     <div class="inf-about-author">
-                        <img src="/images/Blog/jpeg/first_ava.jpg"/>
+                        <img src="/images/Blog/jpeg/first_ava.jpg" />
                         @Model.Now <br>
-                        <input type="hidden" name= "Now" value="@Model.Now"/>
+                        <input type="hidden" name="Now" value="@Model.Now" />
                         from: @Model.Name <br>
-                        <input type="hidden" name="Name" value="@Model.Name"/>
+                        <input type="hidden" name="Name" value="@Model.Name" />
                     </div>
                     <div class="text-field">
                         <textarea name="message" placeholder="Enter Message"></textarea>
                     </div>
                 </div>
+
+                <div class="mood-rate">
+                    Write the same numbers in these places to verify that you are human.
+                </div>
+
+                <div class="mood-rate">
+                    First number: @Html.TextBoxFor(x => x.Number_1)
+                </div>
+                <div class="mood-rate">
+                    Second number: @Html.TextBoxFor(x => x.Number_2)
+                </div>
+
                 <span class="Submit">
-                    <input type="submit" name="name" value="Submit"/>
+                    <input type="submit" name="name" value="Submit" />
                 </span>
             </div>
         </form>
     </body>
-
 </div>

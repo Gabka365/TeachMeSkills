@@ -35,9 +35,9 @@ namespace PortalAboutEverything.Controllers
 
 
         [HttpGet]
-        public IActionResult PostMessage()
+        public IActionResult CreatePost()
         {
-            var viewModel = BuildBlogIndexViewModel();
+            var viewModel = BuildMessageViewModel();
 
             return View(viewModel);
         }
@@ -51,8 +51,14 @@ namespace PortalAboutEverything.Controllers
 
 
         [HttpPost]
-        public IActionResult CreatePost(MessageReceiveViewModel viewModel)
+        public IActionResult CreatePost(MessageViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+
             var NewPost = new Post
             {
                 Name = viewModel.Name,
@@ -113,26 +119,36 @@ namespace PortalAboutEverything.Controllers
         [HttpGet]
         public IActionResult SendMessage()
         {
-            var viewModel = BuildBlogIndexViewModel();
+            var viewModel = BuildMessageViewModel();
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult ReceiveMessage(MessageReceiveViewModel viewModel)
+        public IActionResult ReceiveMessage(MessageViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("SendMessage");
+            }
+
             return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult AddComment(WriteBlogComment viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
             _posts.AddComment(viewModel.postId, viewModel.Text);
             return RedirectToAction("Index");
         }
 
-        private MessageMetadataViewModel BuildBlogIndexViewModel()
-            => new MessageMetadataViewModel
+        private MessageViewModel BuildMessageViewModel()
+            => new MessageViewModel
             {
                 Now = DateTime.Now,
                 Name = "Morgan Freeman"
