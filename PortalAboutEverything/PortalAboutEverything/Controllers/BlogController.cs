@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
@@ -35,6 +36,8 @@ namespace PortalAboutEverything.Controllers
 
 
         [HttpGet]
+        [Authorize]
+        [HasRole(Data.Enums.UserRole.BlogAdmin)]
         public IActionResult CreatePost()
         {
             var viewModel = BuildMessageViewModel();

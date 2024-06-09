@@ -9,6 +9,7 @@
         BoardGameAdmin = 42,
         TravelingAdmin = 43,
         VideoLibraryAdmin = 44,
+        BlogAdmin = 45,
 
         Moderator = 80,
         Admin = 99,
