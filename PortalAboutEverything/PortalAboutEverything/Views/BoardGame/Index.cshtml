@@ -15,13 +15,13 @@
                 <div class="update-and-delete">
                     @if (Model.CanCreateAndUpdateBoardGames)
                     {
-                        <a class="edit-link" href="/BoardGame/UpdateBoardGame?id=@boardGame.Id">
+                        <a class="edit-link" href="/BoardGame/Update?id=@boardGame.Id">
                             <img class="icon edit-icon" src="/images/BoardGame/edit.svg" alt="@BoardGame_Index.UpdateButton" />
                         </a>
                     }
                     @if (Model.CanDeleteBoardGames)
                     {
-                        <a class="delete-link" href="/BoardGame/DeleteBoardGame?id=@boardGame.Id">
+                        <a class="delete-link" href="/BoardGame/Delete?id=@boardGame.Id">
                             <img class="icon delete-icon" src="/images/BoardGame/delete.svg" alt="@BoardGame_Index.DeleteButton" />
                         </a>
                     }
@@ -36,7 +36,7 @@
     @if (Model.CanCreateAndUpdateBoardGames)
     {
         <div class="add-board-game">
-            <a class="add-board-game-link" href="/BoardGame/CreateBoardGame">@BoardGame_Index.AddButton</a>
+            <a class="add-board-game-link" href="/BoardGame/Create">@BoardGame_Index.AddButton</a>
         </div>
     }
 </div>

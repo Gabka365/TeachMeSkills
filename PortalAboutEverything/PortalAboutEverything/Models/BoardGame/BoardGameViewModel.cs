@@ -1,4 +1,6 @@
-﻿namespace PortalAboutEverything.Models.BoardGame
+﻿using PortalAboutEverything.Models.BoardGameReview;
+
+namespace PortalAboutEverything.Models.BoardGame
 {
     public class BoardGameViewModel
     {

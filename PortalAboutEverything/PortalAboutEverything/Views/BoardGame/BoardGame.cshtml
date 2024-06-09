@@ -119,8 +119,8 @@
                         @rewiev.Text
                     </p>
                     <div class="update-and-delete">
-                        <a href="/BoardGame/UpdateReview?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/edit.svg" /></a>
-                        <a href="/BoardGame/DeleteReview?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/delete.svg" /></a>
+                        <a href="/BoardGameReview/Update?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/edit.svg" /></a>
+                        <a href="/BoardGameReview/Delete?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/delete.svg" /></a>
                     </div>
                 </div>
             }
@@ -131,7 +131,7 @@
         }
         <div class="review-buttons">
             <button class="usual-button">@BoardGame_GamePage.ShowMore</button>
-            <button class="highlighted-button" onclick="window.location.href = '/BoardGame/CreateReview?GameId=@Model.Id';">@BoardGame_GamePage.AddReview</button>
+            <button class="highlighted-button" onclick="window.location.href = '/BoardGameReview/Create?GameId=@Model.Id';">@BoardGame_GamePage.AddReview</button>
         </div>
     </div>
 </div>
