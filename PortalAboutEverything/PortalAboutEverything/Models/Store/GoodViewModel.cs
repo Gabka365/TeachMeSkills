@@ -15,7 +15,7 @@ namespace PortalAboutEverything.Models.Store
         [GoodNoSpecialCharacters]
         public string? Description { get; set; }
 
-        [GoodPrice]
+        [GoodPriceIsNotEmpty]
         [GoodNoSpecialCharacters]
         public int? Price { get; set; }
 
