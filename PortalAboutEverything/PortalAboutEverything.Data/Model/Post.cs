@@ -15,5 +15,7 @@ namespace PortalAboutEverything.Data.Model
         public string? Name { get; set; } 
 
         public DateTime? Now { get; set; }
+
+        public virtual List<CommentBlog> CommentsBlog { get; set; }
     }
 }

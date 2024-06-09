@@ -21,8 +21,15 @@ namespace PortalAboutEverything.Data.Repositories
 
         public List<Post> GetAll()
         {
-            return _dbContext.Posts.ToList(); 
+            return _dbContext.Posts.ToList();
         }
+
+        public List<Post> GetAllWithCommentsBlog()
+            => _dbContext
+            .Posts
+            .Include(x => x.CommentsBlog)
+            .ToList();
+
 
         public void Create(Post post)
         {
@@ -51,5 +58,20 @@ namespace PortalAboutEverything.Data.Repositories
             _dbContext.SaveChanges();
         }
 
+        public void AddComment(int postId, string text)
+        {
+            var post = Get(postId);
+
+            var commentBlog = new CommentBlog
+            {
+                Message = text,
+                Post = post,
+                Now = DateTime.Now,
+                Name = "Anonymous"
+            };
+
+            _dbContext.CommentsBlog.Add(commentBlog);
+            _dbContext.SaveChanges();
+        }
     }
 }

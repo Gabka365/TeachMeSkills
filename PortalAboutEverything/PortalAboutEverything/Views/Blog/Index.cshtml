@@ -1,8 +1,8 @@
-﻿@model List<PortalAboutEverything.Models.Blog.postIndexViewModel>
+﻿@model List<PortalAboutEverything.Models.Blog.PostIndexViewModel>
 
 @section Style
 {
-    <link href="/css/Blog/style.css?v=1.0" rel="stylesheet" />
+    <link href="/css/Blog/style.css?v=2.1" rel="stylesheet" />
 }
 
 
@@ -85,7 +85,7 @@
                             <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
                         </div>
                         <div class="text-of-post">
-                            @post.message
+                            @post.Message
                         </div>
                     </div>
                     <div class="interaction">
@@ -100,7 +100,24 @@
                             <span><a href="/Blog/UpdateMessage?id=@post.Id">Update</a></span>
                         </span>
                     </div>
+
+                    <form action="/Blog/AddComment" method="post">
+                        <input type="hidden" value="@post.Id" name="postId" />
+                        <textarea name="text" placeholder="Text for comment"></textarea>
+                        <input type="submit" value="Comment" />
+                    </form>
+
                 </div>
+
+                @foreach (var comment in post.CommentsBlog)
+                {
+                    <div class="comment">
+                        <span class="author-name">@comment.Name</span>
+                        <span class="date">@comment.Now</span>
+                        <span class="comment-text">@comment.Message</span>
+                    </div>
+                }
+
             }
         </div>
     </div>

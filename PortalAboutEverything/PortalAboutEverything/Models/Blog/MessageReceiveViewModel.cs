@@ -1,6 +1,6 @@
 ﻿namespace PortalAboutEverything.Models.Blog
 {
-    public class ReceivingDataViewModel
+    public class MessageReceiveViewModel
     { 
         public string? Message { get; set; }
         public string? Name { get; set; }
