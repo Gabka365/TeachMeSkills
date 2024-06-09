@@ -129,6 +129,9 @@
   <data name="ChengIndex" xml:space="preserve">
     <value>Cheng Index</value>
   </data>
+  <data name="CommentErrorMessage" xml:space="preserve">
+    <value>Comments must not be empty</value>
+  </data>
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="Photography" xml:space="preserve">
     <value>Photography</value>
+  </data>
+  <data name="PostTitle" xml:space="preserve">
+    <value>Post title</value>
   </data>
   <data name="Relaxation" xml:space="preserve">
     <value>Relaxation</value>

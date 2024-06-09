@@ -2,7 +2,7 @@
 
 namespace PortalAboutEverything.Models.Traveling
 {
-    public class TravelingShowPostsViewModel
+    public class TravelingPostsViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
