@@ -4,43 +4,51 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
 {
     public class BlogRepositories
     {
-        private int _postID = 1;
+        private PortalDbContext _dbContext;
 
-        private List<Post> _posts = new List<Post>();
+
+        public BlogRepositories(PortalDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public List<Post> GetAll()
         {
-            return _posts.ToList(); 
+            return _dbContext.Posts.ToList(); 
         }
 
         public void Create(Post post)
         {
-            post.Id = _postID++;
-            _posts.Add(post);
+            _dbContext.Posts.Add(post);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var post = _posts.Single(x => x.Id == id);
-            _posts.Remove(post);
+            var post = _dbContext.Posts.Single(x => x.Id == id);
+            _dbContext.Posts.Remove(post);
+            _dbContext.SaveChanges();
         }
-
 
         public Post Get(int id)
         {
-            return _posts.Single(x => x.Id == id);
+            return _dbContext.Posts.FirstOrDefault(x => x.Id == id);
         }
 
         public void Update(Post post)
         {
-            Delete(post.Id);
-            Create(post);
+            var db = Get(post.Id);
+
+            db.Message = post.Message;
+
+            _dbContext.SaveChanges();
         }
 
     }

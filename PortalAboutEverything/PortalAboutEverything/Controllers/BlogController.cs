@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Blog;
@@ -18,6 +20,7 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult Index()
         {
+
             var postsViewModel = _posts
                 .GetAll()
                 .Select(BuildPostIndexViewModel)
@@ -30,14 +33,7 @@ namespace PortalAboutEverything.Controllers
         [HttpGet]
         public IActionResult PostMessage()
         {
-            var now = DateTime.Now;
-            var name = "Morgan Freeman";
-
-            var viewModel = new BlogIndexViewModel
-            {
-                Now = now,
-                Name = name,
-            };
+            var viewModel = BuildBlogIndexViewModel();
 
             return View(viewModel);
         }
@@ -56,7 +52,7 @@ namespace PortalAboutEverything.Controllers
             var NewPost = new Post
             {
                 Name = viewModel.Name,
-                message = viewModel.message,
+                Message = viewModel.Message,
                 Now = viewModel.Now
             };
 
@@ -82,7 +78,7 @@ namespace PortalAboutEverything.Controllers
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
-                message = viewModel.message,
+                Message = viewModel.message,
                 Now = viewModel.Now
             };
 
@@ -91,26 +87,28 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
-
-        public IActionResult SendingMessage()
+        [HttpGet]
+        public IActionResult SendMessage()
         {
-            var now = DateTime.Now;
-            var name = "Morgan Freeman";
+            var viewModel = BuildBlogIndexViewModel();
 
-            var viewModel = new BlogIndexViewModel
+            return View(viewModel);
+        }
+
+
+        [HttpPost]
+        public IActionResult ReceiveMessage(ReceivingDataViewModel viewModel)
+        {
+            return View(viewModel);
+        }
+
+
+        private BlogIndexViewModel BuildBlogIndexViewModel()
+            => new BlogIndexViewModel
             {
-                Now = now,
-                Name = name,
+                Now = DateTime.Now,
+                Name = "Morgan Freeman"
             };
-
-            return View(viewModel);
-        }
-
-
-        public IActionResult ReceivingMessage(ReceivingDataViewModel viewModel)
-        {
-            return View(viewModel);
-        }
 
 
         private postIndexViewModel BuildPostIndexViewModel(Post post)
@@ -118,7 +116,7 @@ namespace PortalAboutEverything.Controllers
             return new postIndexViewModel
             {
                 Id = post.Id,
-                message = post.message,
+                message = post.Message,
                 Now = post.Now,
                 Name = post.Name,
             };
@@ -130,7 +128,7 @@ namespace PortalAboutEverything.Controllers
             return new postUpdateViewModel
             {
                 Id = post.Id,
-                message = post.message,
+                message = post.Message,
                 Now = post.Now,
                 Name = post.Name,
             };
