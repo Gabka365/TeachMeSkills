@@ -3,6 +3,7 @@
     public class IndexViewModel
     {
         public List<GameIndexViewModel> Games { get; set; }
-        public bool IsGameAdmin { get; set; }
+        public bool CanCreateGame { get; set; }
+        public bool CanDeleteGame { get; set; }
     }
 }

@@ -1,0 +1,14 @@
+﻿@model PortalAboutEverything.Models.Store.FavouriteGoodsViewModel
+
+<div>
+    Привет, пользователь по имени @Model.UserName
+</div>
+<div>
+    Вот ваши избранные товары
+</div>
+@foreach (var good in Model.FavouriteGoods)
+{
+    <div>
+        @good.Name и стоит он @good.Price
+    </div>
+}

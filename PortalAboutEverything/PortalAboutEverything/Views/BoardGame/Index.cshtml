@@ -1,33 +1,39 @@
-﻿@model List<PortalAboutEverything.Models.BoardGame.BoardGameIndexViewModel>
+﻿@model PortalAboutEverything.Models.BoardGame.IndexViewModel
+@using PortalAboutEverything.LocalizationResources.BoardGame
 
 @section Style {
     <link href="/css/BoardGame/boardGamesIndex.css" rel="stylesheet" />
 }
 
 <div class="board-game-list">
-    <h2 class="title">Список наших настольных игр</h2>
+    <h2 class="title">@BoardGame_Index.PageTitle</h2>
     <ul class="board-games">
-        @foreach (var boardGame in Model)
+        @foreach (var boardGame in Model.BoardGames)
         {
             <li class="board-game-item">
                 <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@boardGame.Id">@boardGame.Title</a>
-                <div class="update-and-delete">
-                    <a class="edit-link" href="/BoardGame/UpdateBoardGame?id=@boardGame.Id">
-                        <img class="icon edit-icon" src="/images/BoardGame/edit.svg" alt="Edit" />
-                    </a>
-                    <a class="delete-link" href="/BoardGame/DeleteBoardGame?id=@boardGame.Id">
-                        <img class="icon delete-icon" src="/images/BoardGame/delete.svg" alt="Delete" />
-                    </a>
-                </div>
+                @if (Model.IsBoardGameAdmin)
+                {
+                    <div class="update-and-delete">
+                        <a class="edit-link" href="/BoardGame/UpdateBoardGame?id=@boardGame.Id">
+                            <img class="icon edit-icon" src="/images/BoardGame/edit.svg" alt="@BoardGame_Index.UpdateButton" />
+                        </a>
+                        <a class="delete-link" href="/BoardGame/DeleteBoardGame?id=@boardGame.Id">
+                            <img class="icon delete-icon" src="/images/BoardGame/delete.svg" alt="@BoardGame_Index.DeleteButton" />
+                        </a>
+                    </div>
+                }              
             </li>
         }
     </ul>
 
     <div class="add-board-game">
-        <a class="add-board-game-link" href="/BoardGame/UserFavoriteBoardGames">Ваши любимые игры</a>
+        <a class="add-board-game-link" href="/BoardGame/UserFavoriteBoardGames">@BoardGame_Index.FavoriteButton</a>
     </div>
-
-    <div class="add-board-game">
-        <a class="add-board-game-link" href="/BoardGame/CreateBoardGame">Добавить игру</a>
-    </div>
+    @if (Model.IsBoardGameAdmin)
+    {
+        <div class="add-board-game">
+            <a class="add-board-game-link" href="/BoardGame/CreateBoardGame">@BoardGame_Index.AddButton</a>
+        </div>
+    }
 </div>

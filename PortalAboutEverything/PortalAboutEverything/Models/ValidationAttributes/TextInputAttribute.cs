@@ -14,15 +14,27 @@ namespace PortalAboutEverything.Models.ValidationAttributes
             _maxLenght = maxLenght;
         }
 
+        public TextInputAttribute(int minLenght)
+        {
+            _minLenght = minLenght;
+            _maxLenght = int.MaxValue;
+        }
+
         public override string FormatErrorMessage(string name)
         {
-            string errorMessageWithFormat = string.Empty;
+            var errorMessageWithFormat = string.Empty;
+
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                return ErrorMessage;
+            }
+
             if (_errorMessage is not null)
             {
                 errorMessageWithFormat = string.Format(_errorMessage, name);
             }
 
-            return string.IsNullOrEmpty(ErrorMessage) ? errorMessageWithFormat : ErrorMessage;
+            return errorMessageWithFormat;
         }
 
         public override bool IsValid(object? value)
@@ -36,13 +48,13 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
             if (valueInString.Length < _minLenght)
             {
-                _errorMessage = "Значение поля \"{0}\" не может быть короче " + _minLenght + " " + GetlWithCorrectEnding(_minLenght);
+                _errorMessage = $"Значение поля \"{{0}}\" не может быть короче {_minLenght} {GetlWithCorrectEnding(_minLenght)}";
                 return false;
             }
 
             if (valueInString.Length > _maxLenght)
             {
-                _errorMessage = "Значение поля \"{0}\" не может быть длиннее " + _maxLenght + " " + GetlWithCorrectEnding(_maxLenght);
+                _errorMessage = $"Значение поля \"{{0}}\" не может быть длиннее {_maxLenght} {GetlWithCorrectEnding(_maxLenght)}";
                 return false;
             }
 

@@ -7,14 +7,9 @@ using System.Threading.Tasks;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class GoodReviewRepositories
-    {
-        private PortalDbContext _dbContext;
-
-        public GoodReviewRepositories(PortalDbContext db)
-        {
-            _dbContext = db;
-        }
+    public class GoodReviewRepositories : BaseRepository<GoodReview>
+    {        
+        public GoodReviewRepositories(PortalDbContext db) : base(db) { }       
 
         public void AddReview(int gameId, string text)
         {

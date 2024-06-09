@@ -398,3 +398,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# We don't need upload game cover. Except default one
+PortalAboutEverything/PortalAboutEverything/wwwroot/images/Game/*.*
+!PortalAboutEverything/PortalAboutEverything/wwwroot/images/Game/cover-default.jpg

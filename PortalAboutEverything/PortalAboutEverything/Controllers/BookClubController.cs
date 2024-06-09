@@ -4,6 +4,7 @@ using PortalAboutEverything.Data.Model.BookClub;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.BookClub;
 using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers
 {
