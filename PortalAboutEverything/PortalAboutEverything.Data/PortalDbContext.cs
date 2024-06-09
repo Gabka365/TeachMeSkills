@@ -113,6 +113,10 @@ namespace PortalAboutEverything.Data
                 .HasMany(x => x.FavoriteMovies)
                 .WithMany(x => x.UsersWhoFavoriteTheMovie);
 
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Posts)
+                .WithMany(x => x.Users);
+
             base.OnModelCreating(modelBuilder);
         }
     }

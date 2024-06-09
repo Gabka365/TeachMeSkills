@@ -20,7 +20,7 @@ namespace PortalAboutEverything.Data.Model
         public virtual List<BoardGame> FavoriteBoardsGames { get; set; }
         public virtual List<Traveling> Travelings { get; set; }
         public virtual List<Movie> FavoriteMovies { get; set; }
-
+        public virtual List<Post> Posts { get; set; }   
         public virtual List<GameStore> MyGames { get; set; }
 
         public virtual List<Good> FavouriteGoods { get; set; }

@@ -9,45 +9,20 @@ using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class BlogRepositories
+    public class BlogRepositories : BaseRepository<Post>
     {
-        private PortalDbContext _dbContext;
-
-
-        public BlogRepositories(PortalDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
-        public List<Post> GetAll()
-        {
-            return _dbContext.Posts.ToList();
-        }
+        public BlogRepositories(PortalDbContext db) : base(db) { }
 
         public List<Post> GetAllWithCommentsBlog()
-            => _dbContext
-            .Posts
+            => _dbSet
             .Include(x => x.CommentsBlog)
             .ToList();
 
 
-        public void Create(Post post)
-        {
-            _dbContext.Posts.Add(post);
-            _dbContext.SaveChanges();
-        }
-
-        public void Delete(int id)
-        {
-            var post = _dbContext.Posts.Single(x => x.Id == id);
-            _dbContext.Posts.Remove(post);
-            _dbContext.SaveChanges();
-        }
-
-        public Post Get(int id)
-        {
-            return _dbContext.Posts.FirstOrDefault(x => x.Id == id);
-        }
+        public List<Post> GetPostsByUserId(int userId)
+            => _dbSet
+            .Where(x => x.Users.Any(u => u.Id == userId))
+            .ToList();
 
         public void Update(Post post)
         {
@@ -58,11 +33,12 @@ namespace PortalAboutEverything.Data.Repositories
             _dbContext.SaveChanges();
         }
 
+
         public void AddComment(int postId, string text)
         {
             var post = Get(postId);
 
-            var commentBlog = new CommentBlog
+            var comment = new CommentBlog
             {
                 Message = text,
                 Post = post,
@@ -70,7 +46,8 @@ namespace PortalAboutEverything.Data.Repositories
                 Name = "Anonymous"
             };
 
-            _dbContext.CommentsBlog.Add(commentBlog);
+
+            _dbContext.CommentsBlog.Add(comment);
             _dbContext.SaveChanges();
         }
     }

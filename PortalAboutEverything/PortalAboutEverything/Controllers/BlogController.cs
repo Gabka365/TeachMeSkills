@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Blog;
+using PortalAboutEverything.Services.AuthStuff;
 
 
 namespace PortalAboutEverything.Controllers
@@ -12,10 +14,12 @@ namespace PortalAboutEverything.Controllers
     public class BlogController : Controller
     {
         private BlogRepositories _posts;
+        private AuthService _authService;
 
-        public BlogController(BlogRepositories posts)
+        public BlogController(BlogRepositories posts, AuthService authService)
         {
             _posts = posts;
+            _authService = authService;
         }
 
         public IActionResult Index()
@@ -61,6 +65,25 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [Authorize]
+        public IActionResult Blogger()
+        {
+            var userName = _authService.GetUserName();
+
+            var userId = _authService.GetUserId();
+            var posts = _posts.GetPostsByUserId(userId);
+
+            var viewModel = new BloggerViewModel
+            {
+                Name = userName,
+                Posts = posts
+                    .Select(BuildPostUpdateViewModel)
+                    .ToList(),
+            };
+
+            return View(viewModel);
+        }
 
         [HttpGet]
         public IActionResult UpdateMessage(int id)
