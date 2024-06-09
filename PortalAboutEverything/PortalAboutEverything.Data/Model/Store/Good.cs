@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace PortalAboutEverything.Data.Model.Store
 {
-    public class Good
+    public class Good : BaseModel
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string Description { get; set; }
 
         public int Price { get; set; }
+
+        public virtual List<GoodReview>? Reviews { get; set; }
+
+        public virtual List<User>? UsersWhoLikedTheGood {  get; set; }
     }
 }

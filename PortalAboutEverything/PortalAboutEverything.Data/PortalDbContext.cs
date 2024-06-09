@@ -19,6 +19,8 @@ namespace PortalAboutEverything.Data
         public DbSet<MovieReview> MovieReviews { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Good> Goods { get; set; }
+
+        public DbSet<GoodReview> GoodReviews { get; set; }
         public DbSet<BoardGame> BoardGames { get; set; }
         public DbSet<BoardGameReview> BoardGameReviews { get; set; }
         public DbSet<Traveling> Travelings { get; set; }
@@ -63,6 +65,12 @@ namespace PortalAboutEverything.Data
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
 
+            modelBuilder.Entity<Good>()
+                .HasMany(x => x.Reviews)
+                .WithOne(x => x.Good)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired(false);
+
             modelBuilder.Entity<User>()
                 .HasMany(x => x.FavoriteGames)
                 .WithMany(x => x.UserWhoFavoriteTheGame);
@@ -76,6 +84,9 @@ namespace PortalAboutEverything.Data
                 .HasMany(x => x.FavoriteBoardsGames)
                 .WithMany(x => x.UsersWhoFavoriteThisBoardGame);
 
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.FavoriteBooksOfUser)
+                .WithMany(x => x.UsersWhoAddBookToFavorites);
 
             modelBuilder.Entity<User>()
                 .HasMany(x => x.Travelings)
@@ -88,6 +99,14 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<GameStore>()
                 .HasMany(x => x.UserTheGame)
                 .WithMany(x => x.MyGames);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.FavouriteGoods)
+                .WithMany(x => x.UsersWhoLikedTheGood);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.FavoriteMovies)
+                .WithMany(x => x.UsersWhoFavoriteTheMovie);
 
             base.OnModelCreating(modelBuilder);
         }

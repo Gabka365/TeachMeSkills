@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Model.Store;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.BookClub;
 using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Store;
+using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -12,40 +14,64 @@ namespace PortalAboutEverything.Controllers
     {
         private StoreRepositories _storeRepositories;
 
-        public StoreController(StoreRepositories storeRepositories)
+        private GoodReviewRepositories _goodReviewRepositories;
+
+        private AuthService _authService;
+
+        public StoreController(StoreRepositories storeRepositories, GoodReviewRepositories goodReviewRepositories, AuthService authService)
         {
             _storeRepositories = storeRepositories;
+            _goodReviewRepositories = goodReviewRepositories;
+            _authService = authService;
         }
+
+        [Authorize]
         public IActionResult Index()
         {
-            var goodsViewModel = _storeRepositories.GetAllGoods().Select(BuildStoreIndexViewModel).ToList();
+            var goodsViewModel = _storeRepositories.GetAll().Select(BuildStoreIndexViewModel).ToList();
 
             return View(goodsViewModel);
         }
 
-        public IActionResult Good()
+
+        public IActionResult Good(int id)
         {
-            var reviewsViewModel = _storeRepositories.GetAllReviews().Select(BuildGoodReviewViewModel).ToList();
-            return View(reviewsViewModel);
+            var goodWithReview = _storeRepositories.GetGoodByIdWithReview(id);
+
+            var goodViewModel = new GoodViewModel
+            {
+                Id = goodWithReview.Id,
+                Name = goodWithReview.Name,
+                Description = goodWithReview.Description,
+                Price = goodWithReview.Price,
+                Reviews = goodWithReview.Reviews?.Select(BuildGoodReviewViewModel).ToList(),
+            };
+
+            return View(goodViewModel);
         }
 
-        [HttpGet]
-        public IActionResult AddReview()
+        public IActionResult FavouriteGoods()
         {
-            return View();
+            var userName = _authService.GetUserName();
+
+            var userId = _authService.GetUserId();
+            var favouriteGoods = _storeRepositories.GetFavouriteGoodsBuUserId(userId);
+
+            var viewModel = new FavouriteGoodsViewModel
+            {
+                UserName = userName,
+                FavouriteGoods = favouriteGoods.Select(BuildStoreIndexViewModel).ToList(),
+            };
+            return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult AddReview(CreateReviewViewModel viewModel)
+        public IActionResult AddReview(AddGoodReviewViewModel viewModel)
         {
-            var newReview = new GoodReview
-            {
-                Title = viewModel.Title,
-                Description = viewModel.Description
-            };
-            _storeRepositories.AddReview(newReview);
 
-            return RedirectToAction("Good");
+            _goodReviewRepositories.AddReview(viewModel.GoodId, viewModel.Text);
+
+            return RedirectToAction("Good", new { id = viewModel.GoodId });
         }
 
         [HttpGet]
@@ -55,23 +81,28 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddGood(AddGoodViewModel createGoodViewModel)
+        public IActionResult AddGood(GoodViewModel createGoodViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(createGoodViewModel);
+            }
+
             var good = new Good
             {
-                Name = createGoodViewModel.Name,
-                Description = createGoodViewModel.Description,
-                Price = createGoodViewModel.Price,
-
+                Name = createGoodViewModel.Name!,
+                Description = createGoodViewModel.Description!,
+                Price = createGoodViewModel.Price.Value,
             };
-            _storeRepositories.AddGood(good);
+            _storeRepositories.Create(good);
 
             return RedirectToAction("Index");
         }
 
         public IActionResult DeleteGood(int id)
         {
-            _storeRepositories.Delete(id);
+            var model = _storeRepositories.GetGoodByIdWithReview(id);
+            _storeRepositories.Delete(model);
             return RedirectToAction("Index");
         }
 
@@ -86,12 +117,17 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult UpdateGood(GoodUpdateViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             var good = new Good
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
                 Description = viewModel.Description,
-                Price = viewModel.Price,
+                Price = viewModel.Price.Value,
             };
             _storeRepositories.UpdateGood(good);
 
@@ -120,13 +156,11 @@ namespace PortalAboutEverything.Controllers
             };
         }
 
-        private CreateReviewViewModel BuildGoodReviewViewModel(GoodReview review)
+        private AddGoodReviewViewModel BuildGoodReviewViewModel(GoodReview goodReview)
         {
-            return new CreateReviewViewModel
+            return new AddGoodReviewViewModel
             {
-                Id = review.Id,
-                Title = review.Title,
-                Description = review.Description,
+                Text = goodReview.Description,
             };
         }
     }

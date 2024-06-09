@@ -3,44 +3,15 @@ using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-	public class MovieRepositories
+	public class MovieRepositories : BaseRepository<Movie>
 	{
-		private PortalDbContext _dbContext;
-
-		public MovieRepositories(PortalDbContext db)
-		{
-			_dbContext = db;
-		}
-
-		public void Create(Movie movie)
-		{
-			_dbContext.Movies.Add(movie);
-			_dbContext.SaveChanges();
-		}
-
-		public List<Movie> GetAll()
-		{
-			return _dbContext.Movies.ToList();
-		}
+		public MovieRepositories(PortalDbContext db) : base(db) { }
 
 		public List<Movie> GetAllWithReviews()
 		{
 			return _dbContext.Movies
 				.Include(x => x.Reviews)
 				.ToList();
-		}
-
-		public void Delete(int id)
-		{
-			var movie = _dbContext.Movies.Single(movie => movie.Id == id);
-			_dbContext.Movies.Remove(movie);
-
-			_dbContext.SaveChanges();
-		}
-
-		public Movie Get(int id)
-		{
-			return _dbContext.Movies.Single(movie => movie.Id == id);
 		}
 
 		public void Update(Movie movie)
@@ -56,5 +27,13 @@ namespace PortalAboutEverything.Data.Repositories
 
 			_dbContext.SaveChanges();
 		}
+
+		public List<Movie> GetFavoriteMoviesByUserId(int userId)
+			=> _dbSet
+			.Where(movie =>
+				movie
+					.UsersWhoFavoriteTheMovie
+					.Any(user => user.Id == userId))
+			.ToList();
 	}
 }

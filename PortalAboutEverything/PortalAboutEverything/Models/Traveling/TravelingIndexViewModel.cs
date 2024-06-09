@@ -1,7 +1,10 @@
-﻿namespace PortalAboutEverything.Models.Traveling
+﻿using PortalAboutEverything.Data.Enums;
+
+namespace PortalAboutEverything.Models.Traveling
 {
     public class TravelingIndexViewModel
     {
-        public List<DateTime> TravelingDate { get; set;} = new List<DateTime>();
+        public List<DateTime> TravelingDates { get; set;} = new List<DateTime>();
+        public  bool IsTravingAdmin { get; set;}
     }
 }

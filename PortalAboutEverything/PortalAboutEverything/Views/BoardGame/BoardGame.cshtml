@@ -1,22 +1,23 @@
 ﻿@model PortalAboutEverything.Models.BoardGame.BoardGameViewModel
+@using PortalAboutEverything.LocalizationResources.BoardGame
 
 @section Style {
     <link href="/css/BoardGame/style.css" rel="stylesheet" />
 }
 
 <div class="banner">
-    <img src="/images/BoardGame/banner.webp" alt="Advertising banner" />
+    <img src="/images/BoardGame/banner.webp" alt="@BoardGame_GamePage.AdvertisingBanner" />
 </div>
 
 <header class="board-game-header">
     <div class="container">
         <div class="header-elements">
             <div class="left-elements">
-                <a href="#" class="header-element">Магазины</a>
-                <a href="#" class="header-element">Игротеки</a>
+                <a href="#" class="header-element">@BoardGame_GamePage.Shops</a>
+                <a href="#" class="header-element">@BoardGame_GamePage.GameLibraries</a>
             </div>
             <div class="right-elements">
-                <a href="#" class="header-element">График работы</a>
+                <a href="#" class="header-element">@BoardGame_GamePage.WorkSchedule</a>
                 <p href="#" class="header-element">+7 123 456-78-90</p>
             </div>
         </div>
@@ -38,50 +39,56 @@
                     @if (Model.Title == "Ticket to Ride: Европа")
                     {
                         <img src="/images/BoardGame/images.png"
-                             alt="Side images"
+                             alt="@BoardGame_GamePage.SideImages"
                              class="elongated-image" />
                         <img src="/images/BoardGame/mainImage.jpg"
-                             alt="Foto of game"
+                             alt="@BoardGame_GamePage.FotoOfGame"
                              class="square-image" />
                     }
                     else
                     {
                         <img src="https://placehold.co/89x322"
-                             alt="Side images"
+                             alt="@BoardGame_GamePage.SideImages"
                              class="elongated-image" />
                         <img src="https://placehold.co/322x322"
-                             alt="Foto of game"
+                             alt="@BoardGame_GamePage.FotoOfGame"
                              class="square-image" />
                     }
                 </div>
                 <div class="description">
-                    <h3 class="desc-title">Описание</h3>
+                    <h3 class="desc-title">@BoardGame_GamePage.Description</h3>
                     <p class="desc-text">
                         @Model.Description
                     </p>
-                    <h3 class="desc-title">Суть игры</h3>
-                    <p class="desc-text">
-                        @Model.Essence
-                    </p>
+                    @if (Model.Essence is not null)
+                    {
+                        <h3 class="desc-title">@BoardGame_GamePage.Essence</h3>
+                        <p class="desc-text">
+                            @Model.Essence
+                        </p>
+                    }
                 </div>
-                <div class="tags">
-                    <span class="tag">@Model.Tags</span>
-                </div>
+                @if (Model.Tags is not null)
+                {
+                    <div class="tags">
+                        <span class="tag">@Model.Tags</span>
+                    </div>
+                }
             </div>
             <div class="price-card">
                 <div class="first-row">
                     <h2 class="price">@Model.Price ₽</h2>
-                    <p class="code">Код товара: @Model.ProductCode</p>
+                    <p class="code">@BoardGame_GamePage.ProductCode: @Model.ProductCode</p>
                 </div>
                 <div class="buttons">
-                    <button class="highlighted-button">Добавить в корзину</button>
+                    <button class="highlighted-button">@BoardGame_GamePage.AddToCart</button>
                     @if (Model.IsFavoriteForUser)
                     {
-                        <button class="usual-button" onclick="window.location.href = '/BoardGame/RemoveFavoriteBoardGameForUser?GameId=@Model.Id&IsGamePage=@true';">Удалить из избранного</button>
+                        <button class="usual-button" onclick="window.location.href = '/BoardGame/RemoveFavoriteBoardGameForUser?GameId=@Model.Id&IsGamePage=@true';">@BoardGame_GamePage.RemoveFromFavorites</button>
                     }
                     else
                     {
-                        <button class="usual-button" onclick="window.location.href = '/BoardGame/AddFavoriteBoardGameForUser?GameId=@Model.Id';">В избранное</button>
+                        <button class="usual-button" onclick="window.location.href = '/BoardGame/AddFavoriteBoardGameForUser?GameId=@Model.Id';">@BoardGame_GamePage.AddToFavorites</button>
                     }
                 </div>
             </div>
@@ -91,7 +98,7 @@
 
 <div class="reviews">
     <div class="container">
-        <h3 class="reviews-head">Отзывы</h3>
+        <h3 class="reviews-head">@BoardGame_GamePage.Reviews</h3>
         @if (Model.Reviews.Count > 0)
         {
             @foreach (var rewiev in Model.Reviews)
@@ -113,11 +120,11 @@
         }
         else
         {
-            <p>Отзывов пока нет. Оставьте первый!</p>
+            <p>@BoardGame_GamePage.AbsenceOfReviewsText</p>
         }
         <div class="review-buttons">
-            <button class="usual-button">Показать ещё</button>
-            <button class="highlighted-button" onclick="window.location.href = '/BoardGame/CreateReview?GameId=@Model.Id';">Написать отзыв</button>
+            <button class="usual-button">@BoardGame_GamePage.ShowMore</button>
+            <button class="highlighted-button" onclick="window.location.href = '/BoardGame/CreateReview?GameId=@Model.Id';">@BoardGame_GamePage.AddReview</button>
         </div>
     </div>
 </div>
@@ -125,7 +132,7 @@
 <div class="board-game-footer">
     <div class="container">
         <div class="footer-elements">
-            <p>Производитель - hobbygames</p>
+            <p>@BoardGame_GamePage.Manufacturer</p>
         </div>
     </div>
 </div>

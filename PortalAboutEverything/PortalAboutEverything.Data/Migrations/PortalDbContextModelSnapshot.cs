@@ -37,6 +37,36 @@ namespace PortalAboutEverything.Data.Migrations
                     b.ToTable("BoardGameUser");
                 });
 
+            modelBuilder.Entity("BookUser", b =>
+                {
+                    b.Property<int>("FavoriteBooksOfUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersWhoAddBookToFavoritesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FavoriteBooksOfUserId", "UsersWhoAddBookToFavoritesId");
+
+                    b.HasIndex("UsersWhoAddBookToFavoritesId");
+
+                    b.ToTable("BookUser");
+                });
+
+            modelBuilder.Entity("GameStoreUser", b =>
+                {
+                    b.Property<int>("MyGamesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserTheGameId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MyGamesId", "UserTheGameId");
+
+                    b.HasIndex("UserTheGameId");
+
+                    b.ToTable("GameStoreUser");
+                });
+
             modelBuilder.Entity("GameUser", b =>
                 {
                     b.Property<int>("FavoriteGamesId")
@@ -49,7 +79,37 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasIndex("UserWhoFavoriteTheGameId");
 
-                    b.ToTable("GameUser", (string)null);
+                    b.ToTable("GameUser");
+                });
+
+            modelBuilder.Entity("MovieUser", b =>
+                {
+                    b.Property<int>("FavoriteMoviesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersWhoFavoriteTheMovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FavoriteMoviesId", "UsersWhoFavoriteTheMovieId");
+
+                    b.HasIndex("UsersWhoFavoriteTheMovieId");
+
+                    b.ToTable("MovieUser");
+                });
+
+            modelBuilder.Entity("GoodUser", b =>
+                {
+                    b.Property<int>("FavouriteGoodsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersWhoLikedTheGoodId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FavouriteGoodsId", "UsersWhoLikedTheGoodId");
+
+                    b.HasIndex("UsersWhoLikedTheGoodId");
+
+                    b.ToTable("GoodUser");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGame", b =>
@@ -65,7 +125,6 @@ namespace PortalAboutEverything.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Essence")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MiniTitle")
@@ -79,7 +138,6 @@ namespace PortalAboutEverything.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Tags")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -88,7 +146,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BoardGames", (string)null);
+                    b.ToTable("BoardGames");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGameReview", b =>
@@ -122,7 +180,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("BoardGameReviews", (string)null);
+                    b.ToTable("BoardGameReviews");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BookClub.Book", b =>
@@ -150,7 +208,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BookClub.BookReview", b =>
@@ -188,7 +246,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookReviews", (string)null);
+                    b.ToTable("BookReviews");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Comment", b =>
@@ -234,7 +292,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Games", (string)null);
+                    b.ToTable("Games");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.GameStore", b =>
@@ -258,7 +316,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameStores", (string)null);
+                    b.ToTable("GameStores");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.History", b =>
@@ -282,7 +340,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HistoryEvents", (string)null);
+                    b.ToTable("HistoryEvents");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Movie", b =>
@@ -301,7 +359,6 @@ namespace PortalAboutEverything.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Director")
@@ -317,7 +374,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.MovieReview", b =>
@@ -337,10 +394,6 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Rate")
                         .HasColumnType("int");
@@ -371,7 +424,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts", (string)null);
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Store.Good", b =>
@@ -395,7 +448,29 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Goods", (string)null);
+                    b.ToTable("Goods");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.Store.GoodReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("GoodId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GoodId");
+
+                    b.ToTable("GoodReviews");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Traveling", b =>
@@ -423,7 +498,6 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Travelings", (string)null);
                     b.HasIndex("UserId");
 
                     b.ToTable("Travelings");
@@ -437,9 +511,18 @@ namespace PortalAboutEverything.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Language")
+                        .HasColumnType("int");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Permission")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -447,7 +530,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoLibrary.Folder", b =>
@@ -510,6 +593,36 @@ namespace PortalAboutEverything.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BookUser", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.BookClub.Book", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteBooksOfUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortalAboutEverything.Data.Model.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoAddBookToFavoritesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GameStoreUser", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.GameStore", null)
+                        .WithMany()
+                        .HasForeignKey("MyGamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortalAboutEverything.Data.Model.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserTheGameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("GameUser", b =>
                 {
                     b.HasOne("PortalAboutEverything.Data.Model.Game", null)
@@ -521,6 +634,36 @@ namespace PortalAboutEverything.Data.Migrations
                     b.HasOne("PortalAboutEverything.Data.Model.User", null)
                         .WithMany()
                         .HasForeignKey("UserWhoFavoriteTheGameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MovieUser", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteMoviesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortalAboutEverything.Data.Model.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoFavoriteTheMovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GoodUser", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.Store.Good", null)
+                        .WithMany()
+                        .HasForeignKey("FavouriteGoodsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortalAboutEverything.Data.Model.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoLikedTheGoodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -541,28 +684,6 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.Navigation("Game");
                 });
-                
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoLibrary.Video", b =>
-                {
-                    b.HasOne("PortalAboutEverything.Data.Model.VideoLibrary.Folder", "Folder")
-                        .WithMany("Videos")
-                        .HasForeignKey("FolderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Folder");
-                });
-                
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.MovieReview", b =>
-                {
-                    b.HasOne("PortalAboutEverything.Data.Model.Movie", "Movie")
-                        .WithMany("Reviews")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Movie");
-                });
-
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BookClub.BookReview", b =>
                 {
@@ -573,7 +694,6 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.Navigation("Book");
                 });
-
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Comment", b =>
                 {
@@ -586,6 +706,26 @@ namespace PortalAboutEverything.Data.Migrations
                     b.Navigation("Traveling");
                 });
 
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.MovieReview", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.Movie", "Movie")
+                        .WithMany("Reviews")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.Store.GoodReview", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.Store.Good", "Good")
+                        .WithMany("Reviews")
+                        .HasForeignKey("GoodId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Good");
+                });
+
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Traveling", b =>
                 {
                     b.HasOne("PortalAboutEverything.Data.Model.User", "User")
@@ -595,6 +735,17 @@ namespace PortalAboutEverything.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoLibrary.Video", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.VideoLibrary.Folder", "Folder")
+                        .WithMany("Videos")
+                        .HasForeignKey("FolderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Folder");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGame", b =>
@@ -611,14 +762,13 @@ namespace PortalAboutEverything.Data.Migrations
                 {
                     b.Navigation("Reviews");
                 });
-                
-                
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoLibrary.Folder", b =>
-                {
-                    b.Navigation("Videos");
-                });
-                
+
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Movie", b =>
+                {
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.Store.Good", b =>
                 {
                     b.Navigation("Reviews");
                 });
@@ -631,6 +781,11 @@ namespace PortalAboutEverything.Data.Migrations
             modelBuilder.Entity("PortalAboutEverything.Data.Model.User", b =>
                 {
                     b.Navigation("Travelings");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.VideoLibrary.Folder", b =>
+                {
+                    b.Navigation("Videos");
                 });
 #pragma warning restore 612, 618
         }

@@ -17,9 +17,12 @@
                 <div class="header__btn_wrapper">
                     <a class="header__btn btn btn_big" href="/BookClub/Create">Добавить новую книгу</a>
                 </div>
+                <div class="header__btn_wrapper">
+                    <a class="header__btn btn btn_big" href="/BookClub/FavoriteBooks">Список моих книг</a>
+                </div>
             </div>
             <div class="header__image">
-                <img src="/images/bookClub/header_image.webp" alt="A man read books">
+                <img src="/images/BookClub/header_image.webp" alt="A man read books">
             </div>
         </div>
     </div>
@@ -35,13 +38,13 @@
                 <div class="book__book_author">@book.BookAuthor</div>
                 <div class="book__book-images">
                     <div class="image_wrapper">
-                        <img src="/images/bookClub/cover.webp" alt="cover" class="book-image__item cover">
+                        <img src="/images/BookClub/cover.webp" alt="cover" class="book-image__item cover">
                     </div>
                     <div class="image_wrapper">
-                        <img src="/images/bookClub/back_cover.webp" alt="back cover" class="book-image__item back_cover">
+                        <img src="/images/BookClub/back_cover.webp" alt="back cover" class="book-image__item back_cover">
                     </div>
                     <div class="image_wrapper">
-                        <img src="/images/bookClub/contents.webp" alt="table contents" class="book-image__item contents">
+                        <img src="/images/BookClub/contents.webp" alt="table contents" class="book-image__item contents">
                     </div>
                 </div>
             </div>
@@ -59,7 +62,7 @@
 
         </div>
         <div class="content-page__reviews reviews">
-            @foreach (var review in book.Review)
+            @foreach (var review in book.Reviews)
             {
                 <div class="review">
                     <div>

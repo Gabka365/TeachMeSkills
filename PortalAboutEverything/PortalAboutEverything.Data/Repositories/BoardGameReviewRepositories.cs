@@ -27,7 +27,6 @@ namespace PortalAboutEverything.Data.Repositories
             review.BoardGame = boardGame;
 
             BoardGameReview updatedReview = Get(review.Id);
-            updatedReview.Name = review.Name;
             updatedReview.Text = review.Text;
 
             _dbContext.SaveChanges();

@@ -21,7 +21,7 @@ table {
 }
 
 thead th {
-    background-color: #faa71a;
+    background-color: #333;
     color: #fff;
     padding: 10px;
     text-align: left;
@@ -48,6 +48,8 @@ tbody td {
 .delete-link {
     color: red;
     text-decoration: none;
+    font-size: 30px;
+    font-weight: 500;
 }
 
 .delete-link:hover {
@@ -71,7 +73,7 @@ button {
 }
 
 .card-button {
-    margin-left: 100px;
+    margin-left: 20px;
 }
 
 .text-dark {
@@ -80,7 +82,7 @@ button {
 
 .delete-and-add {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .vk-share {

@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
@@ -16,9 +18,39 @@ namespace PortalAboutEverything.Data.Repositories
                 .FirstOrDefault(x => x.UserName == login && x.Password == password);
         }
 
+        public Language GetLanguage(int userId)
+        {
+            return _dbSet
+                .Where(x => x.Id == userId)
+                .Select(x => x.Language)
+                .First();
+        }
+
         public User? GetWithFavoriteBoardGames(int id)
              => _dbSet
             .Include(user => user.FavoriteBoardsGames)
             .Single(user => user.Id == id);
+
+        public void UpdatePermission(int userId, Permission userPermission)
+        {
+            var user = Get(userId);
+            user.Permission = userPermission;
+            _dbContext.SaveChanges();
+        }
+
+		public void AddMovieToMoviesFan(Movie movie, int userId)
+		{
+			var user = GetWithFavoriteMovies(userId);
+			var movies = user.FavoriteMovies;
+			movies.Add(movie);
+			user.FavoriteMovies = movies;
+
+			_dbContext.SaveChanges();
+		}
+
+		public User? GetWithFavoriteMovies(int id)
+			 => _dbSet
+			.Include(user => user.FavoriteMovies)
+			.Single(user => user.Id == id);
     }
 }

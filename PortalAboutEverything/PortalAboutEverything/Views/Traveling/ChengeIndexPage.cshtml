@@ -1,0 +1,20 @@
+﻿@model List<PortalAboutEverything.Models.Traveling.TravelingChengeIndexPageImageViewModel>
+
+<h2>Здесь можно заменить картинки на главной странице</h2>
+
+@foreach (var image in Model)
+{
+    <div>
+        <p>@image.ImageName</p>
+        <img src="@Url.Content(image.ImageUrl)" alt="Image" />
+
+        <form method="post" action="/Traveling/ChengeImageIndexPage" enctype="multipart/form-data">
+            <input type="hidden" name="oldImagePath" value="@image.ImageUrl" />
+            <input type="file" name="newImage" />
+            <p>Загрузить изображение</p>
+            <label for="file-upload"></label>
+            <input type="submit" value="Заменить" />
+        </form>
+    </div>
+}
+

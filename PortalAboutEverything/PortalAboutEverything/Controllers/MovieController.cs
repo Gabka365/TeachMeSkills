@@ -2,135 +2,219 @@
 using PortalAboutEverything.Models.Movie;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Model;
+using Microsoft.AspNetCore.Authorization;
+using PortalAboutEverything.Data.Enums;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers
 {
-	public class MovieController : Controller
-	{
-		private MovieRepositories _movieRepositories;
-		private MovieReviewRepositories _movieReviewRepositories;
+    public class MovieController : Controller
+    {
+        private MovieRepositories _movieRepositories;
+        private MovieReviewRepositories _movieReviewRepositories;
+        private AuthService _authService;
+        private UserRepository _userRepository;
 
-		public MovieController(MovieRepositories movieRepositories, MovieReviewRepositories movieReviewRepositories)
-		{
-			_movieRepositories = movieRepositories;
-			_movieReviewRepositories = movieReviewRepositories;
-		}
+        public MovieController(MovieRepositories movieRepositories,
+            MovieReviewRepositories movieReviewRepositories,
+            AuthService authService,
+            UserRepository userRepository)
+        {
+            _movieRepositories = movieRepositories;
+            _movieReviewRepositories = movieReviewRepositories;
+            _authService = authService;
+            _userRepository = userRepository;
+        }
 
-		public IActionResult Index()
-		{
-			var moviesViewModel = _movieRepositories.GetAllWithReviews().Select(movie => new MovieIndexViewModel
-			{
-				Id = movie.Id,
-				Name = movie.Name,
-				Description = movie.Description,
-				ReleaseYear = movie.ReleaseYear,
-				Director = movie.Director,
-				Budget = movie.Budget,
-				CountryOfOrigin = movie.CountryOfOrigin,
-				Reviews = movie.Reviews.Select(review => new MovieReviewViewModel
-				{
-					Rate = review.Rate,
-					DateOfCreation = review.DateOfCreation,
-					Comment = review.Comment,
-				}).ToList()
-			}).ToList();
+        public IActionResult Index()
+        {
+            var moviesViewModel = _movieRepositories.GetAllWithReviews().Select(movie => new MovieIndexViewModel
+            {
+                Id = movie.Id,
+                Name = movie.Name,
+                Description = movie.Description,
+                ReleaseYear = movie.ReleaseYear,
+                Director = movie.Director,
+                Budget = movie.Budget,
+                CountryOfOrigin = movie.CountryOfOrigin,
+                Reviews = movie.Reviews.Select(review => new MovieReviewViewModel
+                {
+                    Rate = review.Rate,
+                    DateOfCreation = review.DateOfCreation,
+                    Comment = review.Comment,
+                }).ToList()
+            }).ToList();
 
-			return View(moviesViewModel);
-		}
+            var viewModel = new IndexMovieAdminViewModel()
+            {
+                Movies = moviesViewModel,
+            };
 
-		public IActionResult GiveFeedback(MovieFeedbackViewModel movieFeedbackViewModel)
-		{
-			return View(movieFeedbackViewModel);
-		}
+            if (_authService.IsAuthenticated())
+            {
+                viewModel.IsMovieAdmin = _authService.HasRoleOrHigher(UserRole.MovieAdmin);
+            }
+            else
+            {
+                viewModel.IsMovieAdmin = false;
+            }
 
-		public IActionResult ShowFeedback(MovieShowFeedbackViewModel showFeedbackViewModel)
-		{
-			return View(showFeedbackViewModel);
-		}
+            return View(viewModel);
+        }
 
-		[HttpGet]
-		public IActionResult CreateMovie()
-		{
-			return View();
-		}
+        [Authorize]
+        public IActionResult GiveFeedback(MovieFeedbackViewModel movieFeedbackViewModel)
+        {
+            return View(movieFeedbackViewModel);
+        }
 
-		[HttpPost]
-		public IActionResult CreateMovie(MovieCreateViewModel movieCreateViewModel)
-		{
-			var movie = new Movie
-			{
-				Name = movieCreateViewModel.Name,
-				Description = movieCreateViewModel.Description,
-				ReleaseYear = movieCreateViewModel.ReleaseYear,
-				Director = movieCreateViewModel.Director,
-				Budget = movieCreateViewModel.Budget,
-				CountryOfOrigin = movieCreateViewModel.CountryOfOrigin,
-			};
+        public IActionResult ShowFeedback(MovieShowFeedbackViewModel showFeedbackViewModel)
+        {
+            return View(showFeedbackViewModel);
+        }
 
-			_movieRepositories.Create(movie);
-			return RedirectToAction("Index");
-		}
+        [HttpGet]
+        [Authorize]
+        [HasPermission(Permission.CanCreateMovie)]
+        public IActionResult CreateMovie()
+        {
+            return View();
+        }
 
-		public IActionResult DeleteMovie(int id)
-		{
-			_movieRepositories.Delete(id);
-			return RedirectToAction("Index");
-		}
+        [HttpPost]
+        [Authorize]
+        [HasPermission(Permission.CanCreateMovie)]
+        public IActionResult CreateMovie(MovieCreateViewModel movieCreateViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(movieCreateViewModel);
+            }
 
-		[HttpGet]
-		public IActionResult UpdateMovie(int id)
-		{
-			var movie = _movieRepositories.Get(id);
-			var viewModel = new MovieUpdateViewModel
-			{
-				Id = movie.Id,
-				Name = movie.Name,
-				Description = movie.Description,
-				ReleaseYear = movie.ReleaseYear,
-				Director = movie.Director,
-				Budget = movie.Budget,
-				CountryOfOrigin = movie.CountryOfOrigin,
-			};
-			return View(viewModel);
-		}
+            var movie = new Movie
+            {
+                Name = movieCreateViewModel.Name,
+                Description = movieCreateViewModel.Description,
+                ReleaseYear = movieCreateViewModel.ReleaseYear,
+                Director = movieCreateViewModel.Director,
+                Budget = movieCreateViewModel.Budget,
+                CountryOfOrigin = movieCreateViewModel.CountryOfOrigin,
+            };
 
-		[HttpPost]
-		public IActionResult UpdateMovie(MovieUpdateViewModel movieUpdateViewModel)
-		{
-			var movie = new Movie
-			{
-				Id = movieUpdateViewModel.Id,
-				Name = movieUpdateViewModel.Name,
-				Description = movieUpdateViewModel.Description,
-				ReleaseYear = movieUpdateViewModel.ReleaseYear,
-				Director = movieUpdateViewModel.Director,
-				Budget = movieUpdateViewModel.Budget,
-				CountryOfOrigin = movieUpdateViewModel.CountryOfOrigin,
-			};
+            _movieRepositories.Create(movie);
+            return RedirectToAction("Index");
+        }
 
-			_movieRepositories.Update(movie);
+        [Authorize]
+        [HasPermission(Permission.CanDeleteMovie)]
+        public IActionResult DeleteMovie(int id)
+        {
+            _movieRepositories.Delete(id);
+            return RedirectToAction("Index");
+        }
 
-			return RedirectToAction("Index");
-		}
+        [HttpGet]
+        [Authorize]
+        [HasPermission(Permission.CanUpdateMovie)]
+        public IActionResult UpdateMovie(int id)
+        {
+            var movie = _movieRepositories.Get(id);
+            var viewModel = new MovieUpdateViewModel
+            {
+                Id = movie.Id,
+                Name = movie.Name,
+                Description = movie.Description,
+                ReleaseYear = movie.ReleaseYear,
+                Director = movie.Director,
+                Budget = movie.Budget,
+                CountryOfOrigin = movie.CountryOfOrigin,
+            };
+            return View(viewModel);
+        }
 
-		[HttpGet]
-		public IActionResult MovieAddReview(int id)
-		{
-			var movie = _movieRepositories.Get(id);
-			var viewModel = new MovieAddReviewViewModel
-			{
-				MovieId = movie.Id,
-				Name = movie.Name,
-			};
-			return View(viewModel);
-		}
+        [HttpPost]
+        [Authorize]
+        [HasPermission(Permission.CanUpdateMovie)]
+        public IActionResult UpdateMovie(MovieUpdateViewModel movieUpdateViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(movieUpdateViewModel);
+            }
 
-		[HttpPost]
-		public IActionResult MovieAddReview(MovieAddReviewViewModel movieAddReviewViewModel)
-		{
-			_movieReviewRepositories.AddReviewToMovie(movieAddReviewViewModel.MovieId, 
-				movieAddReviewViewModel.Comment, movieAddReviewViewModel.Rate);
-			return RedirectToAction("Index");
-		}
-	}
+            var movie = new Movie
+            {
+                Id = movieUpdateViewModel.Id,
+                Name = movieUpdateViewModel.Name,
+                Description = movieUpdateViewModel.Description,
+                ReleaseYear = movieUpdateViewModel.ReleaseYear,
+                Director = movieUpdateViewModel.Director,
+                Budget = movieUpdateViewModel.Budget,
+                CountryOfOrigin = movieUpdateViewModel.CountryOfOrigin,
+            };
+
+            _movieRepositories.Update(movie);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize]
+        [HasPermission(Permission.CanLeaveReviewForMovie)]
+        public IActionResult MovieAddReview(int id)
+        {
+            var movie = _movieRepositories.Get(id);
+            var viewModel = new MovieAddReviewViewModel
+            {
+                MovieId = movie.Id,
+                Name = movie.Name,
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [HasPermission(Permission.CanLeaveReviewForMovie)]
+        public IActionResult MovieAddReview(MovieAddReviewViewModel movieAddReviewViewModel)
+        {
+            _movieReviewRepositories.AddReviewToMovie(movieAddReviewViewModel.MovieId,
+                movieAddReviewViewModel.Comment, movieAddReviewViewModel.Rate);
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult MoviesFan()
+        {
+            var userName = _authService.GetUserName();
+            var userId = _authService.GetUserId();
+            var movies = _movieRepositories.GetFavoriteMoviesByUserId(userId);
+            var viewModel = new MoviesFanViewModel
+            {
+                Name = userName,
+                Movies = movies.Select(movie => new MovieIndexViewModel
+                {
+                    Id = movie.Id,
+                    Name = movie.Name,
+                    Description = movie.Description,
+                    ReleaseYear = movie.ReleaseYear,
+                    Director = movie.Director,
+                    Budget = movie.Budget,
+                    CountryOfOrigin = movie.CountryOfOrigin,
+                }).ToList(),
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult AddMovieToMoviesFan(AddMovieToMoviesFanViewModel viewModel)
+        {
+            var userId = _authService.GetUserId();
+            var movie = _movieRepositories.Get(viewModel.MovieId);
+            _userRepository.AddMovieToMoviesFan(movie, userId);
+            return RedirectToAction("MoviesFan");
+        }
+    }
 }

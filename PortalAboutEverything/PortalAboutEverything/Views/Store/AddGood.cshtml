@@ -1,4 +1,4 @@
-﻿@model PortalAboutEverything.Models.Store.AddGoodViewModel;
+﻿@model PortalAboutEverything.Models.Store.GoodViewModel;
 
 @section Style {
     <link rel="stylesheet" href="/css/Store/style.css" />
@@ -10,12 +10,15 @@
     </div>
     <div>
         @Html.TextBoxFor(x => x.Name, new { placeholder = "Введите название товара", @class = "goodNameInput" })
+        @Html.ValidationMessageFor(x => x.Name)
     </div>
     <div>
         @Html.TextAreaFor(x => x.Description, new { placeholder = "Введите описание товара", @class = "goodDescriptionInput" })
+        @Html.ValidationMessageFor(x => x.Description)
     </div>
     <div>
-        @Html.TextBoxFor(x => x.Price, new { placeholder = "Введите цену товара", @class = "goodPriceInput" })
+        @Html.TextBoxFor(x => x.Price, new { placeholder = "Введите цену товара", @class = "goodPriceInput", type="number" })
+        @Html.ValidationMessageFor(x => x.Price)
     </div>
     <div class="addGoodBtnBlock">
         <input class="addGoodBtn" type="submit" value="Добавить" />

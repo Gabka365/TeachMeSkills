@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="/css/Traveling/nicepage.css" />
 }
 
-
 <div class="u-body u-xl-mode" data-lang="ru">
     <section class="u-align-center u-clearfix u-section-1" id="sec-b5d7">
         <div class="u-clearfix u-sheet u-sheet-1">
@@ -59,14 +58,19 @@
                                 </div>
                             </div>
                             <div class="comments">
-                                @foreach (var comment in post.Comments)
+                                @if(post.Comments is not null)
                                 {
-                                    <div>
-                                        <p>@comment.Text</p>
-                                    </div>
+                                    foreach (var comment in post.Comments)
+                                    {
+                                        <div>
+                                            <p>@comment.Text</p>
+                                        </div>
+                                    }
                                 }
-                                <form action="/Traveling/CreateComent/@post.Id" method="post">
-                                    <textarea name="text" placeholder="Напиши свой отзыв здесь"></textarea>
+                                
+                                <form action="/Traveling/CreateComment/" method="post">
+                                    <input type="hidden" name="PostId" value="@post.Id" />
+                                    <textarea name="text" placeholder="@((TempData["ErrorMessage"] != null) ? TempData["ErrorMessage"].ToString() : "Введите сообщение")"></textarea>
                                     <input type="submit" value="Отставить отзыв" />
                                 </form>
                             </div>
@@ -87,6 +91,3 @@
         </div>
     </section>
 </div>
-
-
-

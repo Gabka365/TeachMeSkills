@@ -1,31 +1,27 @@
 ﻿@model PortalAboutEverything.Models.BoardGame.BoardGameCreateReviewViewModel
+@using PortalAboutEverything.LocalizationResources.BoardGame
 
 @section Style {
     <link href="/css/BoardGame/forms.css" rel="stylesheet" />
 }
 
-<div class="review-form">
+<div class="board-game-or-review-form">
     <h2>
-        Напишите ваше мнение об игре "@Model.BoardGameName"
+        @BoardGame_CreateAndUpdateReview.TitleOfPageCreate "@Model.BoardGameName"
     </h2>
     <form method="post">
         @Html.HiddenFor(review => review.BoardGameId)
-        <div>
-            @Html.TextBoxFor(review => review.Name, new
-                {
-                    placeholder = "Ваше имя",
-                    @class = "reviewer-name"
-                })
-        </div>
+        @Html.HiddenFor(review => review.BoardGameName)
         <div>
             @Html.TextAreaFor(review => review.Text, new
                 {
-                    placeholder = "Ваш отзыв",
-                    @class = "reviewer-name"
+                    placeholder = $"{BoardGame_CreateAndUpdateReview.Text}",
+                    @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(review => review.Text)
         </div>
         <div>
-            <input class="button-send" type="submit" value="Опубликовать отзыв" />
+            <input class="button-send" type="submit" value="@BoardGame_CreateAndUpdateReview.CreateButton" />
         </div>
     </form>
 </div>

@@ -1,66 +1,75 @@
 ﻿@model PortalAboutEverything.Models.BoardGame.BoardGameUpdateViewModel
+@using PortalAboutEverything.LocalizationResources.BoardGame
 
 @section Style {
     <link href="/css/BoardGame/forms.css" rel="stylesheet" />
 }
 
-<div class="review-form">
+<div class="board-game-or-review-form">
     <h2>
-        Редактирование игры @Model.Title
+        @BoardGame_CreateAndUpdateGame.TitleOfPageUpdate @Model.OriginalTitle
     </h2>
     <form method="post">
         @Html.HiddenFor(boardGame => boardGame.Id)
+        @Html.HiddenFor(boardGame => boardGame.OriginalTitle)
         <div>
             @Html.TextBoxFor(boardGame => boardGame.Title, new
                 {
-                    placeholder = "Название игры",
-                    @class = "reviewer-name"
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.Title}",
+                    @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.Title)
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.MiniTitle, new
                 {
-                    placeholder = "Слоган игры",
-                    @class = "reviewer-name"
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.MiniTitle}",
+                    @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.MiniTitle)
         </div>
         <div>
             @Html.TextAreaFor(boardGame => boardGame.Description, new
                 {
-                    placeholder = "Описание игры",
-                    @class = "reviewer-name"
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.Description}",
+                    @class = "foarm-field"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.Description)
         </div>
         <div>
             @Html.TextAreaFor(boardGame => boardGame.Essence, new
                 {
-                    placeholder = "Суть игры",
-                    @class = "reviewer-name"
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.Essence}",
+                    @class = "foarm-field"
                 })
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.Tags, new
                 {
-                    placeholder = "Тег для игры",
-                    @class = "reviewer-name"
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.Tags}",
+                    @class = "foarm-field"
                 })
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.Price, new
                 {
-                    placeholder = "Цена игры",
-                    @class = "reviewer-name"
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.Price}",
+                    @class = "foarm-field",
+                    @type = "number"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.Price)
         </div>
         <div>
             @Html.TextBoxFor(boardGame => boardGame.ProductCode, new
                 {
-                    placeholder = "Код товара",
-                    @class = "reviewer-name"
+                    placeholder = $"{BoardGame_CreateAndUpdateGame.ProductCode}",
+                    @class = "foarm-field",
+                    @type = "number"
                 })
+            @Html.ValidationMessageFor(boardGame => boardGame.ProductCode)
         </div>
         <div>
-            <input class="button-send" type="submit" value="Сохранить изменения" />
+            <input class="button-send" type="submit" value="@BoardGame_CreateAndUpdateGame.SaveButton" />
         </div>
     </form>
 </div>
