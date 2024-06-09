@@ -10,10 +10,12 @@ namespace PortalAboutEverything.Data.Model
     {
         public int Id { get; set; }
 
-        public string? message { get; set; }
+        public string? Message { get; set; }
 
-        public string? Name { get; set; }
+        public string? Name { get; set; } 
 
         public DateTime? Now { get; set; }
+
+        public virtual List<CommentBlog> CommentsBlog { get; set; }
     }
 }
