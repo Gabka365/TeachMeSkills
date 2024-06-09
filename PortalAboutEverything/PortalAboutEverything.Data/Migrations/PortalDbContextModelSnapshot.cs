@@ -37,6 +37,21 @@ namespace PortalAboutEverything.Data.Migrations
                 b.ToTable("BoardGameUser");
             });
 
+            modelBuilder.Entity("BookUser", b =>
+                {
+                    b.Property<int>("FavoriteBooksOfUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersWhoAddBookToFavoritesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FavoriteBooksOfUserId", "UsersWhoAddBookToFavoritesId");
+
+                    b.HasIndex("UsersWhoAddBookToFavoritesId");
+
+                    b.ToTable("BookUser");
+                });
+
             modelBuilder.Entity("GameStoreUser", b =>
             {
                 b.Property<int>("MyGamesId")
@@ -577,6 +592,21 @@ namespace PortalAboutEverything.Data.Migrations
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
             });
+
+            modelBuilder.Entity("BookUser", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.BookClub.Book", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteBooksOfUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortalAboutEverything.Data.Model.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoAddBookToFavoritesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
             modelBuilder.Entity("GameStoreUser", b =>
             {

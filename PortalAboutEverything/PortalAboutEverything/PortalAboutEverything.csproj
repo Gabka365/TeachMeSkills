@@ -1,211 +1,184 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PortalAboutEverything.Data\PortalAboutEverything.Data.csproj" />
-    <ProjectReference Include="..\PortalAboutEverything.VideoServices\PortalAboutEverything.VideoServices.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\PortalAboutEverything.Data\PortalAboutEverything.Data.csproj" />
+		<ProjectReference Include="..\PortalAboutEverything.VideoServices\PortalAboutEverything.VideoServices.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateGame.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>BoardGame_CreateAndUpdateGame.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateReview.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>BoardGame_CreateAndUpdateReview.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\BoardGame\BoardGame_GamePage.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>BoardGame_GamePage.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\BoardGame\BoardGame_Index.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>BoardGame_Index.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\BoardGame\BoardGame_UserFavoritesGame.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>BoardGame_UserFavoritesGame.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\Movie_CreateMovie.Ru.Designer.cs">
-      <DependentUpon>Movie_CreateMovie.Ru.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="LocalizationResources\Movie_CreateMovie.Designer.cs">
-      <DependentUpon>Movie_CreateMovie.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="LocalizationResources\Movie_Index.Ru.Designer.cs">
-      <DependentUpon>Movie_Index.Ru.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="LocalizationResources\Movie_Index.Designer.cs">
-      <DependentUpon>Movie_Index.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="LocalizationResources\Game_Index.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Game_Index.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\Store\Store_AddOrUpdateGood.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Store_AddOrUpdateGood.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\Store\Store_GoodPage.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Store_GoodPage.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\Store\Store_Index.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Store_Index.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\VideoLibrary_Settings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>VideoLibrary_Settings.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\VideoLibrary_Index.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>VideoLibrary_Index.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\VideoLibrary_Liked.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>VideoLibrary_Liked.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\VideoLibrary_Player.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>VideoLibrary_Player.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LocalizationResources\VideoLibrary_Layout.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>VideoLibrary_Layout.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateGame.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>BoardGame_CreateAndUpdateGame.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateReview.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>BoardGame_CreateAndUpdateReview.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\BoardGame\BoardGame_GamePage.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>BoardGame_GamePage.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\BoardGame\BoardGame_Index.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>BoardGame_Index.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\BoardGame\BoardGame_UserFavoritesGame.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>BoardGame_UserFavoritesGame.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\Movie_CreateMovie.Ru.Designer.cs">
+			<DependentUpon>Movie_CreateMovie.Ru.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="LocalizationResources\Movie_CreateMovie.Designer.cs">
+			<DependentUpon>Movie_CreateMovie.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="LocalizationResources\Movie_Index.Ru.Designer.cs">
+			<DependentUpon>Movie_Index.Ru.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="LocalizationResources\Movie_Index.Designer.cs">
+			<DependentUpon>Movie_Index.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="LocalizationResources\Game_Index.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Game_Index.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\Traveling_Index.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Traveling_Index.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\VideoLibrary_Settings.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>VideoLibrary_Settings.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\VideoLibrary_Index.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>VideoLibrary_Index.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\VideoLibrary_Liked.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>VideoLibrary_Liked.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\VideoLibrary_Player.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>VideoLibrary_Player.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\VideoLibrary_Layout.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>VideoLibrary_Layout.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateGame.Ru.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateGame.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BoardGame_CreateAndUpdateGame.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateReview.Ru.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateReview.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BoardGame_CreateAndUpdateReview.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_GamePage.Ru.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_GamePage.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BoardGame_GamePage.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_Index.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BoardGame_Index.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_UserFavoritesGame.Ru.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_UserFavoritesGame.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BoardGame_UserFavoritesGame.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\Movie_CreateMovie.Ru.resx">
-      <LastGenOutput>Movie_CreateMovie.Ru.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\Movie_CreateMovie.resx">
-      <LastGenOutput>Movie_CreateMovie.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\Movie_Index.Ru.resx">
-      <LastGenOutput>Movie_Index.Ru.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\Movie_Index.resx">
-      <LastGenOutput>Movie_Index.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\Game_Index.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Game_Index.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\Store\Store_AddOrUpdateGood.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Store_AddOrUpdateGood.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\Store\Store_AddOrUpdateGood.ru-ru.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\Store\Store_GoodPage.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Store_GoodPage.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\Store\Store_GoodPage.ru-ru.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\Store\Store_Index.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Store_Index.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\Store\Store_Index.ru-ru.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\VideoLibrary_Settings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>VideoLibrary_Settings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\VideoLibrary_Index.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>VideoLibrary_Index.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\VideoLibrary_Liked.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>VideoLibrary_Liked.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\VideoLibrary_Player.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>VideoLibrary_Player.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LocalizationResources\VideoLibrary_Layout.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>VideoLibrary_Layout.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateGame.Ru.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateGame.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>BoardGame_CreateAndUpdateGame.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateReview.Ru.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateReview.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>BoardGame_CreateAndUpdateReview.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_GamePage.Ru.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_GamePage.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>BoardGame_GamePage.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_Index.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>BoardGame_Index.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_UserFavoritesGame.Ru.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_UserFavoritesGame.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>BoardGame_UserFavoritesGame.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\Movie_CreateMovie.Ru.resx">
+			<LastGenOutput>Movie_CreateMovie.Ru.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\Movie_CreateMovie.resx">
+			<LastGenOutput>Movie_CreateMovie.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\Movie_Index.Ru.resx">
+			<LastGenOutput>Movie_Index.Ru.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\Movie_Index.resx">
+			<LastGenOutput>Movie_Index.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\Game_Index.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Game_Index.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\Traveling_Index.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Traveling_Index.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\VideoLibrary_Settings.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>VideoLibrary_Settings.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\VideoLibrary_Index.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>VideoLibrary_Index.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\VideoLibrary_Liked.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>VideoLibrary_Liked.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\VideoLibrary_Player.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>VideoLibrary_Player.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\VideoLibrary_Layout.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>VideoLibrary_Layout.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\Game\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\images\Game\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="8.0.6" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="System.Drawing.Common" Version="8.0.6" />
+	</ItemGroup>
 
 </Project>

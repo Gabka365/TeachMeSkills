@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using System.Linq;
 using PortalAboutEverything.Services.AuthStuff;
 
+
 namespace PortalAboutEverything.Controllers
 {
     public class TravelingController : Controller
@@ -50,14 +51,14 @@ namespace PortalAboutEverything.Controllers
             var dateTime6 = new DateTime(2010, 2, 21);
 
             var model = new TravelingIndexViewModel();
-            model.TravelingDate.Add(dateTime1);
-            model.TravelingDate.Add(dateTime2);
-            model.TravelingDate.Add(dateTime3);
-            model.TravelingDate.Add(dateTime4);
-            model.TravelingDate.Add(dateTime5);
-            model.TravelingDate.Add(dateTime6);
+            model.TravelingDates.Add(dateTime1);
+            model.TravelingDates.Add(dateTime2);
+            model.TravelingDates.Add(dateTime3);
+            model.TravelingDates.Add(dateTime4);
+            model.TravelingDates.Add(dateTime5);
+            model.TravelingDates.Add(dateTime6);
 
-            model.IsTravingAdmin = User.Identity!.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
+            model.IsTravingAdmin = User.Identity.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
 
             return View(model);
         }
@@ -68,8 +69,22 @@ namespace PortalAboutEverything.Controllers
         public IActionResult ChengeIndexPage()
         {
             var images = Directory.EnumerateFiles(Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling"))
-                                .Select(fn => "~/images/Traveling/" + Path.GetFileName(fn));
-            return View(images);
+                                  .Select(fn => "~/images/Traveling/" + Path.GetFileName(fn));
+
+            var model = new List<TravelingChengeIndexPageImageViewModel>();
+
+            foreach (var imageUrl in images)
+            {
+                var imageName = Path.GetFileName(imageUrl);
+                var imageModel = new TravelingChengeIndexPageImageViewModel
+                {
+                    ImageName = imageName,
+                    ImageUrl = imageUrl
+                };
+                model.Add(imageModel);
+            };
+
+            return View(model);
         }
         [Authorize]
         [HttpPost]

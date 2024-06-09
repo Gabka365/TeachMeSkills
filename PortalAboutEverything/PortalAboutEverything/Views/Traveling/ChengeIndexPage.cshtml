@@ -1,13 +1,15 @@
-﻿@model IEnumerable<string>
+﻿@model List<PortalAboutEverything.Models.Traveling.TravelingChengeIndexPageImageViewModel>
 
 <h2>Здесь можно заменить картинки на главной странице</h2>
+
 @foreach (var image in Model)
 {
     <div>
-        <p>@System.IO.Path.GetFileName(image)</p>
-        <img src="@Url.Content(image)" alt="Image" />
+        <p>@image.ImageName</p>
+        <img src="@Url.Content(image.ImageUrl)" alt="Image" />
+
         <form method="post" action="/Traveling/ChengeImageIndexPage" enctype="multipart/form-data">
-            <input type="hidden" name="oldImagePath" value="@image" />
+            <input type="hidden" name="oldImagePath" value="@image.ImageUrl" />
             <input type="file" name="newImage" />
             <p>Загрузить изображение</p>
             <label for="file-upload"></label>
