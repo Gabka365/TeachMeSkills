@@ -15,8 +15,8 @@
         CanCreateAndUpdateBoardGames = 256,
         CanDeleteBoardGames = 512,
         CanModerateReviewsOfBoardGames = 1024,
-        CanCreateGameInGameStore = 2048,
-        CanDeleteGameInGameStore = 4096,
-        CanUpdateGameInGameStore = 8192,
+        CanCreateGameInGameStore = 4096,
+        CanDeleteGameInGameStore = 8192,
+        CanUpdateGameInGameStore = 16384,
     }
 }
