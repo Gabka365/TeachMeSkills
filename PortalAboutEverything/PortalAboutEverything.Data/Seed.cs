@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Model.BookClub;
 using PortalAboutEverything.Data.Repositories;
 
 namespace PortalAboutEverything.Data
@@ -15,6 +16,7 @@ namespace PortalAboutEverything.Data
             FillGames(service);
             FillBoardGames(service);
             FillMovies(service);
+            FillBooks(service);
         }
 
         private void FillGames(IServiceScope service)
@@ -62,6 +64,34 @@ namespace PortalAboutEverything.Data
             }
         }
 
+        private void FillBooks(IServiceScope service)
+        {
+            var bookRepositor = service.ServiceProvider.GetService<BookRepositories>()!;
+            if (!bookRepositor.Any())
+            {
+                var CSharpInDepth = new Book
+                {
+                    BookAuthor = "Jon Skeet",
+                    BookTitle = "C# in Depth",
+                    SummaryOfBook = "C# in Depth, Fourth Edition is your key to unlocking the powerful new features added to the language in C# 5," +
+                    " 6, and 7. Following the expert guidance of C# legend Jon Skeet, you'll master asynchronous functions, expression-bodied members," +
+                    " interpolated strings, tuples, and much more",
+                    YearOfPublication = 2019
+                };
+                bookRepositor.Create(CSharpInDepth);  
+
+                var ASPNETCoreinAction = new Book
+                {
+                    BookAuthor = "ANDREW LOCK",
+                    BookTitle = "ASP.NET Core in Action",
+                    SummaryOfBook = "Fantastic book. The topics are explained clearly and thoroughly. It’s well written and researched. " +
+                    "If you want a thorough understanding of ASP.NET Core,this is where you need to start.",
+                    YearOfPublication = 2019
+                };
+                bookRepositor.Create(ASPNETCoreinAction);
+            }
+        }
+
         private void FillUsers(IServiceScope service)
         {
             var userRepository = service.ServiceProvider.GetService<UserRepository>()!;
@@ -91,6 +121,7 @@ namespace PortalAboutEverything.Data
                     UserName = "travelingAdmin",
                     Password = "travelingAdmin",
                     Role = UserRole.TravelingAdmin,
+                    Language= Language.En   
                 };
                 userRepository.Create(travelingAdmin);
               
@@ -117,7 +148,7 @@ namespace PortalAboutEverything.Data
                     Description = "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.",
                     ReleaseYear = 2010,
                     Director = "Christopher Nolan",
-                    Budget = 160000000,
+                    Budget = 160_000_000,
                     CountryOfOrigin = "USA",
                 };
                 movieRepositories.Create(inception);
@@ -128,7 +159,7 @@ namespace PortalAboutEverything.Data
                     Description = "After young Riley is uprooted from her Midwest life and moved to San Francisco, her emotions - Joy, Fear, Anger, Disgust and Sadness - conflict on how best to navigate a new city, house, and school.",
                     ReleaseYear = 2015,
                     Director = "Pete Docter",
-                    Budget = 175000000,
+                    Budget = 175_000_000,
                     CountryOfOrigin = "USA",
                 };
                 movieRepositories.Create(insideOut);

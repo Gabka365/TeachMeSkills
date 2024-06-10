@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalAboutEverything.Data;
 
@@ -11,9 +12,11 @@ using PortalAboutEverything.Data;
 namespace PortalAboutEverything.Data.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    partial class PortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240604155225_MovieDescriptionCanBeNull")]
+    partial class MovieDescriptionCanBeNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,21 +38,6 @@ namespace PortalAboutEverything.Data.Migrations
                     b.HasIndex("UsersWhoFavoriteThisBoardGameId");
 
                     b.ToTable("BoardGameUser");
-                });
-
-            modelBuilder.Entity("BookUser", b =>
-                {
-                    b.Property<int>("FavoriteBooksOfUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersWhoAddBookToFavoritesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FavoriteBooksOfUserId", "UsersWhoAddBookToFavoritesId");
-
-                    b.HasIndex("UsersWhoAddBookToFavoritesId");
-
-                    b.ToTable("BookUser");
                 });
 
             modelBuilder.Entity("GameStoreUser", b =>
@@ -82,21 +70,6 @@ namespace PortalAboutEverything.Data.Migrations
                     b.ToTable("GameUser");
                 });
 
-            modelBuilder.Entity("MovieUser", b =>
-                {
-                    b.Property<int>("FavoriteMoviesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersWhoFavoriteTheMovieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FavoriteMoviesId", "UsersWhoFavoriteTheMovieId");
-
-                    b.HasIndex("UsersWhoFavoriteTheMovieId");
-
-                    b.ToTable("MovieUser");
-                });
-
             modelBuilder.Entity("GoodUser", b =>
                 {
                     b.Property<int>("FavouriteGoodsId")
@@ -110,6 +83,21 @@ namespace PortalAboutEverything.Data.Migrations
                     b.HasIndex("UsersWhoLikedTheGoodId");
 
                     b.ToTable("GoodUser");
+                });
+
+            modelBuilder.Entity("MovieUser", b =>
+                {
+                    b.Property<int>("FavoriteMoviesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersWhoFavoriteTheMovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FavoriteMoviesId", "UsersWhoFavoriteTheMovieId");
+
+                    b.HasIndex("UsersWhoFavoriteTheMovieId");
+
+                    b.ToTable("MovieUser");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGame", b =>
@@ -593,21 +581,6 @@ namespace PortalAboutEverything.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BookUser", b =>
-                {
-                    b.HasOne("PortalAboutEverything.Data.Model.BookClub.Book", null)
-                        .WithMany()
-                        .HasForeignKey("FavoriteBooksOfUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PortalAboutEverything.Data.Model.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersWhoAddBookToFavoritesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("GameStoreUser", b =>
                 {
                     b.HasOne("PortalAboutEverything.Data.Model.GameStore", null)
@@ -638,21 +611,6 @@ namespace PortalAboutEverything.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MovieUser", b =>
-                {
-                    b.HasOne("PortalAboutEverything.Data.Model.Movie", null)
-                        .WithMany()
-                        .HasForeignKey("FavoriteMoviesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PortalAboutEverything.Data.Model.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersWhoFavoriteTheMovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("GoodUser", b =>
                 {
                     b.HasOne("PortalAboutEverything.Data.Model.Store.Good", null)
@@ -664,6 +622,21 @@ namespace PortalAboutEverything.Data.Migrations
                     b.HasOne("PortalAboutEverything.Data.Model.User", null)
                         .WithMany()
                         .HasForeignKey("UsersWhoLikedTheGoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MovieUser", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteMoviesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortalAboutEverything.Data.Model.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoFavoriteTheMovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

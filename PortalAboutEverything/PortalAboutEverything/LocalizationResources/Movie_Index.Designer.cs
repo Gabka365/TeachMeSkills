@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PortalAboutEverything.LocalizationResources.BoardGame {
+namespace PortalAboutEverything.LocalizationResources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class BoardGame_GamePage {
+    public class Movie_Index {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal BoardGame_GamePage() {
+        internal Movie_Index() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PortalAboutEverything.LocalizationResources.BoardGame.BoardGame_GamePage", typeof(BoardGame_GamePage).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PortalAboutEverything.LocalizationResources.Movie_Index", typeof(Movie_Index).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,155 +61,146 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no reviews yet. Leave the first one!.
+        ///   Looks up a localized string similar to Add.
         /// </summary>
-        public static string AbsenceOfReviewsText {
+        public static string Add {
             get {
-                return ResourceManager.GetString("AbsenceOfReviewsText", resourceCulture);
+                return ResourceManager.GetString("Add", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Write a review.
+        ///   Looks up a localized string similar to Choose an action:.
         /// </summary>
-        public static string AddReview {
+        public static string ChooseAction {
             get {
-                return ResourceManager.GetString("AddReview", resourceCulture);
+                return ResourceManager.GetString("ChooseAction", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to cart.
+        ///   Looks up a localized string similar to Country of origin:.
         /// </summary>
-        public static string AddToCart {
+        public static string CountryOfOrigin {
             get {
-                return ResourceManager.GetString("AddToCart", resourceCulture);
+                return ResourceManager.GetString("CountryOfOrigin", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To favorites.
+        ///   Looks up a localized string similar to Create a movie.
         /// </summary>
-        public static string AddToFavorites {
+        public static string CreateMovie {
             get {
-                return ResourceManager.GetString("AddToFavorites", resourceCulture);
+                return ResourceManager.GetString("CreateMovie", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Advertising banner.
+        ///   Looks up a localized string similar to Delete.
         /// </summary>
-        public static string AdvertisingBanner {
+        public static string Delete {
             get {
-                return ResourceManager.GetString("AdvertisingBanner", resourceCulture);
+                return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description.
+        ///   Looks up a localized string similar to Leave a review.
         /// </summary>
-        public static string Description {
+        public static string LeaveReview {
             get {
-                return ResourceManager.GetString("Description", resourceCulture);
+                return ResourceManager.GetString("LeaveReview", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Essence.
+        ///   Looks up a localized string similar to Leave a review for the movie.
         /// </summary>
-        public static string Essence {
+        public static string LeaveReviewForMovie {
             get {
-                return ResourceManager.GetString("Essence", resourceCulture);
+                return ResourceManager.GetString("LeaveReviewForMovie", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Foto of game.
+        ///   Looks up a localized string similar to List of movies:.
         /// </summary>
-        public static string FotoOfGame {
+        public static string ListOfMovies {
             get {
-                return ResourceManager.GetString("FotoOfGame", resourceCulture);
+                return ResourceManager.GetString("ListOfMovies", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Game libraries.
+        ///   Looks up a localized string similar to Movie.
         /// </summary>
-        public static string GameLibraries {
+        public static string Movie {
             get {
-                return ResourceManager.GetString("GameLibraries", resourceCulture);
+                return ResourceManager.GetString("Movie", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manufacturer - hobbygames.
+        ///   Looks up a localized string similar to Budget of the movie:.
         /// </summary>
-        public static string Manufacturer {
+        public static string MovieBudget {
             get {
-                return ResourceManager.GetString("Manufacturer", resourceCulture);
+                return ResourceManager.GetString("MovieBudget", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product code.
+        ///   Looks up a localized string similar to Description of the movie:.
         /// </summary>
-        public static string ProductCode {
+        public static string MovieDescription {
             get {
-                return ResourceManager.GetString("ProductCode", resourceCulture);
+                return ResourceManager.GetString("MovieDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove from favorites.
+        ///   Looks up a localized string similar to Director of the movie:.
         /// </summary>
-        public static string RemoveFromFavorites {
+        public static string MovieDirector {
             get {
-                return ResourceManager.GetString("RemoveFromFavorites", resourceCulture);
+                return ResourceManager.GetString("MovieDirector", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reviews.
+        ///   Looks up a localized string similar to The page of movie fan.
         /// </summary>
-        public static string Reviews {
+        public static string MovieFanPage {
             get {
-                return ResourceManager.GetString("Reviews", resourceCulture);
+                return ResourceManager.GetString("MovieFanPage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The shops.
+        ///   Looks up a localized string similar to Rate:.
         /// </summary>
-        public static string Shops {
+        public static string Rate {
             get {
-                return ResourceManager.GetString("Shops", resourceCulture);
+                return ResourceManager.GetString("Rate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show more.
+        ///   Looks up a localized string similar to Release year:.
         /// </summary>
-        public static string ShowMore {
+        public static string ReleaseYear {
             get {
-                return ResourceManager.GetString("ShowMore", resourceCulture);
+                return ResourceManager.GetString("ReleaseYear", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Side images.
+        ///   Looks up a localized string similar to to favorites.
         /// </summary>
-        public static string SideImages {
+        public static string ToFavorites_LowerCase {
             get {
-                return ResourceManager.GetString("SideImages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Work schedule.
-        /// </summary>
-        public static string WorkSchedule {
-            get {
-                return ResourceManager.GetString("WorkSchedule", resourceCulture);
+                return ResourceManager.GetString("ToFavorites_LowerCase", resourceCulture);
             }
         }
     }

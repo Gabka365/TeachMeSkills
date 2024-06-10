@@ -97,7 +97,7 @@
     background-repeat: no-repeat;
     border-color: transparent;
     border-style: solid;
-    background-image: url("images/bookClub/background_content.png");
+    background-image: url("/images/BookClub/background_content.png");
 }
 
 .book__book_title {

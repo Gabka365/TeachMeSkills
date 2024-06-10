@@ -10,8 +10,8 @@
 
 namespace PortalAboutEverything.LocalizationResources {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,27 +19,27 @@ namespace PortalAboutEverything.LocalizationResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class VideoLibrary_Liked {
+    public class Movie_CreateMovie___Copy {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal VideoLibrary_Liked() {
+        internal Movie_CreateMovie___Copy() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PortalAboutEverything.LocalizationResources.VideoLibrary_Liked", typeof(VideoLibrary_Liked).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PortalAboutEverything.LocalizationResources.Movie_CreateMovie - Copy", typeof(Movie_CreateMovie___Copy).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace PortalAboutEverything.LocalizationResources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,56 +61,65 @@ namespace PortalAboutEverything.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export videos.
+        ///   Looks up a localized string similar to budget.
         /// </summary>
-        internal static string ExportVideos {
+        public static string Budget__LowerCase {
             get {
-                return ResourceManager.GetString("ExportVideos", resourceCulture);
+                return ResourceManager.GetString("Budget__LowerCase", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No videos.
+        ///   Looks up a localized string similar to country of origin.
         /// </summary>
-        internal static string NoVideos {
+        public static string CountryOfOrigin__LowerCase {
             get {
-                return ResourceManager.GetString("NoVideos", resourceCulture);
+                return ResourceManager.GetString("CountryOfOrigin__LowerCase", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Liked videos.
+        ///   Looks up a localized string similar to create.
         /// </summary>
-        internal static string PageTitle {
+        public static string Create__LowerCase {
             get {
-                return ResourceManager.GetString("PageTitle", resourceCulture);
+                return ResourceManager.GetString("Create__LowerCase", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Play first.
+        ///   Looks up a localized string similar to description.
         /// </summary>
-        internal static string PlayFirst {
+        public static string Description__LowerCase {
             get {
-                return ResourceManager.GetString("PlayFirst", resourceCulture);
+                return ResourceManager.GetString("Description__LowerCase", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shuffle.
+        ///   Looks up a localized string similar to director.
         /// </summary>
-        internal static string Shuffle {
+        public static string Director__LowerCase {
             get {
-                return ResourceManager.GetString("Shuffle", resourceCulture);
+                return ResourceManager.GetString("Director__LowerCase", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total videos.
+        ///   Looks up a localized string similar to movie title.
         /// </summary>
-        internal static string TotalVideos {
+        public static string MovieTitle_LowerCase {
             get {
-                return ResourceManager.GetString("TotalVideos", resourceCulture);
+                return ResourceManager.GetString("MovieTitle_LowerCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to release year.
+        /// </summary>
+        public static string ReleaseYear__LowerCase {
+            get {
+                return ResourceManager.GetString("ReleaseYear__LowerCase", resourceCulture);
             }
         }
     }
