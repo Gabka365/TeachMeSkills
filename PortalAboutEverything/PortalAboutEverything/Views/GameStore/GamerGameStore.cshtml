@@ -1,6 +1,14 @@
 ﻿@model PortalAboutEverything.Models.GameStore.GamerGameStoreViewModel
+
+@section Style {
+    <link rel="stylesheet" href="/css/GameStore/style.css?v=1" />
+}
+
 <div>
     Добро Пожаловать в наш магазин игр @Model.Name
+</div>
+<div>   
+    Вот список игр которые вы у нас приобрели:
 </div>
 
 @foreach (var game in Model.Games)
