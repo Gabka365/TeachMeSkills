@@ -18,6 +18,12 @@ namespace PortalAboutEverything.Services
             return GetPathByFolder("images\\Game", fileName);
         }
 
+        public string GetPathToMovieImage(int movieId)
+        {
+            var fileName = $"cover-{movieId}.jpg";
+            return GetPathByFolder("images\\Movie", fileName);
+        }
+
         public bool IsGameCoverExist(int id)
         {
             var path = GetPathToGameCover(id);
@@ -45,6 +51,12 @@ namespace PortalAboutEverything.Services
         public bool IsBoardGameSideImageExist(int id)
         {
             var path = GetPathToBoardGameSideImage(id);
+            return File.Exists(path);
+        }
+
+        public bool IsMovieImageExist(int id)
+        {
+            var path = GetPathToMovieImage(id);
             return File.Exists(path);
         }
 

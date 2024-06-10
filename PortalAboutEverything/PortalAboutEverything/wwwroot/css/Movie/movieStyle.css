@@ -33,3 +33,8 @@
 .dateReview {
     text-align: right;
 }
+
+.movieImage {
+    max-width: 150px;
+    max-height: 200px
+}
