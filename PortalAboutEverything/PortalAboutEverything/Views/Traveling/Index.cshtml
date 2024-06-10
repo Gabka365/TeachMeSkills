@@ -1,5 +1,5 @@
 ﻿@model PortalAboutEverything.Models.Traveling.TravelingIndexViewModel
-
+@using PortalAboutEverything.LocalizationResources
 @section Style {
     <link rel="stylesheet" href="/css/Traveling/style.css" />
 }
@@ -14,25 +14,25 @@
 
                 <li class="header_list-items">
                     <a href="#" class="header_list-item">
-                        Home
+                        @Traveling_Index.Home
                     </a>
                 </li>
 
                 <li class="header_list-items">
                     <a href="#" class="header_list-item">
-                        Categories
+                        @Traveling_Index.Categories
                     </a>
                 </li>
 
                 <li class="header_list-items">
                     <a href="#" class="header_list-item">
-                        About
+                        @Traveling_Index.About
                     </a>
                 </li>
 
                 <li class="header_list-items">
                     <a href="#" class="header_list-item">
-                        Contact
+                        @Traveling_Index.Contact
                     </a>
                 </li>
 
@@ -40,7 +40,7 @@
                 {
                     <li class="header_list-items">
                         <a href="ChengeIndexPage" class="header_list-item">
-                            Cheng Index
+                            @Traveling_Index.ChengIndex
                         </a>
                     </li>
                 }
@@ -48,16 +48,16 @@
         </div>
         <div class="wrapper_title grid">
             <h1 class="header_title">
-                Let's do it together.
+                @Traveling_Index.IndexTitle
             </h1>
 
             <p class="header_disc">
-                We travel the world in search of stories. Come along for the ride.
+                @Traveling_Index.IndexTitleDesc
             </p>
             <div class="wraper_btn">
 
                 <a href="/Traveling/TravelingPosts" class="title_btn btn-reset">
-                    View Latest Posts
+                    @Traveling_Index.IndexTitleBtn
                 </a>
             </div>
 
@@ -66,22 +66,22 @@
     <div class="wrrape_nav_bg">
         <ul class="nav_bg flex">
             <li class="nav_bg-items">
-                <a href="#" class="nav_bg-item">Nature</a>
+                <a href="#" class="nav_bg-item"> @Traveling_Index.Nature</a>
             </li>
             <li class="nav_bg-items">
-                <a href="#" class="nav_bg-item">Photography</a>
+                <a href="#" class="nav_bg-item"> @Traveling_Index.Photography</a>
             </li>
             <li class="nav_bg-items">
-                <a href="#" class="nav_bg-item">Relaxation</a>
+                <a href="#" class="nav_bg-item"> @Traveling_Index.Relaxation</a>
             </li>
             <li class="nav_bg-items">
-                <a href="#" class="nav_bg-item">Vacation</a>
+                <a href="#" class="nav_bg-item"> @Traveling_Index.Vacation</a>
             </li>
             <li class="nav_bg-items">
-                <a href="#" class="nav_bg-item">Travel</a>
+                <a href="#" class="nav_bg-item"> @Traveling_Index.Travel</a>
             </li>
             <li class="nav_bg-items">
-                <a href="#" class="nav_bg-item">Adventure</a>
+                <a href="#" class="nav_bg-item"> @Traveling_Index.Adventure</a>
             </li>
         </ul>
     </div>
@@ -91,7 +91,7 @@
             <!-- featured -->
             <section class="featured">
                 <div class="wriper__title">
-                    <h2 class="featured__title">Featured Posts</h2>
+                    <h2 class="featured__title"> @Traveling_Index.FeaturedPosts</h2>
                 </div>
                 <div class="featured__cards grid">
 
@@ -109,7 +109,7 @@
                             </p>
 
                             <p class="card__data">
-                                @Model.TravelingDate[1].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
+                                @Model.TravelingDates[1].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
                             </p>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                             </p>
 
                             <p class="card__data">
-                                @Model.TravelingDate[2].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
+                                @Model.TravelingDates[2].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
                             </p>
                         </div>
                     </div>
@@ -143,7 +143,7 @@
 
                 <div class="mostRecent__wrapper-title">
                     <h2 class="mostRecent-title">
-                        Most Recent
+                        @Traveling_Index.MostRecent
                     </h2>
                 </div>
 
@@ -162,7 +162,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.TravelingDate[3].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
+                                @Model.TravelingDates[3].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
                             </p>
                         </div>
                     </div>
@@ -180,7 +180,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.TravelingDate[4].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
+                                @Model.TravelingDates[4].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
                             </p>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.TravelingDate[5].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
+                                @Model.TravelingDates[5].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
                             </p>
                         </div>
                     </div>
@@ -216,7 +216,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.TravelingDate[0].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
+                                @Model.TravelingDates[0].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
                             </p>
                         </div>
                     </div>
@@ -234,7 +234,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.TravelingDate[1].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
+                                @Model.TravelingDates[1].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
                             </p>
                         </div>
                     </div>
@@ -252,7 +252,7 @@
                             </p>
 
                             <p class="mostRecent__card__data">
-                                @Model.TravelingDate[2].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
+                                @Model.TravelingDates[2].ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture)
                             </p>
                         </div>
                     </div>

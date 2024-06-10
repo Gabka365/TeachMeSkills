@@ -16,27 +16,31 @@
     margin-top: 10px;
 }
 
-.addGoodBtn,
-.updateGoodBtn,
-.deleteGoodBtn {
+.addGoodLink,
+.updateGoodLink,
+.deleteGoodLink {
     margin-top: 10px;
     width: 200px;
     padding: 10px;
     background: #e103cc;
     border: none;
     border-radius: 5px;
+    display: block;
+    text-align: center;
 }
 
-    .addGoodBtn:hover,
-    .updateGoodBtn:hover,
-    .deleteGoodBtn:hover {
+    .addGoodLink:hover,
+    .updateGoodLink:hover,
+    .deleteGoodLink:hover {
         opacity: 0.7;
+        color: white;
     }
 
-    .addGoodBtn:active,
+    .addGoodLink:active,
     .updateGoodLink:active,
-    .deleteGoodBtn:active {
+    .deleteGoodLink:active {
         opacity: 0.5;
+        color: white;
     }
 
 .addGoodLink,

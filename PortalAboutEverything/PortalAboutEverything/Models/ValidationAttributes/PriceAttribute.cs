@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PortalAboutEverything.LocalizationResources.BoardGame;
+using System.ComponentModel.DataAnnotations;
 
 namespace PortalAboutEverything.Models.ValidationAttributes
 {
@@ -6,9 +7,22 @@ namespace PortalAboutEverything.Models.ValidationAttributes
     {
         public override string FormatErrorMessage(string name)
         {
-            var errorMessage = "Цена не может быть отрицательной или равной 0";
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                return ErrorMessage;
+            }
 
-            return string.IsNullOrEmpty(ErrorMessage) ? errorMessage : ErrorMessage;
+            var defaultErrorMessage = BoardGame_CreateAndUpdateGame.Price_ValidationErrorMessage;
+
+            if (ErrorMessageResourceType is not null
+                && ErrorMessageResourceName is not null)
+            {
+                var property = ErrorMessageResourceType.GetProperty(ErrorMessageResourceName);
+                var value = property!.GetValue(null);
+                defaultErrorMessage = (string)value!;
+            }
+
+            return defaultErrorMessage;
         }
 
         public override bool IsValid(object? value)

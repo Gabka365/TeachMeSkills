@@ -117,76 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddButton" xml:space="preserve">
-    <value>Add a game</value>
+  <data name="About" xml:space="preserve">
+    <value>О нас</value>
   </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description of the game</value>
+  <data name="Adventure" xml:space="preserve">
+    <value>Приключение</value>
   </data>
-  <data name="DisplayDescription_Name" xml:space="preserve">
-    <value>Description</value>
+  <data name="Categories" xml:space="preserve">
+    <value>Категории</value>
   </data>
-  <data name="DisplayMainImage_Name" xml:space="preserve">
-    <value>Main image</value>
+  <data name="ChengIndex" xml:space="preserve">
+    <value>Изменение</value>
   </data>
-  <data name="DisplayMiniTitle_Name" xml:space="preserve">
-    <value>Slogan</value>
+  <data name="Contact" xml:space="preserve">
+    <value>Контакты</value>
   </data>
-  <data name="DisplaySideImage_Name" xml:space="preserve">
-    <value>Side image</value>
+  <data name="FeaturedPosts" xml:space="preserve">
+    <value>Популярные сообщения</value>
   </data>
-  <data name="DisplayTitle_Name" xml:space="preserve">
-    <value>Title</value>
+  <data name="Home" xml:space="preserve">
+    <value>Главная</value>
   </data>
-  <data name="Essence" xml:space="preserve">
-    <value>The essence of the game</value>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Давай сделаем это вместе.</value>
   </data>
-  <data name="MiniTitle" xml:space="preserve">
-    <value>The slogan of the game</value>
+  <data name="IndexTitleBtn" xml:space="preserve">
+    <value>Просмотреть последние посты</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>The price of the game</value>
+  <data name="IndexTitleDesc" xml:space="preserve">
+    <value>Мы путешествуем по миру в поисках историй. Приходите на прогулку.</value>
   </data>
-  <data name="Price_ValidationErrorMessage" xml:space="preserve">
-    <value>The price cannot be negative or equal to 0</value>
+  <data name="MostRecent" xml:space="preserve">
+    <value>Пследние</value>
   </data>
-  <data name="ProductCode" xml:space="preserve">
-    <value>Product code</value>
+  <data name="Nature" xml:space="preserve">
+    <value>Природа</value>
   </data>
-  <data name="ProductCode_ValidationErrorMessage" xml:space="preserve">
-    <value>The product code must be a positive number of 5 digits</value>
+  <data name="Photography" xml:space="preserve">
+    <value>Фотография</value>
   </data>
-  <data name="RequiredDescription_ErrorMessage" xml:space="preserve">
-    <value>The description cannot be empty</value>
+  <data name="Relaxation" xml:space="preserve">
+    <value>Релаксация</value>
   </data>
-  <data name="RequiredMainImage_ErrorMessage" xml:space="preserve">
-    <value>The main image of the game cannot be missing</value>
+  <data name="Travel" xml:space="preserve">
+    <value>Путешествие</value>
   </data>
-  <data name="RequiredMiniTitle_ErrorMessage" xml:space="preserve">
-    <value>The slogan cannot be empty</value>
-  </data>
-  <data name="RequiredPrice_ErrorMessage" xml:space="preserve">
-    <value>The price cannot be empty</value>
-  </data>
-  <data name="RequiredProductCode_ErrorMessage" xml:space="preserve">
-    <value>The product code cannot be empty</value>
-  </data>
-  <data name="RequiredTitle_ErrorMessage" xml:space="preserve">
-    <value>The title cannot be empty</value>
-  </data>
-  <data name="SaveButton" xml:space="preserve">
-    <value>Save changes</value>
-  </data>
-  <data name="Tags" xml:space="preserve">
-    <value>Tag for the game</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>The title of the game</value>
-  </data>
-  <data name="TitleOfPageCreate" xml:space="preserve">
-    <value>Add a new game</value>
-  </data>
-  <data name="TitleOfPageUpdate" xml:space="preserve">
-    <value>Editing the game</value>
+  <data name="Vacation" xml:space="preserve">
+    <value>Отпуск</value>
   </data>
 </root>

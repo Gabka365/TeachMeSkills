@@ -30,6 +30,30 @@ namespace PortalAboutEverything.Services
             return File.Exists(path);
         }
 
+        public string GetPathToBoardGameMainImage(int boardGameId)
+        {
+            var fileName = $"mainImage-{boardGameId}.jpg";
+            return GetPathByFolder("images\\BoardGame", fileName);
+        }
+
+        public bool IsBoardGameMainImageExist(int id)
+        {
+            var path = GetPathToBoardGameMainImage(id);
+            return File.Exists(path);
+        }
+
+        public string GetPathToBoardGameSideImage(int boardGameId)
+        {
+            var fileName = $"sideImage-{boardGameId}.jpg";
+            return GetPathByFolder("images\\BoardGame", fileName);
+        }
+
+        public bool IsBoardGameSideImageExist(int id)
+        {
+            var path = GetPathToBoardGameSideImage(id);
+            return File.Exists(path);
+        }
+
         public bool IsMovieImageExist(int id)
         {
             var path = GetPathToMovieImage(id);

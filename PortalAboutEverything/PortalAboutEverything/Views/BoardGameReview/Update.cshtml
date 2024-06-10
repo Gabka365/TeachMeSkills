@@ -1,4 +1,4 @@
-﻿@model PortalAboutEverything.Models.BoardGame.BoardGameCreateReviewViewModel
+﻿@model PortalAboutEverything.Models.BoardGameReview.BoardGameUpdateReviewViewModel
 @using PortalAboutEverything.LocalizationResources.BoardGame
 
 @section Style {
@@ -7,21 +7,24 @@
 
 <div class="board-game-or-review-form">
     <h2>
-        @BoardGame_CreateAndUpdateReview.TitleOfPageCreate "@Model.BoardGameName"
+        @BoardGame_CreateAndUpdateReview.TitleOfPageUpdate "@Model.BoardGameName":
     </h2>
     <form method="post">
+        @Html.HiddenFor(review => review.Id)
         @Html.HiddenFor(review => review.BoardGameId)
         @Html.HiddenFor(review => review.BoardGameName)
         <div>
             @Html.TextAreaFor(review => review.Text, new
                 {
-                    placeholder = $"{BoardGame_CreateAndUpdateReview.Text}",
+                    placeholder = BoardGame_CreateAndUpdateReview.Text,
                     @class = "foarm-field"
                 })
             @Html.ValidationMessageFor(review => review.Text)
         </div>
         <div>
-            <input class="button-send" type="submit" value="@BoardGame_CreateAndUpdateReview.CreateButton" />
+            <input class="button-send" type="submit" value="@BoardGame_CreateAndUpdateReview.UpdateButton" />
         </div>
     </form>
 </div>
+
+
