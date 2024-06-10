@@ -3,6 +3,9 @@ using PortalAboutEverything.Models.History;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Services;
+using Microsoft.AspNetCore.Authorization;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Data.Enums;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -17,27 +20,41 @@ namespace PortalAboutEverything.Controllers
         }
         public IActionResult Index()
         {       
-            var eventsHistoryIndexViewModel = _historyRepositories
+            var historyEventsViewModel = _historyRepositories
                 .GetAll()
                 .Select(BuildHistoryViewModel)
                 .ToList();
-            return View(eventsHistoryIndexViewModel);
+            var viewmodel = new HistoryIndexViewModel
+            {
+                IsHistoryEventAdmin = _authService.HasRoleOrHigher(UserRole.HistoryEventAdmin),
+                HistoryEvents = historyEventsViewModel,               
+            };
+            return View(viewmodel);
         }
-       
+
         [HttpGet]
+        [Authorize]
+        [HasRoleOrHigher(UserRole.HistoryEventAdmin)]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(CreateEventViewModel createEventViewModel)
+        [Authorize]
+        [HasRoleOrHigher(UserRole.HistoryEventAdmin)]
+        public IActionResult Create(CreateHistoryEventViewModel createHistoryEventViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(createHistoryEventViewModel);
+            }
+
             var historicalEvent = new HistoryEvent
             {
-                Name = createEventViewModel.Name,
-                Description = createEventViewModel.Description,
-                YearOfEvent = createEventViewModel.YearOfEvent,
+                Name = createHistoryEventViewModel.Name,
+                Description = createHistoryEventViewModel.Description,
+                YearOfEvent = createHistoryEventViewModel.YearOfEvent,
             };
             _historyRepositories.Create(historicalEvent);
             return RedirectToAction("Index");
@@ -71,7 +88,7 @@ namespace PortalAboutEverything.Controllers
 
             return RedirectToAction("Index");
         }
-        public IActionResult Guest()
+        public IActionResult GuestProfile()
         {
             var userName = _authService.GetUserName();
 
@@ -89,8 +106,8 @@ namespace PortalAboutEverything.Controllers
             return View(viewModel);
         }
 
-        private HistoryIndexViewModel BuildHistoryViewModel(HistoryEvent historicalEvent)
-            => new HistoryIndexViewModel
+        private HistoryEventsViewModel BuildHistoryViewModel(HistoryEvent historicalEvent)
+            => new HistoryEventsViewModel
             {
                 Id = historicalEvent.Id,
                 Name = historicalEvent.Name,

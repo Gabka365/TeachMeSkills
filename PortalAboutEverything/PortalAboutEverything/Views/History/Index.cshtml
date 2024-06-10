@@ -1,9 +1,9 @@
-﻿@model List<PortalAboutEverything.Models.History.HistoryIndexViewModel>
+﻿@model PortalAboutEverything.Models.History.HistoryIndexViewModel
 
     
 <div class="events">
     Список событий
-    @foreach (var historicalEvent in Model)
+    @foreach (var historicalEvent in Model.HistoryEvents)
     {
        <div class="event">
           Название - @historicalEvent.Name  
@@ -16,7 +16,14 @@
 </div>
 
 <div>
-    <a href="/History/Create">Добавить событие</a>
-    <a href="/History/Guest">Профиль</a>
+    @if (Model.IsHistoryEventAdmin)
+    {
+        <a href="/History/Create">Добавить событие</a>
+    }
+
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <a href="/History/Guest">Профиль</a>
+    }    
 </div>
 
