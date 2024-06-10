@@ -29,13 +29,17 @@
                 })
             @Html.ValidationMessageFor(boardGame => boardGame.MiniTitle)
         </div>
-        <div>
-            @Html.DisplayNameFor(boardGame => boardGame.MainImage)
+        <div class="file-input-container">
+            <p>
+                @Html.DisplayNameFor(boardGame => boardGame.MainImage)
+            </p>   
             <input type="file" name="@nameof(BoardGameUpdateViewModel.MainImage)" accept="image/png, image/jpeg" />
             @Html.ValidationMessageFor(boardGame => boardGame.MainImage)
         </div>
-        <div>
-            @Html.DisplayNameFor(boardGame => boardGame.SideImage)
+        <div class="file-input-container">
+            <p>
+                @Html.DisplayNameFor(boardGame => boardGame.SideImage)
+            </p>
             <input type="file" name="@nameof(BoardGameCreateViewModel.SideImage)" accept="image/png, image/jpeg" />
             @Html.ValidationMessageFor(boardGame => boardGame.SideImage)
         </div>
