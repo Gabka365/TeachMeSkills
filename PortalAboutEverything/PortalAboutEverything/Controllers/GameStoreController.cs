@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Models.Game;
+using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Models.GameStore;
 using PortalAboutEverything.Services.AuthStuff;
 
@@ -27,7 +28,15 @@ namespace PortalAboutEverything.Controllers
                 .Select(BuildGameStoreIndexViewModel)
                 .ToList();
 
-            return View(gamesViewModel);
+            var viewModel = new IndexGameViewModel()
+            {
+                Games = gamesViewModel,
+                CanCreateGameInGameStore = _authService.GetUserPermission().HasFlag(Permission.CanCreateGameInGameStore),
+                CanDeleteGameInGameStore = _authService.GetUserPermission().HasFlag(Permission.CanDeleteGameInGameStore),
+                CanUpdateGameInGameStore = _authService.GetUserPermission().HasFlag(Permission.CanUpdateGameInGameStore),
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -37,12 +46,16 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [HasPermission(Permission.CanCreateGameInGameStore)]
         public IActionResult CreateGame()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
+        [HasPermission(Permission.CanCreateGameInGameStore)]
         public IActionResult CreateGame(CreateGameStoreViewModel createGameStoreViewModel)
         {
             if (!ModelState.IsValid)
@@ -61,6 +74,7 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
+        [HasPermission(Permission.CanDeleteGameInGameStore)]
         public IActionResult Delete(int id)
         {
             _gameStoreRepositories.Delete(id);
@@ -68,6 +82,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
+        [HasPermission(Permission.CanUpdateGameInGameStore)]
         public IActionResult Update(int id)
         {
             var game = _gameStoreRepositories.Get(id);
@@ -76,6 +91,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
+        [HasPermission(Permission.CanUpdateGameInGameStore)]
         public IActionResult Update(GameStoreUpdateViewModel viewModel)
         {
             if (ModelState.IsValid)

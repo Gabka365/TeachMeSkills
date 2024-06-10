@@ -1,4 +1,4 @@
-﻿@model List<PortalAboutEverything.Models.GameStore.GameStoreIndexViewModel>
+﻿@model PortalAboutEverything.Models.GameStore.IndexGameViewModel
 
 @section Style {
     <link rel="stylesheet" href="~/css/GameStore/style.css?v=2" />
@@ -23,10 +23,13 @@
     </div>
 </div>
 <div>
-    <a href="/GameStore/CreateGame">Создать игру</a>
+    @if (Model.CanCreateGameInGameStore)
+    {
+        <a href="/GameStore/CreateGame">Создать игру</a>
+    }
 </div>
 <div class="center-block">
-    @foreach (var game in Model)
+    @foreach (var game in Model.Games)
     {
         <div class="game">
             Игра <a href="/GameStore/Update?id=@game.Id">@game.GameName</a>
