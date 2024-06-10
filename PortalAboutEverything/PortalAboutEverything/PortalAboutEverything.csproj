@@ -92,6 +92,11 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>VideoLibrary_Layout.resx</DependentUpon>
 		</Compile>
+		<Compile Update="LocalizationResources\BoardGame\BoardGame_UniversalAttributes.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>BoardGame_UniversalAttributes.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>

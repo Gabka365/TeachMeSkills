@@ -5,11 +5,11 @@ using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers.ActionFilterAttributes
 {
-    public class HasPermission : ActionFilterAttribute
+    public class HasPermissionAttribute : ActionFilterAttribute
     {
         private Permission _permission;
 
-        public HasPermission(Permission permission)
+        public HasPermissionAttribute(Permission permission)
         {
             _permission = permission;
         }
@@ -17,9 +17,7 @@ namespace PortalAboutEverything.Controllers.ActionFilterAttributes
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var authService = context.HttpContext.RequestServices.GetService<AuthService>();
-            var userPermission = authService!.GetUserPermission();
-
-            if (!userPermission.HasFlag(_permission))
+            if (!authService!.HasPermission(_permission))
             {
                 context.Result = new ForbidResult();
                 return;

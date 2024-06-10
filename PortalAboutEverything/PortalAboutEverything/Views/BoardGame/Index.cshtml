@@ -12,17 +12,20 @@
         {
             <li class="board-game-item">
                 <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@boardGame.Id">@boardGame.Title</a>
-                @if (Model.IsBoardGameAdmin)
-                {
-                    <div class="update-and-delete">
-                        <a class="edit-link" href="/BoardGame/UpdateBoardGame?id=@boardGame.Id">
+                <div class="update-and-delete">
+                    @if (Model.CanCreateAndUpdateBoardGames)
+                    {
+                        <a class="edit-link" href="/BoardGame/Update?id=@boardGame.Id">
                             <img class="icon edit-icon" src="/images/BoardGame/edit.svg" alt="@BoardGame_Index.UpdateButton" />
                         </a>
-                        <a class="delete-link" href="/BoardGame/DeleteBoardGame?id=@boardGame.Id">
+                    }
+                    @if (Model.CanDeleteBoardGames)
+                    {
+                        <a class="delete-link" href="/BoardGame/Delete?id=@boardGame.Id">
                             <img class="icon delete-icon" src="/images/BoardGame/delete.svg" alt="@BoardGame_Index.DeleteButton" />
                         </a>
-                    </div>
-                }              
+                    }
+                </div>
             </li>
         }
     </ul>
@@ -30,10 +33,10 @@
     <div class="add-board-game">
         <a class="add-board-game-link" href="/BoardGame/UserFavoriteBoardGames">@BoardGame_Index.FavoriteButton</a>
     </div>
-    @if (Model.IsBoardGameAdmin)
+    @if (Model.CanCreateAndUpdateBoardGames)
     {
         <div class="add-board-game">
-            <a class="add-board-game-link" href="/BoardGame/CreateBoardGame">@BoardGame_Index.AddButton</a>
+            <a class="add-board-game-link" href="/BoardGame/Create">@BoardGame_Index.AddButton</a>
         </div>
     }
 </div>
