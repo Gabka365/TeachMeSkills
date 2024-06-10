@@ -94,7 +94,7 @@ namespace PortalAboutEverything.Controllers
         [HasPermission(Permission.CanUpdateGameInGameStore)]
         public IActionResult Update(GameStoreUpdateViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
