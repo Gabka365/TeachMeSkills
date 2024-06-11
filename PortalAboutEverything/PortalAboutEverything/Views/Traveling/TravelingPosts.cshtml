@@ -1,8 +1,11 @@
-﻿@model PortalAboutEverything.Models.Traveling.TravelingChangePostsViewModel
+﻿@model PortalAboutEverything.Models.Traveling.TravelingShowPostsViewModel
 
 @section Style {
     <link rel="stylesheet" href="/css/Traveling/posts/style.css" />
     <link rel="stylesheet" href="/css/Traveling/nicepage.css" />
+}
+@{
+    string[] validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 }
 
 <div class="u-body u-xl-mode" data-lang="ru">
@@ -10,8 +13,73 @@
         <div class="u-clearfix u-sheet u-sheet-1">
             <div class="custom-expanded u-container-style u-post-details u-post-details-1">
                 <div class="u-container-layout u-container-layout-1">
-                    @if (Model != null && Model.TravelingPostsViewModels.Count != 0)
+
+                    @if (Model != null && Model.TopTravelingByCommentsViewModel != null)
                     {
+                        <h3 class="u-blog-control u-text u-text-1">
+                            @Model.TopTravelingByCommentsViewModel.Name
+                        </h3>
+
+                        <div class="custom-expanded u-container-style u-grey-10 u-group u-group-1">
+                            <div class="u-container-layout u-container-layout-2">
+
+                                <div class="u-container-style u-grey-10 u-group u-group-2">
+                                    <div class="u-container-layout">
+                                        <div class="u-clearfix u-group-elements u-group-elements-1">
+
+                                            @{
+
+                                                foreach (var ext in validExtensions)
+                                                {
+                                                    var imagePath = System.IO.Path.Combine($"wwwroot/images/traveling/UserPictures/{Model.TopTravelingByCommentsViewModel.Id}.{ext}");
+                                                    if (System.IO.File.Exists(imagePath))
+                                                    {
+                                                        <img alt="" class="custom-expanded u-blog-control u-image u-image-default u-image-1" src="/Traveling/ShowImage/@Model.TopTravelingByCommentsViewModel.Id">
+                                                        break;
+                                                    }
+                                                }
+                                            }
+
+                                        </div>
+                                        <p class="u-align-center u-text u-text-2">@Model.TopTravelingByCommentsViewModel.Desc</p>
+                                        <p class="u-text u-text-3">@Model.TopTravelingByCommentsViewModel.Name</p>
+                                    </div>
+                                </div>
+
+                                <div class="u-blog-control u-metadata u-metadata-1">
+                                    <span class="u-meta-date u-meta-icon">@Model.TopTravelingByCommentsViewModel.TimeOfCreation</span>
+                                </div>
+                                <div class="u-clearfix u-group-elements u-group-elements-2">
+                                    <!--blog_post_readmore-->
+                                    @if (Model.IsTravingAdmin)
+                                    {
+                                        <a href="/Traveling/DeletePost/@Model.TopTravelingByCommentsViewModel.Id" class="u-blog-control u-btn u-button-style u-btn-1">Удалить</a>
+                                        <a href="/Traveling/UpdatePost/@Model.TopTravelingByCommentsViewModel.Id" class="u-blog-control u-btn u-button-style u-btn-2">Редактировать</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comments">
+                            @if (Model.TopTravelingByCommentsViewModel.Comments is not null)
+                            {
+                                foreach (var comment in Model.TopTravelingByCommentsViewModel.Comments)
+                                {
+                                    <div>
+                                        <p>@comment.Text</p>
+                                    </div>
+                                }
+                            }
+
+                            <form action="/Traveling/CreateComment/" method="post">
+                                <input type="hidden" name="PostId" value="@Model.TopTravelingByCommentsViewModel.Id" />
+                                <textarea name="text" placeholder="@((TempData["ErrorMessage"] != null) ? TempData["ErrorMessage"].ToString() : "Введите сообщение")"></textarea>
+                                <input type="submit" value="Отставить отзыв" />
+                            </form>
+                        </div>
+                    }
+
+                   @if( Model != null && Model.TravelingPostsViewModels.Count != 0 )
+                   {
                         @foreach (var post in Model.TravelingPostsViewModels)
                         {
                             <h3 class="u-blog-control u-text u-text-1">
@@ -26,7 +94,6 @@
                                             <div class="u-clearfix u-group-elements u-group-elements-1">
 
                                                 @{
-                                                    string[] validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
                                                     foreach (var ext in validExtensions)
                                                     {
                                                         var imagePath = System.IO.Path.Combine($"wwwroot/images/traveling/UserPictures/{post.Id}.{ext}");
@@ -58,7 +125,7 @@
                                 </div>
                             </div>
                             <div class="comments">
-                                @if(post.Comments is not null)
+                                @if (post.Comments is not null)
                                 {
                                     foreach (var comment in post.Comments)
                                     {
@@ -67,7 +134,7 @@
                                         </div>
                                     }
                                 }
-                                
+
                                 <form action="/Traveling/CreateComment/" method="post">
                                     <input type="hidden" name="PostId" value="@post.Id" />
                                     <textarea name="text" placeholder="@((TempData["ErrorMessage"] != null) ? TempData["ErrorMessage"].ToString() : "Введите сообщение")"></textarea>
@@ -76,7 +143,7 @@
                             </div>
 
                         }
-                    }
+                   }
                     @if (User.Identity.IsAuthenticated)
                     {
                         <a href="/Traveling/CreatePost" class="u-btn u-button-style u-btn-3">Создать новый пост</a>

@@ -14,6 +14,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using System.Linq;
 using PortalAboutEverything.Services.AuthStuff;
+using System.Xml.Linq;
 
 
 namespace PortalAboutEverything.Controllers
@@ -119,16 +120,45 @@ namespace PortalAboutEverything.Controllers
         [HttpGet]
         public IActionResult TravelingPosts()
         {
-            var model = new TravelingChangePostsViewModel();
+            var model = new TravelingShowPostsViewModel();
 
             var travelingPosts = _travelingRepositories
                 .GetAll()
                 .Select(BuildTravelingShowPostsViewModel)
                 .ToList();
 
-            model.TravelingPostsViewModels = travelingPosts;
-            model.IsTravingAdmin = User.Identity.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
+            if (travelingPosts.Count != 0)
+            { 
+                var topTraveling = _travelingRepositories.GetTopTreveling();
 
+                var topTravelinViewModel = new TopTravelingByCommentsViewModel
+                {
+                    Name = topTraveling.Name,
+                    Desc = topTraveling.Desc,
+                    Id = topTraveling.Id,
+                    TimeOfCreation = topTraveling.TimeOfCreation,
+                    UserId = topTraveling.UserId,
+                    CommentCount = topTraveling.CommentCount,
+                    Comments = _commentRepository.GetWithTravel(topTraveling.Id).Select(c => new TravelingCreateComment
+                    {
+                        Text = c.Text,
+
+                    }).ToList()
+                };
+
+                foreach (var post in travelingPosts)
+                {
+                    if (post.Id == topTravelinViewModel.Id)
+                    {
+                        travelingPosts.Remove(post);
+                        break;
+                    }               
+                }
+                model.TopTravelingByCommentsViewModel = topTravelinViewModel;
+            }
+
+            model.TravelingPostsViewModels = travelingPosts;            
+            model.IsTravingAdmin = User.Identity.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
 
             return View(model);
         }
