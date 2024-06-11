@@ -2,14 +2,14 @@
 @using PortalAboutEverything.LocalizationResources
 
 @section Style {
-                    <link rel="stylesheet" href="/css/Movie/movieStyle.css?=2" />
+    <link rel="stylesheet" href="/css/Movie/movieStyle.css?=2" />
 }
 <div class="movieStatisticsTable">
     <div class="movieColumnsName">
-        <div class="movieTableCell">Название фильма</div>
-        <div class="movieTableCell">Имя режиссера</div>
-        <div class="movieTableCell">Количество пользователей, которым понравился фильм</div>
-        <div class="movieTableCell">Количество отзывов на фильм</div>
+        <div class="movieTableCell">@Movie_Index.MovieName</div>
+        <div class="movieTableCell">@Movie_Index.DirectorName</div>
+        <div class="movieTableCell">@Movie_Index.AmountUsers</div>
+        <div class="movieTableCell">@Movie_Index.AmountReviews</div>
     </div>
     @foreach (var movieInfo in Model.MovieStatistics)
     {
