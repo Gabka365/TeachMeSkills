@@ -7,10 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Repositories\RawSql\GetMovieStatistic.sql" />
     <None Remove="Repositories\RawSql\GetTop3Games.sql" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Repositories\RawSql\GetMovieStatistic.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Repositories\RawSql\GetTop3Games.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

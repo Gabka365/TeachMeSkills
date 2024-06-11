@@ -33,6 +33,7 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult Index()
         {
+            var movieStatistics = _movieRepositories.GetMovieStatistic();
             var moviesViewModel = _movieRepositories.GetAllWithReviews().Select(movie => new MovieIndexViewModel
             {
                 Id = movie.Id,
@@ -54,7 +55,8 @@ namespace PortalAboutEverything.Controllers
             var viewModel = new IndexMovieAdminViewModel()
             {
                 Movies = moviesViewModel,
-            };
+				MovieStatistics = movieStatistics.ToList(),
+			};
 
             if (_authService.IsAuthenticated())
             {
