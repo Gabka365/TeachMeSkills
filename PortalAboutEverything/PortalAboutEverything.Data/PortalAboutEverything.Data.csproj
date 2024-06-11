@@ -27,4 +27,10 @@
     <PackageReference Include="Xabe.FFmpeg.Downloader" Version="5.2.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Repositories\RawSql\GetTop3BoardGames.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

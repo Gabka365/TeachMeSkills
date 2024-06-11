@@ -3,6 +3,8 @@ using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Models.BoardGameReview;
+using PortalAboutEverything.Data.Repositories.DataModel;
+using PortalAboutEverything.Data.Repositories;
 
 namespace PortalAboutEverything.Mappers
 {
@@ -10,11 +12,13 @@ namespace PortalAboutEverything.Mappers
     {
         private readonly AuthService _authServise;
         private readonly PathHelper _pathHelper;
+        private readonly BoardGameRepositories _boardGameRepositories;
 
-        public BoardGameMapper(AuthService authService, PathHelper pathHelper)
+        public BoardGameMapper(AuthService authService, PathHelper pathHelper, BoardGameRepositories boardGameRepositories)
         {
             _authServise = authService;
             _pathHelper = pathHelper;
+            _boardGameRepositories = boardGameRepositories;
         }
 
         #region BoardGameBuilders
@@ -88,6 +92,14 @@ namespace PortalAboutEverything.Mappers
             {
                 Id = game.Id,
                 Title = game.Title,
+            };
+
+        public FavoriteBoardGameIndexViewModel BuildFavoriteBoardGameIndexViewModel(Top3BoardGameDataModel game)
+            => new FavoriteBoardGameIndexViewModel
+            {
+                Id = game.Id,
+                Title = _boardGameRepositories.Get(game.Id).Title,
+                CountOfUserWhoLikeIt = game.CountOfUserWhoLikeIt,
             };
         #endregion
 

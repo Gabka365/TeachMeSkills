@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Repositories.DataModel;
+using PortalAboutEverything.Data.Repositories.RawSql;
 
 namespace PortalAboutEverything.Data.Repositories
 {
@@ -50,6 +52,12 @@ namespace PortalAboutEverything.Data.Repositories
             boardGame.UsersWhoFavoriteThisBoardGame.Remove(user);
 
             _dbContext.SaveChanges();
+        }
+
+        public IEnumerable<Top3BoardGameDataModel> GetTop3()
+        {
+            return CustomSqlQuery<Top3BoardGameDataModel>(SqlQueryManager.GetTop3BoardGames)
+                .ToList();
         }
     }
 }
