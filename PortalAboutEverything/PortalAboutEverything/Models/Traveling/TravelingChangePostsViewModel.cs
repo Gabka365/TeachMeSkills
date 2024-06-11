@@ -2,7 +2,7 @@
 {
     public class TravelingChangePostsViewModel
     {
-        public List<TravelingPostsViewModel> travelingPostsViewModels { get; set; }
+        public List<TravelingPostsViewModel> TravelingPostsViewModels { get; set; }
         public bool IsTravingAdmin { get; set; }
     }
 }

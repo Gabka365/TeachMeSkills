@@ -71,12 +71,12 @@ namespace PortalAboutEverything.Controllers
             var images = Directory.EnumerateFiles(Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling"))
                                   .Select(fn => "~/images/Traveling/" + Path.GetFileName(fn));
 
-            var model = new List<TravelingIndexImage>();
+            var model = new List<TravelingIndexImageViewModel>();
 
             foreach (var imageUrl in images)
             {
                 var imageName = Path.GetFileName(imageUrl);
-                var imageModel = new TravelingIndexImage
+                var imageModel = new TravelingIndexImageViewModel
                 {
                     ImageName = imageName,
                     ImageUrl = imageUrl
@@ -100,16 +100,16 @@ namespace PortalAboutEverything.Controllers
                 return RedirectToAction("ChengeIndexPage");
             }
 
-            string fileName = Path.GetFileName(travelingChengeImageIndexPageViewModel.oldImagePath);
+            string fileName = Path.GetFileName(travelingChengeImageIndexPageViewModel.OldImagePath);
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
-            var fileExt = Path.GetExtension(Path.GetFileName(travelingChengeImageIndexPageViewModel.newImage.FileName)).Substring(1).ToLower();
+            var fileExt = GetFileExtension(travelingChengeImageIndexPageViewModel.NewImage.FileName);
             var imageName = $"{fileNameWithoutExtension}.{fileExt}";
 
             var path = Path.Combine(_pathTravelingIndexPictures, imageName);
 
             System.IO.File.Delete(path);
-            SaveImageToDirectory(_pathTravelingIndexPictures, path, travelingChengeImageIndexPageViewModel.newImage);
+            SaveImageToDirectory(_pathTravelingIndexPictures, path, travelingChengeImageIndexPageViewModel.NewImage);
 
 
             return RedirectToAction("ChengeIndexPage");
@@ -126,7 +126,7 @@ namespace PortalAboutEverything.Controllers
                 .Select(BuildTravelingShowPostsViewModel)
                 .ToList();
 
-            model.travelingPostsViewModels = travelingPosts;
+            model.TravelingPostsViewModels = travelingPosts;
             model.IsTravingAdmin = User.Identity.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
 
 
@@ -176,7 +176,7 @@ namespace PortalAboutEverything.Controllers
             };
             _travelingRepositories.Create(traveling);
 
-            var fileExt = Path.GetExtension(Path.GetFileName(createTravelingViewModel.Image.FileName)).Substring(1).ToLower();
+            var fileExt = GetFileExtension(createTravelingViewModel.Image.FileName);
             var imageName = $"{traveling.Id}.{fileExt}";
             var path = Path.Combine(_pathTravelingUserPictures, imageName);
 
@@ -278,6 +278,10 @@ namespace PortalAboutEverything.Controllers
             {
                 image.CopyTo(stream);
             }
+        }
+        private string GetFileExtension(string fileName)
+        {
+            return Path.GetExtension(Path.GetFileName(fileName)).Substring(1).ToLower();
         }
 
     }
