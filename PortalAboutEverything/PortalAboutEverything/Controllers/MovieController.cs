@@ -55,8 +55,8 @@ namespace PortalAboutEverything.Controllers
             var viewModel = new IndexMovieAdminViewModel()
             {
                 Movies = moviesViewModel,
-				MovieStatistics = movieStatistics.ToList(),
-			};
+                MovieStatistics = movieStatistics.ToList(),
+            };
 
             if (_authService.IsAuthenticated())
             {
@@ -237,6 +237,15 @@ namespace PortalAboutEverything.Controllers
             var userId = _authService.GetUserId();
             var movie = _movieRepositories.Get(viewModel.MovieId);
             _userRepository.AddMovieToMoviesFan(movie, userId);
+            return RedirectToAction("MoviesFan");
+        }
+
+        public IActionResult DeleteMovieFromMovieFan(int movieId)
+        {
+            var userId = _authService.GetUserId();
+            var movie = _movieRepositories.Get(movieId);
+            _userRepository.DeleteMovieFromMoviesFan(movie, userId);
+
             return RedirectToAction("MoviesFan");
         }
     }
