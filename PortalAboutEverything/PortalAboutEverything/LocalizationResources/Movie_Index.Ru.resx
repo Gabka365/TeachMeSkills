@@ -120,6 +120,12 @@
   <data name="Add" xml:space="preserve">
     <value>Добавить</value>
   </data>
+  <data name="AmountReviews" xml:space="preserve">
+    <value>Количество отзывов на фильм</value>
+  </data>
+  <data name="AmountUsers" xml:space="preserve">
+    <value>Количество пользователей, которым понравился фильм</value>
+  </data>
   <data name="ChooseAction" xml:space="preserve">
     <value>Выберете действие:</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
+  </data>
+  <data name="DirectorName" xml:space="preserve">
+    <value>Имя режиссера</value>
   </data>
   <data name="LeaveReview" xml:space="preserve">
     <value>Оставить отзыв</value>
@@ -155,6 +164,9 @@
   </data>
   <data name="MovieFanPage" xml:space="preserve">
     <value>Страничка киномана</value>
+  </data>
+  <data name="MovieName" xml:space="preserve">
+    <value>Название фильма</value>
   </data>
   <data name="Rate" xml:space="preserve">
     <value>Оценка:</value>
