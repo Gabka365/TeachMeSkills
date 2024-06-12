@@ -1,6 +1,8 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Repositories.DataModel;
+using PortalAboutEverything.Data.Repositories.RawSql;
 
 namespace PortalAboutEverything.Data.Repositories
 {
@@ -18,6 +20,12 @@ namespace PortalAboutEverything.Data.Repositories
         public override List<Traveling> GetAll()
         {
             return _dbSet.Include(x => x.User).ToList();
+        }
+        public TopTravelingByCommentsDataModel GetTopTreveling()
+        {
+            var topTraveling = CustomSqlQuery<TopTravelingByCommentsDataModel>(SqlQueryManager.TopTravelingByComments).First();
+            return topTraveling;
+
         }
     }
 }
