@@ -7,10 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Repositories\RawSql\GetTop3BoardGames.sql" />
     <None Remove="Repositories\RawSql\GetTop3Games.sql" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Repositories\RawSql\GetTop3BoardGames.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Repositories\RawSql\GetTop3Games.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -25,12 +29,6 @@
     </PackageReference>
     <PackageReference Include="Xabe.FFmpeg" Version="5.2.6" />
     <PackageReference Include="Xabe.FFmpeg.Downloader" Version="5.2.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Repositories\RawSql\GetTop3BoardGames.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
