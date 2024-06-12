@@ -12,13 +12,11 @@ namespace PortalAboutEverything.Mappers
     {
         private readonly AuthService _authServise;
         private readonly PathHelper _pathHelper;
-        private readonly BoardGameRepositories _boardGameRepositories;
 
-        public BoardGameMapper(AuthService authService, PathHelper pathHelper, BoardGameRepositories boardGameRepositories)
-        {
+        public BoardGameMapper(AuthService authService, PathHelper pathHelper)
+        { 
             _authServise = authService;
             _pathHelper = pathHelper;
-            _boardGameRepositories = boardGameRepositories;
         }
 
         #region BoardGameBuilders
@@ -98,7 +96,7 @@ namespace PortalAboutEverything.Mappers
             => new FavoriteBoardGameIndexViewModel
             {
                 Id = game.Id,
-                Title = _boardGameRepositories.Get(game.Id).Title,
+                Title = game.Title,
                 CountOfUserWhoLikeIt = game.CountOfUserWhoLikeIt,
             };
         #endregion
