@@ -36,6 +36,11 @@ namespace PortalAboutEverything.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            var top3BoardGames = _gameRepositories
+                .GetTop3()
+                .Select(_mapper.BuildFavoriteBoardGameIndexViewModel)
+                .ToList();
+
             var gamesViewModel = _gameRepositories
                 .GetAll()
                 .Select(_mapper.BuildBoardGameIndexViewModel)
@@ -53,7 +58,8 @@ namespace PortalAboutEverything.Controllers
             {
                 BoardGames = gamesViewModel,
                 CanCreateAndUpdateBoardGames = canCreateAndUpdate,
-                CanDeleteBoardGames = canDelete
+                CanDeleteBoardGames = canDelete,
+                Top3FavoriteBoardGames = top3BoardGames,
             };
 
             return View(indexViewModel);

@@ -39,4 +39,14 @@
             <a class="add-board-game-link" href="/BoardGame/Create">@BoardGame_Index.AddButton</a>
         </div>
     }
+
+    <ul class="board-games">
+        @foreach (var favoriteBoardGame in Model.Top3FavoriteBoardGames)
+        {
+            <li class="board-game-item">
+                <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@favoriteBoardGame.Id">@favoriteBoardGame.Title</a>
+                <p>@favoriteBoardGame.CountOfUserWhoLikeIt</p>
+            </li>
+        }
+    </ul>
 </div>
