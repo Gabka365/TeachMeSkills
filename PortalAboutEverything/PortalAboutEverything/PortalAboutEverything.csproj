@@ -163,6 +163,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\Game\" />
     <Folder Include="wwwroot\images\Movie\" />
+    <Folder Include="wwwroot\js\BoardGame\" />
   </ItemGroup>
 
 	<ItemGroup>

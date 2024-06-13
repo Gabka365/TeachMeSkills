@@ -32,6 +32,10 @@
     transition: background-color 0.3s;
 }
 
+    .board-game-item.active {
+        border: 2px solid #ef6747;
+    }
+
 .board-game-item:hover {
     background-color: #f1f1f1;
 }
