@@ -77,3 +77,9 @@
     height: auto;
     align-content: center;
 }
+
+.deleteReview {
+    color: red;
+    text-align: right;
+    font-size: small;
+}

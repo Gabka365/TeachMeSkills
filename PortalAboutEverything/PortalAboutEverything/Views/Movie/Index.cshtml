@@ -83,6 +83,7 @@
                     @foreach (var review in movie.Reviews)
                     {
                         <div class="review">
+                            <div class="deleteReview"><a href="/Movie/MovieDeleteReview?id=@review.Id" class="deleteReview" >Удалить</a></div>
                             <div class="dateReview">@review.DateOfCreation</div>
                             <div class="comment">@review.Comment. @Movie_Index.Rate @review.Rate</div>
                         </div>
