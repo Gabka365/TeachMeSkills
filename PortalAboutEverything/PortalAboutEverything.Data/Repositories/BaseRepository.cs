@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Model.VideoLibrary;
+using PortalAboutEverything.Data.Repositories.RawSql;
+using System.Reflection;
 
 namespace PortalAboutEverything.Data.Repositories
 {
@@ -53,6 +56,17 @@ namespace PortalAboutEverything.Data.Repositories
         {
             _dbSet.Remove(model);
             _dbContext.SaveChanges();
+        }
+
+        public IQueryable<T> CustomSqlQuery<T>(string sqlFileName)
+        {
+            var assembly = Assembly.GetAssembly(typeof(SqlQueryManager));
+            var assemblyFilePath = assembly.Location;
+            var assemblyPath = Path.GetDirectoryName(assemblyFilePath);
+            var fileName = $"{sqlFileName}.sql";
+            var path = Path.Combine(assemblyPath, "Repositories", "RawSql", fileName);
+            var sql = File.ReadAllText(path);
+            return _dbContext.Database.SqlQueryRaw<T>(sql);
         }
     }
 }

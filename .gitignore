@@ -402,3 +402,10 @@ FodyWeavers.xsd
 # We don't need upload game cover. Except default one
 PortalAboutEverything/PortalAboutEverything/wwwroot/images/Game/*.*
 !PortalAboutEverything/PortalAboutEverything/wwwroot/images/Game/cover-default.jpg
+
+PortalAboutEverything/PortalAboutEverything/wwwroot/images/BoardGame/*.*
+!PortalAboutEverything/PortalAboutEverything/wwwroot/images/BoardGame/mainImage-default.jpg
+!PortalAboutEverything/PortalAboutEverything/wwwroot/images/BoardGame/sideImage-default.png
+
+PortalAboutEverything/PortalAboutEverything/wwwroot/images/Movie/*.*
+!PortalAboutEverything/PortalAboutEverything/wwwroot/images/Movie/cover-default.jpg

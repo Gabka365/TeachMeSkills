@@ -102,6 +102,11 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>VideoLibrary_Layout.resx</DependentUpon>
 		</Compile>
+		<Compile Update="LocalizationResources\BoardGame\BoardGame_UniversalAttributes.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>BoardGame_UniversalAttributes.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -191,9 +196,10 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="wwwroot\images\Game\" />
-	</ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Game\" />
+    <Folder Include="wwwroot\images\Movie\" />
+  </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="System.Drawing.Common" Version="8.0.6" />

@@ -138,6 +138,12 @@
   <data name="Director_LowerCase" xml:space="preserve">
     <value>director</value>
   </data>
+  <data name="ForbiddenSymbols_ValidationErrorMessage" xml:space="preserve">
+    <value>The field {0} contains incorrect symbols</value>
+  </data>
+  <data name="MovieDescription_ValidationErrorMessage" xml:space="preserve">
+    <value>Description of the movie should not be more then {0} symbols</value>
+  </data>
   <data name="MovieTitle_LowerCase" xml:space="preserve">
     <value>movie title</value>
   </data>

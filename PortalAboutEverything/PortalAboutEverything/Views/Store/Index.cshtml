@@ -1,4 +1,4 @@
-﻿@model List<PortalAboutEverything.Models.Store.StoreIndexViewModel>
+﻿@model PortalAboutEverything.Models.Store.BaseForStoreIndexViewModel
 
 @section Style {
     <link rel="stylesheet" href="/css/Store/style.css" />
@@ -56,19 +56,21 @@
                 <img class="salesImg" src="/images/store/MainPage/salesIcon.webp" alt="sales" />
             </a>
         </div>
-        @if (Model.Count == 0)
+        @if (Model.Goods?.Count == 0)
         {
             <div class="goodsTitle">
                 Товары отсутствуют. Добавьте хотя бы один товар.
             </div>
         }
-        <button class="addGoodBtn">
+        @if (Model.IsAdmin)
+        {
             <a href="/Store/AddGood" class="addGoodLink">
                 Добавить товар
             </a>
-        </button>
+        }
+
         <div class="goodsBlock">
-            @foreach (var good in Model)
+            @foreach (var good in Model.Goods)
             {
                 <div class="goodBlock">
                     <a class="linkToReview" href="/Store/Good/@good.Id">
@@ -88,12 +90,14 @@
                         <button class="buyBtn">5 мая</button>
                         <img class="basketIconForBtn" src="/images/store/header/basketIcon.svg" alt="basket" />
                     </div>
-                    <button class="updateGoodBtn">
-                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">Редактировать</a>
-                    </button>
-                    <button class="deleteGoodBtn">
+                    @if (Model.IsStoreAdmin)
+                    {
+                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">Редактировать</a>                       
+                    }
+                    @if (Model.IsAdmin)
+                    {                       
                         <a href="/Store/DeleteGood/@good.Id" class="deleteGoodLink">Удалить товар</a>
-                    </button>
+                    }
                 </div>
             }
         </div>

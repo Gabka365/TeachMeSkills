@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Model.Store;
 using PortalAboutEverything.Data.Repositories;
@@ -29,8 +31,14 @@ namespace PortalAboutEverything.Controllers
         public IActionResult Index()
         {
             var goodsViewModel = _storeRepositories.GetAll().Select(BuildStoreIndexViewModel).ToList();
+            var viewModel = new BaseForStoreIndexViewModel
+            {
+                Goods = goodsViewModel,
+                IsAdmin = _authService.HasRoleOrHigher(UserRole.Admin),
+                IsStoreAdmin = _authService.HasRoleOrHigher(UserRole.StoreAdmin)
+            };
 
-            return View(goodsViewModel);
+            return View(viewModel);
         }
 
 
@@ -74,12 +82,14 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Good", new { id = viewModel.GoodId });
         }
 
+        [HasRoleOrHigher(UserRole.Admin)]
         [HttpGet]
         public IActionResult AddGood()
         {
             return View();
         }
 
+        [HasRoleOrHigher(UserRole.Admin)]
         [HttpPost]
         public IActionResult AddGood(GoodViewModel createGoodViewModel)
         {
@@ -99,6 +109,7 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
+        [HasRoleOrHigher(UserRole.Admin)]
         public IActionResult DeleteGood(int id)
         {
             var model = _storeRepositories.GetGoodByIdWithReview(id);
@@ -106,6 +117,7 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
+        [HasRoleOrHigher(UserRole.StoreAdmin)]
         [HttpGet]
         public IActionResult UpdateGood(int id)
         {
@@ -114,6 +126,7 @@ namespace PortalAboutEverything.Controllers
             return View(viewModel);
         }
 
+        [HasRoleOrHigher(UserRole.StoreAdmin)]
         [HttpPost]
         public IActionResult UpdateGood(GoodUpdateViewModel viewModel)
         {

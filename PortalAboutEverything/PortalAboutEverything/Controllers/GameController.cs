@@ -30,6 +30,8 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult Index()
         {
+            var top3Games = _gameRepositories.GetTop3();
+
             var gamesViewModel = _gameRepositories
                 .GetAllWithReviews()
                 .Select(BuildGameIndexViewModel)

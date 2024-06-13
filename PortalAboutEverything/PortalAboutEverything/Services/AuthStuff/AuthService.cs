@@ -44,6 +44,11 @@ namespace PortalAboutEverything.Services.AuthStuff
             return GetUserRole() >= role;
         }
 
+        public bool HasPermission(Permission permission)
+        {
+            return GetUserPermission().HasFlag(permission);
+        }
+
         public int GetUserId()
         {
             var userIdText = GetClaimValue(AuthClaimsConstants.ID);

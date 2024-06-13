@@ -1,4 +1,5 @@
-﻿@model PortalAboutEverything.Models.Traveling.TravelingCreateViewModel
+﻿@using PortalAboutEverything.LocalizationResources
+@model PortalAboutEverything.Models.Traveling.TravelingCreateViewModel
 
 @section Style {
     <link rel="stylesheet" href="/css/Traveling/posts/Create.css" />
@@ -13,7 +14,7 @@
                 <form method="post" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style="padding: 10px;" enctype="multipart/form-data">
                     <div class="u-form-group u-form-group-1">
                         <label class="u-label">Название</label>
-                        @Html.TextBoxFor(x => x.Name, new { placeholder = "Название поста", @class = "u-input u-input-rectangle" })
+                        @Html.TextBoxFor(x => x.Name, new { placeholder = Traveling_Index.PostTitle, @class = "u-input u-input-rectangle" })
                         @Html.ValidationMessageFor(x => x.Name)
 
                     </div>
@@ -25,6 +26,7 @@
                     <div class="u-form-group u-form-message">
                         <label for="file-upload" class="u-label custom-file-upload">Загрузить изображение</label>
                         <input id="file-upload" class="file-input" type="file" name="image" placeholder="Выбрать изображение" onchange="updateFileName(this.value)" />
+                        @Html.ValidationMessageFor(x => x.Image)
                         <span class="file-name"></span>
                     </div>
                     <div class="u-align-left u-form-group u-form-submit">
