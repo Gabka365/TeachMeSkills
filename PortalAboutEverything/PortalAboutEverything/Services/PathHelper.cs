@@ -60,6 +60,18 @@ namespace PortalAboutEverything.Services
             return File.Exists(path);
         }
 
+        public string GetPathToGameStoreCover(int gameId)
+        {
+            var fileName = $"caver-{gameId}.jpg";
+            return GetPathByFolder("\\images\\GameStore", fileName);
+        }
+
+        public bool IsGameStoreCoverExist(int id)
+        {
+            var path = GetPathToGameStoreCover(id);
+            return File.Exists(path);
+        }
+
         private string GetPathByFolder(string pathToFolder, string fileName)
         {
             var path = Path.Combine(_webHostEnvironment.WebRootPath, pathToFolder, fileName);

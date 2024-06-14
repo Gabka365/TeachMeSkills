@@ -1,14 +1,18 @@
-﻿@model PortalAboutEverything.Models.GameStore.CreateGameStoreViewModel
+﻿@using PortalAboutEverything.Models.GameStore
+@model CreateGameStoreViewModel
 @using PortalAboutEverything.LocalizationResources.GameStore
 
 @section Style {
     <link rel="stylesheet" href="/css/GameStore/style.css?v=1" />
 }
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div>
         @Html.TextBoxFor(x => x.GameName, new { placeholder = GameStore_CreateGame.Placeholder_GameName, @class = "my-input" })
         @Html.ValidationMessageFor(x => x.GameName)
+    </div>
+    <div>   
+        <input type="file" name="@nameof(CreateGameStoreViewModel.Cover)" />
     </div>
     <div>
         @Html.TextBoxFor(x => x.Developer, new { placeholder = GameStore_CreateGame.Placeholder_Developer, @class = "my-input" })

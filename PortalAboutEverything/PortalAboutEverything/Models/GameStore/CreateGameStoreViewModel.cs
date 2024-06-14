@@ -14,5 +14,7 @@ namespace PortalAboutEverything.Models.GameStore
         [ComputerGameYear(ErrorMessage = "Нужно ввести год релиза игры")]
         [Display(Name = "Год выпуска игры")]
         public int YearOfRelease { get; set; }
+
+        public IFormFile? Cover { get; set; }
     }
 }
