@@ -7,6 +7,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Repositories\RawSql\GetMovieStatistic.sql" />
+    <None Remove="Repositories\RawSql\GetTop3BoardGames.sql" />
+    <None Remove="Repositories\RawSql\GetTop3Games.sql" />
+    <None Remove="Repositories\RawSql\TopTravelingByComments.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Repositories\RawSql\TopTravelingByComments.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Repositories\RawSql\GetTop3BoardGames.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Repositories\RawSql\GetMovieStatistic.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Repositories\RawSql\GetTop3Games.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">

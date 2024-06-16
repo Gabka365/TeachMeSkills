@@ -104,7 +104,16 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Slogan.
+        ///   Ищет локализованную строку, похожую на Main image.
+        /// </summary>
+        public static string DisplayMainImage_Name {
+            get {
+                return ResourceManager.GetString("DisplayMainImage_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Slogan.
         /// </summary>
         public static string DisplayMiniTitle_Name
         {
@@ -115,7 +124,16 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Title.
+        ///   Ищет локализованную строку, похожую на Side image.
+        /// </summary>
+        public static string DisplaySideImage_Name {
+            get {
+                return ResourceManager.GetString("DisplaySideImage_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Title.
         /// </summary>
         public static string DisplayTitle_Name
         {
@@ -159,7 +177,16 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Product code.
+        ///   Ищет локализованную строку, похожую на The price cannot be negative or equal to 0.
+        /// </summary>
+        public static string Price_ValidationErrorMessage {
+            get {
+                return ResourceManager.GetString("Price_ValidationErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Product code.
         /// </summary>
         public static string ProductCode
         {
@@ -170,7 +197,16 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to The description cannot be empty.
+        ///   Ищет локализованную строку, похожую на The product code must be a positive number of 5 digits.
+        /// </summary>
+        public static string ProductCode_ValidationErrorMessage {
+            get {
+                return ResourceManager.GetString("ProductCode_ValidationErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The description cannot be empty.
         /// </summary>
         public static string RequiredDescription_ErrorMessage
         {
@@ -181,7 +217,16 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to The slogan cannot be empty.
+        ///   Ищет локализованную строку, похожую на The main image of the game cannot be missing.
+        /// </summary>
+        public static string RequiredMainImage_ErrorMessage {
+            get {
+                return ResourceManager.GetString("RequiredMainImage_ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The slogan cannot be empty.
         /// </summary>
         public static string RequiredMiniTitle_ErrorMessage
         {

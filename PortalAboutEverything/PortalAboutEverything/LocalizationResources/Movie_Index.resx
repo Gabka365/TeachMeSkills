@@ -120,6 +120,12 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="AmountReviews" xml:space="preserve">
+    <value>Amount of reviews of the movie</value>
+  </data>
+  <data name="AmountUsers" xml:space="preserve">
+    <value>Amount of users who like movie</value>
+  </data>
   <data name="ChooseAction" xml:space="preserve">
     <value>Choose an action:</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="DirectorName" xml:space="preserve">
+    <value>Name of the director</value>
   </data>
   <data name="LeaveReview" xml:space="preserve">
     <value>Leave a review</value>
@@ -155,6 +164,9 @@
   </data>
   <data name="MovieFanPage" xml:space="preserve">
     <value>The page of movie fan</value>
+  </data>
+  <data name="MovieName" xml:space="preserve">
+    <value>Name of the movie</value>
   </data>
   <data name="Rate" xml:space="preserve">
     <value>Rate:</value>

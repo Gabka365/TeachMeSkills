@@ -1,4 +1,4 @@
-﻿@model List<PortalAboutEverything.Models.Traveling.TravelingChengeIndexPageImageViewModel>
+﻿@model List<PortalAboutEverything.Models.Traveling.TravelingIndexImageViewModel>
 
 <h2>Здесь можно заменить картинки на главной странице</h2>
 
@@ -11,6 +11,11 @@
         <form method="post" action="/Traveling/ChengeImageIndexPage" enctype="multipart/form-data">
             <input type="hidden" name="oldImagePath" value="@image.ImageUrl" />
             <input type="file" name="newImage" />
+            @if (TempData["ErrorMessage"] != null)
+            {   <p>
+                   @TempData["ErrorMessage"].ToString();
+                </p>                
+            }
             <p>Загрузить изображение</p>
             <label for="file-upload"></label>
             <input type="submit" value="Заменить" />

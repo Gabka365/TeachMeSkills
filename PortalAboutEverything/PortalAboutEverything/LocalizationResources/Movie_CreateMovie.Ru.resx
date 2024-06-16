@@ -138,6 +138,12 @@
   <data name="Director_LowerCase" xml:space="preserve">
     <value>режиссер</value>
   </data>
+  <data name="ForbiddenSymbols_ValidationErrorMessage" xml:space="preserve">
+    <value>Поле {0} содержит некорректные символы</value>
+  </data>
+  <data name="MovieDescription_ValidationErrorMessage" xml:space="preserve">
+    <value>Описание фильма не должно быть больше {0} знаков</value>
+  </data>
   <data name="MovieTitle_LowerCase" xml:space="preserve">
     <value>название фильма</value>
   </data>

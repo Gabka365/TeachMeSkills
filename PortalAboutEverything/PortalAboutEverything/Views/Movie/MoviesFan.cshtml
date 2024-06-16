@@ -1,18 +1,19 @@
 ﻿@model PortalAboutEverything.Models.Movie.MoviesFanViewModel
 
 @section Style {
-				<link rel="stylesheet" href="/css/Movie/movieStyle.css?=1" />
+    <link rel="stylesheet" href="/css/Movie/movieStyle.css?=1" />
 }
 
 <div>
-	Пользователь с именем @Model.Name
+    Пользователь с именем @Model.Name
 </div>
 <div>
-	Любимые фильмы:
+    Любимые фильмы:
 </div>
 @foreach (var movie in Model.Movies)
 {
-	<div>
-		@movie.Name
-	</div>
+    <div>
+        @movie.Name
+        <a href="/Movie/DeleteMovieFromMovieFan?movieId=@movie.Id">Удалить</a>
+    </div>
 }

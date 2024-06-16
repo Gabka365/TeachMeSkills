@@ -1,11 +1,12 @@
-﻿@model PortalAboutEverything.Models.Movie.MovieCreateViewModel
-@using PortalAboutEverything.LocalizationResources
+﻿@using PortalAboutEverything.LocalizationResources
+@using PortalAboutEverything.Models.Movie
+@model MovieCreateViewModel
 
 @section Style {
 			<link rel="stylesheet" href="/css/Movie/movieStyle.css" />
 }
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 	<div>
 		@Html.TextBoxFor(x => x.Name, new { placeholder = Movie_CreateMovie.MovieTitle_LowerCase })
 		@Html.ValidationMessageFor(x => x.Name)
@@ -29,6 +30,10 @@
 	<div>
 		@Html.TextBoxFor(x => x.CountryOfOrigin, new { placeholder = Movie_CreateMovie.CountryOfOrigin_LowerCase })
 		@Html.ValidationMessageFor(x => x.CountryOfOrigin)
+	</div>
+	<div>
+		<input type="file" name="@nameof(MovieCreateViewModel.MovieImage)" accept="image/png, image/jpeg" />
+		@Html.ValidationMessageFor(x => x.MovieImage)
 	</div>
 	<div>
 		<input type="submit" value="@Movie_CreateMovie.Create_LowerCase"/>

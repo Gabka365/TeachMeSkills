@@ -97,6 +97,15 @@ namespace PortalAboutEverything.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comments must not be empty.
+        /// </summary>
+        public static string CommentErrorMessage {
+            get {
+                return ResourceManager.GetString("CommentErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact.
         /// </summary>
         public static string Contact {
@@ -174,6 +183,15 @@ namespace PortalAboutEverything.LocalizationResources {
         public static string Photography {
             get {
                 return ResourceManager.GetString("Photography", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post title.
+        /// </summary>
+        public static string PostTitle {
+            get {
+                return ResourceManager.GetString("PostTitle", resourceCulture);
             }
         }
         

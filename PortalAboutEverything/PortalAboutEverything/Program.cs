@@ -3,6 +3,7 @@ using PortalAboutEverything.Controllers;
 using PortalAboutEverything.CustomMiddlewareServices;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.VideoServices.Extensions;
@@ -42,6 +43,7 @@ builder.Services.AddScoped<CommentRepository>();
 
 // Services
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<BoardGameMapper>();
 builder.Services.AddSingleton<PathHelper>();
 
 builder.Services.AddHttpContextAccessor();

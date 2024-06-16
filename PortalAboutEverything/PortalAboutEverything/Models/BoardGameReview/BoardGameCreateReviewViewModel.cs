@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using PortalAboutEverything.LocalizationResources.BoardGame;
 
-namespace PortalAboutEverything.Models.BoardGame
+namespace PortalAboutEverything.Models.BoardGameReview
 {
     public class BoardGameCreateReviewViewModel
     {
@@ -12,7 +12,12 @@ namespace PortalAboutEverything.Models.BoardGame
         [Required(
             ErrorMessageResourceType = typeof(BoardGame_CreateAndUpdateReview),
             ErrorMessageResourceName = nameof(BoardGame_CreateAndUpdateReview.RequiredText_ErrorMessage))]
-        [TextInput(10, 500)]
+        [TextInput(10, 500,
+            ErrorMessageResourceType = typeof(BoardGame_UniversalAttributes),
+            ErrorMessageResourceNameFew = nameof(BoardGame_UniversalAttributes.TextInput_ValidationErrorMessageFew),
+            ErrorMessageResourceNameMany = nameof(BoardGame_UniversalAttributes.TextInput_ValidationErrorMessageMany),
+            ResourceNameSymbolFirstForm = nameof(BoardGame_UniversalAttributes.TextInput_SymbolEndingFirstForm),
+            ResourceNameSymbolSecondForm = nameof(BoardGame_UniversalAttributes.TextInput_SymbolEndingSecondForm))]
         [Display(
             ResourceType = typeof(BoardGame_CreateAndUpdateReview),
             Name = nameof(BoardGame_CreateAndUpdateReview.DisplayText_Name))]
