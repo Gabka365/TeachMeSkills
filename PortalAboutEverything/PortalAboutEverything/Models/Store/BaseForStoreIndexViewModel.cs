@@ -2,7 +2,7 @@
 {
     public class BaseForStoreIndexViewModel
     {
-        public List<StoreIndexViewModel>? Goods { get; set; }
+        public List<GoodViewModel> Goods { get; set; }
 
         public bool IsAdmin { get; set; }
 

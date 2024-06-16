@@ -18,9 +18,21 @@ namespace PortalAboutEverything.Services
             return GetPathByFolder("images\\Game", fileName);
         }
 
+        public string GetPathToGoodCover(int goodId)
+        {
+            var fileName = $"goodImage-{goodId}.jpg";
+            return GetPathByFolder("images\\Store\\MainPage\\ImagesForGoods", fileName);
+        }
+
         public bool IsGameCoverExist(int id)
         {
             var path = GetPathToGameCover(id);
+            return File.Exists(path);
+        }
+
+        public bool IsGoodCoverExist(int id)
+        {
+            var path = GetPathToGoodCover(id);
             return File.Exists(path);
         }
 
