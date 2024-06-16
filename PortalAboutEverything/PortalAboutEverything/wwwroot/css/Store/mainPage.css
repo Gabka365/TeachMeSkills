@@ -73,9 +73,11 @@
 
 .good {
     width: inherit;
+    height: 200px;
     border-radius: 15px;
     cursor: pointer;
     box-shadow: var(--box-shadow-for-goods);
+
 }
 
     .good:hover {
