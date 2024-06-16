@@ -6,5 +6,6 @@
         public const string TopTravelingByComments = nameof(TopTravelingByComments);
         public const string GetTop3BoardGames = nameof(GetTop3BoardGames);
         public const string GetMovieStatistic = nameof(GetMovieStatistic);
+        public const string GetRandomVideoId = nameof(GetRandomVideoId);
     }
 }
