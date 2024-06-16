@@ -33,3 +33,31 @@
 .dateReview {
     text-align: right;
 }
+
+.movieImage {
+    max-width: 150px;
+    max-height: 200px
+}
+
+.movieStatisticsTable {
+    border: 3px solid #000;
+    margin-bottom: 20px;
+    font-size: small;
+    width: max-content;
+}
+
+.movieColumnsName {
+    display: flex;
+}
+
+.movieContent {
+    display: flex;
+}
+
+.movieTableCell {
+    padding: 5px;
+    border: 1px solid black;
+    width: 200px;
+    height: auto;
+    align-content: center;
+}

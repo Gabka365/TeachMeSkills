@@ -124,6 +124,24 @@ namespace PortalAboutEverything.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The field {0} contains incorrect symbols.
+        /// </summary>
+        public static string ForbiddenSymbols_ValidationErrorMessage {
+            get {
+                return ResourceManager.GetString("ForbiddenSymbols_ValidationErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description of the movie should not be more then {0} symbols.
+        /// </summary>
+        public static string MovieDescription_ValidationErrorMessage {
+            get {
+                return ResourceManager.GetString("MovieDescription_ValidationErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to movie title.
         /// </summary>
         public static string MovieTitle_LowerCase {

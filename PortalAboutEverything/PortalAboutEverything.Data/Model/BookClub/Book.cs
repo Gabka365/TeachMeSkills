@@ -7,6 +7,7 @@
 		public required string SummaryOfBook { get; set; }
 		public int YearOfPublication { get; set; }
 		public virtual List<BookReview>? BookReviews { get; set; }
-	}
+        public virtual List<User> UsersWhoAddBookToFavorites { get; set; }
+    }
 
 }
