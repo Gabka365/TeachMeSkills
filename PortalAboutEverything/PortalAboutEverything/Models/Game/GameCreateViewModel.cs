@@ -18,7 +18,6 @@ namespace PortalAboutEverything.Models.Game
         [Display(Name = "Год выпуска игры")]
         public int YearOfRelease { get; set; }
 
-        [MaxImageSize(200, 200)]
         public IFormFile Cover { get; set; }
     }
 }

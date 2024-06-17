@@ -7,5 +7,6 @@
         public const string GetTop3BoardGames = nameof(GetTop3BoardGames);
         public const string GetMovieStatistic = nameof(GetMovieStatistic);
         public const string GetTopGoods = nameof(GetTopGoods);
+        public const string GetRandomVideoId = nameof(GetRandomVideoId);
     }
 }
