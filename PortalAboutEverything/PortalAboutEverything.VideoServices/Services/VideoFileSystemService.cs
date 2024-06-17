@@ -183,7 +183,7 @@ public class VideoFileSystemService
 
         if (!Directory.Exists(VideoServiceVariables.ThumbnailsFolder))
         {
-            Directory.CreateDirectory(VideoServiceVariables.UnsortedVideosFolder);
+            Directory.CreateDirectory(VideoServiceVariables.ThumbnailsFolder);
         }
     }
 

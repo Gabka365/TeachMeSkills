@@ -102,7 +102,7 @@ public class VideoLibraryController : Controller
     [HttpGet]
     public int? GetRandomVideoId([FromQuery] bool isLiked)
     {
-        return _videoRepository.GetRandomVideoId(isLiked);
+        return _videoRepository.GetRandomVideoId(isLiked)?.Id;
     }
 
     [Authorize]
