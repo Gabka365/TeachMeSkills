@@ -1,4 +1,4 @@
-.infoAboutMovie {
+.movie {
     border: 1px solid black;
     border-radius: 5px;
     max-width: max-content;
@@ -23,11 +23,27 @@
     flex-wrap: wrap;
 }
 
+.review-container {
+    display: none;
+}
+
+.movie.active {
+    border: 3px solid red;
+}
+
+.movie.active .movieName {
+    background: #ffa007;
+}
+
 .review {
     padding: 5px;
     margin: 8px;
     border: 1px solid black;
     border-radius: 5px;
+}
+
+.deleteMovie {
+    display: none;
 }
 
 .dateReview {
@@ -60,4 +76,10 @@
     width: 200px;
     height: auto;
     align-content: center;
+}
+
+.deleteReview {
+    color: red;
+    text-align: right;
+    font-size: small;
 }

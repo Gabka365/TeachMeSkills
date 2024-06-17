@@ -39,4 +39,10 @@
     <PackageReference Include="Xabe.FFmpeg.Downloader" Version="5.2.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Repositories\RawSql\GetRandomVideoId.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

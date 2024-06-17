@@ -28,6 +28,9 @@
     width: 295px;
     margin-bottom: 14px;
 }
+.active{
+    background-color: aqua;
+}
 
 .card1 {
     background: url(/images/Traveling/card1.png);

@@ -1,0 +1,4 @@
+﻿SELECT TOP 1 Id
+FROM Videos
+WHERE IsLiked = 0
+ORDER BY NEWID()

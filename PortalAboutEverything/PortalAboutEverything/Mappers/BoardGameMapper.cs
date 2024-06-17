@@ -4,7 +4,6 @@ using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Models.BoardGameReview;
 using PortalAboutEverything.Data.Repositories.DataModel;
-using PortalAboutEverything.Data.Repositories;
 
 namespace PortalAboutEverything.Mappers
 {
@@ -14,7 +13,7 @@ namespace PortalAboutEverything.Mappers
         private readonly PathHelper _pathHelper;
 
         public BoardGameMapper(AuthService authService, PathHelper pathHelper)
-        { 
+        {
             _authServise = authService;
             _pathHelper = pathHelper;
         }

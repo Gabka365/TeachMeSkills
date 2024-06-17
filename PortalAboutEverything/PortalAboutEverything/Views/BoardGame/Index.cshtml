@@ -2,7 +2,11 @@
 @using PortalAboutEverything.LocalizationResources.BoardGame
 
 @section Style {
-    <link href="/css/BoardGame/boardGamesIndex.css" rel="stylesheet" />
+    <link href="/css/BoardGame/boardGamesIndex.css?v=2" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script defer src="~/js/BoardGame/index.js"></script>
 }
 
 <div class="board-game-list">
@@ -40,12 +44,14 @@
         </div>
     }
 
-    <ul class="board-games">
-        @foreach (var favoriteBoardGame in Model.Top3FavoriteBoardGames)
+    <ul class="board-games top-board-games">
+        @for(int i = 0; i < Model.Top3FavoriteBoardGames.Count; i++)
         {
-            <li class="board-game-item">
-                <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@favoriteBoardGame.Id">@favoriteBoardGame.Title</a>
-                <p>@favoriteBoardGame.CountOfUserWhoLikeIt</p>
+            var favoriteBoardGame = Model.Top3FavoriteBoardGames[i];
+            <li class="board-game-item top-board-game-item">
+                <p>@(i+1)</p>
+                <a class="board-game-title text-dark top-board-game-title" href="/BoardGame/BoardGame?Id=@favoriteBoardGame.Id">@favoriteBoardGame.Title</a>
+                <p class="like-count">@favoriteBoardGame.CountOfUserWhoLikeIt</p>
             </li>
         }
     </ul>

@@ -46,6 +46,7 @@ namespace PortalAboutEverything.Controllers
                 HasCover = _pathHelper.IsMovieImageExist(movie.Id),
                 Reviews = movie.Reviews.Select(review => new MovieReviewViewModel
                 {
+                    Id = review.Id,
                     Rate = review.Rate,
                     DateOfCreation = review.DateOfCreation,
                     Comment = review.Comment,
@@ -134,6 +135,13 @@ namespace PortalAboutEverything.Controllers
             var path = _pathHelper.GetPathToMovieImage(id);
             System.IO.File.Delete(path);
 
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult MovieDeleteReview(int id)
+        {
+            _movieReviewRepositories.Delete(id);
             return RedirectToAction("Index");
         }
 
