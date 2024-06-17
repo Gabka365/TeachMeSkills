@@ -1,4 +1,5 @@
 ﻿@model PortalAboutEverything.Models.Store.GoodUpdateViewModel;
+@using PortalAboutEverything.LocalizationResources.Store
 
 @section Style {
     <link rel="stylesheet" href="/css/Store/style.css" />
@@ -8,21 +9,21 @@
 <form method="post" class="addGoodForm">
     @Html.HiddenFor(x => x.Id)
     <div class="addGoodTitle">
-        Изменить товар
+        @Store_AddOrUpdateGood.UpdateGood
     </div>
     <div>
-        @Html.TextBoxFor(x => x.Name, new { placeholder = "Введите название товара", @class = "goodNameInput" })
+        @Html.TextBoxFor(x => x.Name, new { placeholder = Store_AddOrUpdateGood.EnterTheGoodName, @class = "goodNameInput" })
         @Html.ValidationMessageFor(x => x.Name)
     </div>
     <div>
-        @Html.TextAreaFor(x => x.Description, new { placeholder = "Введите описание товара", @class = "goodDescriptionInput" })
+        @Html.TextAreaFor(x => x.Description, new { placeholder = Store_AddOrUpdateGood.EnterTheGoodDescription, @class = "goodDescriptionInput" })
         @Html.ValidationMessageFor(x => x.Description)
     </div>
     <div>
-        @Html.TextBoxFor(x => x.Price, new { placeholder = "Введите цену товара", @class = "goodPriceInput", type = "number" })
+        @Html.TextBoxFor(x => x.Price, new { placeholder = Store_AddOrUpdateGood.EnterTheGoodPrice, @class = "goodPriceInput", type = "number" })
         @Html.ValidationMessageFor(x => x.Price)
     </div>
     <div class="addGoodBtnBlock">
-        <input class="addGoodBtn" type="submit" value="Сохранить" />
+        <input class="addGoodBtn" type="submit" value="@Store_AddOrUpdateGood.Save" />
     </div>
 </form>
