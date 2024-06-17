@@ -15,6 +15,7 @@ namespace PortalAboutEverything.Models.GameStore
         [Display(Name = "Год выпуска игры")]
         public int YearOfRelease { get; set; }
 
-        public IFormFile? Cover { get; set; }
+        [MaxImageGameStoreSize(300,300)]
+        public IFormFile Cover { get; set; }
     }
 }

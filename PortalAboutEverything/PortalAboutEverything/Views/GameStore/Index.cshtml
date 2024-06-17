@@ -1,5 +1,6 @@
 ﻿@model PortalAboutEverything.Models.GameStore.IndexGameViewModel
 @using PortalAboutEverything.LocalizationResources.GameStore
+
 @section Style {
     <link rel="stylesheet" href="~/css/GameStore/style.css?v=2" />
 }
@@ -15,7 +16,7 @@
     </div>
     <div class="header_right">
         <button class="login">
-            <a href="/GameStore/GamerGameStore">@GameStore_Index.Login</a>
+            <a href="/GameStore/GamerGameStore"> @GameStore_Index.Login</a>
         </button>
         <button class="basket">
             @GameStore_Index.Basket
@@ -31,8 +32,15 @@
 <div class="center-block">
     @foreach (var game in Model.Games)
     {
-        <img class="cover" src="images//GameStore/cover-@(game.Id).jpg" />
         <div class="game">
+            @if (game.HasCover)
+            {
+                <img class="cover" src="/images/GameStore/cover-@(game.Id).jpg" />
+            }
+            else
+            {
+                <img class="cover" src="/images/GameStore/cover-default.jpg" />
+            }
             @if (Model.CanUpdateGameInGameStore)
             {
                 @GameStore_Index.Game <a href="/GameStore/Update?id=@game.Id">@game.GameName</a>

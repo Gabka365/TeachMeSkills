@@ -73,11 +73,11 @@ namespace PortalAboutEverything.Controllers
                 YearOfRelease = createGameStoreViewModel.YearOfRelease,
 
             };
+
             _gameStoreRepositories.Create(game);
 
             var path = _pathHelper.GetPathToGameStoreCover(game.Id);
-
-            using (var fs = new FileStream(path, FileMode.Create))
+            using(var fs = new FileStream(path, FileMode.Create))
             {
                 createGameStoreViewModel.Cover.CopyTo(fs);
             }
@@ -145,6 +145,7 @@ namespace PortalAboutEverything.Controllers
                 GameName = game.GameName,
                 YearOfRelease = game.YearOfRelease,
                 Developer = game.Developer,
+                HasCover = _pathHelper.IsGameStoreCoverExist(game.Id),
             };
         }
 
