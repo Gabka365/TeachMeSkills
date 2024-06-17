@@ -14,6 +14,8 @@ namespace PortalAboutEverything.Controllers
     {
         public const string AUTH_METHOD = "Smile";
 
+        private const string SECRETWORD = "Fun";
+
         private UserRepository _userRepository;
 
         public AuthController(UserRepository userRepository)
@@ -30,7 +32,8 @@ namespace PortalAboutEverything.Controllers
         [HttpPost]
         public IActionResult Login(AuthViewModel model)
         {
-            var user = _userRepository.GetByLoginAndPasswrod(model.Login, model.Password);
+            var passwordHash = BuildPasswordHash(model.Password);
+            var user = _userRepository.GetByLoginAndPasswrod(model.Login, passwordHash);
             if (user == null)
             {
                 return View(model);
@@ -63,7 +66,7 @@ namespace PortalAboutEverything.Controllers
             var user = new User
             {
                 UserName = viewModel.Login,
-                Password = viewModel.Password,
+                Password = BuildPasswordHash(viewModel.Password),
                 Role = UserRole.User,
             };
 
@@ -107,6 +110,13 @@ namespace PortalAboutEverything.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+        private string BuildPasswordHash(string passwrod)
+        {
+            var temp = (SECRETWORD + passwrod);
+            var hash = temp.ToCharArray().Select(x => x - '0').Average();
+            return hash.ToString();
         }
     }
 }
