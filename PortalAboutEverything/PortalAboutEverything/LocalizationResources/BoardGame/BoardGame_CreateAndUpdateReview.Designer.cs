@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PortalAboutEverything.LocalizationResources.BoardGame {
+namespace PortalAboutEverything.LocalizationResources.BoardGame
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,23 +23,28 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class BoardGame_CreateAndUpdateReview {
-        
+    public class BoardGame_CreateAndUpdateReview
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal BoardGame_CreateAndUpdateReview() {
+        internal BoardGame_CreateAndUpdateReview()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        public static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PortalAboutEverything.LocalizationResources.BoardGame.BoardGame_CreateAndUpdateRe" +
                             "view", typeof(BoardGame_CreateAndUpdateReview).Assembly);
                     resourceMan = temp;
@@ -46,80 +52,97 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
-            get {
+        public static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Post a review.
         /// </summary>
-        public static string CreateButton {
-            get {
+        public static string CreateButton
+        {
+            get
+            {
                 return ResourceManager.GetString("CreateButton", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Review.
         /// </summary>
-        public static string DisplayText_Name {
-            get {
+        public static string DisplayText_Name
+        {
+            get
+            {
                 return ResourceManager.GetString("DisplayText_Name", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The review cannot be empty.
         /// </summary>
-        public static string RequiredText_ErrorMessage {
-            get {
+        public static string RequiredText_ErrorMessage
+        {
+            get
+            {
                 return ResourceManager.GetString("RequiredText_ErrorMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Your review.
         /// </summary>
-        public static string Text {
-            get {
+        public static string Text
+        {
+            get
+            {
                 return ResourceManager.GetString("Text", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Write your opinion about the game.
         /// </summary>
-        public static string TitleOfPageCreate {
-            get {
+        public static string TitleOfPageCreate
+        {
+            get
+            {
                 return ResourceManager.GetString("TitleOfPageCreate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Your opinion about the game.
         /// </summary>
-        public static string TitleOfPageUpdate {
-            get {
+        public static string TitleOfPageUpdate
+        {
+            get
+            {
                 return ResourceManager.GetString("TitleOfPageUpdate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Edit a review.
         /// </summary>
-        public static string UpdateButton {
-            get {
+        public static string UpdateButton
+        {
+            get
+            {
                 return ResourceManager.GetString("UpdateButton", resourceCulture);
             }
         }

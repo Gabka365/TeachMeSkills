@@ -75,7 +75,14 @@
             {
                 <div class="goodBlock">
                     <a class="linkToReview" href="/Store/Good/@good.Id">
-                        <img class="good" src="https://source.unsplash.com/random" alt="random" />
+                        @if (good.HasCover)
+                        {
+                            <img class="good" src="/images/Store/MainPage/ImagesForGoods/goodImage-@(good.Id).jpg" alt="goodImage" />
+                        }
+                        else
+                        {
+                            <img class="good" src="/images/Store/MainPage/ImagesForGoods/goodImage-default.jpg" alt="default" />
+                        }
                         <img class="likedIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
                     </a>
                     <p class="pricePretext">@Store_Index.PriceFrom<span class="price"> @good.Price </span>@Store_Index.Value</p>
@@ -93,10 +100,10 @@
                     </div>
                     @if (Model.IsStoreAdmin)
                     {
-                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">@Store_Index.UpdateGoodInfo</a>                       
+                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">@Store_Index.UpdateGoodInfo</a>
                     }
                     @if (Model.IsAdmin)
-                    {                       
+                    {
                         <a href="/Store/DeleteGood/@good.Id" class="deleteGoodLink">@Store_Index.DeleteGood</a>
                     }
                 </div>
