@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="/css/Traveling/posts/Create.css" />
     <link rel="stylesheet" href="/css/Traveling/nicepage.css" />
 }
+@section Scripts {
+    <script src="/js/Traveling/createPost.js"></script>
+}
 
 
 <div class="u-body u-xl-mode">
@@ -38,12 +41,3 @@
     </section>
 </div>
 
-@section Scripts {
-    <script>
-        function updateFileName(value) {
-            var fileName = value.split('\\').pop();
-            var elements = document.getElementsByClassName('file-name');
-                elements[0].textContent = fileName ? "Выбран файл: " + fileName : "";
-        }
-    </script>
-}

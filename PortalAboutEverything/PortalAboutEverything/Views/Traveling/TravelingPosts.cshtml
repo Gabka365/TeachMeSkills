@@ -7,11 +7,14 @@
 @{
     string[] validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 }
+@section Scripts {
+    <script src="/js/Traveling/showPost.js"></script>
+}
 
 <div class="u-body u-xl-mode" data-lang="ru">
     <section class="u-align-center u-clearfix u-section-1" id="sec-b5d7">
         <div class="u-clearfix u-sheet u-sheet-1">
-            <div class="custom-expanded u-container-style u-post-details u-post-details-1">
+            <div class="u-container-style u-post-details u-post-details-1">
                 <div class="u-container-layout u-container-layout-1">
 
                     @if (Model != null && Model.TopTravelingByCommentsViewModel != null)
@@ -34,7 +37,7 @@
                                                     var imagePath = System.IO.Path.Combine($"wwwroot/images/traveling/UserPictures/{Model.TopTravelingByCommentsViewModel.Id}.{ext}");
                                                     if (System.IO.File.Exists(imagePath))
                                                     {
-                                                        <img alt="" class="custom-expanded u-blog-control u-image u-image-default u-image-1" src="/Traveling/ShowImage/@Model.TopTravelingByCommentsViewModel.Id">
+                                                        <img alt="" class="u-blog-control u-image u-image-default u-image-1" src="/Traveling/ShowImage/@Model.TopTravelingByCommentsViewModel.Id">
                                                         break;
                                                     }
                                                 }
@@ -99,7 +102,7 @@
                                                         var imagePath = System.IO.Path.Combine($"wwwroot/images/traveling/UserPictures/{post.Id}.{ext}");
                                                         if (System.IO.File.Exists(imagePath))
                                                         {
-                                                            <img alt="" class="custom-expanded u-blog-control u-image u-image-default u-image-1" src="/Traveling/ShowImage/@post.Id">
+                                                            <img alt="" class="u-blog-control u-image u-image-default u-image-1" src="/Traveling/ShowImage/@post.Id">
                                                             break;
                                                         }
                                                     }

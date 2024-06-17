@@ -2,7 +2,7 @@
 
 namespace PortalAboutEverything.Models.ValidationAttributes
 {
-    public class GoodPriceAttribute : ValidationAttribute
+    public class GoodPriceIsNotEmptyAttribute : ValidationAttribute
     {
 
         public override string FormatErrorMessage(string name)
@@ -22,7 +22,7 @@ namespace PortalAboutEverything.Models.ValidationAttributes
 
             if (value is not int)
             {
-                throw new ArgumentException($"Неправильный тип валидации. {nameof(GoodPriceAttribute)} может работать только с числом");
+                throw new ArgumentException($"Неправильный тип валидации. {nameof(GoodPriceIsNotEmptyAttribute)} может работать только с числом");
             }
 
 

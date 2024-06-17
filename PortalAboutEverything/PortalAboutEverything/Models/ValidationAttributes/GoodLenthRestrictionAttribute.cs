@@ -2,9 +2,19 @@
 
 namespace PortalAboutEverything.Models.ValidationAttributes
 {
-    public class GoodDescriptionAttribute : ValidationAttribute
+    public class GoodLenthRestriction : ValidationAttribute
     {
         private string _defaultErrorMessage;
+
+        private int _maxLength;
+
+        private int _minLength;
+
+        public GoodLenthRestriction(int minLength, int maxLength)
+        {
+            _minLength = minLength;
+            _maxLength = maxLength;
+        }
 
         public override string FormatErrorMessage(string name)
         {
@@ -15,16 +25,16 @@ namespace PortalAboutEverything.Models.ValidationAttributes
         {
             if (value == null)
             {
-                _defaultErrorMessage = "Введите описание товара.";
+                _defaultErrorMessage = "Введите название товара.";
                 return false;
             }
 
             string strValue = value.ToString()!;
             int length = strValue.Length;
 
-            if (length < 10 || length > 30)
+            if (length < _minLength || length > _maxLength)
             {
-                _defaultErrorMessage = "Описание товара должно быть не менее 10 и не боее 30 символов.";
+                _defaultErrorMessage = $"Название товара должно быть не менее {_minLength} и не более {_maxLength} символов.";
                 return false;
             }
 
@@ -32,4 +42,3 @@ namespace PortalAboutEverything.Models.ValidationAttributes
         }
     }
 }
-

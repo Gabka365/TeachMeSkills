@@ -1,4 +1,5 @@
-﻿@model PortalAboutEverything.Models.Store.GoodViewModel;
+﻿@model PortalAboutEverything.Models.Store.GoodViewModel
+@using PortalAboutEverything.LocalizationResources.Store
 
 @section Style {
     <link rel="stylesheet" href="/css/Store/style.css" />
@@ -10,16 +11,16 @@
             <img class="goodImg" src="https://source.unsplash.com/random" alt="good" />
         </div>
         <div>
-            @if (Model.Reviews == null)
+            @if (Model.Reviews.Count == 0)
             {
                 <div class="titleForBlockReviews">
-                    Здесь будут отзывы
+                    @Store_GoodPage.ReviewsWillBeHereText
                 </div>
             }
             else
             {
                 <div class="titleForBlockReviews">
-                    Отзывы на товар
+                    @Store_GoodPage.GoodReviews
                 </div>
                 @foreach (var review in Model.Reviews)
                 {
@@ -31,10 +32,10 @@
                 }
             }
             <form class="reviewForm" action="/Store/AddReview" method="post">
-                <h3 class="reviewTitle">Написать отзыв</h3>
+                <h3 class="reviewTitle">@Store_GoodPage.WriteReview</h3>
                 <input type="hidden" value="@Model.Id" name="goodId" />
-                <textarea class="reviewField" name="text" placeholder="Оставьте свой отзыв"></textarea>
-                <input class="submitBtn" type="submit" value="Оставить отзыв" />
+                <textarea class="reviewField" name="text" placeholder="@Store_GoodPage.LeaveYourReview"></textarea>
+                <input class="submitBtn" type="submit" value="@Store_GoodPage.LeaveReviewTextBtn" />
             </form>
         </div>
     </div>
@@ -46,7 +47,7 @@
             <div class="goodDescription">
                 @Model.Description
             </div>
-            <p class="pricePretext">от<span class="price"> @Model.Price </span>р.</p>
+            <p class="pricePretext">@Store_GoodPage.PriceFrom<span class="price"> @Model.Price </span>@Store_GoodPage.Value</p>
         </div>
     </div>
 </div>
