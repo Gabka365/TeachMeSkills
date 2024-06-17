@@ -160,10 +160,11 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="wwwroot\images\Game\" />
-		<Folder Include="wwwroot\images\Movie\" />
-	</ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Game\" />
+    <Folder Include="wwwroot\images\Movie\" />
+    <Folder Include="wwwroot\js\BoardGame\" />
+  </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="System.Drawing.Common" Version="8.0.6" />
