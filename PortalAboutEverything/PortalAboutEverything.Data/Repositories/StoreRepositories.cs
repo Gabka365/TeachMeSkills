@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Model.Store;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+using PortalAboutEverything.Data.Repositories.DataModel;
+using PortalAboutEverything.Data.Repositories.RawSql;
 
 namespace PortalAboutEverything.Data.Repositories
 {
@@ -46,6 +41,11 @@ namespace PortalAboutEverything.Data.Repositories
             dbGood.Price = good.Price;
 
             _dbContext.SaveChanges();
+        }
+
+        public IEnumerable<TopGoodsDataModel> GetTopGoods()
+        {
+            return CustomSqlQuery<TopGoodsDataModel>(SqlQueryManager.GetTopGoods).ToList();
         }
     }
 }

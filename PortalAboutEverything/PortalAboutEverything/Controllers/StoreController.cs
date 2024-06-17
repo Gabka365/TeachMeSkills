@@ -1,18 +1,13 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
-using PortalAboutEverything.Data.Migrations;
-using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Model.Store;
 using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Models.BookClub;
-using PortalAboutEverything.Models.Game;
+using PortalAboutEverything.Data.Repositories.DataModel;
 using PortalAboutEverything.Models.Store;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
-using System.Drawing;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -26,7 +21,7 @@ namespace PortalAboutEverything.Controllers
 
         private PathHelper _pathHelper;
 
-        public StoreController(StoreRepositories storeRepositories, GoodReviewRepositories goodReviewRepositories, AuthService authService, PathHelper pathHelper )
+        public StoreController(StoreRepositories storeRepositories, GoodReviewRepositories goodReviewRepositories, AuthService authService, PathHelper pathHelper)
         {
             _storeRepositories = storeRepositories;
             _goodReviewRepositories = goodReviewRepositories;
@@ -44,6 +39,16 @@ namespace PortalAboutEverything.Controllers
                 IsAdmin = _authService.HasRoleOrHigher(UserRole.Admin),
                 IsStoreAdmin = _authService.HasRoleOrHigher(UserRole.StoreAdmin)
             };
+
+            return View(viewModel);
+        }
+
+        public IActionResult TopGoods()
+        {
+            var topGoods = _storeRepositories.GetTopGoods();
+
+
+            List<TopGoodViewModel> viewModel = topGoods.Select(BuildTopGoodViewModel).ToList();
 
             return View(viewModel);
         }
@@ -178,6 +183,16 @@ namespace PortalAboutEverything.Controllers
                 Name = good.Name,
                 Description = good.Description,
                 Price = good.Price,
+            };
+        }
+
+        private TopGoodViewModel BuildTopGoodViewModel(TopGoodsDataModel good)
+        {
+            return new TopGoodViewModel
+            {
+                Id = good.GoodId,
+                Name = good.GoodName,
+                CountOfLike = good.CountUsersWhoLikedIt,
             };
         }
 

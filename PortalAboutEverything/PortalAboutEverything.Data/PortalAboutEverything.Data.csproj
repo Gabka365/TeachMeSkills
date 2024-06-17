@@ -10,10 +10,14 @@
     <None Remove="Repositories\RawSql\GetMovieStatistic.sql" />
     <None Remove="Repositories\RawSql\GetTop3BoardGames.sql" />
     <None Remove="Repositories\RawSql\GetTop3Games.sql" />
+    <None Remove="Repositories\RawSql\GetTopGoods.sql" />
     <None Remove="Repositories\RawSql\TopTravelingByComments.sql" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Repositories\RawSql\GetTopGoods.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Repositories\RawSql\TopTravelingByComments.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

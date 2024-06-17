@@ -1,9 +1,4 @@
-SELECT Id, 
-	SUM (CASE WHEN GU.UsersWhoLikedTheGoodId IS NULL 
-	THEN 0 
-	ELSE 1 
-END) AS CountUserWhoLikedIt
+SELECT G.Id AS GoodId, G.Name AS GoodName, COUNT(GU.UsersWhoLikedTheGoodId) AS CountUsersWhoLikedIt
 FROM Goods G
-	LEFT JOIN GoodUser GU ON G.Id = GU.FavouriteGoodsId
-GROUP BY Id
-ORDER BY CountUserWhoLikedIt DESC
+LEFT JOIN GoodUser GU ON G.Id = GU.FavouriteGoodsId
+GROUP BY G.Id, G.Name;

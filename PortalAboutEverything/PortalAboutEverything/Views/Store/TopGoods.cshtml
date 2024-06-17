@@ -1,0 +1,18 @@
+﻿@model List<PortalAboutEverything.Models.Store.TopGoodViewModel>
+
+@section Style {
+    <link rel="stylesheet" href="/css/Store/style.css" />
+}
+
+<div>
+    Это самые популярные товары
+</div>
+@foreach (var good in Model)
+{
+    <div class="goodsBlock">
+        <img class="good" src="~/images/Store/MainPage/ImagesForGoods/goodImage-default.jpg" alt="defaultIcon" />
+        <p>@good.Name</p>
+        <p>Товар понравился пользователям @good.CountOfLike раз.</p>
+    </div>
+}
+

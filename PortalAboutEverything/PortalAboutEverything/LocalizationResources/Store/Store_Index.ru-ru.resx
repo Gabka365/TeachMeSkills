@@ -138,11 +138,11 @@
   <data name="Liked" xml:space="preserve">
     <value>Избр.</value>
   </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Войти</value>
-  </data>
   <data name="NoGoods" xml:space="preserve">
     <value>Товары отсутсвуют. Добавьте хотя бы один товар.</value>
+  </data>
+  <data name="Popular" xml:space="preserve">
+    <value>Популярные</value>
   </data>
   <data name="PriceFrom" xml:space="preserve">
     <value>от</value>
