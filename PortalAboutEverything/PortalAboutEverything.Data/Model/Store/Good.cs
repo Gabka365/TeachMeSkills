@@ -17,7 +17,5 @@ namespace PortalAboutEverything.Data.Model.Store
         public virtual List<GoodReview>? Reviews { get; set; }
 
         public virtual List<User>? UsersWhoLikedTheGood {  get; set; }
-
-
     }
 }
