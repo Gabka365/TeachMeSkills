@@ -6,6 +6,7 @@ using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Models.GameStore;
 using PortalAboutEverything.Services.AuthStuff;
+using PortalAboutEverything.Services;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -13,12 +14,15 @@ namespace PortalAboutEverything.Controllers
     {
         private GameStoreRepositories _gameStoreRepositories;
         private AuthService _authService;
+        private PathHelper _pathHelper;
 
         public GameStoreController(GameStoreRepositories gameStoreRepositories,
-            AuthService authService)
+            AuthService authService,
+            PathHelper pathHelper)
         {
             _gameStoreRepositories = gameStoreRepositories;
             _authService = authService;
+            _pathHelper = pathHelper;
         }
 
         public IActionResult Index()
@@ -69,15 +73,23 @@ namespace PortalAboutEverything.Controllers
                 YearOfRelease = createGameStoreViewModel.YearOfRelease,
 
             };
+
             _gameStoreRepositories.Create(game);
 
+            var path = _pathHelper.GetPathToGameStoreCover(game.Id);
+            using(var fs = new FileStream(path, FileMode.Create))
+            {
+                createGameStoreViewModel.Cover.CopyTo(fs);
+            }
             return RedirectToAction("Index");
         }
 
         [HasPermission(Permission.CanDeleteGameInGameStore)]
         public IActionResult Delete(int id)
         {
+            var path = _pathHelper.GetPathToGameStoreCover(id);
             _gameStoreRepositories.Delete(id);
+            System.IO.File.Delete(path);
             return RedirectToAction("Index");
         }
 
@@ -133,6 +145,7 @@ namespace PortalAboutEverything.Controllers
                 GameName = game.GameName,
                 YearOfRelease = game.YearOfRelease,
                 Developer = game.Developer,
+                HasCover = _pathHelper.IsGameStoreCoverExist(game.Id),
             };
         }
 

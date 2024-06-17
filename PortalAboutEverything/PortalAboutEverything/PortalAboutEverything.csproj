@@ -37,8 +37,28 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>BoardGame_UserFavoritesGame.resx</DependentUpon>
 		</Compile>
+		<Compile Update="LocalizationResources\GameStore\GameStore_CreateGame.Designer.cs">
+		  <DependentUpon>GameStore_CreateGame.resx</DependentUpon>
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="LocalizationResources\GameStore\GameStore_Index.Designer.cs">
+		  <DependentUpon>GameStore_Index.resx</DependentUpon>
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="LocalizationResources\Movie_CreateMovie.Ru.Designer.cs">
+			<DependentUpon>Movie_CreateMovie.Ru.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
 		<Compile Update="LocalizationResources\Movie_CreateMovie.Designer.cs">
 			<DependentUpon>Movie_CreateMovie.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="LocalizationResources\Movie_Index.Ru.Designer.cs">
+			<DependentUpon>Movie_Index.Ru.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 		</Compile>
@@ -122,8 +142,24 @@
 			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>BoardGame_UserFavoritesGame.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\GameStore\GameStore_CreateGame.resx">
+		  <LastGenOutput>GameStore_CreateGame.Designer.cs</LastGenOutput>
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\GameStore\GameStore_Index.resx">
+		  <LastGenOutput>GameStore_Index.Designer.cs</LastGenOutput>
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\Movie_CreateMovie.Ru.resx">
+			<LastGenOutput>Movie_CreateMovie.Ru.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
 		<EmbeddedResource Update="LocalizationResources\Movie_CreateMovie.resx">
 			<LastGenOutput>Movie_CreateMovie.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\Movie_Index.Ru.resx">
+			<LastGenOutput>Movie_Index.Ru.Designer.cs</LastGenOutput>
 			<Generator>PublicResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 		<EmbeddedResource Update="LocalizationResources\Movie_Index.resx">
