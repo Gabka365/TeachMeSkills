@@ -1,18 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
-using PortalAboutEverything.Data.Migrations;
-using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Model.Store;
 using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Models.BookClub;
-using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Store;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
-using System.Drawing;
 
 namespace PortalAboutEverything.Controllers
 {
