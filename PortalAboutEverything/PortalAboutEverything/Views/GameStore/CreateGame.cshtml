@@ -13,6 +13,7 @@
     </div>
     <div>   
         <input type="file" name="@nameof(CreateGameStoreViewModel.Cover)" />
+        @Html.ValidationMessageFor(x => x.Cover)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Developer, new { placeholder = GameStore_CreateGame.Placeholder_Developer, @class = "my-input" })
