@@ -47,7 +47,7 @@
 }
 
 .update-and-delete {
-    display: flex;
+    display: none;
     gap: 10px;
 }
 

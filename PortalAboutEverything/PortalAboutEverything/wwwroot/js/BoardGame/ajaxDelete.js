@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   const deleteButtons = document.querySelectorAll(".delete-link");
+  if (!deleteButtons.length) {
+    return;
+  }
+
   const debounceDeleteBoardGame = debounce(deleteBoardGame, 500);
 
   deleteButtons.forEach((deleteButton) => {
