@@ -1,54 +1,54 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+﻿//document.addEventListener("DOMContentLoaded", function () {
 
 
 
 
-	const boardGames = document.querySelectorAll(".board-game-item");
+//	const boardGames = document.querySelectorAll(".board-game-item");
 
-	hideAllAdminBlocks(boardGames);
-
-
-
-
-	boardGames.forEach((game) => {
-
-		game.addEventListener("click", () => {
-
-			const isCurrentGame = game.classList.contains("active");
+//	hideAllAdminBlocks(boardGames);
 
 
 
 
-			boardGames.forEach((game) => { game.classList.remove("active") });
+//	boardGames.forEach((game) => {
 
-			hideAllAdminBlocks(boardGames);
+//		game.addEventListener("click", () => {
 
-			if (isCurrentGame) {
-				return;
-			}
+//			const isCurrentGame = game.classList.contains("active");
 
-			game.classList.add("active");
-			const adminBlock = game.querySelector(".update-and-delete");
-			if (!adminBlock) {
-				return;
-			}
 
-			adminBlock.style.display = 'flex';
-		});
 
-	});
+
+//			boardGames.forEach((game) => { game.classList.remove("active") });
+
+//			hideAllAdminBlocks(boardGames);
+
+//			if (isCurrentGame) {
+//				return;
+//			}
+
+//			game.classList.add("active");
+//			const adminBlock = game.querySelector(".update-and-delete");
+//			if (!adminBlock) {
+//				return;
+//			}
+
+//			adminBlock.style.display = 'flex';
+//		});
+
+//	});
 	
 
-	function hideAllAdminBlocks(boardGames) {
-		boardGames.forEach((game) => {
-			const adminBlock = game.querySelector(".update-and-delete");
-			if (adminBlock) {
-				adminBlock.style.display = 'none';
-			}
-		});
-	}
+//	function hideAllAdminBlocks(boardGames) {
+//		boardGames.forEach((game) => {
+//			const adminBlock = game.querySelector(".update-and-delete");
+//			if (adminBlock) {
+//				adminBlock.style.display = 'none';
+//			}
+//		});
+//	}
 
-});
+//});
 
 
 

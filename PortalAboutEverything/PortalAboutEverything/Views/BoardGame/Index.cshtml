@@ -27,9 +27,9 @@
                     }
                     @if (Model.CanDeleteBoardGames)
                     {
-                        <p class="delete-link" @* href="/BoardGame/Delete?id=@boardGame.Id "*@>
+                        <div class="delete-link">
                             <img class="icon delete-icon" src="/images/BoardGame/delete.svg" alt="@BoardGame_Index.DeleteButton" />
-                        </p>
+                        </div>
                     }
                 </div>
             </li>
@@ -51,6 +51,7 @@
         {
             var favoriteBoardGame = Model.Top3FavoriteBoardGames[i];
             <li class="board-game-item top-board-game-item">
+                <input class="top-board-game-id" type="hidden" value="@favoriteBoardGame.Id" />
                 <p>@(i+1)</p>
                 <a class="board-game-title text-dark top-board-game-title" href="/BoardGame/BoardGame?Id=@favoriteBoardGame.Id">@favoriteBoardGame.Title</a>
                 <p class="like-count">@favoriteBoardGame.CountOfUserWhoLikeIt</p>

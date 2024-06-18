@@ -21,7 +21,7 @@ namespace PortalAboutEverything.Data.Repositories
 
         public List<BoardGame> GetFavoriteBoardGamesForUser(int userId)
             => _dbSet
-            .Where(boardGame => boardGame.UsersWhoFavoriteThisBoardGame.Any(user =>  user.Id == userId))
+            .Where(boardGame => boardGame.UsersWhoFavoriteThisBoardGame.Any(user => user.Id == userId))
             .ToList();
 
         public void Update(BoardGame boardGame)
@@ -36,6 +36,28 @@ namespace PortalAboutEverything.Data.Repositories
             updatedboardGame.ProductCode = boardGame.ProductCode;
 
             _dbContext.SaveChanges();
+        }
+
+        public bool Delete(int gameId)
+        {
+            var game = Get(gameId);
+
+            if (game is null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            _dbSet.Remove(game);
+            _dbContext.SaveChanges();
+
+            if (Get(gameId) is null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void AddUserWhoFavoriteThisBoardGame(User user, int gameId)
