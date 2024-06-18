@@ -133,6 +133,15 @@ namespace PortalAboutEverything.Data
                     Language = Language.En
                 };
                 userRepository.Create(videoLibraryAdmin);
+
+                var storeAdmin = new User
+                {
+                    UserName = "storeAdmin",
+                    Password = "storeAdmin",
+                    Role = UserRole.StoreAdmin,
+                    Language = Language.En
+                };
+                userRepository.Create(storeAdmin);
             }
         }
 

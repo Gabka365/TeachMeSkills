@@ -10,7 +10,9 @@
 @foreach (var good in Model)
 {
     <div class="goodsBlock">
-        <img class="good" src="~/images/Store/MainPage/ImagesForGoods/goodImage-default.jpg" alt="defaultIcon" />
+        <a class="linkToReview" href="/Store/Good/@good.Id">
+            <img class="good" src="~/images/Store/MainPage/ImagesForGoods/goodImage-default.jpg" alt="defaultIcon" />
+        </a>
         <p>@good.Name</p>
         <p>Товар понравился пользователям @good.CountOfLike раз.</p>
     </div>
