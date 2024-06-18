@@ -2,11 +2,12 @@
 @using PortalAboutEverything.LocalizationResources.BoardGame
 
 @section Style {
-    <link href="/css/BoardGame/boardGamesIndex.css?v=2" rel="stylesheet" />
+    <link href="/css/BoardGame/boardGamesIndex.css?v=3" rel="stylesheet" />
 }
 
 @section Scripts {
-    <script defer src="~/js/BoardGame/index.js"></script>
+    <script defer src="/js/BoardGame/index.js"></script>
+    <script defer src="/js/BoardGame/ajaxDelete.js"></script>
 }
 
 <div class="board-game-list">
@@ -15,6 +16,7 @@
         @foreach (var boardGame in Model.BoardGames)
         {
             <li class="board-game-item">
+                <input class="board-game-id" type="hidden" value="@boardGame.Id"/>
                 <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@boardGame.Id">@boardGame.Title</a>
                 <div class="update-and-delete">
                     @if (Model.CanCreateAndUpdateBoardGames)
@@ -25,9 +27,9 @@
                     }
                     @if (Model.CanDeleteBoardGames)
                     {
-                        <a class="delete-link" href="/BoardGame/Delete?id=@boardGame.Id">
+                        <p class="delete-link" @* href="/BoardGame/Delete?id=@boardGame.Id "*@>
                             <img class="icon delete-icon" src="/images/BoardGame/delete.svg" alt="@BoardGame_Index.DeleteButton" />
-                        </a>
+                        </p>
                     }
                 </div>
             </li>

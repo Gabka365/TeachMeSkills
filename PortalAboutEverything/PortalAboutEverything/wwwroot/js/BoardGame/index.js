@@ -5,14 +5,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   boardGames.forEach((game) => {
     game.addEventListener("click", () => {
-      const isCurrentGame = game.classList.contains("active");
+      const isCurrentGame = game.classList.contains("active-board-game");
 
-      boardGames.forEach((game) => { game.classList.remove("active") });
+      boardGames.forEach((game) => { game.classList.remove("active-board-game") });
 
       hideAllAdminBlocks(boardGames);
 
       if (!isCurrentGame) {
-        game.classList.add("active");
+        game.classList.add("active-board-game");
         const adminBlock = game.querySelector(".update-and-delete");
         if (adminBlock) {
           adminBlock.style.display = 'flex';
