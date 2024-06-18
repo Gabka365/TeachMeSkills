@@ -12,6 +12,12 @@ namespace PortalAboutEverything.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
+        public string GetPathToTravelingImageFolder()
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Traveling", "UserPictures");
+            return path;
+        }
+
         public string GetPathToGameCover(int gameId)
         {
             var fileName = $"cover-{gameId}.jpg";

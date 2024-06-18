@@ -237,22 +237,22 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("TravelingPosts");
         }
 
-        public IActionResult DeletePost(int id)
-        {
-            foreach (var ext in _validExtensions)
-            {
-                var imageName = $"{id}.{ext}";
-                var imagePath = Path.Combine(_pathTravelingUserPictures, imageName);
+        //public IActionResult DeletePost(int id)
+        //{
+        //    foreach (var ext in _validExtensions)
+        //    {
+        //        var imageName = $"{id}.{ext}";
+        //        var imagePath = Path.Combine(_pathTravelingUserPictures, imageName);
 
-                if (System.IO.File.Exists(imagePath))
-                {
-                    System.IO.File.Delete(imagePath);
-                    break;
-                }
-            }
-            _travelingRepositories.Delete(id);
-            return RedirectToAction("TravelingPosts");
-        }
+        //        if (System.IO.File.Exists(imagePath))
+        //        {
+        //            System.IO.File.Delete(imagePath);
+        //            break;
+        //        }
+        //    }
+        //    _travelingRepositories.Delete(id);
+        //    return RedirectToAction("TravelingPosts");
+        //}
 
         [HttpGet]
         public IActionResult UpdatePost(int id)

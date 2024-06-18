@@ -56,7 +56,7 @@
                                     <!--blog_post_readmore-->
                                     @if (Model.IsTravingAdmin)
                                     {
-                                        <a href="/Traveling/DeletePost/@Model.TopTravelingByCommentsViewModel.Id" class="u-blog-control u-btn u-button-style u-btn-1">Удалить</a>
+                                        <button class="u-blog-control u-btn u-button-style u-btn-1 del-post" data-post-id="@Model.TopTravelingByCommentsViewModel.Id">Удалить</button>
                                         <a href="/Traveling/UpdatePost/@Model.TopTravelingByCommentsViewModel.Id" class="u-blog-control u-btn u-button-style u-btn-2">Редактировать</a>
                                     }
                                 </div>
@@ -81,8 +81,8 @@
                         </div>
                     }
 
-                   @if( Model != null && Model.TravelingPostsViewModels.Count != 0 )
-                   {
+                    @if (Model != null && Model.TravelingPostsViewModels.Count != 0)
+                    {
                         @foreach (var post in Model.TravelingPostsViewModels)
                         {
                             <h3 class="u-blog-control u-text u-text-1">
@@ -121,7 +121,7 @@
                                         <!--blog_post_readmore-->
                                         @if (Model.IsTravingAdmin)
                                         {
-                                            <a href="/Traveling/DeletePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-1">Удалить</a>
+                                            <button class="u-blog-control u-btn u-button-style u-btn-1 del-post" data-post-id="@post.Id">Удалить</button>
                                             <a href="/Traveling/UpdatePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-2">Редактировать</a>
                                         }
                                     </div>
@@ -146,15 +146,15 @@
                             </div>
 
                         }
-                   }
+                    }
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a href="/Traveling/CreatePost" class="u-btn u-button-style u-btn-3">Создать новый пост</a>
+                        <a href="/Traveling/CreatePost" class="btn-CreatePost">Создать новый пост</a>
                     }
                     else
                     {
                         <p class="u-text u-text-default u-text-4">Для создания поста требуется зайти на сайт</p>
-                        <a href="/Auth/Login" class="u-btn u-button-style u-btn-3">Зайти на сайт</a>
+                        <a href="/Auth/Login" class="btn-Login">Зайти на сайт</a>
                     }
                 </div>
             </div>
