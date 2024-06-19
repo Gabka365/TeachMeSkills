@@ -42,17 +42,20 @@ namespace PortalAboutEverything.Data.Repositories
                 _dbContext.SaveChanges();
             }
         }
-               
-        public Like GetLikeByTravelingPostId(int postId)//TODO need a test
+
+        public Like GetLikeByTravelingPostId(int postId, int userId)
         {
-            
-            var like = _dbContext.Likes
-                .Where(l => l.Travelings.Any(pl => pl.Id == postId))
-                .FirstOrDefault(); 
+            var post = _dbContext.Travelings
+                            .Include(p => p.Likes)
+                            .ThenInclude(l => l.Users)
+                            .FirstOrDefault(p => p.Id == postId);
+
+            var like = post.Likes
+                    .FirstOrDefault(like => like.Users.Any(user => user.Id == userId));
+
 
             return like;
         }
-
     }
 }
 

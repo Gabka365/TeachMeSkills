@@ -56,7 +56,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             }
             else
             {
-                var like = _likeRepositories.GetLikeByTravelingPostId(postId);
+                var like = _likeRepositories.GetLikeByTravelingPostId(postId, userId);
                 _likeRepositories.Delete(like);
             }
 
