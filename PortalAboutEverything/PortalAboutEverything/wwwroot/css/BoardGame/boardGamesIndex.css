@@ -32,7 +32,7 @@
     transition: background-color 0.3s;
 }
 
-    .board-game-item.active {
+    .board-game-item.active-board-game {
         border: 2px solid #ef6747;
     }
 
@@ -47,7 +47,7 @@
 }
 
 .update-and-delete {
-    display: flex;
+    display: none;
     gap: 10px;
 }
 
