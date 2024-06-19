@@ -10,5 +10,6 @@ namespace PortalAboutEverything.Models.Traveling
         public string TimeOfCreation { get; set; }
         public int UserId { get; set; }
         public List<TravelingCreateComment>? Comments { get; set; }
+        public int countLike { get; set; }
     }
 }

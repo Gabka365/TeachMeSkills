@@ -25,5 +25,6 @@ namespace PortalAboutEverything.Data.Model
 
         public virtual List<Good> FavouriteGoods { get; set; }
         public virtual List<Book> FavoriteBooksOfUser { get; set; }
+        public virtual List<Like> Likes { get; set; }
     }
 }

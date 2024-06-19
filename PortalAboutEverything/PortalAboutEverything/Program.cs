@@ -40,6 +40,7 @@ builder.Services.AddScoped<StoreRepositories>();
 builder.Services.AddScoped<GoodReviewRepositories>();
 builder.Services.AddScoped<GameStoreRepositories>();
 builder.Services.AddScoped<CommentRepository>();
+builder.Services.AddScoped<LikeRepositories>();
 
 // Services
 builder.Services.AddScoped<AuthService>();

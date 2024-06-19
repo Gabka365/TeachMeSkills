@@ -57,6 +57,32 @@ namespace PortalAboutEverything.Data.Repositories
 
             _dbContext.SaveChanges();
         }
+        public bool CheckLikeUserOnTravelingPost(int userId, int postId)
+        {
+
+            var check = false;
+            var post = _dbContext.Travelings
+                            .Include(p => p.Likes)
+                            .ThenInclude(l => l.Users)
+                            .FirstOrDefault(p => p.Id == postId);
+
+
+            if (post != null)
+            {
+                var existingLike = post.Likes
+                    .FirstOrDefault(like => like.Users.Any(user => user.Id == userId));
+
+                if (existingLike != null)
+                {
+                    check =  true;
+                }
+                else
+                {
+                    check =  false;
+                }
+            }            
+            return check;
+        }
 
         public User? GetWithFavoriteMovies(int id)
 			 => _dbSet
