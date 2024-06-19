@@ -1,4 +1,5 @@
-﻿@model PortalAboutEverything.Models.Traveling.TravelingShowPostsViewModel
+﻿@inject PortalAboutEverything.Services.AuthStuff.AuthService authSErvise
+@model PortalAboutEverything.Models.Traveling.TravelingShowPostsViewModel
 
 @section Style {
     <link rel="stylesheet" href="/css/Traveling/posts/style.css" />
@@ -79,6 +80,12 @@
                                 <input type="submit" value="Отставить отзыв" />
                             </form>
                         </div>
+                        <div class="like">
+                            
+                            <p class="countLikes" countLikes="@Model.TopTravelingByCommentsViewModel.countLike">@Model.TopTravelingByCommentsViewModel.countLike</p>
+                            <button class="like-button" data-user-id="@authSErvise.GetUserId()">like</button>
+                        </div>
+
                     }
 
                     @if (Model != null && Model.TravelingPostsViewModels.Count != 0)
@@ -143,6 +150,10 @@
                                     <textarea name="text" placeholder="@((TempData["ErrorMessage"] != null) ? TempData["ErrorMessage"].ToString() : "Введите сообщение")"></textarea>
                                     <input type="submit" value="Отставить отзыв" />
                                 </form>
+                            </div>
+                            <div class="like">
+                                <p class="countLikes" countLikes="@post.countLike">@post.countLike</p>
+                                <button class="like-button" data-user-id="@authSErvise.GetUserId()">like</button>
                             </div>
 
                         }

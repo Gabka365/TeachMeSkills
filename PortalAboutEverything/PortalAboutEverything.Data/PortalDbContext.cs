@@ -19,6 +19,7 @@ namespace PortalAboutEverything.Data
         public DbSet<MovieReview> MovieReviews { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Good> Goods { get; set; }
+        public DbSet<Like> Likes { get; set; }
 
         public DbSet<GoodReview> GoodReviews { get; set; }
         public DbSet<BoardGame> BoardGames { get; set; }
@@ -27,7 +28,8 @@ namespace PortalAboutEverything.Data
         public DbSet<History> HistoryEvents { get; set; }
         public DbSet<Video> Videos { get; init; }
         public DbSet<Folder> Folders { get; init; }
-        
+
+
         public DbSet<Book> Books { get; set; }
         public DbSet<BookReview> BookReviews { get; set; }
         public PortalDbContext() { }
@@ -74,7 +76,7 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<User>()
                 .HasMany(x => x.FavoriteGames)
                 .WithMany(x => x.UserWhoFavoriteTheGame);
-            
+
             modelBuilder.Entity<Folder>()
                 .HasMany(folder => folder.Videos)
                 .WithOne(video => video.Folder)
@@ -107,6 +109,14 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<User>()
                 .HasMany(x => x.FavoriteMovies)
                 .WithMany(x => x.UsersWhoFavoriteTheMovie);
+
+            modelBuilder.Entity<Like>()
+                .HasMany(x => x.Users)
+                .WithMany(x => x.Likes);
+
+            modelBuilder.Entity<Like>()
+                .HasMany(x => x.Travelings)
+                .WithMany(x => x.Likes);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -23,6 +23,7 @@ namespace PortalAboutEverything.Controllers
     {
         private TravelingRepositories _travelingRepositories;
         private UserRepository _userRepository;
+        private LikeRepositories _lokeRepository;
         private IWebHostEnvironment _hostingEnvironment;
         private AuthService _authService;
         private readonly string _pathTravelingUserPictures;
@@ -31,7 +32,8 @@ namespace PortalAboutEverything.Controllers
         private readonly string[] _validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 
         public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment,
-                                   UserRepository userRepository, AuthService authService, CommentRepository commentRepository)
+                                   UserRepository userRepository, AuthService authService, CommentRepository commentRepository,
+                                    LikeRepositories lokeRepository)
         {
             _travelingRepositories = travelingRepositories;
             _hostingEnvironment = hostingEnvironment;
@@ -40,6 +42,7 @@ namespace PortalAboutEverything.Controllers
             _userRepository = userRepository;
             _authService = authService;
             _commentRepository = commentRepository;
+            _lokeRepository = lokeRepository;
         }
 
         public IActionResult Index()
@@ -143,7 +146,9 @@ namespace PortalAboutEverything.Controllers
                     {
                         Text = c.Text,
 
-                    }).ToList()
+                    }).ToList(),
+                    countLike = _travelingRepositories.CountLike(topTraveling.Id)// перейти на редставления и придумать кнопку
+
                 };
 
                 foreach (var post in travelingPosts)
@@ -295,7 +300,9 @@ namespace PortalAboutEverything.Controllers
                {
                    Text = c.Text,
 
-               }).ToList()
+               }).ToList(),
+               countLike = _travelingRepositories.CountLike(traveling.Id) //тест
+
            };
         private void SaveImageToDirectory(string directoryPath, string filePath, IFormFile image)
         {

@@ -42,4 +42,28 @@ $(document).ready(function () {
             }
         });
     });
-});
+         
+    $('.like-button').click(function () {
+        const button = $(this); 
+        const countLikesElement = $('.countLikes'); 
+        const postId = $('.del-post').data('post-id')
+        const userId = button.data('user-id'); 
+
+        console.log('Count Likes Element:', countLikesElement);
+        console.log('Post ID:', postId);
+        console.log('userId :', userId);
+        const url = `/api/Traveling/LikePost?postId=${postId}`;
+        $.ajax({
+            url: url,           
+            
+            success: function (response) {                
+                countLikesElement.text(response.likesCount);
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+}); 
