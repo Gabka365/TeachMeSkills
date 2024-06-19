@@ -10,6 +10,7 @@
         TravelingAdmin = 43,
         StoreAdmin = 45,
         VideoLibraryAdmin = 44,
+        GameStoreAdmin = 46,
 
         Moderator = 80,
         Admin = 99,

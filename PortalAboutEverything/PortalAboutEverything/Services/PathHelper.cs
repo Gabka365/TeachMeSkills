@@ -62,8 +62,13 @@ namespace PortalAboutEverything.Services
 
         public string GetPathToGameStoreCover(int gameId)
         {
-            var fileName = $"caver-{gameId}.jpg";
-            return GetPathByFolder("images\\GameStore", fileName);
+            var pathToFolder = "C:\\Users\\Илья\\source\\repos\\JinOptimist\\Net16Online\\PortalAboutEverything\\PortalAboutEverything\\wwwroot\\images\\GameStore";
+            var fileName = $"cover-{gameId}.jpg";
+            var path = Path.Combine(pathToFolder, fileName);
+            return path;
+
+            //var fileName = $"caver-{gameId}.jpg";
+            //return GetPathByFolder("images\\GameStore", fileName);
         }
 
         public bool IsGameStoreCoverExist(int id)
