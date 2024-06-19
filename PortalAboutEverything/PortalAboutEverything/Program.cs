@@ -3,6 +3,7 @@ using PortalAboutEverything.Controllers;
 using PortalAboutEverything.CustomMiddlewareServices;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Hubs;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
@@ -49,6 +50,8 @@ builder.Services.AddSingleton<PathHelper>();
 
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 var seed = new Seed();
@@ -71,6 +74,8 @@ app.UseAuthentication(); // Who I am?
 app.UseAuthorization(); // May I?
 
 app.UseMiddleware<LocalizationMiddleware>();
+
+app.MapHub<ChatHub>("/hubs/chat");
 
 app.MapControllerRoute(
     name: "default",
