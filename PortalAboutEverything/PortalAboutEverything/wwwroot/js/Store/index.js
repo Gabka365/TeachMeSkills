@@ -16,22 +16,28 @@ const storeTemplate = {
               storage.setTheme(newTheme);
        },
 
+       toggleButtonAndClass(element, isVisible) {
+              const parent = element.closest('.goodBlock');
+              const button = parent.querySelector(".deleteGoodLink");
+              button.style.visibility = isVisible ? 'visible' : 'hidden';
+              element.classList.toggle("choosen", isVisible);
+       },
+
        chooseGoodForDeletingHandler(event) {
               const selectedGood = event.target;
 
-              if (this.lastSelectedGood) {
-                     this.lastSelectedGood.classList.remove("choosen");
-                     const parentOfLastSelectedGood = this.lastSelectedGood.closest('.goodBlock');
-                     const visibleButton = parentOfLastSelectedGood.querySelector(".deleteGoodLink");
-                     visibleButton.style.visibility = 'hidden';
+              const isAlreadySelected = selectedGood === this.lastSelectedGood;
+
+              this.toggleButtonAndClass(selectedGood, !isAlreadySelected);
+
+              if (isAlreadySelected) {
+                     this.lastSelectedGood = null;
+              } else {
+                     if (this.lastSelectedGood) {
+                            this.toggleButtonAndClass(this.lastSelectedGood, false);
+                     }
+                     this.lastSelectedGood = selectedGood;
               }
-
-              selectedGood.classList.add("choosen");
-              this.lastSelectedGood = selectedGood;
-
-              const parentOfLastSelectedGood = selectedGood.closest('.goodBlock');
-              const visibleButton = parentOfLastSelectedGood.querySelector(".deleteGoodLink");
-              visibleButton.style.visibility = 'visible';
        },
 
        init() {

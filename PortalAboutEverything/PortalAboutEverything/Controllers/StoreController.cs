@@ -47,7 +47,6 @@ namespace PortalAboutEverything.Controllers
         {
             var topGoods = _storeRepositories.GetTopGoods();
 
-
             List<TopGoodViewModel> viewModel = topGoods.Select(BuildTopGoodViewModel).ToList();
 
             return View(viewModel);
@@ -120,7 +119,7 @@ namespace PortalAboutEverything.Controllers
 
             _storeRepositories.Create(good);
 
-            if (createGoodViewModel.Cover != null && createGoodViewModel.Cover.Length > 0)
+            if (createGoodViewModel?.Cover?.Length > 0)
             {
                 var path = _pathHelper.GetPathToGoodCover(good.Id);
 
