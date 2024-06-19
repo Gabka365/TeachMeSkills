@@ -35,7 +35,7 @@ $(document).ready(function () {
             type: 'DELETE',
             success: function (result) {
                 console.log('Post deleted successfully');
-                location.reload();
+                location.reload(); // ј как удал€ть целые блоки не перегружа€ страничку??
             },
             error: function (xhr, status, error) {
                 console.error('Error deleting post:', error);
@@ -53,16 +53,20 @@ $(document).ready(function () {
         console.log('Post ID:', postId);
         console.log('userId :', userId);
         const url = `/api/Traveling/LikePost?postId=${postId}`;
-        $.ajax({
-            url: url,           
-            
-            success: function (response) {                
-                countLikesElement.text(response.likesCount);
-                location.reload();
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
+
+        const promise = $.ajax({
+            url: url
+        });
+                
+        promise.done(function (response) {
+
+            const likesCount = response;
+            console.log('New Likes Count:', likesCount);            
+            countLikesElement.text(likesCount);
+        });
+       
+        promise.fail(function (xhr, status, error) {
+            console.error(error);
         });
     });
 
