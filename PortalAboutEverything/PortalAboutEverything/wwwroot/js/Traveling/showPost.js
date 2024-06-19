@@ -47,12 +47,11 @@ $(document).ready(function () {
     $('.like-button').click(function () {
         const button = $(this);
         const countLikesElement = $(this).closest('.post_wrapper').find('.countLikes');
-        const postId = button.data('post-id')
-        const userId = button.data('user-id');
+        const postId = button.data('post-id')       
 
         console.log('Count Likes Element:', countLikesElement);
         console.log('Post ID:', postId);
-        console.log('userId :', userId);
+        
         const url = `/api/Traveling/LikePost?postId=${postId}`;
 
         const promise = $.ajax({
