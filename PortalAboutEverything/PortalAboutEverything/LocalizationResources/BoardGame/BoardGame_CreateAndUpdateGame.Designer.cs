@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PortalAboutEverything.LocalizationResources.BoardGame {
+namespace PortalAboutEverything.LocalizationResources.BoardGame
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,23 +23,28 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class BoardGame_CreateAndUpdateGame {
-        
+    public class BoardGame_CreateAndUpdateGame
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal BoardGame_CreateAndUpdateGame() {
+        internal BoardGame_CreateAndUpdateGame()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        public static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PortalAboutEverything.LocalizationResources.BoardGame.BoardGame_CreateAndUpdateGa" +
                             "me", typeof(BoardGame_CreateAndUpdateGame).Assembly);
                     resourceMan = temp;
@@ -46,48 +52,57 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
-            get {
+        public static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Add a game.
         /// </summary>
-        public static string AddButton {
-            get {
+        public static string AddButton
+        {
+            get
+            {
                 return ResourceManager.GetString("AddButton", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Description of the game.
         /// </summary>
-        public static string Description {
-            get {
+        public static string Description
+        {
+            get
+            {
                 return ResourceManager.GetString("Description", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
-        public static string DisplayDescription_Name {
-            get {
+        public static string DisplayDescription_Name
+        {
+            get
+            {
                 return ResourceManager.GetString("DisplayDescription_Name", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Ищет локализованную строку, похожую на Main image.
         /// </summary>
@@ -100,12 +115,14 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Slogan.
         /// </summary>
-        public static string DisplayMiniTitle_Name {
-            get {
+        public static string DisplayMiniTitle_Name
+        {
+            get
+            {
                 return ResourceManager.GetString("DisplayMiniTitle_Name", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Ищет локализованную строку, похожую на Side image.
         /// </summary>
@@ -118,39 +135,47 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Title.
         /// </summary>
-        public static string DisplayTitle_Name {
-            get {
+        public static string DisplayTitle_Name
+        {
+            get
+            {
                 return ResourceManager.GetString("DisplayTitle_Name", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The essence of the game.
         /// </summary>
-        public static string Essence {
-            get {
+        public static string Essence
+        {
+            get
+            {
                 return ResourceManager.GetString("Essence", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The slogan of the game.
         /// </summary>
-        public static string MiniTitle {
-            get {
+        public static string MiniTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("MiniTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The price of the game.
         /// </summary>
-        public static string Price {
-            get {
+        public static string Price
+        {
+            get
+            {
                 return ResourceManager.GetString("Price", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Ищет локализованную строку, похожую на The price cannot be negative or equal to 0.
         /// </summary>
@@ -163,12 +188,14 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Product code.
         /// </summary>
-        public static string ProductCode {
-            get {
+        public static string ProductCode
+        {
+            get
+            {
                 return ResourceManager.GetString("ProductCode", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Ищет локализованную строку, похожую на The product code must be a positive number of 5 digits.
         /// </summary>
@@ -181,12 +208,14 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         /// <summary>
         ///   Ищет локализованную строку, похожую на The description cannot be empty.
         /// </summary>
-        public static string RequiredDescription_ErrorMessage {
-            get {
+        public static string RequiredDescription_ErrorMessage
+        {
+            get
+            {
                 return ResourceManager.GetString("RequiredDescription_ErrorMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Ищет локализованную строку, похожую на The main image of the game cannot be missing.
         /// </summary>
@@ -199,80 +228,98 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         /// <summary>
         ///   Ищет локализованную строку, похожую на The slogan cannot be empty.
         /// </summary>
-        public static string RequiredMiniTitle_ErrorMessage {
-            get {
+        public static string RequiredMiniTitle_ErrorMessage
+        {
+            get
+            {
                 return ResourceManager.GetString("RequiredMiniTitle_ErrorMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The price cannot be empty.
         /// </summary>
-        public static string RequiredPrice_ErrorMessage {
-            get {
+        public static string RequiredPrice_ErrorMessage
+        {
+            get
+            {
                 return ResourceManager.GetString("RequiredPrice_ErrorMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The product code cannot be empty.
         /// </summary>
-        public static string RequiredProductCode_ErrorMessage {
-            get {
+        public static string RequiredProductCode_ErrorMessage
+        {
+            get
+            {
                 return ResourceManager.GetString("RequiredProductCode_ErrorMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The title cannot be empty.
         /// </summary>
-        public static string RequiredTitle_ErrorMessage {
-            get {
+        public static string RequiredTitle_ErrorMessage
+        {
+            get
+            {
                 return ResourceManager.GetString("RequiredTitle_ErrorMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Save changes.
         /// </summary>
-        public static string SaveButton {
-            get {
+        public static string SaveButton
+        {
+            get
+            {
                 return ResourceManager.GetString("SaveButton", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Tag for the game.
         /// </summary>
-        public static string Tags {
-            get {
+        public static string Tags
+        {
+            get
+            {
                 return ResourceManager.GetString("Tags", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The title of the game.
         /// </summary>
-        public static string Title {
-            get {
+        public static string Title
+        {
+            get
+            {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Add a new game.
         /// </summary>
-        public static string TitleOfPageCreate {
-            get {
+        public static string TitleOfPageCreate
+        {
+            get
+            {
                 return ResourceManager.GetString("TitleOfPageCreate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Editing the game.
         /// </summary>
-        public static string TitleOfPageUpdate {
-            get {
+        public static string TitleOfPageUpdate
+        {
+            get
+            {
                 return ResourceManager.GetString("TitleOfPageUpdate", resourceCulture);
             }
         }
