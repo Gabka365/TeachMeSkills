@@ -134,7 +134,7 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
-        [HasRoleOrHigher(UserRole.Admin)]
+        [HasRoleOrHigher(UserRole.StoreAdmin)]
         public IActionResult DeleteGood(int id)
         {
             var model = _storeRepositories.GetGoodByIdWithReview(id);
