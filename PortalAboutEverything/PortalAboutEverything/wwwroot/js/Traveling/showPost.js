@@ -24,10 +24,11 @@ $(document).ready(function () {
         }
     });
 
-   
+
     $('.del-post').click(function () {
-        const postID = $(this).data('post-id'); 
-        console.log('Post ID:', postID); 
+        const postElement = $(this).closest('.post_wrapper'); 
+        const postID = $(this).data('post-id');
+        console.log('Post ID:', postID);
 
         const url = `/api/Traveling/DeletePost?postId=${postID}`;
         $.ajax({
@@ -35,19 +36,18 @@ $(document).ready(function () {
             type: 'DELETE',
             success: function (result) {
                 console.log('Post deleted successfully');
-                location.reload(); // ј как удал€ть целые блоки не перегружа€ страничку??
-            },
+                postElement.remove(); 
             error: function (xhr, status, error) {
                 console.error('Error deleting post:', error);
             }
         });
     });
-         
+
     $('.like-button').click(function () {
-        const button = $(this); 
-        const countLikesElement = $('.countLikes'); 
+        const button = $(this);
+        const countLikesElement = $('.countLikes');
         const postId = button.data('post-id')
-        const userId = button.data('user-id'); 
+        const userId = button.data('user-id');
 
         console.log('Count Likes Element:', countLikesElement);
         console.log('Post ID:', postId);
@@ -57,14 +57,14 @@ $(document).ready(function () {
         const promise = $.ajax({
             url: url
         });
-                
+
         promise.done(function (response) {
 
             const likesCount = response;
-            console.log('New Likes Count:', likesCount);            
+            console.log('New Likes Count:', likesCount);
             countLikesElement.text(likesCount);
         });
-       
+
         promise.fail(function (xhr, status, error) {
             console.error(error);
         });
