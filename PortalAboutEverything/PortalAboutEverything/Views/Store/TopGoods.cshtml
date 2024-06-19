@@ -11,7 +11,15 @@
 {
     <div class="goodsBlock">
         <a class="linkToReview" href="/Store/Good/@good.Id">
-            <img class="good" src="~/images/Store/MainPage/ImagesForGoods/goodImage-default.jpg" alt="defaultIcon" />
+            @if (good.HasCover)
+            {
+                <img class="good" src="~/images/Store/MainPage/ImagesForGoods/goodImage-@(good.Id).jpg" alt="goodIcon" />
+            }
+            else
+            {
+                <img class="good" src="~/images/Store/MainPage/ImagesForGoods/goodImage-default.jpg" alt="defaultIcon" />
+            }
+
         </a>
         <p>@good.Name</p>
         <p>Товар понравился пользователям @good.CountOfLike раз.</p>

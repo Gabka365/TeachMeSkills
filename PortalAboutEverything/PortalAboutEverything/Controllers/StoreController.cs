@@ -193,6 +193,7 @@ namespace PortalAboutEverything.Controllers
                 Id = good.GoodId,
                 Name = good.GoodName,
                 CountOfLike = good.CountUsersWhoLikedIt,
+                HasCover = _pathHelper.IsGoodCoverExist(good.GoodId),
             };
         }
 

@@ -7,5 +7,7 @@
         public string Name { get; set; }
 
         public int CountOfLike { get; set; }
+
+        public bool HasCover {  get; set; }
     }
 }
