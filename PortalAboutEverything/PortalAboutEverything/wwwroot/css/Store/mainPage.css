@@ -51,7 +51,9 @@
     font-weight: 800;
 }
 
-
+.deleteGoodLink {
+    visibility: hidden;
+}
 
 .goodsBlock {
     width: 100%;
@@ -65,6 +67,8 @@
 .goodBlock {
     position: relative;
     width: 200px;
+    display: flex;
+    flex-direction: column;
 }
 
 .linkToReview {
@@ -122,9 +126,24 @@
 
 .salor {
     margin-top: 5px;
+    padding: 5px;
     color: var(--txt-color);
     font-size: 16px;
     font-weight: 400;
+    flex: 1;
+    cursor: pointer;
+}
+
+.choosen {
+    outline: 3px solid var(--bg-btn);
+    border-radius: 7px;
+    color: var(--bg-btn);
+}
+
+.goodDesc {
+    font-size: 20px;
+    color: #a69696;
+    flex: 1;
 }
 
 .raitingBlock {
