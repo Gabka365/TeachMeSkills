@@ -80,11 +80,14 @@
                                 <input type="submit" value="Отставить отзыв" />
                             </form>
                         </div>
-                        <div class="like">
-                            
-                            <p class="countLikes" countLikes="@Model.TopTravelingByCommentsViewModel.countLike">@Model.TopTravelingByCommentsViewModel.countLike</p>
-                            <button class="like-button" data-user-id="@authSErvise.GetUserId()">like</button>
-                        </div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="like">
+                                <p class="countLikes" countLikes="@Model.TopTravelingByCommentsViewModel.countLike">@Model.TopTravelingByCommentsViewModel.countLike</p>
+                                <button class="like-button" data-user-id="@authSErvise.GetUserId()"
+                                                            data-post-id="@Model.TopTravelingByCommentsViewModel.Id">like</button>
+                            </div>                            
+                        }
 
                     }
 
@@ -151,10 +154,14 @@
                                     <input type="submit" value="Отставить отзыв" />
                                 </form>
                             </div>
-                            <div class="like">
-                                <p class="countLikes" countLikes="@post.countLike">@post.countLike</p>
-                                <button class="like-button" data-user-id="@authSErvise.GetUserId()">like</button>
-                            </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="like">
+                                    <p class="countLikes" countLikes="@post.countLike">@post.countLike</p>
+                                    <button class="like-button" data-user-id="@authSErvise.GetUserId()"
+                                                                data-post-id="@Model.TopTravelingByCommentsViewModel.Id">like</button>
+                                </div>                                
+                            }
 
                         }
                     }

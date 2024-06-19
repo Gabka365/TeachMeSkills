@@ -46,7 +46,7 @@ $(document).ready(function () {
     $('.like-button').click(function () {
         const button = $(this); 
         const countLikesElement = $('.countLikes'); 
-        const postId = $('.del-post').data('post-id')
+        const postId = button.data('post-id')
         const userId = button.data('user-id'); 
 
         console.log('Count Likes Element:', countLikesElement);
