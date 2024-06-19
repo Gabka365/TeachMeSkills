@@ -36,7 +36,8 @@ $(document).ready(function () {
             type: 'DELETE',
             success: function (result) {
                 console.log('Post deleted successfully');
-                postElement.remove(); 
+                postElement.remove();
+            },
             error: function (xhr, status, error) {
                 console.error('Error deleting post:', error);
             }
