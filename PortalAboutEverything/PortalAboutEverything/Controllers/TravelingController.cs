@@ -23,7 +23,7 @@ namespace PortalAboutEverything.Controllers
     {
         private TravelingRepositories _travelingRepositories;
         private UserRepository _userRepository;
-        private LikeRepositories _lokeRepository;
+        private LikeRepositories _likeRepository;
         private IWebHostEnvironment _hostingEnvironment;
         private AuthService _authService;
         private readonly string _pathTravelingUserPictures;
@@ -33,7 +33,7 @@ namespace PortalAboutEverything.Controllers
 
         public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment,
                                    UserRepository userRepository, AuthService authService, CommentRepository commentRepository,
-                                    LikeRepositories lokeRepository)
+                                    LikeRepositories likeRepository)
         {
             _travelingRepositories = travelingRepositories;
             _hostingEnvironment = hostingEnvironment;
@@ -42,7 +42,7 @@ namespace PortalAboutEverything.Controllers
             _userRepository = userRepository;
             _authService = authService;
             _commentRepository = commentRepository;
-            _lokeRepository = lokeRepository;
+            _likeRepository = likeRepository;
         }
 
         public IActionResult Index()
@@ -147,7 +147,7 @@ namespace PortalAboutEverything.Controllers
                         Text = c.Text,
 
                     }).ToList(),
-                    countLike = _travelingRepositories.CountLike(topTraveling.Id)// перейти на редставления и придумать кнопку
+                    countLike = _travelingRepositories.CountLike(topTraveling.Id)
 
                 };
 
@@ -241,23 +241,7 @@ namespace PortalAboutEverything.Controllers
 
             return RedirectToAction("TravelingPosts");
         }
-
-        //public IActionResult DeletePost(int id)
-        //{
-        //    foreach (var ext in _validExtensions)
-        //    {
-        //        var imageName = $"{id}.{ext}";
-        //        var imagePath = Path.Combine(_pathTravelingUserPictures, imageName);
-
-        //        if (System.IO.File.Exists(imagePath))
-        //        {
-        //            System.IO.File.Delete(imagePath);
-        //            break;
-        //        }
-        //    }
-        //    _travelingRepositories.Delete(id);
-        //    return RedirectToAction("TravelingPosts");
-        //}
+               
 
         [HttpGet]
         public IActionResult UpdatePost(int id)
@@ -301,7 +285,7 @@ namespace PortalAboutEverything.Controllers
                    Text = c.Text,
 
                }).ToList(),
-               countLike = _travelingRepositories.CountLike(traveling.Id) //тест
+               countLike = _travelingRepositories.CountLike(traveling.Id) 
 
            };
         private void SaveImageToDirectory(string directoryPath, string filePath, IFormFile image)

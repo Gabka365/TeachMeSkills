@@ -49,7 +49,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
            
             var userId = _authService.GetUserId();
 
-            if (!_userRepository.CheckLikeUserOnTravelingPost(userId, postId))
+            if (!_likeRepositories.CheckLikeUserOnTravelingPost(userId, postId))
             {
                 var like = new Like();
                 _likeRepositories.CreateLikeForTraveling(postId, like, userId);

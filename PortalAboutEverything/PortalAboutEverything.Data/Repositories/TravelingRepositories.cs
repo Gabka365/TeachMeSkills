@@ -45,16 +45,12 @@ namespace PortalAboutEverything.Data.Repositories
                                       .Include(t => t.Likes)
                                       .FirstOrDefault(t => t.Id == travelingId);
 
-            if (traveling != null)
-            {
-                return traveling.Likes.ToList();
-            }
-            else
+            if (traveling == null)
             {
                 return null;
-               
             }
+            return traveling.Likes.ToList();
         }
-    }
+    }    
 }
 
