@@ -48,6 +48,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             return true;
         }
 
+        [AllowAnonymous]
         public List<FavoriteBoardGameIndexViewModel> GetTop3()
         {
             return _gameRepositories
