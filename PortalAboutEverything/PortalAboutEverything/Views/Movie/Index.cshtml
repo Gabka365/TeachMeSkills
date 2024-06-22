@@ -20,6 +20,7 @@
     @foreach (var movieInfo in Model.MovieStatistics)
     {
         <div class="movieContent">
+            <input class="movieTableCellId" type="hidden" value="@movieInfo.Id" />
             <div class="movieTableCell">@movieInfo.Name</div>
             <div class="movieTableCell">@movieInfo.Director</div>
             <div class="movieTableCell">@movieInfo.CountOfUsersWhoFavorite</div>
