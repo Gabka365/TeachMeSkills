@@ -46,6 +46,11 @@
     display: none;
 }
 
+.deleteMovie {
+    cursor: pointer;
+    color: red;
+}
+
 .dateReview {
     text-align: right;
 }

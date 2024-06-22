@@ -7,6 +7,7 @@
 
 @section Scripts {
     <script src="/js/Movies/index.js"></script>
+    <script src="/js/Movies/deleteMovie.js"></script>
 }
 
 <div class="movieStatisticsTable">
@@ -70,7 +71,8 @@
                 <div>@Movie_Index.MovieDescription</div>
                 <div class="movieDescription">@movie.Description</div>
                 <div class="deleteMovie">
-                    <a href="/Movie/DeleteMovie?id=@movie.Id">@Movie_Index.Delete</a> 
+                    @Movie_Index.Delete
+                    <input class="movieIdDel" type="hidden" value="@movie.Id" />
                 </div>
                 <form action="/Movie/AddMovieToMoviesFan" method="post">
                     <input type="hidden" value="@movie.Id" name="movieId" />
