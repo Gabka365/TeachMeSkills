@@ -76,6 +76,7 @@ app.UseAuthorization(); // May I?
 app.UseMiddleware<LocalizationMiddleware>();
 
 app.MapHub<ChatHub>("/hubs/chat");
+app.MapHub<MovieHub>("/hubs/movie");
 
 app.MapControllerRoute(
     name: "default",

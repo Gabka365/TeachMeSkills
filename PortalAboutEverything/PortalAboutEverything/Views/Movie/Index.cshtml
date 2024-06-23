@@ -8,6 +8,8 @@
 @section Scripts {
     <script src="/js/Movies/index.js"></script>
     <script src="/js/Movies/deleteMovie.js"></script>
+    <script src="/js/Movies/movieNotifications.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
 }
 
 <div class="movieStatisticsTable">
@@ -27,6 +29,11 @@
             <div class="movieTableCell">@movieInfo.CountOfMovieReview</div>
         </div>
         }
+</div>
+<div>
+    <h1>Notifications</h1>
+    <div class="notifications-containter">
+    </div>
 </div>
 <div>
     @Movie_Index.ChooseAction
