@@ -220,27 +220,27 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("TravelingPosts");
         }
 
-        [HttpPost]
-        public IActionResult CreateComment(TravelingCreateComment travelingCreateComment)
-        {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage;
+        //[HttpPost]
+        //public IActionResult CreateComment(TravelingCreateComment travelingCreateComment)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        var errors = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage;
 
-                TempData["ErrorMessage"] = errors;
+        //        TempData["ErrorMessage"] = errors;
 
-                return RedirectToAction("TravelingPosts");
-            }
-            var comment = new Comment
-            {
-                Text = travelingCreateComment.Text,
-                Traveling = _travelingRepositories.Get(travelingCreateComment.PostId)
-            };
+        //        return RedirectToAction("TravelingPosts");
+        //    }
+        //    var comment = new Comment
+        //    {
+        //        Text = travelingCreateComment.Text,
+        //        Traveling = _travelingRepositories.Get(travelingCreateComment.PostId)
+        //    };
 
-            _commentRepository.Create(comment);
+        //    _commentRepository.Create(comment);
 
-            return RedirectToAction("TravelingPosts");
-        }
+        //    return RedirectToAction("TravelingPosts");
+        //}
                
 
         [HttpGet]
