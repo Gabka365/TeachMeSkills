@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
     updateTop();
   });
 
+  hub.on("NotifyAboutChangeFavorites", function () {
+    console.log(11);
+    updateTop();
+  });
+
   hub.start();
 
   const deleteButtons = document.querySelectorAll(".delete-link");

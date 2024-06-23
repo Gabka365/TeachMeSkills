@@ -9,5 +9,10 @@ namespace PortalAboutEverything.Hubs
         {
             Clients.All.NotifyAboutDeleteBoardGame(gameId);
         }
+
+        public void ChangeFavorites()
+        {
+            Clients.All.NotifyAboutChangeFavorites();
+        }
     }
 }

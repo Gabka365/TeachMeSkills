@@ -6,6 +6,8 @@ using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Mappers;
+using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers.ApiControllers
 {
@@ -17,12 +19,14 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         private readonly PathHelper _pathHelper;
         private readonly BoardGameRepositories _gameRepositories;
         private readonly BoardGameMapper _mapper;
+        private readonly AuthService _authServise;
 
-        public BoardGameController(PathHelper pathHelper, BoardGameRepositories gameRepositories, BoardGameMapper mapper)
+        public BoardGameController(PathHelper pathHelper, BoardGameRepositories gameRepositories, BoardGameMapper mapper, AuthService authServise)
         {
             _pathHelper = pathHelper;
             _gameRepositories = gameRepositories;
             _mapper = mapper;
+            _authServise = authServise;
         }
 
         [HasPermission(Permission.CanDeleteBoardGames)]
@@ -46,6 +50,18 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             }
 
             return true;
+        }
+
+        public void AddFavoriteBoardGameForUser(int gameId)
+        {
+            User user = _authServise.GetUser();
+            _gameRepositories.AddUserWhoFavoriteThisBoardGame(user, gameId);
+        }
+
+        public void RemoveFavoriteBoardGameForUser(int gameId)
+        {
+            User user = _authServise.GetUser();
+            _gameRepositories.RemoveUserWhoFavoriteThisBoardGame(user, gameId); 
         }
 
         [AllowAnonymous]
