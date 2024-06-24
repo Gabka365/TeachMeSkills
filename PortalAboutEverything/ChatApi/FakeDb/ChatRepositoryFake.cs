@@ -11,8 +11,8 @@ namespace ChatApi.FakeDb
             new Message { AuthorId = 2, AuthorName = "user", Text = "I'm not here" }
         };
 
-        public List<Message> GetAll()
-            => Messages.ToList();
+        public List<Message> GetLast5Messages()
+            => Messages.TakeLast(5).ToList();
 
         public void AddMessage(string userName, string text)
             => Messages.Add(new Message

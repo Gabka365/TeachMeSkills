@@ -1,13 +1,15 @@
 ﻿@model PortalAboutEverything.Models.Home.IndexViewModel
 
-<div>
-    Привет @Model.UserName
-</div>
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="/js/Home/chat.js"></script>
 }
+
 <div>
+    Привет @Model.UserName
+</div>
+<div>
+    <input type="hidden" name="userName" value="@Model.UserName" />
     <h1>Chat</h1>
     <div class="chat-containter">
         <div class="messages">

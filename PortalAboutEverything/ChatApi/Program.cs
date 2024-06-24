@@ -1,4 +1,6 @@
 using ChatApi.FakeDb;
+using ChatApi.Hubs;
+using ChatApi.Middlewares;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,21 +15,29 @@ builder.Services.AddCors(o =>
     {
         p.AllowAnyHeader();
         p.AllowAnyMethod();
-        p.AllowAnyOrigin();
+        //p.AllowAnyOrigin();
+        p.SetIsOriginAllowed(x => true);
+        p.AllowCredentials();
     });
 });
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 // Middleware service add here
 app.UseCors();
 
+app.UseMiddleware<CustomAuthMiddleware>();
+
+app.MapHub<ChatHub>("/hubs/chat");
+
 app.MapGet("/", () => "Hello World!");
 
-app.MapGet("/getAll", (ChatRepositoryFake repo) => repo.GetAll());
+app.MapGet("/getLastMessages", (ChatRepositoryFake repo) => repo.GetLast5Messages());
 
 app.MapGet("/add", (
-    [FromQuery]string name, 
-    [FromQuery] string text, 
+    [FromQuery] string name,
+    [FromQuery] string text,
     ChatRepositoryFake repo) =>
 {
     repo.AddMessage(name, text);
