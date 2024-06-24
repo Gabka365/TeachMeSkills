@@ -1,4 +1,4 @@
-SELECT DISTINCT [Name], [Director],
+SELECT DISTINCT M.Id, [Name], [Director],
 SUM(CASE WHEN MU.UsersWhoFavoriteTheMovieId IS NULL
 		THEN 0 
 		ELSE 1 
@@ -10,6 +10,6 @@ SUM(CASE WHEN MR.Id IS NULL
 FROM Movies M
 LEFT JOIN MovieUser MU ON M.Id = MU.FavoriteMoviesId
 LEFT JOIN MovieReviews MR ON M.Id = MR.MovieId
-GROUP BY [Name], [Director], MR.Id
+GROUP BY M.Id, [Name], [Director], MR.Id
 ORDER BY [Name]
 

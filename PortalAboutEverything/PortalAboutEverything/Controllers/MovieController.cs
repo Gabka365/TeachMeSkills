@@ -127,18 +127,6 @@ namespace PortalAboutEverything.Controllers
         }
 
         [Authorize]
-        [HasPermission(Permission.CanDeleteMovie)]
-        public IActionResult DeleteMovie(int id)
-        {
-            _movieRepositories.Delete(id);
-
-            var path = _pathHelper.GetPathToMovieImage(id);
-            System.IO.File.Delete(path);
-
-            return RedirectToAction("Index");
-        }
-
-        [Authorize]
         public IActionResult MovieDeleteReview(int id)
         {
             _movieReviewRepositories.Delete(id);
