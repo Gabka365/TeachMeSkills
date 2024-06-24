@@ -1,10 +1,12 @@
 $(document).ready(function () {
-	const urlNewMessage = `/chat/AddNewMessage`;
+	const baseApiUrl = `https://localhost:7072/`;
 	const enterKeyCode = 13;
 
 	const hub = new signalR.HubConnectionBuilder()
 		.withUrl("/hubs/chat")
 		.build();
+
+	init();
 
 	hub.on('NotifyAboutNewMessage', function(username, text){
 		addNewMessage(username, text);
@@ -28,6 +30,15 @@ $(document).ready(function () {
 	});
 
 	$('.new-message-button').click(sendMessage);
+
+	function init() {
+		$.get(baseApiUrl + 'getAll')
+			.done(function (messages) {
+				messages.forEach((message) => {
+					addNewMessage(message.authorName, message.text);
+				});
+			})
+	}
 
 	function sendMessage() {
 		const text = $('.new-message-text').val();
