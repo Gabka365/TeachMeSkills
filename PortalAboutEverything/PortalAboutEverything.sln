@@ -5,14 +5,9 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortalAboutEverything", "PortalAboutEverything\PortalAboutEverything.csproj", "{6A53A2C7-5267-4A18-8D9E-0B20662A1784}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortalAboutEverything.Data", "PortalAboutEverything.Data\PortalAboutEverything.Data.csproj", "{78363891-10AA-4E7C-BFE7-5E9DE2184C88}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalAboutEverything.Data", "PortalAboutEverything.Data\PortalAboutEverything.Data.csproj", "{78363891-10AA-4E7C-BFE7-5E9DE2184C88}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortalAboutEverything.VideoServices", "PortalAboutEverything.VideoServices\PortalAboutEverything.VideoServices.csproj", "{BC749F30-C3F6-45C2-AF64-95358CBEF1EC}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7F6DAA54-991E-468F-BCC0-D7877B8E7329}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalAboutEverything.VideoServices", "PortalAboutEverything.VideoServices\PortalAboutEverything.VideoServices.csproj", "{BC749F30-C3F6-45C2-AF64-95358CBEF1EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
