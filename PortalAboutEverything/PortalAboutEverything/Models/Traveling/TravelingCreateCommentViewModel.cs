@@ -13,6 +13,6 @@ namespace PortalAboutEverything.Models.Traveling
         [AntiSpam]
         public string Text { get; set; }
 
-        public int PostId { get; set; }
+        public int TravelingId { get; set; }
     }
 }

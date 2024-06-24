@@ -81,6 +81,7 @@ app.UseMiddleware<LocalizationMiddleware>();
 app.MapHub<ChatHub>("/hubs/chat");
 app.MapHub<BoardGameHub>("/hubs/boardGame");
 app.MapHub<MovieHub>("/hubs/movie");
+app.MapHub<CommentTravelingHub>("/hubs/CommentTraveling");
 
 app.MapControllerRoute(
     name: "default",
