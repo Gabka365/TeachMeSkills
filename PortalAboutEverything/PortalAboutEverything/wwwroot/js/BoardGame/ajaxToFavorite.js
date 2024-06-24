@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const hub = new signalR.HubConnectionBuilder()
+    .withUrl("/hubs/boardGame")
+    .build();
+  hub.start();
+
   const buttonToFavorite = document.querySelector(".favorite-button");
   const gameId = document.querySelector(".game-id").value;
   const textForAdd = document.querySelector(".text-for-add").value;
@@ -12,10 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
   buttonToFavorite.addEventListener("click", () => {
 
     if (isAdd) {
-      AddOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`);
+      if (!AddOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`)) {
+        return;
+      };
       textForButtonAfterClick = textForRemove;
     } else {
-      AddOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`);
+      if (!AddOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`)) {
+        return;
+      };
       textForButtonAfterClick = textForAdd;
     }
   });
@@ -24,10 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
     $.get(url)
       .done(() => {
         buttonToFavorite.textContent = textForButtonAfterClick;
+        hub.invoke("ChangeFavorites");
         isAdd = !isAdd;
+        return true;
       })
       .fail(() => {
         alert("Ошибка сервера");
+        return false;
       });
   }
 

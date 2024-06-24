@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   hub.on("NotifyAboutChangeFavorites", function () {
-    console.log(11);
     updateTop();
   });
 
