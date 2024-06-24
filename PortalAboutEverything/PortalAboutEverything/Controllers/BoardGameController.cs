@@ -202,14 +202,6 @@ namespace PortalAboutEverything.Controllers
             return View(viewModel);
         }
 
-        public IActionResult AddFavoriteBoardGameForUser(int gameId)
-        {
-            User user = _authServise.GetUser();
-            _gameRepositories.AddUserWhoFavoriteThisBoardGame(user, gameId);
-
-            return RedirectToAction("BoardGame", new { id = gameId });
-        }
-
         public IActionResult RemoveFavoriteBoardGameForUser(int gameId, bool isGamePage)
         {
             User user = _authServise.GetUser();
