@@ -20,5 +20,8 @@ namespace ChatApi.FakeDb
                 AuthorName = userName,
                 Text = text
             });
+
+        public int Count()
+            => Messages.Count();
     }
 }

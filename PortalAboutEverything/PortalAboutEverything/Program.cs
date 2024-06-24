@@ -52,6 +52,9 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSignalR();
 
+builder.Services.AddHttpClient<HttpChatApiService>(
+    x => x.BaseAddress = new Uri("https://localhost:7072/"));
+
 var app = builder.Build();
 
 var seed = new Seed();

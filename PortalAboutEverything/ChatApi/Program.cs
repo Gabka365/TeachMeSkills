@@ -35,6 +35,11 @@ app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/getLastMessages", (ChatRepositoryFake repo) => repo.GetLast5Messages());
 
+app.MapGet("/GetMessageCount", (ChatRepositoryFake repo) => new
+{
+    MessageCount = repo.Count()
+});
+
 app.MapGet("/add", (
     [FromQuery] string name,
     [FromQuery] string text,
