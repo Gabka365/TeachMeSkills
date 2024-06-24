@@ -1,50 +1,64 @@
 $(document).ready(function () {
-	const urlNewMessage = `/chat/AddNewMessage`;
-	const enterKeyCode = 13;
+    const baseApiUrl = `https://localhost:7072/`;
+    const enterKeyCode = 13;
+    const userName = $('[name=userName]').val();
 
-	const hub = new signalR.HubConnectionBuilder()
-		.withUrl("/hubs/chat")
-		.build();
+    const hub = new signalR.HubConnectionBuilder()
+        .withUrl(baseApiUrl + "hubs/chat", {
+            headers: { authKey: '123' }
+        })
+        .build();
 
-	hub.on('NotifyAboutNewMessage', function(username, text){
-		addNewMessage(username, text);
-	});
+    init();
 
-	hub.on('NotifyAboutNewUser', function(username){
-		addNewMessage('', `${username} enter to the chat`);
-	});
+    hub.on('NotifyAboutNewMessage', function (username, text) {
+        addNewMessage(username, text);
+    });
 
-	hub
-		.start()
-		.then(function(){
-			hub.invoke('UserConnectToChat');
-		});// open web socket
+    hub.on('NotifyAboutNewUser', function (username) {
+        addNewMessage('', `${username} enter to the chat`);
+    });
 
-	$('.new-message-text').on('keyup', function(evt){
-		if (evt.keyCode == enterKeyCode){
-			sendMessage();
-			evt.preventDefault();
-		}
-	});
+    hub
+        .start()
+        .then(function () {
+            hub.invoke('UserConnectToChat', userName);
+        });// open web socket
 
-	$('.new-message-button').click(sendMessage);
+    $('.new-message-text').on('keyup', function (evt) {
+        if (evt.keyCode == enterKeyCode) {
+            sendMessage();
+            evt.preventDefault();
+        }
+    });
 
-	function sendMessage() {
-		const text = $('.new-message-text').val();
-		hub.invoke('AddNewMessage', text);
-		$('.new-message-text').val('');
-	}
+    $('.new-message-button').click(sendMessage);
 
-	const messageTemplate = $(`
+    function init() {
+        $.get(baseApiUrl + 'getLastMessages')
+            .done(function (messages) {
+                messages.forEach((message) => {
+                    addNewMessage(message.authorName, message.text);
+                });
+            })
+    }
+
+    function sendMessage() {
+        const text = $('.new-message-text').val();
+        hub.invoke('AddNewMessage', userName, text);
+        $('.new-message-text').val('');
+    }
+
+    const messageTemplate = $(`
 		<div class="message">
 			<span class="user-name"></span>
 			<span class="text"></span>
 		</div>`);
 
-	function addNewMessage(username, text) {
-		const newMessageBlock = messageTemplate.clone();
-		newMessageBlock.find('.user-name').text(username);
-		newMessageBlock.find('.text').text(text);
-		$('.messages').append(newMessageBlock);
-	}
+    function addNewMessage(username, text) {
+        const newMessageBlock = messageTemplate.clone();
+        newMessageBlock.find('.user-name').text(username);
+        newMessageBlock.find('.text').text(text);
+        $('.messages').append(newMessageBlock);
+    }
 });

@@ -52,6 +52,9 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSignalR();
 
+builder.Services.AddHttpClient<HttpChatApiService>(
+    x => x.BaseAddress = new Uri("https://localhost:7072/"));
+
 var app = builder.Build();
 
 var seed = new Seed();
@@ -76,6 +79,8 @@ app.UseAuthorization(); // May I?
 app.UseMiddleware<LocalizationMiddleware>();
 
 app.MapHub<ChatHub>("/hubs/chat");
+app.MapHub<BoardGameHub>("/hubs/boardGame");
+app.MapHub<MovieHub>("/hubs/movie");
 app.MapHub<CommentTravelingHub>("/hubs/CommentTraveling");
 
 app.MapControllerRoute(
