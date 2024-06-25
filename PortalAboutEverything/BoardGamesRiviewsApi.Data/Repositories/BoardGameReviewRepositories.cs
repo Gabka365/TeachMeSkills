@@ -19,6 +19,23 @@ namespace BoardGamesRiviewsApi.Data.Repositories
                 .ToList();
         }
 
-        public int Get() => 1;
+        public bool Delete(int id)
+        {
+            try
+            {
+                var review = _dbContext
+                    .BoardGameReviews
+                    .First(review => review.Id == id);
+
+                _dbContext.BoardGameReviews.Remove(review);
+                _dbContext.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const absenceOfReviewsText = document.querySelector(".absence-of-reviews-text").value;
 
   init();
+
   function init() {
     reviewContainer.innerHTML = "";
     $.get(baseApiUrl + `getAll?gameId=${boardGameId}`)
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .replace(',', '')
       .replaceAll('/', '.');
 
-    const review = `<div class="review">
+    const review = `<div class="review" id="review-${reviewData.id}">
         <div class="name-and-date">
             <div class="name">${reviewData.userName}</div>
             <div class="date">${dateOfCreationInStringFormat}</div>
@@ -41,10 +42,22 @@ document.addEventListener("DOMContentLoaded", function () {
         </p>
         <div class="update-and-delete">
             <a href="/BoardGameReview/Update?id=${reviewData.id}&gameId=${boardGameId}"><img src="/images/BoardGame/edit.svg" /></a>
-            <a href="/BoardGameReview/Delete?id=${reviewData.id}&gameId=${boardGameId}"><img src="/images/BoardGame/delete.svg" /></a>
+            <a class="delete-button" ><img src="/images/BoardGame/delete.svg" /></a>
         </div>
     </div>`
 
     reviewContainer.insertAdjacentHTML("beforeend", review);
+
+    const reviewForDelete = reviewContainer.querySelector(`#review-${reviewData.id}`);
+    reviewForDelete.addEventListener("click", () => {
+      $.get(baseApiUrl + `delete?id=${reviewData.id}`)
+        .done(() => {
+          reviewForDelete.remove();
+          if(reviewContainer.querySelector(".review")){
+            return;
+          }
+          reviewContainer.insertAdjacentHTML("beforeend", `<p>${absenceOfReviewsText}</p>`);
+        });
+    });
   }
 });

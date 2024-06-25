@@ -25,5 +25,6 @@ app.UseCors();
 
 app.MapGet("/", () => "Hello World!");
 app.MapGet("/getAll", (BoardGameReviewRepositories repo, int gameId) => repo.GetAllForGame(gameId));
+app.MapGet("/delete", (BoardGameReviewRepositories repo, int id) => repo.Delete(id));
 
 app.Run();
