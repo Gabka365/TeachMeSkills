@@ -67,7 +67,7 @@ namespace PortalAboutEverything.Controllers
                 Description = goodWithReview.Description,
                 Price = goodWithReview.Price,
                 Reviews = goodWithReview.Reviews?.Select(BuildGoodReviewViewModel).ToList(),
-                HasCover = _pathHelper.IsGoodCoverExist(id),                
+                HasCover = _pathHelper.IsGoodCoverExist(id),
             };
 
             return View(goodViewModel);
@@ -173,7 +173,7 @@ namespace PortalAboutEverything.Controllers
                 Id = good.Id,
                 Name = good.Name,
                 Description = good.Description,
-                Price = good.Price,                
+                Price = good.Price,
             };
         }
 

@@ -40,11 +40,11 @@ namespace PortalAboutEverything.Controllers.ApiControllers
                 var path = _pathHelper.GetPathToGoodCover(id);
                 System.IO.File.Delete(path);
 
-                return Json(new { success = true, message = "Товар успешно удален" });
+                return Json(new { success = true });
             }
             else
             {
-                return Json(new { success = false, message = "Ошибка: товар не найден" });
+                return Json(new { success = false });
             }
         }
 
