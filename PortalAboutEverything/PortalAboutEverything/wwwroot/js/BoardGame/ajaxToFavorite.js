@@ -10,22 +10,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const textForRemove = document.querySelector(".text-for-remove").value;
 
   let isAdd = document.querySelector(".is-add").value == 1;
-  let textForButtonAfterClick = isAdd
+  let textForButtonAfterClick = !isAdd
     ? textForAdd
     : textForRemove;
 
   buttonToFavorite.addEventListener("click", () => {
 
     if (isAdd) {
-      if (!AddOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`)) {
-        return;
-      };
-      textForButtonAfterClick = textForRemove;
+      AddOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`)
     } else {
-      if (!AddOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`)) {
-        return;
-      };
-      textForButtonAfterClick = textForAdd;
+      AddOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`)
     }
   });
 
@@ -35,11 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
         buttonToFavorite.textContent = textForButtonAfterClick;
         hub.invoke("ChangeFavorites");
         isAdd = !isAdd;
-        return true;
+        textForButtonAfterClick = !isAdd
+          ? textForAdd
+          : textForRemove
       })
       .fail(() => {
         alert("Ошибка сервера");
-        return false;
       });
   }
 
