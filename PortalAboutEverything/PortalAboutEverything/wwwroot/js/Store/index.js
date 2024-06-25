@@ -1,11 +1,12 @@
-import { storage } from "./service.js";
+import { storage } from "./store.js";
 
 const storeTemplate = {
     theme: document.getElementById("changeTheme"),
     switchInput: document.querySelector(".switchInput"),
     goodNames: document.querySelectorAll(".salor"),
     lastSelectedGood: null,
-    deleteBtn: document.querySelectorAll(".deleteGoodLink"),
+    deleteBtns: document.querySelectorAll(".deleteGoodLink"),
+    likeBtns: document.querySelectorAll(".likedIcon"),
 
     changeThemeHandler() {
         const wrapper = document.querySelector(".storeWrapper");
@@ -40,6 +41,60 @@ const storeTemplate = {
         }
     },
 
+    addToFavouriteHandler(event) {
+        event.preventDefault();
+
+        const likeBtn = event.target;
+        const likedParent = likeBtn.closest(".linkToReview");
+        const id = likedParent.getAttribute("data-id");
+
+        fetch('/api/Store/AddToFavourite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: id })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.isLiked) {
+                        likeBtn.src = '/images/store/header/likedIcon.svg';
+                    } else {
+                        likeBtn.src = '/images/store/header/unLikedIcon.svg';
+                    }
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                alert('Произошла ошибка при выполнении запроса: ' + error);
+            });
+
+    },
+
+    deleteGoodHandler(event) {
+        event.preventDefault();
+        const deleteBtn = event.target;
+        const parent = deleteBtn.closest('.goodBlock');
+        const id = deleteBtn.getAttribute("data-id");
+        fetch(`/api/Store/DeleteGood?id=${id}`, {
+            method: 'DELETE'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    parent.remove();
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                alert('Произошла ошибка при выполнении запроса: ' + error);
+            });
+    },
+
     init() {
         const themeFromStorage = storage.getTheme();
         const wrapper = document.querySelector(".storeWrapper");
@@ -52,6 +107,14 @@ const storeTemplate = {
         this.goodNames.forEach(goodName => {
             goodName.addEventListener("click", this.chooseGoodForDeletingHandler.bind(this));
         });
-    },
+
+        this.likeBtns.forEach(btn => {
+            btn.addEventListener("click", this.addToFavouriteHandler.bind(this));
+        });
+
+        this.deleteBtns.forEach(btn => {
+            btn.addEventListener("click", this.deleteGoodHandler.bind(this));
+        });
+    }
 }
 storeTemplate.init();

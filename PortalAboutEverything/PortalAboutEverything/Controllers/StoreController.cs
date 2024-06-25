@@ -21,12 +21,15 @@ namespace PortalAboutEverything.Controllers
 
         private PathHelper _pathHelper;
 
-        public StoreController(StoreRepositories storeRepositories, GoodReviewRepositories goodReviewRepositories, AuthService authService, PathHelper pathHelper)
+        private LikeHelper _likeHelper;
+
+        public StoreController(StoreRepositories storeRepositories, GoodReviewRepositories goodReviewRepositories, AuthService authService, PathHelper pathHelper, LikeHelper likeHelper)
         {
             _storeRepositories = storeRepositories;
             _goodReviewRepositories = goodReviewRepositories;
             _authService = authService;
             _pathHelper = pathHelper;
+            _likeHelper = likeHelper;
         }
 
         [Authorize]
@@ -64,7 +67,7 @@ namespace PortalAboutEverything.Controllers
                 Description = goodWithReview.Description,
                 Price = goodWithReview.Price,
                 Reviews = goodWithReview.Reviews?.Select(BuildGoodReviewViewModel).ToList(),
-                HasCover = _pathHelper.IsGoodCoverExist(id)
+                HasCover = _pathHelper.IsGoodCoverExist(id),                
             };
 
             return View(goodViewModel);
@@ -75,7 +78,7 @@ namespace PortalAboutEverything.Controllers
             var userName = _authService.GetUserName();
 
             var userId = _authService.GetUserId();
-            var favouriteGoods = _storeRepositories.GetFavouriteGoodsBuUserId(userId);
+            var favouriteGoods = _storeRepositories.GetFavouriteGoodsByUserId(userId);
 
             var viewModel = new FavouriteGoodsViewModel
             {
@@ -134,17 +137,6 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HasRoleOrHigher(UserRole.StoreAdmin)]
-        public IActionResult DeleteGood(int id)
-        {
-            var model = _storeRepositories.GetGoodByIdWithReview(id);
-            _storeRepositories.Delete(model);
-
-            var path = _pathHelper.GetPathToGoodCover(id);
-            System.IO.File.Delete(path);
-            return RedirectToAction("Index");
-        }
-
-        [HasRoleOrHigher(UserRole.StoreAdmin)]
         [HttpGet]
         public IActionResult UpdateGood(int id)
         {
@@ -181,7 +173,7 @@ namespace PortalAboutEverything.Controllers
                 Id = good.Id,
                 Name = good.Name,
                 Description = good.Description,
-                Price = good.Price,
+                Price = good.Price,                
             };
         }
 
@@ -204,6 +196,7 @@ namespace PortalAboutEverything.Controllers
                 Description = good.Description,
                 Price = good.Price,
                 HasCover = _pathHelper.IsGoodCoverExist(good.Id),
+                HasLike = _likeHelper.IsGoodLikeExist(good.Id),
             };
         }
 
