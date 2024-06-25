@@ -20,10 +20,21 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function addReview(reviewData) {
+    const dateOfCreationInStringFormat = new Date(reviewData.dateOfCreation).toLocaleString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    })
+      .replace(',', '')
+      .replaceAll('/', '.');
+
     const review = `<div class="review">
         <div class="name-and-date">
             <div class="name">${reviewData.userName}</div>
-            <div class="date">${reviewData.dateOfCreation}</div>
+            <div class="date">${dateOfCreationInStringFormat}</div>
         </div>
         <p class="text">
             ${reviewData.text}
