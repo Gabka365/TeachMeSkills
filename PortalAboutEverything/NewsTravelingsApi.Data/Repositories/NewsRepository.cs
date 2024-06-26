@@ -12,10 +12,15 @@ namespace NewsTravelingsApi.Data.Repositories
     {
         public NewsRepository(NewsTravelingsApiDbContext dbContext) : base(dbContext) { }
 
-        public string LastNews()
+        public News LastNews()
         {
             var lastNews = _dbContext.News.OrderByDescending(n => n.Id).FirstOrDefault();
-            return lastNews!.Text;
-        }           
+            return lastNews!;
+        }
+        public News GetNewsFromTextAndNewsId(string text, int newsId)
+        {
+           var news =  _dbContext.News.First( x => x.Text == text && x.Id == newsId);
+            return news;
+        }
     }
 }

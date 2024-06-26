@@ -1,22 +1,16 @@
 $(document).ready(function () {
     const baseApiUrl = `https://localhost:7032`;
-    const btn = $('.traveling-news-btn');
-    const userId = btn.data('user-id');
-    const text = $('.traveling-news-text');
-    const url = baseApiUrl + "/news/add";
-
-    text.on('input', function () {
-        const inputText = text.val();
-        btn.prop('disabled', inputText.length < 20);       
-    });
-   
+    const btn = $('.traveling-news-btn'); 
+    
     btn.click(sendText);
 
     function sendText() {
-        const inputText = text.val();
+        const userId = btn.data('user-id');
+        const url = baseApiUrl + "/news/add";
+        const text = $('.traveling-news-text-input').val();
         const body ={
             userId: userId,
-            text: inputText
+            text: text
         };
 
         const promise = $.post(url, body)

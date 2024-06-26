@@ -19,5 +19,10 @@ namespace PortalAboutEverything.Services
                 .ReadFromJsonAsync<DtoLastNews>()
                 .Result!;
         }
+        public int GeLastNewsId()
+        {
+            var lastNews = GetLastNews();
+            return lastNews.Id;
+        }
     }
 }
