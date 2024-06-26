@@ -1,6 +1,7 @@
 ﻿namespace PortalAboutEverything.Models.Blog
 {
-    public class postUpdateViewModel
+
+    public class PostUpdateViewModel
     {
         public int Id { get; set; }
 

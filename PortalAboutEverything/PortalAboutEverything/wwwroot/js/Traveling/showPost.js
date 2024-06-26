@@ -26,9 +26,8 @@ $(document).ready(function () {
 
 
     $('.del-post').click(function () {
-        const postElement = $(this).closest('.post_wrapper'); 
+        const postElement = $(this).closest('.post_wrapper');
         const postID = $(this).data('post-id');
-        console.log('Post ID:', postID);
 
         const url = `/api/Traveling/DeletePost?postId=${postID}`;
         $.ajax({
@@ -47,11 +46,9 @@ $(document).ready(function () {
     $('.like-button').click(function () {
         const button = $(this);
         const countLikesElement = $(this).closest('.post_wrapper').find('.countLikes');
-        const postId = button.data('post-id')       
+        const postId = button.data('post-id')
 
-        console.log('Count Likes Element:', countLikesElement);
-        console.log('Post ID:', postId);
-        
+
         const url = `/api/Traveling/LikePost?postId=${postId}`;
 
         const promise = $.ajax({
@@ -70,4 +67,59 @@ $(document).ready(function () {
         });
     });
 
-}); 
+});
+
+$(document).ready(function () {
+    const urlNewMessage = `/CommentTraveling/AddNewComment`;
+    const enterKeyCode = 13;  
+
+    const hub = new signalR.HubConnectionBuilder()
+        .withUrl("/hubs/CommentTraveling")
+        .build();
+
+    hub.on('NotifyAboutNewComment', function (travelingCreateComment) {
+        addNewComment(travelingCreateComment);
+    });
+
+
+    hub.start(); 
+
+    $('.new-comments-text').on('keyup', function (evt) {
+        if (evt.keyCode == enterKeyCode) {
+            sendMessage();
+            evt.preventDefault();
+        }
+    });
+
+    $('.new-comments-button').click(sendMessage);
+
+    function sendMessage() {
+        const button = $(this);
+        const text = button.prev('.new-comments-text').val();
+        const trevelingId = button.data('post-id')
+
+        const travelingCreateComment = {
+            Text: text,
+            TravelingId: trevelingId
+        };
+
+        hub.invoke('AddNewComment', travelingCreateComment);
+        $('.new-comments-text').val('');
+    }
+
+    const commentTemplate = $(`		
+         <div class="comment-block">
+             <p class="text"></p>
+         </div>`);
+
+    function addNewComment(travelingCreateComment) {
+        const newCommentBlock = commentTemplate.clone();
+        const id = travelingCreateComment.travelingId
+        const text = travelingCreateComment.text        
+        newCommentBlock.find('.text').text(text);
+        $(`.post-${id}`).append(newCommentBlock);
+    }
+});
+
+
+

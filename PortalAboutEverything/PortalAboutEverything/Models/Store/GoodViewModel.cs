@@ -23,5 +23,6 @@ namespace PortalAboutEverything.Models.Store
         public IFormFile? Cover { get; set; }
 
         public bool HasCover { get; set; }
+        public bool HasLike {  get; set; }
     }
 }

@@ -29,7 +29,7 @@ builder.Services.AddVideoLibraryServices();
 builder.Services.AddScoped<TravelingRepositories>();
 builder.Services.AddScoped<GameRepositories>();
 builder.Services.AddScoped<UserRepository>();
-builder.Services.AddSingleton<BlogRepositories>();
+builder.Services.AddScoped<BlogRepositories>();
 builder.Services.AddScoped<MovieRepositories>();
 builder.Services.AddScoped<MovieReviewRepositories>();
 builder.Services.AddScoped<BoardGameRepositories>();
@@ -44,6 +44,7 @@ builder.Services.AddScoped<CommentRepository>();
 builder.Services.AddScoped<LikeRepositories>();
 
 // Services
+builder.Services.AddScoped<LikeHelper>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<BoardGameMapper>();
 builder.Services.AddSingleton<PathHelper>();
@@ -83,6 +84,7 @@ app.UseMiddleware<LocalizationMiddleware>();
 app.MapHub<ChatHub>("/hubs/chat");
 app.MapHub<BoardGameHub>("/hubs/boardGame");
 app.MapHub<MovieHub>("/hubs/movie");
+app.MapHub<CommentTravelingHub>("/hubs/CommentTraveling");
 
 app.MapControllerRoute(
     name: "default",

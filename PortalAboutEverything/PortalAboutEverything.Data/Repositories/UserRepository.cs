@@ -38,15 +38,15 @@ namespace PortalAboutEverything.Data.Repositories
             _dbContext.SaveChanges();
         }
 
-		public void AddMovieToMoviesFan(Movie movie, int userId)
-		{
-			var user = GetWithFavoriteMovies(userId);
-			var movies = user.FavoriteMovies;
-			movies.Add(movie);
-			user.FavoriteMovies = movies;
+        public void AddMovieToMoviesFan(Movie movie, int userId)
+        {
+            var user = GetWithFavoriteMovies(userId);
+            var movies = user.FavoriteMovies;
+            movies.Add(movie);
+            user.FavoriteMovies = movies;
 
-			_dbContext.SaveChanges();
-		}
+            _dbContext.SaveChanges();
+        }
 
         public void DeleteMovieFromMoviesFan(Movie movie, int userId)
         {
@@ -56,37 +56,11 @@ namespace PortalAboutEverything.Data.Repositories
             user.FavoriteMovies = movies;
 
             _dbContext.SaveChanges();
-        }
-        public bool CheckLikeUserOnTravelingPost(int userId, int postId)
-        {
-
-            var check = false;
-            var post = _dbContext.Travelings
-                            .Include(p => p.Likes)
-                            .ThenInclude(l => l.Users)
-                            .FirstOrDefault(p => p.Id == postId);
-
-
-            if (post != null)
-            {
-                var existingLike = post.Likes
-                    .FirstOrDefault(like => like.Users.Any(user => user.Id == userId));
-
-                if (existingLike != null)
-                {
-                    check =  true;
-                }
-                else
-                {
-                    check =  false;
-                }
-            }            
-            return check;
-        }
+        }       
 
         public User? GetWithFavoriteMovies(int id)
-			 => _dbSet
-			.Include(user => user.FavoriteMovies)
-			.Single(user => user.Id == id);
+             => _dbSet
+            .Include(user => user.FavoriteMovies)
+            .Single(user => user.Id == id);
     }
 }

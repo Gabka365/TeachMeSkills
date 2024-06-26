@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace PortalAboutEverything.Data.Model
 {
-    public class Post
+    public class Post : BaseModel
     {
-        public int Id { get; set; }
+        
+        public string? Message { get; set; }
 
-        public string? message { get; set; }
-
-        public string? Name { get; set; }
+        public string? Name { get; set; } 
 
         public DateTime? Now { get; set; }
+
+
+        public virtual List<User> Users { get; set; }
+
+        public virtual List<CommentBlog> CommentsBlog { get; set; }
     }
 }
