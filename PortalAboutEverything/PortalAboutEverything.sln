@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApi", "ChatApi\ChatApi.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardGamesReviewsApi", "BoardGamesReviewsApi\BoardGamesReviewsApi.csproj", "{4F2AA18B-4D20-43A1-BACA-579640EA9EFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardGamesRiviewsApi.Data", "BoardGamesRiviewsApi.Data\BoardGamesRiviewsApi.Data.csproj", "{17E99B93-645C-410D-9AA5-4C5BA3C69FB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardGamesReviewsApi.Data", "BoardGamesRiviewsApi.Data\BoardGamesReviewsApi.Data.csproj", "{17E99B93-645C-410D-9AA5-4C5BA3C69FB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
