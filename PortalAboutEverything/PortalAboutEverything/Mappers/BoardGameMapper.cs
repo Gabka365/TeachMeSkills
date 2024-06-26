@@ -4,6 +4,7 @@ using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Models.BoardGameReview;
 using PortalAboutEverything.Data.Repositories.DataModel;
+using PortalAboutEverything.Services.Dtos;
 
 namespace PortalAboutEverything.Mappers
 {
@@ -111,10 +112,11 @@ namespace PortalAboutEverything.Mappers
             };
 
 
-        public BoardGameReview BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
-        => new BoardGameReview
+        public DtoBoardGameReview BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
+        => new DtoBoardGameReview
         {
-            Name = _authServise.GetUserName(),
+            UserName = _authServise.GetUserName(),
+            UserId = _authServise.GetUserId(),
             DateOfCreation = DateTime.Now,
             Text = reviewViewModel.Text,
         };

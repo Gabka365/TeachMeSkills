@@ -4,6 +4,8 @@ using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Models.BoardGameReview;
+using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.Dtos;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -13,14 +15,17 @@ namespace PortalAboutEverything.Controllers
         private readonly BoardGameRepositories _gameRepositories;
         private readonly BoardGameReviewRepositories _reviewRepositories;
         private readonly BoardGameMapper _mapper;
+        private readonly HttpBoardGamesReviewsApiService _httpService;
 
         public BoardGameReviewController(BoardGameRepositories gameRepositories,
             BoardGameReviewRepositories reviewRepositories,
-            BoardGameMapper mapper)
+            BoardGameMapper mapper,
+            HttpBoardGamesReviewsApiService httpService)
         {
             _gameRepositories = gameRepositories;
             _reviewRepositories = reviewRepositories;
             _mapper = mapper;
+            _httpService = httpService;
         }
 
         [HttpGet]
@@ -44,11 +49,11 @@ namespace PortalAboutEverything.Controllers
                 return View(boardGameReviewViewModel);
             }
 
-            BoardGameReview review = _mapper.BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
-            _reviewRepositories.Create(review, boardGameReviewViewModel.BoardGameId);
+            DtoBoardGameReview review = _mapper.BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
+            review.BoardGameId = boardGameReviewViewModel.BoardGameId;
+            _httpService.CreateReview(review);
 
-            //return RedirectToPage($"/BoardGame/BoardGame?Id={review.BoardGame!.Id}");
-            return RedirectToAction("BoardGame", "BoardGame", new { id = review.BoardGame!.Id });
+            return RedirectToAction("BoardGame", "BoardGame", new { id = review.BoardGameId });
         }
 
         [HttpGet]

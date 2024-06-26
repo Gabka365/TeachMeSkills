@@ -11,6 +11,12 @@ namespace BoardGamesRiviewsApi.Data.Repositories
             _dbContext = dbContext;
         }
 
+        public void Create(BoardGameReview review)
+        {
+            _dbContext.Add(review);
+            _dbContext.SaveChanges();
+        }
+
         public List<BoardGameReview> GetAllForGame(int gameId)
         {
             return _dbContext

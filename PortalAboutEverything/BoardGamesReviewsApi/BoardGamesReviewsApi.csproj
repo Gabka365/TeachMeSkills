@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BoardGamesRiviewsApi.Data\BoardGamesRiviewsApi.Data.csproj" />
+    <ProjectReference Include="..\PortalAboutEverything\PortalAboutEverything.csproj" />
   </ItemGroup>
 
 </Project>
