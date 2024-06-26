@@ -11,6 +11,7 @@
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="/js/Traveling/showPost.js"></script>
+    <script src="/js/Traveling/createNews.js"></script>
 }
 
 <div class="u-body u-xl-mode" data-lang="ru">
@@ -19,7 +20,8 @@
         <p>@Model.LastNews</p>
         @if (User.Identity.IsAuthenticated)
         {
-            <button class="traveling-news" data-user-id="@authSErvise.GetUserId()">Добавить новость</button>
+            <input class="traveling-news-text" />
+            <button class="traveling-news-btn" data-user-id="@authSErvise.GetUserId()">Добавить новость</button>
         }
         else
         {            
