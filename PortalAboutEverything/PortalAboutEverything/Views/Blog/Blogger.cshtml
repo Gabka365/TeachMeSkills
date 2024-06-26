@@ -1,0 +1,24 @@
+﻿@model PortalAboutEverything.Models.Blog.BloggerViewModel
+
+
+<link href="/css/Blog/auth.css" rel="stylesheet" />
+
+
+<div class="inf-blogger">
+    <div class="text">
+        Hello @Model.Name
+    </div>
+
+    @foreach(var post in Model.Posts)
+    {
+        <div class="posts">
+            @post.message
+        </div>
+    }
+
+    
+
+    <div class="button">
+        <a href="/Auth/Logout">Logout</a>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿
+
+.auth-field {
+    background-color: black;
+    width: 300px;
+    border-radius: 20px;
+}
+
+    .auth-field div {
+        display: flex;
+        flex-flow: column;
+        padding: 20px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: aliceblue;
+    }
+
+    .auth-field .button input {
+        border-radius: 10px;
+        background-color: bisque;
+    }
+
+
+
+.inf-blogger {
+    background-color: black;
+    width: 200px;
+    border-radius: 20px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+    .inf-blogger div {
+        border-radius: 10px;
+        margin: 10px;
+        padding: 5px;
+        background-color: bisque;
+    }

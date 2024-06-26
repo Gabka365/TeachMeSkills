@@ -139,6 +139,7 @@
         padding: 10px;
         border-radius: 10px;
         flex-direction: column;
+        margin-top: 50px;
         margin-left: 100px;
         margin-right: 100px;
         align-items: center;
@@ -211,3 +212,32 @@
             padding: 10px;
             border-radius: 10px;
         }
+
+
+form {
+    display: flex;
+    align-items: center;
+}
+
+    form textarea {
+        border-radius: 20px;
+        width: 400px;
+    }
+
+    form input {
+        border-radius: 10px;
+        margin-left: 10px;
+        height: 40px;
+    }
+
+
+.interactive-section .comment {
+    margin: 10px;
+    background-color: aliceblue;
+    overflow-y: scroll;
+    border-radius: 10px;
+    width: 700px;
+    max-height: 300px;
+    margin-left: 200px;
+    margin-right: 150px;
+}

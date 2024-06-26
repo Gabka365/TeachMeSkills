@@ -17,6 +17,7 @@ namespace PortalAboutEverything.Data
             FillBoardGames(service);
             FillMovies(service);
             FillBooks(service);
+            FillBlog(service);
         }
 
         private void FillGames(IServiceScope service)
@@ -142,6 +143,15 @@ namespace PortalAboutEverything.Data
                     Language = Language.En
                 };
                 userRepository.Create(storeAdmin);
+
+                var blogAdmin = new User
+                {
+                    UserName = "blogger",
+                    Password = "blogger",
+                    Role = UserRole.BlogAdmin,
+                };
+                userRepository.Create(blogAdmin);
+
             }
         }
 
@@ -174,5 +184,23 @@ namespace PortalAboutEverything.Data
                 movieRepositories.Create(insideOut);
             }
         }
+
+
+        private void FillBlog(IServiceScope service)
+        {
+            var posts = service.ServiceProvider.GetService<BlogRepositories>()!;
+
+            if (!posts.Any())
+            {
+                var post = new Post
+                {
+                    Message = "Hello World",
+                    Name = "Seed",
+                    Now = DateTime.Now,
+                };
+                posts.Create(post);
+            }
+        }
+
     }
 }

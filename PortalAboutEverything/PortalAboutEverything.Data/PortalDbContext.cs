@@ -18,6 +18,7 @@ namespace PortalAboutEverything.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieReview> MovieReviews { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<CommentBlog> CommentsBlog { get; set; }
         public DbSet<Good> Goods { get; set; }
         public DbSet<Like> Likes { get; set; }
 
@@ -28,8 +29,6 @@ namespace PortalAboutEverything.Data
         public DbSet<History> HistoryEvents { get; set; }
         public DbSet<Video> Videos { get; init; }
         public DbSet<Folder> Folders { get; init; }
-
-
         public DbSet<Book> Books { get; set; }
         public DbSet<BookReview> BookReviews { get; set; }
         public PortalDbContext() { }
@@ -65,6 +64,12 @@ namespace PortalAboutEverything.Data
                 .HasMany(x => x.BookReviews)
                 .WithOne(x => x.Book)
                 .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Post>()
+                .HasMany(x => x.CommentsBlog)
+                .WithOne(x => x.Post)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
 
             modelBuilder.Entity<Good>()
@@ -117,6 +122,10 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<Like>()
                 .HasMany(x => x.Travelings)
                 .WithMany(x => x.Likes);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Posts)
+                .WithMany(x => x.Users);
 
             base.OnModelCreating(modelBuilder);
         }

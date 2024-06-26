@@ -66,3 +66,31 @@
     border-radius: 10px;
     margin-left: 400px;
 }
+
+
+.validation-error {
+    background-color: red;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    margin: 10px;
+    margin-left: 50px;
+}
+
+.mood-rate {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    background: black;
+    width: 450px;
+    border-radius: 20px;
+    padding: 10px;
+    padding-left: 240px;
+}
+
+    .mood-rate input {
+        color: black;
+        width: 60px;
+        border-radius: 5px;
+        margin-left: 30px;
+    }
