@@ -44,6 +44,7 @@ builder.Services.AddScoped<CommentRepository>();
 builder.Services.AddScoped<LikeRepositories>();
 
 // Services
+builder.Services.AddScoped<LikeHelper>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<BoardGameMapper>();
 builder.Services.AddSingleton<PathHelper>();
