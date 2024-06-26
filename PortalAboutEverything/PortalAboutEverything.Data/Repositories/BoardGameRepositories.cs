@@ -14,11 +14,6 @@ namespace PortalAboutEverything.Data.Repositories
             .First(boardGame => boardGame.Id == id)
             .Title;
 
-        public BoardGame GetWithReviews(int id)
-            => _dbSet
-            .Include(boardGame => boardGame.Reviews)
-            .Single(boardGame => boardGame.Id == id);
-
         public BoardGame GetWithUsersWhoFavoriteThisBoardGame(int id)
             => _dbSet
             .Include(boardGame => boardGame.UsersWhoFavoriteThisBoardGame)

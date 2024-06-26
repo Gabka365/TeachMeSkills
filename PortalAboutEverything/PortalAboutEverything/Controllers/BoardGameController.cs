@@ -170,7 +170,7 @@ namespace PortalAboutEverything.Controllers
         [AllowAnonymous]
         public IActionResult BoardGame(int id)
         {
-            BoardGame gameViewModel = _gameRepositories.GetWithReviews(id);
+            BoardGame gameViewModel = _gameRepositories.Get(id)!;
             BoardGameViewModel viewModel = _mapper.BuildBoardGameViewModel(gameViewModel);
 
             if (_authServise.IsAuthenticated())

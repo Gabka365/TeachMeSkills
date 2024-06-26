@@ -24,31 +24,20 @@ namespace PortalAboutEverything.Mappers
 
         #region BoardGameBuilders
         public BoardGameViewModel BuildBoardGameViewModel(BoardGame game)
+        => new BoardGameViewModel
         {
-            List<BoardGameReviewViewModel> reviewViewModels = new();
-            if (game.Reviews is not null)
-            {
-                foreach (var review in game.Reviews)
-                {
-                    reviewViewModels.Add(BuildBoardGameRewievViewModel(review));
-                }
-            }
+            Id = game.Id,
+            Title = game.Title,
+            MiniTitle = game.MiniTitle,
+            HasMainImage = _pathHelper.IsBoardGameMainImageExist(game.Id),
+            HasSideImage = _pathHelper.IsBoardGameSideImageExist(game.Id),
+            Description = game.Description,
+            Essence = game.Essence,
+            Tags = game.Tags,
+            Price = game.Price,
+            ProductCode = game.ProductCode
+        };
 
-            return new BoardGameViewModel
-            {
-                Id = game.Id,
-                Title = game.Title,
-                MiniTitle = game.MiniTitle,
-                HasMainImage = _pathHelper.IsBoardGameMainImageExist(game.Id),
-                HasSideImage = _pathHelper.IsBoardGameSideImageExist(game.Id),
-                Description = game.Description,
-                Essence = game.Essence,
-                Tags = game.Tags,
-                Price = game.Price,
-                ProductCode = game.ProductCode,
-                Reviews = reviewViewModels
-            };
-        }
 
         public BoardGame BuildBoardGameDataModelFromCreate(BoardGameCreateViewModel gameViewModel)
             => new BoardGame
@@ -105,16 +94,6 @@ namespace PortalAboutEverything.Mappers
         #endregion
 
         #region ReviewBuilders
-        public BoardGameReviewViewModel BuildBoardGameRewievViewModel(BoardGameReview review)
-            => new BoardGameReviewViewModel
-            {
-                Id = review.Id,
-                Name = review.Name,
-                DateOfCreationInStringFormat = review.DateOfCreation.ToString("dd.MM.yyyy HH:mm"),
-                Text = review.Text,
-            };
-
-
         public DtoBoardGameReviewCreate BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
         => new DtoBoardGameReviewCreate
         {
@@ -134,7 +113,7 @@ namespace PortalAboutEverything.Mappers
         public BoardGameUpdateReviewViewModel BuildBoardGameUpdateRewievViewModel(DtoBoardGameReview review)
             => new BoardGameUpdateReviewViewModel
             {
-                BoardGameName =_gameRepositories.GetName(review.BoardGameId),
+                BoardGameName = _gameRepositories.GetName(review.BoardGameId),
                 Text = review.Text,
             };
         #endregion

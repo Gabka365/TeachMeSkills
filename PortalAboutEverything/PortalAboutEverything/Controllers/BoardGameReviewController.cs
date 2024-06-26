@@ -78,15 +78,6 @@ namespace PortalAboutEverything.Controllers
             _httpService.UpdateReview(updatedReview);
 
             return RedirectToAction("BoardGame", "BoardGame", new { id = boardGameReviewViewModel.BoardGameId });
-        }
-
-        public IActionResult Delete(int id, int gameId)
-        {
-            _reviewRepositories.Delete(id);
-
-            return RedirectToAction("BoardGame", "BoardGame", new { id = gameId });
-        }
-
-        
+        }     
     }
 }

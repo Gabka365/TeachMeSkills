@@ -120,29 +120,7 @@
     <div class="container">
         <h3 class="reviews-head">@BoardGame_GamePage.Reviews</h3>
         <div class="reviews-container">
-            @if (Model.Reviews.Count > 0)
-            {
-                @foreach (var rewiev in Model.Reviews)
-                {
-                    <div class="review">
-                        <div class="name-and-date">
-                            <div class="name">@rewiev.Name</div>
-                            <div class="date">@rewiev.DateOfCreationInStringFormat</div>
-                        </div>
-                        <p class="text">
-                            @rewiev.Text
-                        </p>
-                        <div class="update-and-delete">
-                            <a href="/BoardGameReview/Update?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/edit.svg" /></a>
-                            <a href="/BoardGameReview/Delete?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/delete.svg" /></a>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <p>@BoardGame_GamePage.AbsenceOfReviewsText</p>
-            }
+            
         </div>
         <div class="review-buttons">
             <button class="usual-button">@BoardGame_GamePage.ShowMore</button>
