@@ -106,3 +106,7 @@ comment-block {
     border-radius: 5px;
     display: inline-block;
 }
+.cover{
+    max-width: 300px;
+    max-height: 300px;
+}

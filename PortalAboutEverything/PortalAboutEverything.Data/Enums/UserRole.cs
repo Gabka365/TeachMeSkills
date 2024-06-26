@@ -8,6 +8,7 @@
         MovieAdmin = 41,
         BoardGameAdmin = 42,
         TravelingAdmin = 43,
+        StoreAdmin = 45,
         VideoLibraryAdmin = 44,
         BlogAdmin = 45,
 

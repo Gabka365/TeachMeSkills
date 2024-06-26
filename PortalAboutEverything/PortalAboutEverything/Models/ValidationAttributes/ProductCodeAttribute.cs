@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.IdentityModel.Tokens;
+using PortalAboutEverything.LocalizationResources.BoardGame;
 
 namespace PortalAboutEverything.Models.ValidationAttributes
 {
@@ -6,9 +8,22 @@ namespace PortalAboutEverything.Models.ValidationAttributes
     {
         public override string FormatErrorMessage(string name)
         {
-            var errorMessage = "Код товара должен быть положительным числом из 5 цифр";
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                return ErrorMessage;
+            }
 
-            return string.IsNullOrEmpty(ErrorMessage) ? errorMessage : ErrorMessage;
+            var defaultErrorMessage = BoardGame_CreateAndUpdateGame.ProductCode_ValidationErrorMessage;
+
+            if (ErrorMessageResourceType is not null
+                && ErrorMessageResourceName is not null)
+            {
+                var property = ErrorMessageResourceType.GetProperty(ErrorMessageResourceName);
+                var value = property!.GetValue(null);
+                defaultErrorMessage = (string)value!;
+            }
+
+            return defaultErrorMessage;
         }
 
         public override bool IsValid(object? value)

@@ -44,6 +44,11 @@ namespace PortalAboutEverything.Services.AuthStuff
             return GetUserRole() >= role;
         }
 
+        public bool HasPermission(Permission permission)
+        {
+            return GetUserPermission().HasFlag(permission);
+        }
+
         public bool HasRole(UserRole role)
         {
             return GetUserRole() == role;

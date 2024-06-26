@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PortalAboutEverything.LocalizationResources.BoardGame {
+namespace PortalAboutEverything.LocalizationResources.BoardGame
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,23 +23,28 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class BoardGame_UserFavoritesGame {
-        
+    public class BoardGame_UserFavoritesGame
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal BoardGame_UserFavoritesGame() {
+        internal BoardGame_UserFavoritesGame()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        public static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PortalAboutEverything.LocalizationResources.BoardGame.BoardGame_UserFavoritesGame" +
                             "", typeof(BoardGame_UserFavoritesGame).Assembly);
                     resourceMan = temp;
@@ -46,71 +52,86 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
-            get {
+        public static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to You haven&apos;t added any games to your favorites yet.
         /// </summary>
-        public static string AbsenceOfGamesText {
-            get {
+        public static string AbsenceOfGamesText
+        {
+            get
+            {
                 return ResourceManager.GetString("AbsenceOfGamesText", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Add to cart.
         /// </summary>
-        public static string AddToCart {
-            get {
+        public static string AddToCart
+        {
+            get
+            {
                 return ResourceManager.GetString("AddToCart", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Price.
         /// </summary>
-        public static string Price {
-            get {
+        public static string Price
+        {
+            get
+            {
                 return ResourceManager.GetString("Price", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Share on VK.
         /// </summary>
-        public static string Share {
-            get {
+        public static string Share
+        {
+            get
+            {
                 return ResourceManager.GetString("Share", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
-        public static string Title {
-            get {
+        public static string Title
+        {
+            get
+            {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to List of favorite board games of the user.
         /// </summary>
-        public static string TitleOfPage {
-            get {
+        public static string TitleOfPage
+        {
+            get
+            {
                 return ResourceManager.GetString("TitleOfPage", resourceCulture);
             }
         }

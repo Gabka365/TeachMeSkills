@@ -1,21 +1,29 @@
-﻿@model List<PortalAboutEverything.Models.Traveling.TravelingShowPostsViewModel>
+﻿@inject PortalAboutEverything.Services.AuthStuff.AuthService authSErvise
+@model PortalAboutEverything.Models.Traveling.TravelingShowPostsViewModel
 
 @section Style {
     <link rel="stylesheet" href="/css/Traveling/posts/style.css" />
     <link rel="stylesheet" href="/css/Traveling/nicepage.css" />
 }
+@{
+    string[] validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
+}
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/Traveling/showPost.js"></script>
+}
 
 <div class="u-body u-xl-mode" data-lang="ru">
     <section class="u-align-center u-clearfix u-section-1" id="sec-b5d7">
         <div class="u-clearfix u-sheet u-sheet-1">
-            <div class="custom-expanded u-container-style u-post-details u-post-details-1">
+            <div class="u-container-style u-post-details u-post-details-1">
                 <div class="u-container-layout u-container-layout-1">
-                    @if (Model != null && Model.Count != 0)
+
+                    @if (Model != null && Model.TopTravelingByCommentsViewModel != null)
                     {
-                        @foreach (var post in Model)
-                        {
+                        <div class="post_wrapper">
                             <h3 class="u-blog-control u-text u-text-1">
-                                @post.Name
+                                @Model.TopTravelingByCommentsViewModel.Name
                             </h3>
 
                             <div class="custom-expanded u-container-style u-grey-10 u-group u-group-1">
@@ -26,65 +34,136 @@
                                             <div class="u-clearfix u-group-elements u-group-elements-1">
 
                                                 @{
-                                                    string[] validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
+
                                                     foreach (var ext in validExtensions)
                                                     {
-                                                        var imagePath = System.IO.Path.Combine($"wwwroot/images/traveling/UserPictures/{post.Id}.{ext}");
+                                                        var imagePath = System.IO.Path.Combine($"wwwroot/images/traveling/UserPictures/{Model.TopTravelingByCommentsViewModel.Id}.{ext}");
                                                         if (System.IO.File.Exists(imagePath))
                                                         {
-                                                            <img alt="" class="custom-expanded u-blog-control u-image u-image-default u-image-1" src="/Traveling/ShowImage/@post.Id">
+                                                            <img alt="" class="u-blog-control u-image u-image-default u-image-1" src="/Traveling/ShowImage/@Model.TopTravelingByCommentsViewModel.Id">
                                                             break;
                                                         }
                                                     }
                                                 }
 
                                             </div>
-                                            <p class="u-align-center u-text u-text-2">@post.Desc</p>
-                                            <p class="u-text u-text-3">@post.Name</p>
+                                            <p class="u-align-center u-text u-text-2">@Model.TopTravelingByCommentsViewModel.Desc</p>
+                                            <p class="u-text u-text-3">@Model.TopTravelingByCommentsViewModel.Name</p>
                                         </div>
                                     </div>
 
                                     <div class="u-blog-control u-metadata u-metadata-1">
-                                        <span class="u-meta-date u-meta-icon">@post.TimeOfCreation</span>
+                                        <span class="u-meta-date u-meta-icon">@Model.TopTravelingByCommentsViewModel.TimeOfCreation</span>
                                     </div>
                                     <div class="u-clearfix u-group-elements u-group-elements-2">
                                         <!--blog_post_readmore-->
-                                        @if (User.Identity is not null && (User.Identity.IsAuthenticated && post.UserId.ToString() == User.Claims.FirstOrDefault(x => x.Type == "Id")?.Value))
+                                        @if (Model.IsTravingAdmin)
                                         {
-                                            <a href="/Traveling/DeletePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-1">Удалить</a>
-                                            <a href="/Traveling/UpdatePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-2">Редактировать</a>
+                                            <button class="u-blog-control u-btn u-button-style u-btn-1 del-post" data-post-id="@Model.TopTravelingByCommentsViewModel.Id">Удалить</button>
+                                            <a href="/Traveling/UpdatePost/@Model.TopTravelingByCommentsViewModel.Id" class="u-blog-control u-btn u-button-style u-btn-2">Редактировать</a>
                                         }
                                     </div>
                                 </div>
                             </div>
-                            <div class="comments">
-                                @if(post.Comments is not null)
-                                {
-                                    foreach (var comment in post.Comments)
-                                    {
-                                        <div>
-                                            <p>@comment.Text</p>
-                                        </div>
-                                    }
-                                }
-                                
-                                <form action="/Traveling/CreateComment/" method="post">
-                                    <input type="hidden" name="PostId" value="@post.Id" />
-                                    <textarea name="text" placeholder="@((TempData["ErrorMessage"] != null) ? TempData["ErrorMessage"].ToString() : "Введите сообщение")"></textarea>
-                                    <input type="submit" value="Отставить отзыв" />
-                                </form>
+                            <div class="comments_wrapper">
+                                <div class="comments post-@Model.TopTravelingByCommentsViewModel.Id">
+                                </div>
+                                <div>
+                                    <input class="new-comments-text" />
+                                    <button class="new-comments-button" data-post-id="@Model.TopTravelingByCommentsViewModel.Id">Отправить</button>
+                                </div>
                             </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="like">
+                                    <p class="countLikes" countLikes="@Model.TopTravelingByCommentsViewModel.countLike">@Model.TopTravelingByCommentsViewModel.countLike</p>
+                                    <button class="like-button" data-user-id="@authSErvise.GetUserId()"
+                                            data-post-id="@Model.TopTravelingByCommentsViewModel.Id">
+                                        like
+                                    </button>
+                                </div>
+                            }
+                        </div>
 
+                    }
+
+                    @if (Model != null && Model.TravelingPostsViewModels.Count != 0)
+                    {
+                        @foreach (var post in Model.TravelingPostsViewModels)
+                        {
+                            <div class="post_wrapper">
+
+                                <h3 class="u-blog-control u-text u-text-1">
+                                    @post.Name
+                                </h3>
+
+                                <div class="custom-expanded u-container-style u-grey-10 u-group u-group-1">
+                                    <div class="u-container-layout u-container-layout-2">
+
+                                        <div class="u-container-style u-grey-10 u-group u-group-2">
+                                            <div class="u-container-layout">
+                                                <div class="u-clearfix u-group-elements u-group-elements-1">
+
+                                                    @{
+                                                        foreach (var ext in validExtensions)
+                                                        {
+                                                            var imagePath = System.IO.Path.Combine($"wwwroot/images/traveling/UserPictures/{post.Id}.{ext}");
+                                                            if (System.IO.File.Exists(imagePath))
+                                                            {
+                                                                <img alt="" class="u-blog-control u-image u-image-default u-image-1" src="/Traveling/ShowImage/@post.Id">
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+
+                                                </div>
+                                                <p class="u-align-center u-text u-text-2">@post.Desc</p>
+                                                <p class="u-text u-text-3">@post.Name</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="u-blog-control u-metadata u-metadata-1">
+                                            <span class="u-meta-date u-meta-icon">@post.TimeOfCreation</span>
+                                        </div>
+                                        <div class="u-clearfix u-group-elements u-group-elements-2">
+                                            <!--blog_post_readmore-->
+                                            @if (Model.IsTravingAdmin)
+                                            {
+                                                <button class="u-blog-control u-btn u-button-style u-btn-1 del-post" data-post-id="@post.Id">Удалить</button>
+                                                <a href="/Traveling/UpdatePost/@post.Id" class="u-blog-control u-btn u-button-style u-btn-2">Редактировать</a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comments_wrapper">
+                                    <div class="comments post-@post.Id">
+                                    </div>
+                                    <div>
+                                        <input class="new-comments-text" />
+                                        <button class="new-comments-button" data-post-id="@post.Id">Отправить</button>
+                                    </div>
+                                </div>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <div class="like">
+                                        <p class="countLikes" countLikes="@post.countLike">@post.countLike</p>
+                                        <button class="like-button" data-user-id="@authSErvise.GetUserId()"
+                                                data-post-id="@post.Id">
+                                            like
+                                        </button>
+                                    </div>
+                                }
+                            </div>
                         }
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a href="/Traveling/CreatePost" class="u-btn u-button-style u-btn-3">Создать новый пост</a>
+                        <a href="/Traveling/CreatePost" class="btn-CreatePost">Создать новый пост</a>
                     }
                     else
                     {
                         <p class="u-text u-text-default u-text-4">Для создания поста требуется зайти на сайт</p>
-                        <a href="/Auth/Login" class="u-btn u-button-style u-btn-3">Зайти на сайт</a>
+                        <a href="/Auth/Login" class="btn-Login">Зайти на сайт</a>
                     }
                 </div>
             </div>

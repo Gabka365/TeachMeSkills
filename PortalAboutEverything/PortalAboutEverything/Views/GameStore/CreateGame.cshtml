@@ -1,28 +1,36 @@
-﻿@model PortalAboutEverything.Models.GameStore.CreateGameStoreViewModel
+﻿@using PortalAboutEverything.Models.GameStore
+@model CreateGameStoreViewModel
+@using PortalAboutEverything.LocalizationResources.GameStore
 
 @section Style {
-        <link rel="stylesheet" href="/css/GameStore/style.css?v=1" />
+    <link rel="stylesheet" href="/css/GameStore/style.css?v=1" />
 }
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div>
-        @Html.TextBoxFor(x => x.GameName, new { pleceholder = "Название игры", @class = "my-input" })
+        @Html.TextBoxFor(x => x.GameName, new { placeholder = GameStore_CreateGame.Placeholder_GameName, @class = "my-input" })
+        @Html.ValidationMessageFor(x => x.GameName)
+    </div>
+    <div>   
+        <input type="file" name="@nameof(CreateGameStoreViewModel.Cover)" />
+        @Html.ValidationMessageFor(x => x.Cover)
     </div>
     <div>
-        @Html.TextBoxFor(x => x.Developer, new { pleceholder = "Разработчик", @class = "my-input" })
+        @Html.TextBoxFor(x => x.Developer, new { placeholder = GameStore_CreateGame.Placeholder_Developer, @class = "my-input" })
+        @Html.ValidationMessageFor(x => x.Developer)
     </div>
     <div>
+        @Html.DisplayNameFor(x => x.YearOfRelease)
         @Html.TextBoxFor(x => x.YearOfRelease,
-                          new
-                          {
-                              pleceholder = "Год выпуска",
-                              @class = "my-input",
-                              @type = "number",
-                              @min = "1990",
-                              @max = "2024"
-                          })
+                 new
+                 {
+                     placeholder = GameStore_CreateGame.Placeholder_YearOfRealese,
+                     @class = "my-input",
+                     @type = "number",
+                 })
+        @Html.ValidationMessageFor(x => x.YearOfRelease)
     </div>
     <div>
-        <input type="submit" value="Создать пост" />
+        <input type="submit" value="@GameStore_CreateGame.CreatePost" />
     </div>
 </form>

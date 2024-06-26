@@ -5,6 +5,11 @@
     <link href="/css/BoardGame/style.css" rel="stylesheet" />
 }
 
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script defer src="/js/BoardGame/ajaxToFavorite.js"></script>
+}
+
 <div class="banner">
     <img src="/images/BoardGame/banner.webp" alt="@BoardGame_GamePage.AdvertisingBanner" />
 </div>
@@ -24,6 +29,8 @@
     </div>
 </header>
 
+<input type="hidden" class="game-id" value="@Model.Id" />
+
 <div class="title">
     <div class="container">
         <h1 class="head-title">@Model.Title</h1>
@@ -36,21 +43,28 @@
         <div class="main-wraper">
             <div class="left-part">
                 <div class="images">
-                    @if (Model.Title == "Ticket to Ride: Европа")
+                    @if (Model.HasSideImage)
                     {
-                        <img src="/images/BoardGame/images.png"
+                        <img src="/images/BoardGame/sideImage-@(Model.Id).jpg"
                              alt="@BoardGame_GamePage.SideImages"
                              class="elongated-image" />
-                        <img src="/images/BoardGame/mainImage.jpg"
+                    }
+                    else if (Model.ProductCode == 31458)
+                    {
+                        <img src="/images/BoardGame/sideImage-default.png"
+                             alt="@BoardGame_GamePage.SideImages"
+                             class="elongated-image" />
+                    }
+
+                    @if (Model.HasMainImage)
+                    {
+                        <img src="/images/BoardGame/mainImage-@(Model.Id).jpg"
                              alt="@BoardGame_GamePage.FotoOfGame"
                              class="square-image" />
                     }
-                    else
+                    else if (Model.ProductCode == 31458)
                     {
-                        <img src="https://placehold.co/89x322"
-                             alt="@BoardGame_GamePage.SideImages"
-                             class="elongated-image" />
-                        <img src="https://placehold.co/322x322"
+                        <img src="/images/BoardGame/mainImage-default.jpg"
                              alt="@BoardGame_GamePage.FotoOfGame"
                              class="square-image" />
                     }
@@ -82,13 +96,17 @@
                 </div>
                 <div class="buttons">
                     <button class="highlighted-button">@BoardGame_GamePage.AddToCart</button>
+                    <input type="hidden" class="text-for-add" value="@BoardGame_GamePage.AddToFavorites" />
+                    <input type="hidden" class="text-for-remove" value="@BoardGame_GamePage.RemoveFromFavorites" />
                     @if (Model.IsFavoriteForUser)
                     {
-                        <button class="usual-button" onclick="window.location.href = '/BoardGame/RemoveFavoriteBoardGameForUser?GameId=@Model.Id&IsGamePage=@true';">@BoardGame_GamePage.RemoveFromFavorites</button>
+                        <input type="hidden" class="is-add" value="0"/>                       
+                        <button class="usual-button favorite-button">@BoardGame_GamePage.RemoveFromFavorites</button>
                     }
                     else
                     {
-                        <button class="usual-button" onclick="window.location.href = '/BoardGame/AddFavoriteBoardGameForUser?GameId=@Model.Id';">@BoardGame_GamePage.AddToFavorites</button>
+                        <input type="hidden" class="is-add" value="1" />                      
+                        <button class="usual-button favorite-button">@BoardGame_GamePage.AddToFavorites</button>
                     }
                 </div>
             </div>
@@ -112,8 +130,8 @@
                         @rewiev.Text
                     </p>
                     <div class="update-and-delete">
-                        <a href="/BoardGame/UpdateReview?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/edit.svg" /></a>
-                        <a href="/BoardGame/DeleteReview?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/delete.svg" /></a>
+                        <a href="/BoardGameReview/Update?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/edit.svg" /></a>
+                        <a href="/BoardGameReview/Delete?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/delete.svg" /></a>
                     </div>
                 </div>
             }
@@ -124,7 +142,7 @@
         }
         <div class="review-buttons">
             <button class="usual-button">@BoardGame_GamePage.ShowMore</button>
-            <button class="highlighted-button" onclick="window.location.href = '/BoardGame/CreateReview?GameId=@Model.Id';">@BoardGame_GamePage.AddReview</button>
+            <button class="highlighted-button" onclick="window.location.href = '/BoardGameReview/Create?GameId=@Model.Id';">@BoardGame_GamePage.AddReview</button>
         </div>
     </div>
 </div>

@@ -126,8 +126,14 @@
   <data name="DisplayDescription_Name" xml:space="preserve">
     <value>Описание</value>
   </data>
+  <data name="DisplayMainImage_Name" xml:space="preserve">
+    <value>Главное изображение</value>
+  </data>
   <data name="DisplayMiniTitle_Name" xml:space="preserve">
     <value>Слоган</value>
+  </data>
+  <data name="DisplaySideImage_Name" xml:space="preserve">
+    <value>Боковое изображение</value>
   </data>
   <data name="DisplayTitle_Name" xml:space="preserve">
     <value>Название</value>
@@ -141,11 +147,20 @@
   <data name="Price" xml:space="preserve">
     <value>Цена игры</value>
   </data>
+  <data name="Price_ValidationErrorMessage" xml:space="preserve">
+    <value>Цена не может быть отрицательной или равной 0</value>
+  </data>
   <data name="ProductCode" xml:space="preserve">
     <value>Код товара</value>
   </data>
+  <data name="ProductCode_ValidationErrorMessage" xml:space="preserve">
+    <value>Код товара должен быть положительным числом из 5 цифр</value>
+  </data>
   <data name="RequiredDescription_ErrorMessage" xml:space="preserve">
     <value>Описание не может быть пустым</value>
+  </data>
+  <data name="RequiredMainImage_ErrorMessage" xml:space="preserve">
+    <value>Главное изображение игры не может отсутствовать</value>
   </data>
   <data name="RequiredMiniTitle_ErrorMessage" xml:space="preserve">
     <value>Слоган не может быть пустым</value>

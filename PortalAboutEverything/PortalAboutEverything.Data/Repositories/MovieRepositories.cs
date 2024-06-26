@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Repositories.DataModel;
+using PortalAboutEverything.Data.Repositories.RawSql;
 
 namespace PortalAboutEverything.Data.Repositories
 {
@@ -35,5 +37,14 @@ namespace PortalAboutEverything.Data.Repositories
 					.UsersWhoFavoriteTheMovie
 					.Any(user => user.Id == userId))
 			.ToList();
-	}
+
+        public IEnumerable<MovieStatisticDataModel> GetMovieStatistic()
+        {
+            return CustomSqlQuery<MovieStatisticDataModel>(SqlQueryManager.GetMovieStatistic)
+                .ToList();
+        }
+
+        public bool Exist(int id)
+            => _dbSet.Any(x => x.Id == id);
+    }
 }

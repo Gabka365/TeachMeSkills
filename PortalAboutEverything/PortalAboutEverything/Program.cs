@@ -3,6 +3,8 @@ using PortalAboutEverything.Controllers;
 using PortalAboutEverything.CustomMiddlewareServices;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Hubs;
+using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.VideoServices.Extensions;
@@ -39,12 +41,19 @@ builder.Services.AddScoped<StoreRepositories>();
 builder.Services.AddScoped<GoodReviewRepositories>();
 builder.Services.AddScoped<GameStoreRepositories>();
 builder.Services.AddScoped<CommentRepository>();
+builder.Services.AddScoped<LikeRepositories>();
 
 // Services
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<BoardGameMapper>();
 builder.Services.AddSingleton<PathHelper>();
 
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddSignalR();
+
+builder.Services.AddHttpClient<HttpChatApiService>(
+    x => x.BaseAddress = new Uri("https://localhost:7072/"));
 
 var app = builder.Build();
 
@@ -68,6 +77,11 @@ app.UseAuthentication(); // Who I am?
 app.UseAuthorization(); // May I?
 
 app.UseMiddleware<LocalizationMiddleware>();
+
+app.MapHub<ChatHub>("/hubs/chat");
+app.MapHub<BoardGameHub>("/hubs/boardGame");
+app.MapHub<MovieHub>("/hubs/movie");
+app.MapHub<CommentTravelingHub>("/hubs/CommentTraveling");
 
 app.MapControllerRoute(
     name: "default",

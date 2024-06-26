@@ -2,61 +2,103 @@
 @using PortalAboutEverything.LocalizationResources
 
 @section Style {
-				<link rel="stylesheet" href="/css/Movie/movieStyle.css?=1" />
+    <link rel="stylesheet" href="/css/Movie/movieStyle.css?=2" />
 }
 
-<div>
-	@Movie_Index.ChooseAction
+@section Scripts {
+    <script src="/js/Movies/index.js"></script>
+    <script src="/js/Movies/deleteMovie.js"></script>
+    <script src="/js/Movies/movieNotifications.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+}
+
+<div class="movieStatisticsTable">
+    <div class="movieColumnsName">
+        <div class="movieTableCell">@Movie_Index.MovieName</div>
+        <div class="movieTableCell">@Movie_Index.DirectorName</div>
+        <div class="movieTableCell">@Movie_Index.AmountUsers</div>
+        <div class="movieTableCell">@Movie_Index.AmountReviews</div>
+    </div>
+    @foreach (var movieInfo in Model.MovieStatistics)
+    {
+        <div class="movieContent">
+            <input class="movieTableCellId" type="hidden" value="@movieInfo.Id" />
+            <div class="movieTableCell">@movieInfo.Name</div>
+            <div class="movieTableCell">@movieInfo.Director</div>
+            <div class="movieTableCell">@movieInfo.CountOfUsersWhoFavorite</div>
+            <div class="movieTableCell">@movieInfo.CountOfMovieReview</div>
+        </div>
+        }
 </div>
 <div>
-	@if (User.Identity?.IsAuthenticated ?? false)
-	{
-		<a href="/Movie/GiveFeedback">@Movie_Index.LeaveReview</a>
-	}
+    <h1>Notifications</h1>
+    <div class="notifications-containter">
+    </div>
 </div>
 <div>
-	@if (Model.IsMovieAdmin)
-	{
-		<a href="/Movie/CreateMovie">@Movie_Index.CreateMovie</a>
-	}
+    @Movie_Index.ChooseAction
 </div>
 <div>
-	@if (User.Identity?.IsAuthenticated ?? false)
-	{
-		<a href="/Movie/MoviesFan">@Movie_Index.MovieFanPage</a>
-	}
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+            <a href="/Movie/GiveFeedback">@Movie_Index.LeaveReview</a>
+    }
 </div>
 <div>
-	@Movie_Index.ListOfMovies
+    @if (Model.IsMovieAdmin)
+    {
+            <a href="/Movie/CreateMovie">@Movie_Index.CreateMovie</a>
+    }
+</div>
+<div>
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+            <a href="/Movie/MoviesFan">@Movie_Index.MovieFanPage</a>
+    }
+</div>
+<div>
+    @Movie_Index.ListOfMovies
 </div>
 <div class="movies">
-	@foreach (var movie in Model.Movies)
-	{
-		<div class="infoAboutMovie">
-			<span class="movieName">@Movie_Index.Movie <a href="/Movie/UpdateMovie?id=@movie.Id">@movie.Name</a></span> 
-			<div>@Movie_Index.ReleaseYear @movie.ReleaseYear год</div>
-			<div>@Movie_Index.MovieDirector @movie.Director</div>
-			<div>@Movie_Index.CountryOfOrigin @movie.CountryOfOrigin</div>
-			<div>@Movie_Index.MovieBudget @movie.Budget</div>
-			<div>@Movie_Index.MovieDescription</div>
-			<div class="movieDescription">@movie.Description</div>
-			<div>
-				<a href="/Movie/DeleteMovie?id=@movie.Id">@Movie_Index.Delete</a> 
-			</div>
-			<form action="/Movie/AddMovieToMoviesFan" method="post">
-				<input type="hidden" value="@movie.Id" name="movieId" />
-				<input type="submit" value="@Movie_Index.Add @movie.Name @Movie_Index.ToFavorites_LowerCase" />
-			</form>
-			<div>
-				<a href="/Movie/MovieAddReview?id=@movie.Id">@Movie_Index.LeaveReviewForMovie "@movie.Name"</a>
-			</div>
-			@foreach (var review in movie.Reviews)
-			{
-				<div class="review">
-					<div class="dateReview">@review.DateOfCreation</div>
-					<div class="comment">@review.Comment. @Movie_Index.Rate @review.Rate</div>
-				</div>
-			}
-		</div>
-	}
+    @foreach (var movie in Model.Movies)
+    {
+        <div class="movie">
+                <span class="movieName">@Movie_Index.Movie <a href="/Movie/UpdateMovie?id=@movie.Id">@movie.Name</a></span> 
+            @if (movie.HasCover)
+            {
+                <img class="movieImage" src="/images/Movie/cover-@(movie.Id).jpg" />
+            }
+            else
+            {
+                <img class="movieImage" src="/images/Movie/cover-default.jpg" />
+            }
+                <div>@Movie_Index.ReleaseYear @movie.ReleaseYear год</div>
+                <div>@Movie_Index.MovieDirector @movie.Director</div>
+                <div>@Movie_Index.CountryOfOrigin @movie.CountryOfOrigin</div>
+                <div>@Movie_Index.MovieBudget @movie.Budget</div>
+                <div>@Movie_Index.MovieDescription</div>
+                <div class="movieDescription">@movie.Description</div>
+                <div class="deleteMovie">
+                    @Movie_Index.Delete
+                    <input class="movieIdDel" type="hidden" value="@movie.Id" />
+                </div>
+                <form action="/Movie/AddMovieToMoviesFan" method="post">
+                    <input type="hidden" value="@movie.Id" name="movieId" />
+                    <input type="submit" value="@Movie_Index.Add @movie.Name @Movie_Index.ToFavorites_LowerCase" />
+                </form>
+                <div>
+                    <a href="/Movie/MovieAddReview?id=@movie.Id">@Movie_Index.LeaveReviewForMovie "@movie.Name"</a>
+                </div>
+                <div class="review-container">
+                    @foreach (var review in movie.Reviews)
+                    {
+                        <div class="review">
+                            <div class="deleteReview"><a href="/Movie/MovieDeleteReview?id=@review.Id" class="deleteReview" >Удалить</a></div>
+                            <div class="dateReview">@review.DateOfCreation</div>
+                            <div class="comment">@review.Comment. @Movie_Index.Rate @review.Rate</div>
+                        </div>
+                    }
+                </div>
+            </div>
+    }
 </div>

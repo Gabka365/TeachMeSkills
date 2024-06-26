@@ -94,7 +94,42 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasIndex("UsersWhoLikedTheGoodId");
 
+                    b.ToTable("GoodUser");
+                });
+
+            modelBuilder.Entity("LikeTraveling", b =>
+                {
+                    b.Property<int>("LikesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TravelingsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LikesId", "TravelingsId");
+
+                    b.HasIndex("TravelingsId");
+
+                    b.ToTable("LikeTraveling");
+                });
+
+            modelBuilder.Entity("LikeUser", b =>
+                {
+                    b.Property<int>("LikesId")
+                    b.Property<int>("FavouriteGoodsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersWhoLikedTheGoodId")
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LikesId", "UsersId");
+                    b.HasKey("FavouriteGoodsId", "UsersWhoLikedTheGoodId");
+
+                    b.HasIndex("UsersWhoLikedTheGoodId");
+                    b.HasIndex("UsersId");
+
                     b.ToTable("GoodUser", (string)null);
+                    b.ToTable("LikeUser");
                 });
 
             modelBuilder.Entity("MovieUser", b =>
@@ -109,7 +144,7 @@ namespace PortalAboutEverything.Data.Migrations
 
                     b.HasIndex("UsersWhoFavoriteTheMovieId");
 
-                    b.ToTable("MovieUser", (string)null);
+                    b.ToTable("MovieUser");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGame", b =>
@@ -370,6 +405,19 @@ namespace PortalAboutEverything.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HistoryEvents", (string)null);
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Movie", b =>
@@ -693,6 +741,40 @@ namespace PortalAboutEverything.Data.Migrations
                     b.HasOne("PortalAboutEverything.Data.Model.User", null)
                         .WithMany()
                         .HasForeignKey("UsersWhoLikedTheGoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LikeTraveling", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.Like", null)
+                        .WithMany()
+                        .HasForeignKey("LikesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortalAboutEverything.Data.Model.Traveling", null)
+                        .WithMany()
+                        .HasForeignKey("TravelingsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GoodUser", b =>
+            modelBuilder.Entity("LikeUser", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.Store.Good", null)
+                    b.HasOne("PortalAboutEverything.Data.Model.Like", null)
+                        .WithMany()
+                        .HasForeignKey("FavouriteGoodsId")
+                        .HasForeignKey("LikesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortalAboutEverything.Data.Model.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoLikedTheGoodId")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

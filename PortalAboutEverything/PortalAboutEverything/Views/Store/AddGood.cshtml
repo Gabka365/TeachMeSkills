@@ -1,26 +1,32 @@
-﻿@model PortalAboutEverything.Models.Store.GoodViewModel;
+﻿@using PortalAboutEverything.Models.Store
+@using PortalAboutEverything.LocalizationResources.Store
+@model GoodViewModel
+
 
 @section Style {
     <link rel="stylesheet" href="/css/Store/style.css" />
 }
 
-<form method="post" class="addGoodForm">
+<form method="post" class="addGoodForm" enctype="multipart/form-data">
     <div class="addGoodTitle">
-        Добавить товар
+        @Store_AddOrUpdateGood.AddGood
     </div>
     <div>
-        @Html.TextBoxFor(x => x.Name, new { placeholder = "Введите название товара", @class = "goodNameInput" })
+        @Html.TextBoxFor(x => x.Name, new { placeholder = Store_AddOrUpdateGood.EnterTheGoodName, @class = "goodNameInput" })
         @Html.ValidationMessageFor(x => x.Name)
     </div>
     <div>
-        @Html.TextAreaFor(x => x.Description, new { placeholder = "Введите описание товара", @class = "goodDescriptionInput" })
+        @Html.TextAreaFor(x => x.Description, new { placeholder = Store_AddOrUpdateGood.EnterTheGoodDescription, @class = "goodDescriptionInput" })
         @Html.ValidationMessageFor(x => x.Description)
     </div>
     <div>
-        @Html.TextBoxFor(x => x.Price, new { placeholder = "Введите цену товара", @class = "goodPriceInput", type="number" })
+        @Html.TextBoxFor(x => x.Price, new { placeholder = Store_AddOrUpdateGood.EnterTheGoodPrice, @class = "goodPriceInput", type="number" })
         @Html.ValidationMessageFor(x => x.Price)
     </div>
+    <div>
+        <input type="file" name=@nameof(GoodViewModel.Cover) />
+    </div>
     <div class="addGoodBtnBlock">
-        <input class="addGoodBtn" type="submit" value="Добавить" />
+        <input class="addGoodBtn" type="submit" value="@Store_AddOrUpdateGood.Add" />
     </div>
 </form>

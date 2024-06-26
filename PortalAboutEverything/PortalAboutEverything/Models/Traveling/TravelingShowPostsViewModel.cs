@@ -1,14 +1,10 @@
-﻿using PortalAboutEverything.Data.Model;
-
-namespace PortalAboutEverything.Models.Traveling
+﻿namespace PortalAboutEverything.Models.Traveling
 {
     public class TravelingShowPostsViewModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Desc { get; set; }
-        public string TimeOfCreation { get; set; }
-        public int UserId { get; set; }
-        public List<TravelingCreateComment>? Comments { get; set; }
+        public List<TravelingPostsViewModel> TravelingPostsViewModels { get; set; }
+        public TopTravelingByCommentsViewModel TopTravelingByCommentsViewModel { get; set; }
+        public bool IsTravingAdmin { get; set; }
+
     }
 }

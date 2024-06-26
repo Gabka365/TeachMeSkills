@@ -15,5 +15,9 @@ namespace PortalAboutEverything.Models.Traveling
 
         public string TimeOfCreation { get; set; } = DateTime.Now.ToString("dd MMM yyyy");
 
+        [Required(ErrorMessage = "Пожалуйста, загрузите файл.")]
+        [FileExtension(new string[] { ".png", ".jpg", ".jpeg", ".gif" }, ErrorMessage = "Недопустимый формат файла.")]
+        public IFormFile Image { get; set; }
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Repositories.DataModel;
+using PortalAboutEverything.Data.Repositories.RawSql;
 
 namespace PortalAboutEverything.Data.Repositories
 {
@@ -19,7 +21,7 @@ namespace PortalAboutEverything.Data.Repositories
 
         public List<BoardGame> GetFavoriteBoardGamesForUser(int userId)
             => _dbSet
-            .Where(boardGame => boardGame.UsersWhoFavoriteThisBoardGame.Any(user =>  user.Id == userId))
+            .Where(boardGame => boardGame.UsersWhoFavoriteThisBoardGame.Any(user => user.Id == userId))
             .ToList();
 
         public void Update(BoardGame boardGame)
@@ -36,6 +38,28 @@ namespace PortalAboutEverything.Data.Repositories
             _dbContext.SaveChanges();
         }
 
+        public bool Delete(int gameId)
+        {
+            var game = Get(gameId);
+
+            if (game is null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            _dbSet.Remove(game);
+            _dbContext.SaveChanges();
+
+            if (Get(gameId) is null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void AddUserWhoFavoriteThisBoardGame(User user, int gameId)
         {
             BoardGame boardGame = GetWithUsersWhoFavoriteThisBoardGame(gameId);
@@ -50,6 +74,12 @@ namespace PortalAboutEverything.Data.Repositories
             boardGame.UsersWhoFavoriteThisBoardGame.Remove(user);
 
             _dbContext.SaveChanges();
+        }
+
+        public IEnumerable<Top3BoardGameDataModel> GetTop3()
+        {
+            return CustomSqlQuery<Top3BoardGameDataModel>(SqlQueryManager.GetTop3BoardGames)
+                .ToList();
         }
     }
 }

@@ -1,4 +1,4 @@
-.infoAboutMovie {
+.movie {
     border: 1px solid black;
     border-radius: 5px;
     max-width: max-content;
@@ -23,6 +23,18 @@
     flex-wrap: wrap;
 }
 
+.review-container {
+    display: none;
+}
+
+.movie.active {
+    border: 3px solid red;
+}
+
+.movie.active .movieName {
+    background: #ffa007;
+}
+
 .review {
     padding: 5px;
     margin: 8px;
@@ -30,6 +42,49 @@
     border-radius: 5px;
 }
 
+.deleteMovie {
+    display: none;
+}
+
+.deleteMovie {
+    cursor: pointer;
+    color: red;
+}
+
 .dateReview {
     text-align: right;
+}
+
+.movieImage {
+    max-width: 150px;
+    max-height: 200px
+}
+
+.movieStatisticsTable {
+    border: 3px solid #000;
+    margin-bottom: 20px;
+    font-size: small;
+    width: max-content;
+}
+
+.movieColumnsName {
+    display: flex;
+}
+
+.movieContent {
+    display: flex;
+}
+
+.movieTableCell {
+    padding: 5px;
+    border: 1px solid black;
+    width: 200px;
+    height: auto;
+    align-content: center;
+}
+
+.deleteReview {
+    color: red;
+    text-align: right;
+    font-size: small;
 }

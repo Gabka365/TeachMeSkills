@@ -70,6 +70,24 @@ namespace PortalAboutEverything.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount of reviews of the movie.
+        /// </summary>
+        public static string AmountReviews {
+            get {
+                return ResourceManager.GetString("AmountReviews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount of users who like movie.
+        /// </summary>
+        public static string AmountUsers {
+            get {
+                return ResourceManager.GetString("AmountUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose an action:.
         /// </summary>
         public static string ChooseAction {
@@ -102,6 +120,15 @@ namespace PortalAboutEverything.LocalizationResources {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of the director.
+        /// </summary>
+        public static string DirectorName {
+            get {
+                return ResourceManager.GetString("DirectorName", resourceCulture);
             }
         }
         
@@ -174,6 +201,15 @@ namespace PortalAboutEverything.LocalizationResources {
         public static string MovieFanPage {
             get {
                 return ResourceManager.GetString("MovieFanPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of the movie.
+        /// </summary>
+        public static string MovieName {
+            get {
+                return ResourceManager.GetString("MovieName", resourceCulture);
             }
         }
         

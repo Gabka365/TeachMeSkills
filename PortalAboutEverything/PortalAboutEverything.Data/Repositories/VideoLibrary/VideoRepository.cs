@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model.VideoLibrary;
+using PortalAboutEverything.Data.Repositories.DataModel;
+using PortalAboutEverything.Data.Repositories.RawSql;
 
 namespace PortalAboutEverything.Data.Repositories.VideoLibrary;
 
@@ -41,13 +43,19 @@ public class VideoRepository : BaseRepository<Video>
         _dbContext.SaveChanges();
     }
 
-    public int? GetRandomVideoId(bool isLiked)
+    // public int? GetRandomVideoId(bool isLiked)
+    // {
+    //     return _dbSet
+    //         .Include(video => video.Folder)
+    //         .Where(video => video.IsLiked == isLiked)
+    //         .OrderBy(video => Guid.NewGuid())
+    //         .Select(video => video.Id)
+    //         .FirstOrDefault();
+    // }
+
+    public RandomVideoIdDataModel? GetRandomVideoId(bool isLiked)
     {
-        return _dbSet
-            .Include(video => video.Folder)
-            .Where(video => video.IsLiked == isLiked)
-            .OrderBy(video => Guid.NewGuid())
-            .Select(video => video.Id)
+        return CustomSqlQuery<RandomVideoIdDataModel>(SqlQueryManager.GetRandomVideoId)
             .FirstOrDefault();
     }
 

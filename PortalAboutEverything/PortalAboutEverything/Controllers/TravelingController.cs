@@ -14,6 +14,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using System.Linq;
 using PortalAboutEverything.Services.AuthStuff;
+using System.Xml.Linq;
 
 
 namespace PortalAboutEverything.Controllers
@@ -22,6 +23,7 @@ namespace PortalAboutEverything.Controllers
     {
         private TravelingRepositories _travelingRepositories;
         private UserRepository _userRepository;
+        private LikeRepositories _likeRepository;
         private IWebHostEnvironment _hostingEnvironment;
         private AuthService _authService;
         private readonly string _pathTravelingUserPictures;
@@ -30,7 +32,8 @@ namespace PortalAboutEverything.Controllers
         private readonly string[] _validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 
         public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment,
-                                   UserRepository userRepository, AuthService authService, CommentRepository commentRepository)
+                                   UserRepository userRepository, AuthService authService, CommentRepository commentRepository,
+                                    LikeRepositories likeRepository)
         {
             _travelingRepositories = travelingRepositories;
             _hostingEnvironment = hostingEnvironment;
@@ -39,6 +42,7 @@ namespace PortalAboutEverything.Controllers
             _userRepository = userRepository;
             _authService = authService;
             _commentRepository = commentRepository;
+            _likeRepository = likeRepository;
         }
 
         public IActionResult Index()
@@ -71,12 +75,12 @@ namespace PortalAboutEverything.Controllers
             var images = Directory.EnumerateFiles(Path.Combine(_hostingEnvironment.WebRootPath, "images", "Traveling"))
                                   .Select(fn => "~/images/Traveling/" + Path.GetFileName(fn));
 
-            var model = new List<TravelingChengeIndexPageImageViewModel>();
+            var model = new List<TravelingIndexImageViewModel>();
 
             foreach (var imageUrl in images)
             {
                 var imageName = Path.GetFileName(imageUrl);
-                var imageModel = new TravelingChengeIndexPageImageViewModel
+                var imageModel = new TravelingIndexImageViewModel
                 {
                     ImageName = imageName,
                     ImageUrl = imageUrl
@@ -89,24 +93,29 @@ namespace PortalAboutEverything.Controllers
         [Authorize]
         [HttpPost]
         [HasRoleOrHigher(UserRole.TravelingAdmin)]
-        public IActionResult ChengeImageIndexPage(string oldImagePath, IFormFile newImage)
+        public IActionResult ChengeImageIndexPage(TravelingChengeImageIndexPageViewModel travelingChengeImageIndexPageViewModel)
         {
-            if (newImage != null)
+            if (!ModelState.IsValid)
             {
-                string fileName = Path.GetFileName(oldImagePath);
-                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+                var errors = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage;
 
-                var fileExt = Path.GetExtension(Path.GetFileName(newImage.FileName)).Substring(1).ToLower();
-                var imageName = $"{fileNameWithoutExtension}.{fileExt}";
+                TempData["ErrorMessage"] = errors;
 
-                var path = Path.Combine(_pathTravelingIndexPictures, imageName);
-
-                if (_validExtensions.Contains(fileExt))
-                {
-                    System.IO.File.Delete(path);
-                    SaveImageToDirectory(_pathTravelingIndexPictures, path, newImage);
-                }
+                return RedirectToAction("ChengeIndexPage");
             }
+
+            string fileName = Path.GetFileName(travelingChengeImageIndexPageViewModel.OldImagePath);
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+            var fileExt = GetFileExtension(travelingChengeImageIndexPageViewModel.NewImage.FileName);
+            var imageName = $"{fileNameWithoutExtension}.{fileExt}";
+
+            var path = Path.Combine(_pathTravelingIndexPictures, imageName);
+
+            System.IO.File.Delete(path);
+            SaveImageToDirectory(_pathTravelingIndexPictures, path, travelingChengeImageIndexPageViewModel.NewImage);
+
+
             return RedirectToAction("ChengeIndexPage");
         }
 
@@ -114,12 +123,49 @@ namespace PortalAboutEverything.Controllers
         [HttpGet]
         public IActionResult TravelingPosts()
         {
-            var travelingPostsViewModel = _travelingRepositories
+            var model = new TravelingShowPostsViewModel();
+
+            var travelingPosts = _travelingRepositories
                 .GetAll()
                 .Select(BuildTravelingShowPostsViewModel)
                 .ToList();
 
-            return View(travelingPostsViewModel);
+            if (travelingPosts.Count != 0)
+            { 
+                var topTraveling = _travelingRepositories.GetTopTreveling();
+
+                var topTravelinViewModel = new TopTravelingByCommentsViewModel
+                {
+                    Name = topTraveling.Name,
+                    Desc = topTraveling.Desc,
+                    Id = topTraveling.Id,
+                    TimeOfCreation = topTraveling.TimeOfCreation,
+                    UserId = topTraveling.UserId,
+                    CommentCount = topTraveling.CommentCount,
+                    Comments = _commentRepository.GetWithTravel(topTraveling.Id).Select(c => new TravelingCreateComment
+                    {
+                        Text = c.Text,
+
+                    }).ToList(),
+                    countLike = _travelingRepositories.CountLike(topTraveling.Id)
+
+                };
+
+                foreach (var post in travelingPosts)
+                {
+                    if (post.Id == topTravelinViewModel.Id)
+                    {
+                        travelingPosts.Remove(post);
+                        break;
+                    }               
+                }
+                model.TopTravelingByCommentsViewModel = topTravelinViewModel;
+            }
+
+            model.TravelingPostsViewModels = travelingPosts;            
+            model.IsTravingAdmin = User.Identity.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
+
+            return View(model);
         }
         [HttpGet]
         public IActionResult ShowImage(int id)
@@ -148,7 +194,7 @@ namespace PortalAboutEverything.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult CreatePost(TravelingCreateViewModel createTravelingViewModel, IFormFile image)
+        public IActionResult CreatePost(TravelingCreateViewModel createTravelingViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -164,57 +210,38 @@ namespace PortalAboutEverything.Controllers
                 User = user
             };
             _travelingRepositories.Create(traveling);
-            if (image != null)
-            {
-                var fileExt = Path.GetExtension(Path.GetFileName(image.FileName)).Substring(1).ToLower();
-                var imageName = $"{traveling.Id}.{fileExt}";
-                var path = Path.Combine(_pathTravelingUserPictures, imageName);
-                if (_validExtensions.Contains(fileExt))
-                {
-                    SaveImageToDirectory(_pathTravelingUserPictures, path, image);
-                }
-            }
-            return RedirectToAction("TravelingPosts");
-        }
 
-        [HttpPost]
-        public IActionResult CreateComment(TravelingCreateComment travelingCreateComment)
-        {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage;
+            var fileExt = GetFileExtension(createTravelingViewModel.Image.FileName);
+            var imageName = $"{traveling.Id}.{fileExt}";
+            var path = Path.Combine(_pathTravelingUserPictures, imageName);
 
-                TempData["ErrorMessage"] = errors;
-
-                return RedirectToAction("TravelingPosts");
-            }
-            var comment = new Comment
-            {
-                Text = travelingCreateComment.Text,
-                Traveling = _travelingRepositories.Get(travelingCreateComment.PostId)
-            };
-
-            _commentRepository.Create(comment);
+            SaveImageToDirectory(_pathTravelingUserPictures, path, createTravelingViewModel.Image);
 
             return RedirectToAction("TravelingPosts");
         }
 
-        public IActionResult DeletePost(int id)
-        {
-            foreach (var ext in _validExtensions)
-            {
-                var imageName = $"{id}.{ext}";
-                var imagePath = Path.Combine(_pathTravelingUserPictures, imageName);
+        //[HttpPost]
+        //public IActionResult CreateComment(TravelingCreateComment travelingCreateComment)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        var errors = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage;
 
-                if (System.IO.File.Exists(imagePath))
-                {
-                    System.IO.File.Delete(imagePath);
-                    break;
-                }
-            }
-            _travelingRepositories.Delete(id);
-            return RedirectToAction("TravelingPosts");
-        }
+        //        TempData["ErrorMessage"] = errors;
+
+        //        return RedirectToAction("TravelingPosts");
+        //    }
+        //    var comment = new Comment
+        //    {
+        //        Text = travelingCreateComment.Text,
+        //        Traveling = _travelingRepositories.Get(travelingCreateComment.PostId)
+        //    };
+
+        //    _commentRepository.Create(comment);
+
+        //    return RedirectToAction("TravelingPosts");
+        //}
+               
 
         [HttpGet]
         public IActionResult UpdatePost(int id)
@@ -245,8 +272,8 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("TravelingPosts");
         }
 
-        private TravelingShowPostsViewModel BuildTravelingShowPostsViewModel(Traveling traveling)
-           => new TravelingShowPostsViewModel
+        private TravelingPostsViewModel BuildTravelingShowPostsViewModel(Traveling traveling)
+           => new TravelingPostsViewModel
            {
                Id = traveling.Id,
                Desc = traveling.Desc,
@@ -257,7 +284,9 @@ namespace PortalAboutEverything.Controllers
                {
                    Text = c.Text,
 
-               }).ToList()
+               }).ToList(),
+               countLike = _travelingRepositories.CountLike(traveling.Id) 
+
            };
         private void SaveImageToDirectory(string directoryPath, string filePath, IFormFile image)
         {
@@ -270,6 +299,10 @@ namespace PortalAboutEverything.Controllers
             {
                 image.CopyTo(stream);
             }
+        }
+        private string GetFileExtension(string fileName)
+        {
+            return Path.GetExtension(Path.GetFileName(fileName)).Substring(1).ToLower();
         }
 
     }

@@ -1,7 +1,13 @@
-﻿@model List<PortalAboutEverything.Models.Store.StoreIndexViewModel>
+﻿@model PortalAboutEverything.Models.Store.BaseForStoreIndexViewModel
+@using PortalAboutEverything.LocalizationResources.Store
 
 @section Style {
     <link rel="stylesheet" href="/css/Store/style.css" />
+}
+
+@section Scripts {
+    <script type="module" src="/js/Store/index.js"></script>
+    <script type="module" src="service.js"></script>
 }
 
 <div class="storeWrapper" data-theme="light">
@@ -9,7 +15,7 @@
         <div class="changeThemeBlock">
             <form method="get" class="formMode">
                 <div class="themeDecor">
-                    <p class="nameTheme">Светлый режим</p>
+                    <p class="nameTheme">@Store_Index.LightMode</p>
                     <label class="switch">
                         <input type="checkbox" class="switchInput">
                         <span id="changeTheme" class="switchSlider"></span>
@@ -25,27 +31,29 @@
                 <img class="menuImg" src="/images/store/header/burgerMenuIcon.png" alt="menu" />
             </button>
             <div class="searchBlock">
-                <input class="searchField" placeholder="Найти товары" />
+                <input class="searchField" placeholder="@Store_Index.FindGoods" />
                 <img class="searchImg" src="/images/store/header/searchIcon.svg" alt="search" />
             </div>
             <ul class="featuresList">
                 <li class="headerFeaturesBlock">
                     <img class="featureIcon" src="/images/store/header/deliveryIcon.svg" alt="delivery" />
-                    <p class="featuresTitle">Доставки</p>
+                    <p class="featuresTitle">@Store_Index.Delivery</p>
                 </li>
                 <li class="headerFeaturesBlock">
                     <a href="/Store/FavouriteGoods" class="linkToFavouriteGoods">
                         <img class="featureIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
-                        <p class="featuresTitle">Избр.</p>
+                        <p class="featuresTitle">@Store_Index.Liked</p>
                     </a>
                 </li>
                 <li class="headerFeaturesBlock">
-                    <img class="featureIcon" src="/images/store/header/loginIcon.svg" alt="login" />
-                    <p class="featuresTitle">Войти</p>
+                    <a href="/Store/TopGoods" class="linkToFavouriteGoods">
+                        <img class="featureIcon" src="/images/store/header/loginIcon.svg" alt="favourites" />
+                        <p class="featuresTitle">@Store_Index.Popular</p>
+                    </a>
                 </li>
                 <li class="headerFeaturesBlock">
                     <img class="featureIcon" src="/images/store/header/basketIcon.svg" alt="basket" />
-                    <p class="featuresTitle">Корзина</p>
+                    <p class="featuresTitle">@Store_Index.Cart</p>
                 </li>
             </ul>
         </div>
@@ -56,28 +64,37 @@
                 <img class="salesImg" src="/images/store/MainPage/salesIcon.webp" alt="sales" />
             </a>
         </div>
-        @if (Model.Count == 0)
+        @if (Model.Goods?.Count == 0)
         {
             <div class="goodsTitle">
-                Товары отсутствуют. Добавьте хотя бы один товар.
+                @Store_Index.NoGoods
             </div>
         }
-        <button class="addGoodBtn">
+        @if (Model.IsAdmin)
+        {
             <a href="/Store/AddGood" class="addGoodLink">
-                Добавить товар
+                @Store_Index.AddGood
             </a>
-        </button>
+        }
+
         <div class="goodsBlock">
-            @foreach (var good in Model)
+            @foreach (var good in Model.Goods)
             {
                 <div class="goodBlock">
                     <a class="linkToReview" href="/Store/Good/@good.Id">
-                        <img class="good" src="https://source.unsplash.com/random" alt="random" />
+                        @if (good.HasCover)
+                        {
+                            <img class="good" src="/images/Store/MainPage/ImagesForGoods/goodImage-@(good.Id).jpg" alt="goodImage" />
+                        }
+                        else
+                        {
+                            <img class="good" src="/images/Store/MainPage/ImagesForGoods/goodImage-default.jpg" alt="default" />
+                        }
                         <img class="likedIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
                     </a>
-                    <p class="pricePretext">от<span class="price"> @good.Price </span>р.</p>
+                    <p class="pricePretext">@Store_Index.PriceFrom<span class="price"> @good.Price </span>@Store_Index.Value</p>
                     <p class="salor">Valencia med - @good.Name</p>
-                    <p class="goodDescription">@good.Description</p>
+                    <p class="goodDesc">@good.Description</p>
                     <div class="raitingBlock">
                         <img class="infoIcon" src="/images/store/MainPage/raitingIcon.svg" alt="raiting" />
                         <p class="info">4.8</p>
@@ -88,16 +105,16 @@
                         <button class="buyBtn">5 мая</button>
                         <img class="basketIconForBtn" src="/images/store/header/basketIcon.svg" alt="basket" />
                     </div>
-                    <button class="updateGoodBtn">
-                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">Редактировать</a>
-                    </button>
-                    <button class="deleteGoodBtn">
-                        <a href="/Store/DeleteGood/@good.Id" class="deleteGoodLink">Удалить товар</a>
-                    </button>
+                    @if (Model.IsStoreAdmin)
+                    {
+                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">@Store_Index.UpdateGoodInfo</a>
+                    }
+                    @if (Model.IsStoreAdmin)
+                    {
+                        <a href="/Store/DeleteGood/@good.Id" class="deleteGoodLink">@Store_Index.DeleteGood</a>
+                    }
                 </div>
             }
         </div>
     </main>
 </div>
-@* <script type="module" src="index.js"></script>
-<script type="module" src="service.js"></script> *@
