@@ -3,6 +3,7 @@ using PortalAboutEverything.Controllers;
 using PortalAboutEverything.CustomMiddlewareServices;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Hubs;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Services;
@@ -28,7 +29,10 @@ builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbConte
 builder.Services.AddVideoLibraryServices();
 builder.Services.AddScoped<TravelingRepositories>();
 builder.Services.AddScoped<GameRepositories>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<UserRepository>();
+
 builder.Services.AddScoped<BlogRepositories>();
 builder.Services.AddScoped<MovieRepositories>();
 builder.Services.AddScoped<MovieReviewRepositories>();

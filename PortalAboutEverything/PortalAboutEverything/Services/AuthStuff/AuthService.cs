@@ -1,15 +1,16 @@
 ﻿using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 
 namespace PortalAboutEverything.Services.AuthStuff
 {
     public class AuthService
     {
         private IHttpContextAccessor _httpContextAccessor;
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
 
-        public AuthService(IHttpContextAccessor httpContextAccessor, UserRepository userRepository)
+        public AuthService(IHttpContextAccessor httpContextAccessor, IUserRepository userRepository)
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
