@@ -13,12 +13,20 @@ namespace PortalAboutEverything.Services
 
         public DtoMessageCount GetMessageCount()
         {
-            return _httpClient
-                .GetAsync("GetMessageCount")
-                .Result!
-                .Content
-                .ReadFromJsonAsync<DtoMessageCount>()
-                .Result!;
+            // It's a bad solution. We just to harry up
+            try
+            {
+                return _httpClient
+                    .GetAsync("GetMessageCount")
+                    .Result!
+                    .Content
+                    .ReadFromJsonAsync<DtoMessageCount>()
+                    .Result!;
+            }
+            catch
+            {
+                return new DtoMessageCount { MessageCount = -1 };
+            }
         }
     }
 }
