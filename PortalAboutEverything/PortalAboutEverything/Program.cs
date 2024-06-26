@@ -54,6 +54,8 @@ builder.Services.AddSignalR();
 
 builder.Services.AddHttpClient<HttpChatApiService>(
     x => x.BaseAddress = new Uri("https://localhost:7072/"));
+builder.Services.AddHttpClient<HttpNewsTravelingsApi>(
+    t => t.BaseAddress = new Uri("https://localhost:7032"));
 
 var app = builder.Build();
 

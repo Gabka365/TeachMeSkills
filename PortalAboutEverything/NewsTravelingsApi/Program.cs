@@ -15,4 +15,9 @@ seed.Fill(app.Services);
 
 app.MapGet("/", () => "Hello World!");
 
+app.MapGet("/DtoLastNews", (NewsRepository repository) => new
+{
+    Text = repository.LastNews()
+});
+
 app.Run();
