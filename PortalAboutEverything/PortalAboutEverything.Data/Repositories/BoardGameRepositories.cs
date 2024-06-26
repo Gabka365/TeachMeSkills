@@ -9,6 +9,11 @@ namespace PortalAboutEverything.Data.Repositories
     {
         public BoardGameRepositories(PortalDbContext dbContext) : base(dbContext) { }
 
+        public string GetName(int id)
+            => _dbSet
+            .First(boardGame => boardGame.Id == id)
+            .Title;
+
         public BoardGame GetWithReviews(int id)
             => _dbSet
             .Include(boardGame => boardGame.Reviews)

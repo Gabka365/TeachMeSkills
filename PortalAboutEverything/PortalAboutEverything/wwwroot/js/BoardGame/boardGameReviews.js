@@ -49,7 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
     reviewContainer.insertAdjacentHTML("beforeend", review);
 
     const reviewForDelete = reviewContainer.querySelector(`#review-${reviewData.id}`);
-    reviewForDelete.addEventListener("click", () => {
+    const deleteButton = reviewForDelete.querySelector(".delete-button");
+    deleteButton.addEventListener("click", () => {
       $.get(baseApiUrl + `delete?id=${reviewData.id}`)
         .done(() => {
           reviewForDelete.remove();

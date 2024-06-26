@@ -49,7 +49,7 @@ namespace PortalAboutEverything.Controllers
                 return View(boardGameReviewViewModel);
             }
 
-            DtoBoardGameReview review = _mapper.BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
+            DtoBoardGameReviewCreate review = _mapper.BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
             review.BoardGameId = boardGameReviewViewModel.BoardGameId;
             _httpService.CreateReview(review);
 
@@ -59,7 +59,7 @@ namespace PortalAboutEverything.Controllers
         [HttpGet]
         public IActionResult Update(int id, int gameId)
         {
-            BoardGameReview reviewForUpdate = _reviewRepositories.GetWithBoardGame(id);
+            DtoBoardGameReview reviewForUpdate = _httpService.GetReview(id);
             BoardGameUpdateReviewViewModel viewModel = _mapper.BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
             viewModel.BoardGameId = gameId;
 
@@ -74,18 +74,16 @@ namespace PortalAboutEverything.Controllers
                 return View(boardGameReviewViewModel);
             }
 
-            BoardGameReview updatedReview = _mapper.BuildBoardGameRewievDataModelFromUpdate(boardGameReviewViewModel);
-            _reviewRepositories.Update(updatedReview, boardGameReviewViewModel.BoardGameId);
+            DtoBoardGameReviewUpdate updatedReview = _mapper.BuildBoardGameRewievDataModelFromUpdate(boardGameReviewViewModel);
+            _httpService.UpdateReview(updatedReview);
 
-            //return RedirectToPage($"/BoardGame/BoardGame?Id={updatedReview.BoardGame!.Id}");
-            return RedirectToAction("BoardGame", "BoardGame", new { id = updatedReview.BoardGame!.Id });
+            return RedirectToAction("BoardGame", "BoardGame", new { id = boardGameReviewViewModel.BoardGameId });
         }
 
         public IActionResult Delete(int id, int gameId)
         {
             _reviewRepositories.Delete(id);
 
-            //return RedirectToPage($"/BoardGame/BoardGame?Id={gameId}");
             return RedirectToAction("BoardGame", "BoardGame", new { id = gameId });
         }
 

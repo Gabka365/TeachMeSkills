@@ -11,6 +11,8 @@ namespace BoardGamesRiviewsApi.Data.Repositories
             _dbContext = dbContext;
         }
 
+        public BoardGameReview Get(int id) => _dbContext.BoardGameReviews.First(review => review.Id == id);     
+
         public void Create(BoardGameReview review)
         {
             _dbContext.Add(review);
@@ -23,6 +25,14 @@ namespace BoardGamesRiviewsApi.Data.Repositories
                 .BoardGameReviews
                 .Where(review => review.BoardGameId == gameId)
                 .ToList();
+        }
+
+        public void Update(BoardGameReview review)
+        {       
+            BoardGameReview updatedReview = Get(review.Id);
+            updatedReview.Text = review.Text;
+
+            _dbContext.SaveChanges();
         }
 
         public bool Delete(int id)

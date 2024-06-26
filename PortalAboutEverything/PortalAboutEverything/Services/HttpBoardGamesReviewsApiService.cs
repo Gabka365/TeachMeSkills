@@ -11,7 +11,17 @@ namespace PortalAboutEverything.Services
             _httpClient = httpClient;
         }
 
-        public void CreateReview(DtoBoardGameReview review)
+        public DtoBoardGameReview GetReview(int id)
+        {
+            return _httpClient
+                .GetAsync($"get?id={id}")
+                .Result
+                .Content
+                .ReadFromJsonAsync<DtoBoardGameReview>()
+                .Result!;
+        }
+
+        public void CreateReview(DtoBoardGameReviewCreate review)
         {
             //_httpClient
             //   .PostAsJsonAsync("createReview", review)
@@ -25,6 +35,22 @@ namespace PortalAboutEverything.Services
                 .Content
                 .ReadFromJsonAsync<bool>()
                 .Result; 
+        }
+
+        public void UpdateReview(DtoBoardGameReviewUpdate review)
+        {
+            //_httpClient
+            //   .PostAsJsonAsync("updateReview", review)
+            //   .Result
+            //   .EnsureSuccessStatusCode();
+
+            var url = $"updateReview?id={review.Id}&text={review.Text}";
+            var a = _httpClient
+                .GetAsync(url)
+                .Result
+                .Content
+                .ReadFromJsonAsync<bool>()
+                .Result;
         }
     }
 }

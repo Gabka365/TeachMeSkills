@@ -1,12 +1,10 @@
 using BoardGamesRiviewsApi.Data;
 using BoardGamesRiviewsApi.Data.Models;
 using BoardGamesRiviewsApi.Data.Repositories;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PortalAboutEverything.Services.Dtos;
 using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using PortalAboutEverything.Services.Dtos;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,9 +28,22 @@ var app = builder.Build();
 app.UseCors();
 
 app.MapGet("/", () => "Reviews api");
+app.MapGet("/get", (BoardGameReviewRepositories repo, int id) =>
+{
+    var review = repo.Get(id);
+    return new DtoBoardGameReview()
+    {
+        Id = review.Id,
+        UserName = review.UserName,
+        UserId = review.UserId,
+        DateOfCreation = review.DateOfCreation,
+        Text = review.Text,
+        BoardGameId = review.BoardGameId
+    };
+});
 app.MapGet("/getAll", (BoardGameReviewRepositories repo, int gameId) => repo.GetAllForGame(gameId));
 app.MapGet("/delete", (BoardGameReviewRepositories repo, int id) => repo.Delete(id));
-app.MapGet("/createReview", (BoardGameReviewRepositories repo, /*[FromBody] DtoBoardGameReview review*/
+app.MapGet("/createReview", (BoardGameReviewRepositories repo, /*[FromBody] DtoBoardGameReviewCreate review,*/
     string userName, int userId, string dateOfCreation, string text, int boardGameId) =>
 {
     //var reviewDataModel = new BoardGameReview()
@@ -66,6 +77,25 @@ app.MapGet("/createReview", (BoardGameReviewRepositories repo, /*[FromBody] DtoB
     repo.Create(reviewDataModel);
 
     return true;
+});
+app.MapGet("/updateReview", (BoardGameReviewRepositories repo, /*[FromBody] DtoBoardGameReviewUpdate review,*/
+    int id, string text) =>
+{
+    try
+    {
+        var reviewDataModel = new BoardGameReview()
+        {
+            Id = id,
+            Text = text
+        };
+
+        repo.Update(reviewDataModel);
+        return true;
+    }
+    catch
+    {
+        return false;
+    }
 });
 
 app.Run();

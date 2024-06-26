@@ -5,6 +5,7 @@ using PortalAboutEverything.Services;
 using PortalAboutEverything.Models.BoardGameReview;
 using PortalAboutEverything.Data.Repositories.DataModel;
 using PortalAboutEverything.Services.Dtos;
+using PortalAboutEverything.Data.Repositories;
 
 namespace PortalAboutEverything.Mappers
 {
@@ -12,11 +13,13 @@ namespace PortalAboutEverything.Mappers
     {
         private readonly AuthService _authServise;
         private readonly PathHelper _pathHelper;
+        private readonly BoardGameRepositories _gameRepositories;
 
-        public BoardGameMapper(AuthService authService, PathHelper pathHelper)
+        public BoardGameMapper(AuthService authService, PathHelper pathHelper, BoardGameRepositories gameRepositories)
         {
             _authServise = authService;
             _pathHelper = pathHelper;
+            _gameRepositories = gameRepositories;
         }
 
         #region BoardGameBuilders
@@ -112,8 +115,8 @@ namespace PortalAboutEverything.Mappers
             };
 
 
-        public DtoBoardGameReview BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
-        => new DtoBoardGameReview
+        public DtoBoardGameReviewCreate BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
+        => new DtoBoardGameReviewCreate
         {
             UserName = _authServise.GetUserName(),
             UserId = _authServise.GetUserId(),
@@ -121,17 +124,17 @@ namespace PortalAboutEverything.Mappers
             Text = reviewViewModel.Text,
         };
 
-        public BoardGameReview BuildBoardGameRewievDataModelFromUpdate(BoardGameUpdateReviewViewModel reviewViewModel)
-            => new BoardGameReview
+        public DtoBoardGameReviewUpdate BuildBoardGameRewievDataModelFromUpdate(BoardGameUpdateReviewViewModel reviewViewModel)
+            => new DtoBoardGameReviewUpdate
             {
                 Id = reviewViewModel.Id,
                 Text = reviewViewModel.Text,
             };
 
-        public BoardGameUpdateReviewViewModel BuildBoardGameUpdateRewievViewModel(BoardGameReview review)
+        public BoardGameUpdateReviewViewModel BuildBoardGameUpdateRewievViewModel(DtoBoardGameReview review)
             => new BoardGameUpdateReviewViewModel
             {
-                BoardGameName = review.BoardGame.Title,
+                BoardGameName =_gameRepositories.GetName(review.BoardGameId),
                 Text = review.Text,
             };
         #endregion
