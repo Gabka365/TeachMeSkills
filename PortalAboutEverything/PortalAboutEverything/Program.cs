@@ -55,6 +55,8 @@ builder.Services.AddSignalR();
 
 builder.Services.AddHttpClient<HttpChatApiService>(
     x => x.BaseAddress = new Uri("https://localhost:7072/"));
+builder.Services.AddHttpClient<HttpBoardGamesReviewsApiService>(
+    x => x.BaseAddress = new Uri("https://localhost:7289/"));
 
 var app = builder.Build();
 

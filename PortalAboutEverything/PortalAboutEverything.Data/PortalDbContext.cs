@@ -48,12 +48,6 @@ namespace PortalAboutEverything.Data
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
 
-            modelBuilder.Entity<BoardGame>()
-                .HasMany(x => x.Reviews)
-                .WithOne(x => x.BoardGame)
-                .OnDelete(DeleteBehavior.Cascade)
-                .IsRequired(false);
-
             modelBuilder.Entity<Movie>()
                 .HasMany(x => x.Reviews)
                 .WithOne(x => x.Movie)

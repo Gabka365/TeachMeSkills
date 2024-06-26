@@ -14,7 +14,6 @@ namespace PortalAboutEverything.Models.BoardGame
         public string? Tags { get; set; }
         public double Price { get; set; }
         public long ProductCode { get; set; }
-        public List<BoardGameReviewViewModel> Reviews { get; set; }
         public bool IsFavoriteForUser { get; set; }
     }
 }
