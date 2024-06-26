@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using PortalAboutEverything.Data.Model;
-
-namespace PortalAboutEverything.Services
+﻿namespace PortalAboutEverything.Services
 {
     public class PathHelper
     {

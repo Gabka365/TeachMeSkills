@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Blog;
+using PortalAboutEverything.Services.AuthStuff;
 
 
 namespace PortalAboutEverything.Controllers
@@ -10,16 +15,19 @@ namespace PortalAboutEverything.Controllers
     public class BlogController : Controller
     {
         private BlogRepositories _posts;
+        private AuthService _authService;
 
-        public BlogController(BlogRepositories posts)
+        public BlogController(BlogRepositories posts, AuthService authService)
         {
             _posts = posts;
+            _authService = authService;
         }
 
         public IActionResult Index()
         {
+
             var postsViewModel = _posts
-                .GetAll()
+                .GetAllWithCommentsBlog()
                 .Select(BuildPostIndexViewModel)
                 .ToList();
 
@@ -28,16 +36,11 @@ namespace PortalAboutEverything.Controllers
 
 
         [HttpGet]
-        public IActionResult PostMessage()
+        [Authorize]
+        [HasRole(Data.Enums.UserRole.BlogAdmin)]
+        public IActionResult CreatePost()
         {
-            var now = DateTime.Now;
-            var name = "Morgan Freeman";
-
-            var viewModel = new BlogIndexViewModel
-            {
-                Now = now,
-                Name = name,
-            };
+            var viewModel = BuildMessageViewModel();
 
             return View(viewModel);
         }
@@ -51,12 +54,18 @@ namespace PortalAboutEverything.Controllers
 
 
         [HttpPost]
-        public IActionResult CreatePost(ReceivingDataViewModel viewModel)
+        public IActionResult CreatePost(MessageViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+
             var NewPost = new Post
             {
                 Name = viewModel.Name,
-                message = viewModel.message,
+                Message = viewModel.Message,
                 Now = viewModel.Now
             };
 
@@ -65,6 +74,25 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [Authorize]
+        public IActionResult Blogger()
+        {
+            var userName = _authService.GetUserName();
+
+            var userId = _authService.GetUserId();
+            var posts = _posts.GetPostsByUserId(userId);
+
+            var viewModel = new BloggerViewModel
+            {
+                Name = userName,
+                Posts = posts
+                    .Select(BuildPostUpdateViewModel)
+                    .ToList(),
+            };
+
+            return View(viewModel);
+        }
 
         [HttpGet]
         public IActionResult UpdateMessage(int id)
@@ -76,13 +104,13 @@ namespace PortalAboutEverything.Controllers
 
 
         [HttpPost]
-        public IActionResult UpdatePost(postUpdateViewModel viewModel)
+        public IActionResult UpdatePost(PostUpdateViewModel viewModel)
         {
             var Post = new Post
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
-                message = viewModel.message,
+                Message = viewModel.message,
                 Now = viewModel.Now
             };
 
@@ -91,46 +119,75 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
-
-        public IActionResult SendingMessage()
+        [HttpGet]
+        public IActionResult SendMessage()
         {
-            var now = DateTime.Now;
-            var name = "Morgan Freeman";
+            var viewModel = BuildMessageViewModel();
 
-            var viewModel = new BlogIndexViewModel
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult ReceiveMessage(MessageViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
             {
-                Now = now,
-                Name = name,
+                return RedirectToAction("SendMessage");
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddComment(WriteBlogComment viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            _posts.AddComment(viewModel.postId, viewModel.Text);
+            return RedirectToAction("Index");
+        }
+
+        private MessageViewModel BuildMessageViewModel()
+            => new MessageViewModel
+            {
+                Now = DateTime.Now,
+                Name = "Morgan Freeman"
             };
 
-            return View(viewModel);
-        }
-
-
-        public IActionResult ReceivingMessage(ReceivingDataViewModel viewModel)
+        private PostIndexViewModel BuildPostIndexViewModel(Post post)
         {
-            return View(viewModel);
-        }
-
-
-        private postIndexViewModel BuildPostIndexViewModel(Post post)
-        {
-            return new postIndexViewModel
+            return new PostIndexViewModel
             {
                 Id = post.Id,
-                message = post.message,
+                Message = post.Message,
                 Now = post.Now,
                 Name = post.Name,
+                CommentsBlog = post
+                .CommentsBlog
+                .Select(BuildBlogCommentViewModel)
+                .ToList()
             };
         }
 
-
-        private postUpdateViewModel BuildPostUpdateViewModel(Post post)
+        private BlogCommentViewModel BuildBlogCommentViewModel(CommentBlog commentBlog)
         {
-            return new postUpdateViewModel
+            return new BlogCommentViewModel
+            {
+                Message = commentBlog.Message,
+                Now = commentBlog.Now,
+                Name = commentBlog.Name,
+            };
+        }
+
+        private PostUpdateViewModel BuildPostUpdateViewModel(Post post)
+        {
+            return new PostUpdateViewModel
             {
                 Id = post.Id,
-                message = post.message,
+                message = post.Message,
                 Now = post.Now,
                 Name = post.Name,
             };

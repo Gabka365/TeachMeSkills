@@ -1,4 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+  const hub = new signalR.HubConnectionBuilder()
+    .withUrl("/hubs/boardGame")
+    .build();
+
+  hub.on("NotifyAboutDeleteBoardGame", function (gameId) {
+    deleteBoardGameFromHTML(gameId);
+    updateTop();
+  });
+
+  hub.on("NotifyAboutChangeFavorites", function () {
+    updateTop();
+  });
+
+  hub.start();
+
   const deleteButtons = document.querySelectorAll(".delete-link");
   if (!deleteButtons.length) {
     return;
@@ -10,24 +26,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     deleteButton.addEventListener("click", () => {
 
-      const deletedGame = deleteButton.closest(".board-game-item");
-      const deletedId = deletedGame
+
+      const deletedId = deleteButton
+        .closest(".board-game-item")
         .querySelector(".board-game-id")
         .value;
 
-      debounceDeleteBoardGame.call(null, deletedId, deletedGame)
+      debounceDeleteBoardGame.call(null, deletedId)
 
     });
 
   });
 
-  function deleteBoardGame(deletedId, deletedGame) {
+  function deleteBoardGameFromHTML(deletedId) {
+    document
+      .querySelector(`input[value="${deletedId}"]`)
+      .closest(".board-game-item")
+      .remove();
+  }
+
+  function deleteBoardGame(deletedId) {
     const url = `/api/BoardGame/Delete?id=${deletedId}`;
     $.get(url)
       .done((isSuccessful) => {
         if (isSuccessful) {
-          deletedGame.remove();
+          deleteBoardGameFromHTML(deletedId);
           updateTop();
+          hub.invoke("DeleteBoardGame", deletedId - 0);
         } else {
           alert("Ошибка удаления");
         }
@@ -59,6 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
           topContainer.insertAdjacentHTML("beforeend", topGame);
         }
       })
+      .fail(() => {
+        alert("Ошибка получения топа");
+      });
   }
-
 });

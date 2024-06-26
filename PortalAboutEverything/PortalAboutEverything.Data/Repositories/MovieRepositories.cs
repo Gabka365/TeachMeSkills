@@ -43,5 +43,8 @@ namespace PortalAboutEverything.Data.Repositories
             return CustomSqlQuery<MovieStatisticDataModel>(SqlQueryManager.GetMovieStatistic)
                 .ToList();
         }
+
+        public bool Exist(int id)
+            => _dbSet.Any(x => x.Id == id);
     }
 }

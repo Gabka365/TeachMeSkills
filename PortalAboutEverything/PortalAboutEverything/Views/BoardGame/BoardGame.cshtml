@@ -5,6 +5,12 @@
     <link href="/css/BoardGame/style.css" rel="stylesheet" />
 }
 
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script defer src="/js/BoardGame/boardGameReviews.js"></script>
+    <script defer src="/js/BoardGame/ajaxToFavorite.js"></script>
+}
+
 <div class="banner">
     <img src="/images/BoardGame/banner.webp" alt="@BoardGame_GamePage.AdvertisingBanner" />
 </div>
@@ -23,6 +29,11 @@
         </div>
     </div>
 </header>
+
+<input type="hidden" class="game-id" value="@Model.Id" />
+<input type="hidden" class="text-for-add" value="@BoardGame_GamePage.AddToFavorites" />
+<input type="hidden" class="text-for-remove" value="@BoardGame_GamePage.RemoveFromFavorites" />
+<input type="hidden" class="absence-of-reviews-text" value="@BoardGame_GamePage.AbsenceOfReviewsText" />
 
 <div class="title">
     <div class="container">
@@ -88,14 +99,16 @@
                     <p class="code">@BoardGame_GamePage.ProductCode: @Model.ProductCode</p>
                 </div>
                 <div class="buttons">
-                    <button class="highlighted-button">@BoardGame_GamePage.AddToCart</button>
+                    <button class="highlighted-button">@BoardGame_GamePage.AddToCart</button>           
                     @if (Model.IsFavoriteForUser)
                     {
-                        <button class="usual-button" onclick="window.location.href = '/BoardGame/RemoveFavoriteBoardGameForUser?GameId=@Model.Id&IsGamePage=@true';">@BoardGame_GamePage.RemoveFromFavorites</button>
+                        <input type="hidden" class="is-add" value="0"/>                       
+                        <button class="usual-button favorite-button">@BoardGame_GamePage.RemoveFromFavorites</button>
                     }
                     else
                     {
-                        <button class="usual-button" onclick="window.location.href = '/BoardGame/AddFavoriteBoardGameForUser?GameId=@Model.Id';">@BoardGame_GamePage.AddToFavorites</button>
+                        <input type="hidden" class="is-add" value="1" />                      
+                        <button class="usual-button favorite-button">@BoardGame_GamePage.AddToFavorites</button>
                     }
                 </div>
             </div>
@@ -106,29 +119,9 @@
 <div class="reviews">
     <div class="container">
         <h3 class="reviews-head">@BoardGame_GamePage.Reviews</h3>
-        @if (Model.Reviews.Count > 0)
-        {
-            @foreach (var rewiev in Model.Reviews)
-            {
-                <div class="review">
-                    <div class="name-and-date">
-                        <div class="name">@rewiev.Name</div>
-                        <div class="date">@rewiev.DateOfCreationInStringFormat</div>
-                    </div>
-                    <p class="text">
-                        @rewiev.Text
-                    </p>
-                    <div class="update-and-delete">
-                        <a href="/BoardGameReview/Update?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/edit.svg" /></a>
-                        <a href="/BoardGameReview/Delete?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/delete.svg" /></a>
-                    </div>
-                </div>
-            }
-        }
-        else
-        {
-            <p>@BoardGame_GamePage.AbsenceOfReviewsText</p>
-        }
+        <div class="reviews-container">
+            
+        </div>
         <div class="review-buttons">
             <button class="usual-button">@BoardGame_GamePage.ShowMore</button>
             <button class="highlighted-button" onclick="window.location.href = '/BoardGameReview/Create?GameId=@Model.Id';">@BoardGame_GamePage.AddReview</button>

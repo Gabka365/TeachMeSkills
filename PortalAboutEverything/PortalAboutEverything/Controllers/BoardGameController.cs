@@ -170,7 +170,7 @@ namespace PortalAboutEverything.Controllers
         [AllowAnonymous]
         public IActionResult BoardGame(int id)
         {
-            BoardGame gameViewModel = _gameRepositories.GetWithReviews(id);
+            BoardGame gameViewModel = _gameRepositories.Get(id)!;
             BoardGameViewModel viewModel = _mapper.BuildBoardGameViewModel(gameViewModel);
 
             if (_authServise.IsAuthenticated())
@@ -200,14 +200,6 @@ namespace PortalAboutEverything.Controllers
             };
 
             return View(viewModel);
-        }
-
-        public IActionResult AddFavoriteBoardGameForUser(int gameId)
-        {
-            User user = _authServise.GetUser();
-            _gameRepositories.AddUserWhoFavoriteThisBoardGame(user, gameId);
-
-            return RedirectToAction("BoardGame", new { id = gameId });
         }
 
         public IActionResult RemoveFavoriteBoardGameForUser(int gameId, bool isGamePage)

@@ -17,6 +17,7 @@ namespace PortalAboutEverything.Data
             FillBoardGames(service);
             FillMovies(service);
             FillBooks(service);
+            FillBlog(service);
         }
 
         private void FillGames(IServiceScope service)
@@ -57,8 +58,7 @@ namespace PortalAboutEverything.Data
                     Essence = "\"Билет на поезд: Европа\" (Ticket to Ride: Europe) стала второй в серии настольный игр о путешествиях по железной дороге. Здесь вы можете прокладывать маршруты, соединяя города, пускать новые составы и при случае обгонять соперников по количеству заработанных очков. В настольной игре \"Билет на поезд: Европа\" вы перенесетесь в самые красивые города. В новой игре в распоряжении игрока несколько оригинальных механик, добавились игровые элементы, и более разнообразными стали правила. Невероятные ощущения, динамика и новые открытия ждут вас в этой настольной игре.",
                     Tags = "Игра из серии",
                     Price = 3900,
-                    ProductCode = 31458,
-                    Reviews = new()
+                    ProductCode = 31458
                 };
                 boardGameRepositories.Create(ticketToRide);
             }
@@ -142,6 +142,15 @@ namespace PortalAboutEverything.Data
                     Language = Language.En
                 };
                 userRepository.Create(storeAdmin);
+
+                var blogAdmin = new User
+                {
+                    UserName = "blogger",
+                    Password = "blogger",
+                    Role = UserRole.BlogAdmin,
+                };
+                userRepository.Create(blogAdmin);
+
             }
         }
 
@@ -174,5 +183,23 @@ namespace PortalAboutEverything.Data
                 movieRepositories.Create(insideOut);
             }
         }
+
+
+        private void FillBlog(IServiceScope service)
+        {
+            var posts = service.ServiceProvider.GetService<BlogRepositories>()!;
+
+            if (!posts.Any())
+            {
+                var post = new Post
+                {
+                    Message = "Hello World",
+                    Name = "Seed",
+                    Now = DateTime.Now,
+                };
+                posts.Create(post);
+            }
+        }
+
     }
 }

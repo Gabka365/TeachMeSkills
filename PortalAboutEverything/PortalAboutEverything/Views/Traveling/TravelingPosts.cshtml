@@ -9,6 +9,7 @@
     string[] validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 }
 @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="/js/Traveling/showPost.js"></script>
 }
 
@@ -64,22 +65,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="comments">
-                                @if (Model.TopTravelingByCommentsViewModel.Comments is not null)
-                                {
-                                    foreach (var comment in Model.TopTravelingByCommentsViewModel.Comments)
-                                    {
-                                        <div>
-                                            <p>@comment.Text</p>
-                                        </div>
-                                    }
-                                }
-
-                                <form action="/Traveling/CreateComment/" method="post">
-                                    <input type="hidden" name="PostId" value="@Model.TopTravelingByCommentsViewModel.Id" />
-                                    <textarea name="text" placeholder="@((TempData["ErrorMessage"] != null) ? TempData["ErrorMessage"].ToString() : "Введите сообщение")"></textarea>
-                                    <input type="submit" value="Отставить отзыв" />
-                                </form>
+                            <div class="comments_wrapper">
+                                <div class="comments post-@Model.TopTravelingByCommentsViewModel.Id">
+                                </div>
+                                <div>
+                                    <input class="new-comments-text" />
+                                    <button class="new-comments-button" data-post-id="@Model.TopTravelingByCommentsViewModel.Id">Отправить</button>
+                                </div>
                             </div>
                             @if (User.Identity.IsAuthenticated)
                             {
@@ -143,22 +135,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="comments">
-                                    @if (post.Comments is not null)
-                                    {
-                                        foreach (var comment in post.Comments)
-                                        {
-                                            <div>
-                                                <p>@comment.Text</p>
-                                            </div>
-                                        }
-                                    }
-
-                                    <form action="/Traveling/CreateComment/" method="post">
-                                        <input type="hidden" name="PostId" value="@post.Id" />
-                                        <textarea name="text" placeholder="@((TempData["ErrorMessage"] != null) ? TempData["ErrorMessage"].ToString() : "Введите сообщение")"></textarea>
-                                        <input type="submit" value="Отставить отзыв" />
-                                    </form>
+                                <div class="comments_wrapper">
+                                    <div class="comments post-@post.Id">
+                                    </div>
+                                    <div>
+                                        <input class="new-comments-text" />
+                                        <button class="new-comments-button" data-post-id="@post.Id">Отправить</button>
+                                    </div>
                                 </div>
                                 @if (User.Identity.IsAuthenticated)
                                 {
