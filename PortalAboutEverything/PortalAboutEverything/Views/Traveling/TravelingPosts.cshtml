@@ -23,7 +23,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <input class="traveling-news-text-input" />
-            <button class="traveling-news-btn" data-user-id="@authSErvise.GetUserId()">Добавить новость</button>
+            <button class="traveling-news-btn" data-user-id="@authSErvise.GetUserId()" disabled>Добавить новость</button>
         }
         else
         {            
@@ -31,7 +31,7 @@
         }
         @if (authSErvise.IsAdmin())
         {
-            <button class="traveling-news-btn-del" data-news-id="@newsTravelingsApi.GeLastNewsId()">Удалить посст</button>
+            <button class="traveling-news-btn-del" data-news-id="@newsTravelingsApi.GeLastNewsId()">Удалить новость</button>
         }
     </div>
     <section class="u-align-center u-clearfix u-section-1" id="sec-b5d7">
