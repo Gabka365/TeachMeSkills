@@ -7,7 +7,7 @@
 
 @section Scripts {
     <script type="module" src="/js/Store/index.js"></script>
-    <script type="module" src="service.js"></script>
+    <script type="module" src="/js/Store/store.js"></script>
 }
 
 <div class="storeWrapper" data-theme="light">
@@ -41,7 +41,7 @@
                 </li>
                 <li class="headerFeaturesBlock">
                     <a href="/Store/FavouriteGoods" class="linkToFavouriteGoods">
-                        <img class="featureIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
+                        <img class="featureIcon" src="/images/store/header/unLikedIcon.svg" alt="liked" />
                         <p class="featuresTitle">@Store_Index.Liked</p>
                     </a>
                 </li>
@@ -81,7 +81,7 @@
             @foreach (var good in Model.Goods)
             {
                 <div class="goodBlock">
-                    <a class="linkToReview" href="/Store/Good/@good.Id">
+                    <a class="linkToReview" href="/Store/Good/@good.Id" data-id=@good.Id>
                         @if (good.HasCover)
                         {
                             <img class="good" src="/images/Store/MainPage/ImagesForGoods/goodImage-@(good.Id).jpg" alt="goodImage" />
@@ -90,7 +90,14 @@
                         {
                             <img class="good" src="/images/Store/MainPage/ImagesForGoods/goodImage-default.jpg" alt="default" />
                         }
-                        <img class="likedIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
+                        @if (good.HasLike)
+                        {
+                            <img class="likedIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
+                        }
+                        else
+                        {
+                            <img class="likedIcon" src="/images/store/header/unLikedIcon.svg" alt="liked" />
+                        }
                     </a>
                     <p class="pricePretext">@Store_Index.PriceFrom<span class="price"> @good.Price </span>@Store_Index.Value</p>
                     <p class="salor">Valencia med - @good.Name</p>
@@ -111,7 +118,7 @@
                     }
                     @if (Model.IsStoreAdmin)
                     {
-                        <a href="/Store/DeleteGood/@good.Id" class="deleteGoodLink">@Store_Index.DeleteGood</a>
+                        <button data-id=@good.Id class="deleteGoodLink">@Store_Index.DeleteGood</button>
                     }
                 </div>
             }

@@ -1,8 +1,8 @@
-﻿@model List<PortalAboutEverything.Models.Blog.postIndexViewModel>
+﻿@model List<PortalAboutEverything.Models.Blog.PostIndexViewModel>
 
 @section Style
 {
-    <link href="/css/Blog/style.css" rel="stylesheet" />
+    <link href="/css/Blog/style.css?v=2.1" rel="stylesheet" />
 }
 
 
@@ -29,9 +29,9 @@
     <div class="menu">
         <div>Main</div>
         <div>Uploads</div>
-        <div>Page</div>
-        <div> <a href="/Blog/PostMessage">Post Message</a> </div>
-        <div> <a href="/Blog/SendingMessage">  Send message </a></div>
+        <div> <a href="/Blog/Blogger">Users</a> </div>
+        <div> <a href="/Blog/CreatePost">Create Post</a> </div>
+        <div> <a href="/Blog/SendMessage">  Send message </a></div>
     </div>
 
 
@@ -85,7 +85,7 @@
                             <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
                         </div>
                         <div class="text-of-post">
-                            @post.message
+                            @post.Message
                         </div>
                     </div>
                     <div class="interaction">
@@ -100,7 +100,28 @@
                             <span><a href="/Blog/UpdateMessage?id=@post.Id">Update</a></span>
                         </span>
                     </div>
+
+                    <form action="/Blog/AddComment" method="post">
+                        <input type="hidden" value="@post.Id" name="postId" />
+                        <textarea name="text" placeholder="For comment 20 symbols is limit"></textarea>
+                        <input type="submit" value="Comment" />
+
+                       
+
+                    </form>
+
                 </div>
+
+                @foreach (var comment in post.CommentsBlog)
+                {
+                    <div class="comment">
+                        <span class="author-name">@comment.Name</span>
+                        <span class="date">@comment.Now</span>
+                        <span class="comment-text">@comment.Message</span>
+                    </div>
+                    
+                }
+
             }
         </div>
     </div>

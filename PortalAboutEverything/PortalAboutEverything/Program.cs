@@ -3,6 +3,7 @@ using PortalAboutEverything.Controllers;
 using PortalAboutEverything.CustomMiddlewareServices;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Hubs;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Services;
@@ -28,8 +29,11 @@ builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbConte
 builder.Services.AddVideoLibraryServices();
 builder.Services.AddScoped<TravelingRepositories>();
 builder.Services.AddScoped<GameRepositories>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<UserRepository>();
-builder.Services.AddSingleton<BlogRepositories>();
+
+builder.Services.AddScoped<BlogRepositories>();
 builder.Services.AddScoped<MovieRepositories>();
 builder.Services.AddScoped<MovieReviewRepositories>();
 builder.Services.AddScoped<BoardGameRepositories>();
@@ -44,6 +48,7 @@ builder.Services.AddScoped<CommentRepository>();
 builder.Services.AddScoped<LikeRepositories>();
 
 // Services
+builder.Services.AddScoped<LikeHelper>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<BoardGameMapper>();
 builder.Services.AddSingleton<PathHelper>();
@@ -54,6 +59,8 @@ builder.Services.AddSignalR();
 
 builder.Services.AddHttpClient<HttpChatApiService>(
     x => x.BaseAddress = new Uri("https://localhost:7072/"));
+builder.Services.AddHttpClient<HttpBoardGamesReviewsApiService>(
+    x => x.BaseAddress = new Uri("https://localhost:7289/"));
 builder.Services.AddHttpClient<HttpNewsTravelingsApi>(
     t => t.BaseAddress = new Uri("https://localhost:7032"));
 

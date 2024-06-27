@@ -9,8 +9,6 @@
         public string? Tags { get; set; }
         public double Price { get; set; }
         public long ProductCode { get; set; }
-        public virtual List<BoardGameReview> Reviews { get; set; }
         public virtual List<User> UsersWhoFavoriteThisBoardGame { get; set; }
-
     }
 }

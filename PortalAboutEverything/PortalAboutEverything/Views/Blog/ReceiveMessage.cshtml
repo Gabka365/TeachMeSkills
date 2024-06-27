@@ -1,0 +1,33 @@
+﻿@model PortalAboutEverything.Models.Blog.MessageViewModel
+
+
+<div class="section-output">
+    <header>
+        <link href="/css/Blog/menu.css" rel="stylesheet" />
+    </header>
+    <body>
+        <div class="receive">
+            <div class="sending">
+                <div class="header">
+                    <div class="inf-about-author">
+                        <img src="/images/Blog/jpeg/first_ava.jpg" />
+                        @Model.Now <br>
+                        from: @Model.Name <br>
+                    </div>
+                    <div class="text-field">
+                        Received message is :  <br />@Model.Message
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="back">
+                <a href="/Blog/Index"> Back to Blog </a>
+            </div>
+        </div>
+
+
+    </body>
+</div>

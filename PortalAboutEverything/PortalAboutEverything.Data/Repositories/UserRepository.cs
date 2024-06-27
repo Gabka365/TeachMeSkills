@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class UserRepository : BaseRepository<User>
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
         public UserRepository(PortalDbContext dbContext) : base(dbContext) { }
 
@@ -56,7 +57,7 @@ namespace PortalAboutEverything.Data.Repositories
             user.FavoriteMovies = movies;
 
             _dbContext.SaveChanges();
-        }       
+        }
 
         public User? GetWithFavoriteMovies(int id)
              => _dbSet

@@ -187,9 +187,6 @@ namespace PortalAboutEverything.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("BoardGameId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateOfCreation")
                         .HasColumnType("datetime2");
 
@@ -205,8 +202,6 @@ namespace PortalAboutEverything.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BoardGameId");
 
                     b.HasIndex("GameId");
 
@@ -299,6 +294,35 @@ namespace PortalAboutEverything.Data.Migrations
                     b.HasIndex("TravelingId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.CommentBlog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Now")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("CommentsBlog");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Game", b =>
@@ -456,14 +480,14 @@ namespace PortalAboutEverything.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Now")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("message")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -621,6 +645,21 @@ namespace PortalAboutEverything.Data.Migrations
                     b.ToTable("Videos");
                 });
 
+            modelBuilder.Entity("PostUser", b =>
+                {
+                    b.Property<int>("PostsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("PostUser");
+                });
+
             modelBuilder.Entity("BoardGameUser", b =>
                 {
                     b.HasOne("PortalAboutEverything.Data.Model.BoardGame", null)
@@ -743,17 +782,10 @@ namespace PortalAboutEverything.Data.Migrations
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGameReview", b =>
                 {
-                    b.HasOne("PortalAboutEverything.Data.Model.BoardGame", "BoardGame")
-                        .WithMany("Reviews")
-                        .HasForeignKey("BoardGameId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("PortalAboutEverything.Data.Model.Game", "Game")
                         .WithMany("Reviews")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("BoardGame");
 
                     b.Navigation("Game");
                 });
@@ -777,6 +809,16 @@ namespace PortalAboutEverything.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Traveling");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.CommentBlog", b =>
+                {
+                    b.HasOne("PortalAboutEverything.Data.Model.Post", "Post")
+                        .WithMany("CommentsBlog")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.MovieReview", b =>
@@ -821,9 +863,19 @@ namespace PortalAboutEverything.Data.Migrations
                     b.Navigation("Folder");
                 });
 
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGame", b =>
+            modelBuilder.Entity("PostUser", b =>
                 {
-                    b.Navigation("Reviews");
+                    b.HasOne("PortalAboutEverything.Data.Model.Post", null)
+                        .WithMany()
+                        .HasForeignKey("PostsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortalAboutEverything.Data.Model.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BookClub.Book", b =>
@@ -839,6 +891,11 @@ namespace PortalAboutEverything.Data.Migrations
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Movie", b =>
                 {
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.Post", b =>
+                {
+                    b.Navigation("CommentsBlog");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.Store.Good", b =>
