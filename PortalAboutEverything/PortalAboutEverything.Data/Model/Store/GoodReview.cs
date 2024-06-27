@@ -8,8 +8,10 @@ namespace PortalAboutEverything.Data.Model.Store
 {
     public class GoodReview : BaseModel
     {        
-        public string Description { get; set; }
+        public string Text { get; set; }
 
         public virtual Good? Good { get; set; }
+
+        public string UserWhoLeavedAReview {  get; set; }
     }
 }

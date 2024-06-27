@@ -1,9 +1,11 @@
 ﻿namespace PortalAboutEverything.Models.Store
 {
     public class GoodReviewViewModel
-    {        
-        public string Title { get; set; }
+    {
+        public int GoodId { get; set; }
 
-        public string Description { get; set; }        
+        public string? Text { get; set; }
+
+        public string UserWhoLeavedAReview { get; set; }
     }
 }
