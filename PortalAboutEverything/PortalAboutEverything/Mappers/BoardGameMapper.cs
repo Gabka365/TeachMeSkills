@@ -4,8 +4,8 @@ using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Models.BoardGameReview;
 using PortalAboutEverything.Data.Repositories.DataModel;
-using PortalAboutEverything.Services.Dtos;
 using PortalAboutEverything.Data.Repositories;
+using BoardGamesReviewsApi.Dtos;
 
 namespace PortalAboutEverything.Mappers
 {
