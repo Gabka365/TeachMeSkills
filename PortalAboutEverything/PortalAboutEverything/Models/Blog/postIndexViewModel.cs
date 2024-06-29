@@ -8,7 +8,7 @@
 
         public string? Name { get; set; }
 
-        public DateTime? Now { get; set; }
+        public DateTime? CurrentTime { get; set; }
 
         public List<BlogCommentViewModel> CommentsBlog { get; set; }
     }

@@ -8,6 +8,6 @@
 
         public string Message { get; set; }
 
-        public DateTime Now { get; set; }
+        public DateTime CurrentTime { get; set; }
     }
 }

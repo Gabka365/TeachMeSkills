@@ -195,7 +195,7 @@ namespace PortalAboutEverything.Data
                 {
                     Message = "Hello World",
                     Name = "Seed",
-                    Now = DateTime.Now,
+                    CurrentTime = DateTime.Now,
                 };
                 posts.Create(post);
             }

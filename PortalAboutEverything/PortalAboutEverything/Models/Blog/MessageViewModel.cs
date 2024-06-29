@@ -7,7 +7,7 @@ namespace PortalAboutEverything.Models.Blog
     public class MessageViewModel
     {
         public string Name { get; set; }
-        public DateTime Now { get; set; }
+        public DateTime CurrentTime { get; set; }
 
         [Required(ErrorMessage = "The message must be not nullable.")]
         public string Message { get; set; }

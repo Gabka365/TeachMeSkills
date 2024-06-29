@@ -13,7 +13,7 @@ namespace PortalAboutEverything.Data.Model
 
         public string? Name { get; set; } 
 
-        public DateTime? Now { get; set; }
+        public DateTime? CurrentTime { get; set; }
 
 
         public virtual List<User> Users { get; set; }

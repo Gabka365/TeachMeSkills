@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data;
+using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Blog;
@@ -31,7 +32,26 @@ namespace PortalAboutEverything.Controllers
                 .Select(BuildPostIndexViewModel)
                 .ToList();
 
-            return View(postsViewModel);
+            BlogViewModel viewModel;
+
+            if (_authService.IsAuthenticated())
+            {
+                viewModel = new BlogViewModel()
+                {
+                    Posts = postsViewModel,
+                    IsAccessible = _authService.HasRoleOrHigher(UserRole.User),
+                };
+            }
+            else
+            {
+                viewModel = new BlogViewModel()
+                {
+                    Posts = postsViewModel,
+                    IsAccessible = false
+                };
+            }
+
+            return View(viewModel);
         }
 
 
@@ -66,7 +86,7 @@ namespace PortalAboutEverything.Controllers
             {
                 Name = viewModel.Name,
                 Message = viewModel.Message,
-                Now = viewModel.Now
+                CurrentTime = viewModel.CurrentTime
             };
 
             _posts.Create(NewPost);
@@ -111,7 +131,7 @@ namespace PortalAboutEverything.Controllers
                 Id = viewModel.Id,
                 Name = viewModel.Name,
                 Message = viewModel.message,
-                Now = viewModel.Now
+                CurrentTime = viewModel.CurrentTime
             };
 
             _posts.Update(Post);
@@ -153,7 +173,7 @@ namespace PortalAboutEverything.Controllers
         private MessageViewModel BuildMessageViewModel()
             => new MessageViewModel
             {
-                Now = DateTime.Now,
+                CurrentTime = DateTime.Now,
                 Name = "Morgan Freeman"
             };
 
@@ -163,7 +183,7 @@ namespace PortalAboutEverything.Controllers
             {
                 Id = post.Id,
                 Message = post.Message,
-                Now = post.Now,
+                CurrentTime = post.CurrentTime,
                 Name = post.Name,
                 CommentsBlog = post
                 .CommentsBlog
@@ -177,7 +197,7 @@ namespace PortalAboutEverything.Controllers
             return new BlogCommentViewModel
             {
                 Message = commentBlog.Message,
-                Now = commentBlog.Now,
+                CurrentTime = commentBlog.CurrentTime,
                 Name = commentBlog.Name,
             };
         }
@@ -188,7 +208,7 @@ namespace PortalAboutEverything.Controllers
             {
                 Id = post.Id,
                 message = post.Message,
-                Now = post.Now,
+                CurrentTime = post.CurrentTime,
                 Name = post.Name,
             };
         }

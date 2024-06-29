@@ -42,7 +42,7 @@ namespace PortalAboutEverything.Data.Repositories
             {
                 Message = text,
                 Post = post,
-                Now = DateTime.Now,
+                CurrentTime = DateTime.Now,
                 Name = "Anonymous"
             };
 
