@@ -36,7 +36,10 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<BlogRepositories>();
 builder.Services.AddScoped<MovieRepositories>();
 builder.Services.AddScoped<MovieReviewRepositories>();
+
+builder.Services.AddScoped<IBoardGameRepositories, BoardGameRepositories>();
 builder.Services.AddScoped<BoardGameRepositories>();
+
 builder.Services.AddScoped<BoardGameReviewRepositories>();
 builder.Services.AddScoped<HistoryRepositories>();
 builder.Services.AddScoped<BookRepositories>();
@@ -49,8 +52,13 @@ builder.Services.AddScoped<LikeRepositories>();
 
 // Services
 builder.Services.AddScoped<LikeHelper>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<AuthService>();
+
 builder.Services.AddScoped<BoardGameMapper>();
+
+builder.Services.AddSingleton<IPathHelper, PathHelper>();
 builder.Services.AddSingleton<PathHelper>();
 
 builder.Services.AddHttpContextAccessor();
