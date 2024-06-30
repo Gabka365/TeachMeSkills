@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.Hosting;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data;
@@ -26,27 +27,29 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult Index()
         {
+            BlogViewModel viewModel;
 
-            var postsViewModel = _posts
+            
+            if (_authService.IsAuthenticated())
+            {
+                var postsViewModel = _posts
                 .GetAllWithCommentsBlog()
                 .Select(BuildPostIndexViewModel)
                 .ToList();
-
-            BlogViewModel viewModel;
-
-            if (_authService.IsAuthenticated())
-            {
+                    
                 viewModel = new BlogViewModel()
                 {
+                    Name = _authService.GetUserName(),
                     Posts = postsViewModel,
                     IsAccessible = _authService.HasRoleOrHigher(UserRole.User),
+                    UserLanguage = _authService.GetUserLanguage(),
+                    Role = _authService.GetUserRole(),
                 };
             }
             else
             {
                 viewModel = new BlogViewModel()
                 {
-                    Posts = postsViewModel,
                     IsAccessible = false
                 };
             }
@@ -57,7 +60,7 @@ namespace PortalAboutEverything.Controllers
 
         [HttpGet]
         [Authorize]
-        [HasRole(Data.Enums.UserRole.BlogAdmin)]
+        [HasRoleOrHigher(Data.Enums.UserRole.BlogAdmin)]
         public IActionResult CreatePost()
         {
             var viewModel = BuildMessageViewModel();
@@ -81,12 +84,12 @@ namespace PortalAboutEverything.Controllers
                 return View(viewModel);
             }
 
-
             var NewPost = new Post
             {
+               
                 Name = viewModel.Name,
                 Message = viewModel.Message,
-                CurrentTime = viewModel.CurrentTime
+                CurrentTime = DateTime.Now,
             };
 
             _posts.Create(NewPost);
@@ -166,7 +169,9 @@ namespace PortalAboutEverything.Controllers
                 return RedirectToAction("Index");
             }
 
-            _posts.AddComment(viewModel.postId, viewModel.Text);
+            var name = _authService.GetUserName();  
+
+            _posts.AddComment(viewModel.postId, viewModel.Text, name);
             return RedirectToAction("Index");
         }
 
@@ -174,7 +179,7 @@ namespace PortalAboutEverything.Controllers
             => new MessageViewModel
             {
                 CurrentTime = DateTime.Now,
-                Name = "Morgan Freeman"
+                Name = _authService.GetUserName(),
             };
 
         private PostIndexViewModel BuildPostIndexViewModel(Post post)

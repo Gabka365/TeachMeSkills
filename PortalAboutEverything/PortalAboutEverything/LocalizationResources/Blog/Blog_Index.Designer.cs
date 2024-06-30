@@ -142,6 +142,15 @@ namespace PortalAboutEverything.LocalizationResources.Blog {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to See Your Posts.
+        /// </summary>
+        public static string SeePosts {
+            get {
+                return ResourceManager.GetString("SeePosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send Message.
         /// </summary>
         public static string SendMessage {
@@ -178,29 +187,11 @@ namespace PortalAboutEverything.LocalizationResources.Blog {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Birthday.
+        ///   Looks up a localized string similar to Language.
         /// </summary>
-        public static string UserBirthday {
+        public static string UserLanguage {
             get {
-                return ResourceManager.GetString("UserBirthday", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to City Of Living.
-        /// </summary>
-        public static string UserCity {
-            get {
-                return ResourceManager.GetString("UserCity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Place Of Work.
-        /// </summary>
-        public static string UserJob {
-            get {
-                return ResourceManager.GetString("UserJob", resourceCulture);
+                return ResourceManager.GetString("UserLanguage", resourceCulture);
             }
         }
         
@@ -210,6 +201,15 @@ namespace PortalAboutEverything.LocalizationResources.Blog {
         public static string UserName {
             get {
                 return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string UserRole {
+            get {
+                return ResourceManager.GetString("UserRole", resourceCulture);
             }
         }
     }

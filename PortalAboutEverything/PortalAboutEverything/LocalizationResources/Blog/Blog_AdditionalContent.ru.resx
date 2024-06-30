@@ -138,7 +138,7 @@
   <data name="ReceivedMessage" xml:space="preserve">
     <value>Полученное сообщение</value>
   </data>
-  <data name="SecongNumber" xml:space="preserve">
+  <data name="SecondNumber" xml:space="preserve">
     <value>Вторая цифра</value>
   </data>
   <data name="VerificationString" xml:space="preserve">

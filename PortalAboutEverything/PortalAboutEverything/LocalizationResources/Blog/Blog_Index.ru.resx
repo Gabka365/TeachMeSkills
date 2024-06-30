@@ -144,6 +144,9 @@
   <data name="PostUpdate" xml:space="preserve">
     <value>Обновить</value>
   </data>
+  <data name="SeePosts" xml:space="preserve">
+    <value>Ваши записи</value>
+  </data>
   <data name="SendMessage" xml:space="preserve">
     <value>Отправить сообщение</value>
   </data>
@@ -156,16 +159,13 @@
   <data name="TagPopular" xml:space="preserve">
     <value>Популярные</value>
   </data>
-  <data name="UserBirthday" xml:space="preserve">
-    <value>День рождения</value>
-  </data>
-  <data name="UserCity" xml:space="preserve">
-    <value>Город проживания</value>
-  </data>
-  <data name="UserJob" xml:space="preserve">
-    <value>Место работы</value>
+  <data name="UserLanguage" xml:space="preserve">
+    <value>Родной язык</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Имя</value>
+  </data>
+  <data name="UserRole" xml:space="preserve">
+    <value>Роль</value>
   </data>
 </root>

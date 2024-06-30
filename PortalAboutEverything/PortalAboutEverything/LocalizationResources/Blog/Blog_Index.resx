@@ -144,6 +144,9 @@
   <data name="PostUpdate" xml:space="preserve">
     <value>Update</value>
   </data>
+  <data name="SeePosts" xml:space="preserve">
+    <value>See Your Posts</value>
+  </data>
   <data name="SendMessage" xml:space="preserve">
     <value>Send Message</value>
   </data>
@@ -156,16 +159,13 @@
   <data name="TagPopular" xml:space="preserve">
     <value>Popular</value>
   </data>
-  <data name="UserBirthday" xml:space="preserve">
-    <value>Birthday</value>
-  </data>
-  <data name="UserCity" xml:space="preserve">
-    <value>City Of Living</value>
-  </data>
-  <data name="UserJob" xml:space="preserve">
-    <value>Place Of Work</value>
+  <data name="UserLanguage" xml:space="preserve">
+    <value>Language</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="UserRole" xml:space="preserve">
+    <value>Role</value>
   </data>
 </root>

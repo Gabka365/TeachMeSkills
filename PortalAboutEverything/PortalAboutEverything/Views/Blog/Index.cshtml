@@ -32,8 +32,9 @@
         <div class="menu">
             @if (Model.IsAccessible)
             {
+                <div> <a href="/Blog/Blogger"> @Blog_Index.SeePosts </a> </div>
                 <div> <a href="/Blog/CreatePost"> @Blog_Index.CreatePost </a> </div>
-                <div> <a href="/Blog/SendingMessage">  @Blog_Index.SendMessage </a></div>
+                <div> <a href="/Blog/SendMessage">  @Blog_Index.SendMessage </a></div>
             }
         </div>
     }
@@ -55,10 +56,9 @@
             </div>
         </span>
         <span class="text-about-blog-author">
-            @Blog_Index.UserName: <span>Morgan</span><br>
-            @Blog_Index.UserBirthday: <span>22.10.1960</span><br>
-            @Blog_Index.UserCity: <span>Bejing</span><br>
-            @Blog_Index.UserJob: <span>Apple</span><br>
+            @Blog_Index.UserName: <span> @Model.Name </span><br>
+            @Blog_Index.UserLanguage: <span> @Model.UserLanguage</span><br>
+            @Blog_Index.UserRole: <span> @Model.Role</span><br>
         </span>
     </div>
 
@@ -75,24 +75,27 @@
         </div>
 
         <div>
-            @foreach (var post in Model.Posts)
-            {
-                <div class="post">
-                    <span class="header">
-                        @Blog_Index.PostAuthor: @post.Name <br>
-                        @Blog_Index.PostDate: @post.CurrentTime
-                    </span>
-                    <div class="body">
-                        <div class="litle-ava">
-                            <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
-                        </div>
-                        <div class="text-of-post">
-                            @post.Message
-                        </div>
-                    </div>
 
-                    @if (Model.IsAccessible)
-                    {
+            @if (Model.IsAccessible)
+            {
+
+                @foreach (var post in Model.Posts)
+                {
+                    <div class="post">
+                        <span class="header">
+                            @Blog_Index.PostAuthor: @post.Name <br>
+                            @Blog_Index.PostDate: @post.CurrentTime
+                        </span>
+                        <div class="body">
+                            <div class="litle-ava">
+                                <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
+                            </div>
+                            <div class="text-of-post">
+                                @post.Message
+                            </div>
+                        </div>
+
+
                         <div class="interaction">
                             <span class="like">
                                 <img src="/images/Blog/png/like.png" alt="" />
@@ -111,20 +114,21 @@
                             <textarea name="text" placeholder="Text for comment"></textarea>
                             <input type="submit" value="Comment" />
                         </form>
+
+                    </div>
+
+                    @foreach (var comment in post.CommentsBlog)
+                    {
+                        <div class="comment">
+                            <span class="author-name">@comment.Name</span>
+                            <span class="date">@comment.CurrentTime</span>
+                            <span class="comment-text">@comment.Message</span>
+                        </div>
                     }
 
-                </div>
-
-                @foreach (var comment in post.CommentsBlog)
-                {
-                    <div class="comment">
-                        <span class="author-name">@comment.Name</span>
-                        <span class="date">@comment.CurrentTime</span>
-                        <span class="comment-text">@comment.Message</span>
-                    </div>
                 }
-
             }
+
         </div>
     </div>
 </div>

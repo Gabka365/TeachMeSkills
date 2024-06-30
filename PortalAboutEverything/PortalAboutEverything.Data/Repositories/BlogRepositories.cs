@@ -18,11 +18,19 @@ namespace PortalAboutEverything.Data.Repositories
             .Include(x => x.CommentsBlog)
             .ToList();
 
+        public List<Post> GetPostsWithCommentsBlogByUserId(int userId)
+            => _dbSet
+            .Include(x => x.CommentsBlog)
+            .Where(x => x.Users.Any(u => u.Id == userId))
+            .ToList();
+
 
         public List<Post> GetPostsByUserId(int userId)
             => _dbSet
             .Where(x => x.Users.Any(u => u.Id == userId))
             .ToList();
+
+
 
         public void Update(Post post)
         {
@@ -34,7 +42,7 @@ namespace PortalAboutEverything.Data.Repositories
         }
 
 
-        public void AddComment(int postId, string text)
+        public void AddComment(int postId, string text, string name)
         {
             var post = Get(postId);
 
@@ -43,7 +51,7 @@ namespace PortalAboutEverything.Data.Repositories
                 Message = text,
                 Post = post,
                 CurrentTime = DateTime.Now,
-                Name = "Anonymous"
+                Name = name
             };
 
 
