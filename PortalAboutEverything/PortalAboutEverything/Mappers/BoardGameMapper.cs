@@ -4,18 +4,18 @@ using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Models.BoardGameReview;
 using PortalAboutEverything.Data.Repositories.DataModel;
-using PortalAboutEverything.Data.Repositories;
 using BoardGamesReviewsApi.Dtos;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 
 namespace PortalAboutEverything.Mappers
 {
     public class BoardGameMapper
     {
-        private readonly AuthService _authServise;
-        private readonly PathHelper _pathHelper;
-        private readonly BoardGameRepositories _gameRepositories;
+        private readonly IAuthService _authServise;
+        private readonly IPathHelper _pathHelper;
+        private readonly IBoardGameRepositories _gameRepositories;
 
-        public BoardGameMapper(AuthService authService, PathHelper pathHelper, BoardGameRepositories gameRepositories)
+        public BoardGameMapper(IAuthService authService, IPathHelper pathHelper, IBoardGameRepositories gameRepositories)
         {
             _authServise = authService;
             _pathHelper = pathHelper;

@@ -1,6 +1,6 @@
 ﻿namespace PortalAboutEverything.Services
 {
-    public class PathHelper
+    public class PathHelper : IPathHelper
     {
         private IWebHostEnvironment _webHostEnvironment;
 

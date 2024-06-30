@@ -5,7 +5,7 @@ using PortalAboutEverything.Data.Repositories.Interfaces;
 
 namespace PortalAboutEverything.Services.AuthStuff
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private IHttpContextAccessor _httpContextAccessor;
         private IUserRepository _userRepository;

@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories.DataModel;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Data.Repositories.RawSql;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class BoardGameRepositories : BaseRepository<BoardGame>
+    public class BoardGameRepositories : BaseRepository<BoardGame>, IBoardGameRepositories
     {
         public BoardGameRepositories(PortalDbContext dbContext) : base(dbContext) { }
 
