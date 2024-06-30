@@ -5,14 +5,14 @@
 }
 
 @section Scripts {
-	<script src="/js/Movies/movieReview.js"></script>
+	<script src="/js/Movies/movieReviewAdd.js"></script>
 }
 
 <div>
 	Оцените фильм
 </div>
 <div>
-	<form method="post">
+	<div>
 		<div class="movieId">
 			@Html.HiddenFor(x => x.MovieId)
 		</div>
@@ -31,8 +31,7 @@
 			<textarea name="comment" class="comment"></textarea>
 		</div>
 		<div>
-			<input type="submit" class="sendReview" value="Отправить отзыв"/>
-			<input type="reset" value="Очистить"/>
+			<button class="sendReview">Отправить отзыв</button>
 		</div>
-	</form>
+	</div>
 </div>

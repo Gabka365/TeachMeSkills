@@ -25,26 +25,4 @@ $(document).ready(function () {
                 console.error('Error:', error);
             });
     });
-
-    
-
-    const reviewTemplate = $(`
-		<div class="review">
-        <div class="deleteReview">
-            <input class="movieIdDel" type="hidden" />
-            ”далить
-        </div>
-        <div class="dateReview"></div>
-        <div class="comment"></div>
-        <div class="rate"></div>
-    </div>`);
-
-    function addNewReview(movieId, dateOfCreation, comment, rate) {
-        const newReviewBlock = reviewTemplate.clone();
-        newReviewBlock.find('.movieIdDel').val(movieId);
-        newReviewBlock.find('.dateReview').text(dateOfCreation);
-        newReviewBlock.find('.comment').text(comment);
-        newReviewBlock.find('.rate').text(`ќценка фильма ${rate}`);
-        $('.review-container').append(newReviewBlock);
-    }
 });
