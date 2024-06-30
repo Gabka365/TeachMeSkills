@@ -15,7 +15,7 @@ $(document).ready(function () {
                     movieToDelete.remove();
                     rowToDelete.remove();
                 } else {
-                    alert("Не удалось удалить фильм");
+                    alert("Failed to delete movie");
                 }
             });
     });

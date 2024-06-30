@@ -4,28 +4,34 @@
 			<link rel="stylesheet" href="/css/Movie/movieStyle.css" />
 }
 
+@section Scripts {
+	<script src="/js/Movies/movieReview.js"></script>
+}
+
 <div>
 	Оцените фильм
 </div>
 <div>
 	<form method="post">
-		@Html.HiddenFor(x => x.MovieId)
+		<div class="movieId">
+			@Html.HiddenFor(x => x.MovieId)
+		</div>
 		<div>
 			@Html.TextBoxFor(x => x.Name, new { placeholder = "Название фильма" })
 		</div>
 		<div>
 			@foreach (var rate in Model.AvailableRate)
 			{
-				<label>Оценка @rate
+				<label class="rate">Оценка @rate
 					<input type="radio" name="rate" value="@rate"/>
 				</label>
 			}
 		</div>
 		<div>
-			<textarea name="comment"></textarea>
+			<textarea name="comment" class="comment"></textarea>
 		</div>
 		<div>
-			<input type="submit" value="Отправить отзыв"/>
+			<input type="submit" class="sendReview" value="Отправить отзыв"/>
 			<input type="reset" value="Очистить"/>
 		</div>
 	</form>
