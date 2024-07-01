@@ -91,6 +91,7 @@ app.MapHub<ChatHub>("/hubs/chat");
 app.MapHub<BoardGameHub>("/hubs/boardGame");
 app.MapHub<MovieHub>("/hubs/movie");
 app.MapHub<CommentTravelingHub>("/hubs/CommentTraveling");
+app.MapHub<GoodReviewHub>("/hubs/goodReview");
 
 app.MapControllerRoute(
     name: "default",

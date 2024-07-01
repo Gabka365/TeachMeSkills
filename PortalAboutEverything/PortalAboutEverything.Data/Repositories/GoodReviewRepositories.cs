@@ -11,14 +11,15 @@ namespace PortalAboutEverything.Data.Repositories
     {        
         public GoodReviewRepositories(PortalDbContext db) : base(db) { }       
 
-        public void AddReview(int gameId, string text)
+        public void AddReview(int goodId, string text, string userName)
         {
-            var good = _dbContext.Goods.FirstOrDefault(x => x.Id == gameId);
+            var good = _dbContext.Goods.FirstOrDefault(x => x.Id == goodId);
 
             var review = new GoodReview
             {
                 Good = good,
-                Description = text,
+                Text = text,
+                UserWhoLeavedAReview = userName
             };
             _dbContext.GoodReviews.Add(review);
             _dbContext.SaveChanges();

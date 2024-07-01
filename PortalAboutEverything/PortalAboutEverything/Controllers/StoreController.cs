@@ -88,14 +88,7 @@ namespace PortalAboutEverything.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        public IActionResult AddReview(AddGoodReviewViewModel viewModel)
-        {
-
-            _goodReviewRepositories.AddReview(viewModel.GoodId, viewModel.Text);
-
-            return RedirectToAction("Good", new { id = viewModel.GoodId });
-        }
+        
 
         [HasRoleOrHigher(UserRole.Admin)]
         [HttpGet]
@@ -211,11 +204,12 @@ namespace PortalAboutEverything.Controllers
             };
         }
 
-        private AddGoodReviewViewModel BuildGoodReviewViewModel(GoodReview goodReview)
+        private GoodReviewViewModel BuildGoodReviewViewModel(GoodReview goodReview)
         {
-            return new AddGoodReviewViewModel
+            return new GoodReviewViewModel
             {
-                Text = goodReview.Description,
+                Text = goodReview.Text,
+                UserWhoLeavedAReview = goodReview.UserWhoLeavedAReview,
             };
         }
     }
