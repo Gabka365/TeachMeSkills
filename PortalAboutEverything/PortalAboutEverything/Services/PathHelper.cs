@@ -1,4 +1,6 @@
-﻿namespace PortalAboutEverything.Services
+﻿using PortalAboutEverything.Services.Interfaces;
+
+namespace PortalAboutEverything.Services
 {
     public class PathHelper : IPathHelper
     {

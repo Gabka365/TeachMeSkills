@@ -1,4 +1,4 @@
-﻿namespace PortalAboutEverything.Services
+﻿namespace PortalAboutEverything.Services.Interfaces
 {
     public interface IPathHelper
     {

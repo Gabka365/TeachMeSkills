@@ -8,6 +8,8 @@ using PortalAboutEverything.Hubs;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Services.Interfaces;
 using PortalAboutEverything.VideoServices.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

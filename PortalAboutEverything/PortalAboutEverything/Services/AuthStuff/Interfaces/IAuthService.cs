@@ -1,7 +1,7 @@
 ﻿using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 
-namespace PortalAboutEverything.Services.AuthStuff
+namespace PortalAboutEverything.Services.AuthStuff.Interfaces
 {
     public interface IAuthService
     {

@@ -1,11 +1,12 @@
 ﻿using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Models.BoardGame;
-using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Models.BoardGameReview;
 using PortalAboutEverything.Data.Repositories.DataModel;
 using BoardGamesReviewsApi.Dtos;
 using PortalAboutEverything.Data.Repositories.Interfaces;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Services.Interfaces;
 
 namespace PortalAboutEverything.Mappers
 {

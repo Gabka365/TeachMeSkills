@@ -4,8 +4,8 @@ using NUnit.Framework;
 using PortalAboutEverything.Data.Repositories.DataModel;
 using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Mappers;
-using PortalAboutEverything.Services;
-using PortalAboutEverything.Services.AuthStuff;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Services.Interfaces;
 
 namespace PortalAboutEverything.Tests.Mappers
 {
