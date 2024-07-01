@@ -16,13 +16,15 @@ namespace PortalAboutEverything.Tests.E2E.Tests
         }
 
         [Test]
-        public void CheckIsLoginVisible()
+        public void CheckLoginOrLogoutIsVisible()
         {
             driver.Url = CommonConstants.BASE_URL;
 
             var loginLink = driver.FindElements(Layout.LoginLink);
 
-            Assert.That(loginLink.Count, Is.EqualTo(1));
+            var logoutLink = driver.FindElements(Layout.LogoutLink);
+
+            Assert.That(loginLink.Count + logoutLink.Count, Is.EqualTo(1));
         }
 
         [Test]
