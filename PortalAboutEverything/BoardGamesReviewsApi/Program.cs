@@ -6,7 +6,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using BoardGamesReviewsApi.Middlewares;
 using BoardGamesReviewsApi.Dtos;
-using Microsoft.VisualBasic;
+using BoardGamesReviewsApi.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,44 +24,29 @@ builder.Services.AddCors(o =>
 builder.Services.AddDbContext<ReviewsDbContext>(x => x.UseSqlServer(ReviewsDbContext.CONNECTION_STRING));
 
 builder.Services.AddScoped<BoardGameReviewRepositories>();
+builder.Services.AddScoped<BoardGameReviewMapper>();
 
 var app = builder.Build();
 
 app.UseCors();
 app.UseMiddleware<AllowAllCorsMiddleware>();
 
-
 app.MapGet("/", () => "Reviews api");
-app.MapGet("/get", (BoardGameReviewRepositories repo, int id) =>
+app.MapGet("/get", (BoardGameReviewRepositories repositories, BoardGameReviewMapper mapper, int id) =>
 {
-    var review = repo.Get(id);
-    return new DtoBoardGameReview()
-    {
-        Id = review.Id,
-        UserName = review.UserName,
-        UserId = review.UserId,
-        DateOfCreation = review.DateOfCreation,
-        Text = review.Text,
-        BoardGameId = review.BoardGameId
-    };
+    var review = repositories.Get(id);
+    return mapper.BuildBoardGameReviewDto(review);
 });
-app.MapGet("/getAll", (BoardGameReviewRepositories repo, int gameId) => repo.GetAllForGame(gameId));
-app.MapGet("/delete", (BoardGameReviewRepositories repo, int id) => repo.Delete(id));
-app.MapGet("/createReview", (BoardGameReviewRepositories repo, /*[FromBody] DtoBoardGameReviewCreate review,*/
+app.MapGet("/getAll", (BoardGameReviewRepositories repositories, int gameId) => repositories.GetAllForGame(gameId));
+app.MapGet("/delete", (BoardGameReviewRepositories repositories, int id) => repositories.Delete(id));
+app.MapGet("/createReview", (BoardGameReviewRepositories repositories, BoardGameReviewMapper mapper, /*[FromBody] DtoBoardGameReviewCreate review,*/
     string userName, int userId, string dateOfCreation, string text, int boardGameId) =>
 {
-    //var reviewDataModel = new BoardGameReview()
-    //{
-    //    UserName = review.UserName,
-    //    UserId = review.UserId,
-    //    DateOfCreation = review.DateOfCreation,
-    //    Text = review.Text,
-    //    BoardGameId = review.BoardGameId
-    //};
+    //var reviewDataModel = mapper.BuildBoardGameReview(review);
 
     var dateFormat = dateOfCreation.Contains('/') ? "M/d/yyyy h:mm:ss tt" : "dd.MM.yyyy H:mm:ss";
 
-    var reviewDataModel = new BoardGameReview()
+    var reviewDto = new DtoBoardGameReviewCreate()
     {
         UserName = userName,
         UserId = userId,
@@ -70,21 +55,23 @@ app.MapGet("/createReview", (BoardGameReviewRepositories repo, /*[FromBody] DtoB
         BoardGameId = boardGameId
     };
 
-    repo.Create(reviewDataModel);
+    var reviewDataModel = mapper.BuildBoardGameReviewFromCreate(reviewDto);
+    repositories.Create(reviewDataModel);
 
     return true;
 });
-app.MapGet("/updateReview", (BoardGameReviewRepositories repo, /*[FromBody] DtoBoardGameReviewUpdate review,*/
+app.MapGet("/updateReview", (BoardGameReviewRepositories repositories, BoardGameReviewMapper mapper, /*[FromBody] DtoBoardGameReviewUpdate review,*/
     int id, string text) =>
 {
 
-    var reviewDataModel = new BoardGameReview()
+    var reviewDto = new DtoBoardGameReviewUpdate()
     {
         Id = id,
         Text = text
     };
 
-    repo.Update(reviewDataModel);
+    var reviewDataModel = mapper.BuildBoardGameReviewFromUpdate(reviewDto);
+    repositories.Update(reviewDataModel);
 
     return true;
 });

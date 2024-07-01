@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using BoardGamesReviewsApi.Dtos;
+using Moq;
 using NUnit.Framework;
 using PortalAboutEverything.Data.Repositories.DataModel;
 using PortalAboutEverything.Data.Repositories.Interfaces;
@@ -8,20 +9,20 @@ using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Tests.Mappers
 {
-    internal class BoardGameMapperTest
+    public class BoardGameMapperTest
     {
-        private Mock<IAuthService> _authServise;
-        private Mock<IPathHelper> _pathHelper;
-        private Mock<IBoardGameRepositories> _gameRepositories;
+        private Mock<IAuthService> _authServiseMock;
+        private Mock<IPathHelper> _pathHelperMock;
+        private Mock<IBoardGameRepositories> _gameRepositoriesMock;
         private BoardGameMapper _mapper;
 
         [SetUp]
         public void SetUp()
         {
-            _authServise = new Mock<IAuthService>();
-            _pathHelper = new Mock<IPathHelper>();
-            _gameRepositories = new Mock<IBoardGameRepositories>();
-            _mapper = new BoardGameMapper(_authServise.Object, _pathHelper.Object, _gameRepositories.Object);
+            _authServiseMock = new Mock<IAuthService>();
+            _pathHelperMock = new Mock<IPathHelper>();
+            _gameRepositoriesMock = new Mock<IBoardGameRepositories>();
+            _mapper = new BoardGameMapper(_authServiseMock.Object, _pathHelperMock.Object, _gameRepositoriesMock.Object);
         }
 
         [Test]
@@ -42,6 +43,28 @@ namespace PortalAboutEverything.Tests.Mappers
             Assert.That(result.Id, Is.EqualTo(10));
             Assert.That(result.Title, Is.EqualTo("Test board game"));
             Assert.That(result.CountOfUserWhoLikeIt, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void BuildBoardGameUpdateRewievViewModel()
+        {
+            // Prepare
+            var model = new DtoBoardGameReview()
+            {
+                BoardGameId = 10,
+                Text = "Good board game"
+            };
+
+            _gameRepositoriesMock
+                .Setup(x => x.GetName(model.BoardGameId))
+                .Returns("Test board game");
+
+            // Act
+            var result = _mapper.BuildBoardGameUpdateRewievViewModel(model);
+
+            // Assert
+            Assert.That(result.Text, Is.EqualTo("Good board game"));
+            Assert.That(result.BoardGameName, Is.EqualTo("Test board game"));
         }
     }
 }
