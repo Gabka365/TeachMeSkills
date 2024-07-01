@@ -83,8 +83,16 @@
     align-content: center;
 }
 
-.deleteReview {
+.delete {
     color: red;
     text-align: right;
     font-size: small;
+    cursor: pointer;
+}
+
+.update {
+    color: green;
+    text-align: right;
+    font-size: small;
+    cursor: pointer;
 }

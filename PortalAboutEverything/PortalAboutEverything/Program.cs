@@ -35,7 +35,6 @@ builder.Services.AddScoped<UserRepository>();
 
 builder.Services.AddScoped<BlogRepositories>();
 builder.Services.AddScoped<MovieRepositories>();
-builder.Services.AddScoped<MovieReviewRepositories>();
 builder.Services.AddScoped<BoardGameRepositories>();
 builder.Services.AddScoped<BoardGameReviewRepositories>();
 builder.Services.AddScoped<HistoryRepositories>();

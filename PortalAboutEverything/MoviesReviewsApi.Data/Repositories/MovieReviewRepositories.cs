@@ -20,7 +20,7 @@ namespace MoviesReviewsApi.Data.Repositories
             return _dbSet.ToList();
         }
 
-        public List<MovieReview> GetAllReviewForOneMovie(int movieId)
+        public List<MovieReview> FindReviewsByMovieId(int movieId)
         {
             return _dbSet.Where(movieReview => movieReview.MovieId == movieId).ToList();
         }
@@ -59,10 +59,10 @@ namespace MoviesReviewsApi.Data.Repositories
 
         public void Update(MovieReview movieReview)
         {
-            var dbMovie = Get(movieReview.Id);
+            var review = Get(movieReview.Id);
 
-            dbMovie.Rate = movieReview.Rate;
-            dbMovie.Comment = movieReview.Comment;
+            review.Rate = movieReview.Rate;
+            review.Comment = movieReview.Comment;
 
             _dbContext.SaveChanges();
         }

@@ -9,13 +9,6 @@ namespace PortalAboutEverything.Data.Repositories
 	{
 		public MovieRepositories(PortalDbContext db) : base(db) { }
 
-		public List<Movie> GetAllWithReviews()
-		{
-			return _dbContext.Movies
-				.Include(x => x.Reviews)
-				.ToList();
-		}
-
 		public void Update(Movie movie)
 		{
 			var dbMovie = Get(movie.Id);
