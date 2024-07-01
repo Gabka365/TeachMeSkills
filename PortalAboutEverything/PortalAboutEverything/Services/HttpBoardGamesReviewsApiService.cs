@@ -1,4 +1,4 @@
-﻿using PortalAboutEverything.Services.Dtos;
+﻿using BoardGamesReviewsApi.Dtos;
 
 namespace PortalAboutEverything.Services
 {

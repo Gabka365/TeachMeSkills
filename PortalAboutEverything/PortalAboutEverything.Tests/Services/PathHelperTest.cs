@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
+using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Services;
 
 namespace PortalAboutEverything.Tests.Services
@@ -50,6 +51,38 @@ namespace PortalAboutEverything.Tests.Services
 
             // Assert
             Assert.That(result, Is.EqualTo(resultPath));
+        }
+
+        [Test]
+        [TestCase(25, "C:\\project\\images\\BoardGame\\mainImage-25.jpg")]
+        [TestCase(995, "C:\\project\\images\\BoardGame\\mainImage-995.jpg")]
+        public void GetPathToBoardGameMainImage(int boardGameId, string resultPath)
+        {
+            // Prepare
+            _webHostEnvironmentMock
+                .Setup(x => x.WebRootPath)
+                .Returns(FAKE_PROJECT_PATH);
+
+            // Act
+            var result = _pathHelper.GetPathToBoardGameMainImage(boardGameId);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(resultPath));
+        }
+
+        [Test]
+        public void GetPathToBoardGameSideImage()
+        {
+            // Prepare
+            _webHostEnvironmentMock
+                .Setup(x => x.WebRootPath)
+                .Returns(FAKE_PROJECT_PATH);
+
+            // Act
+            var result = _pathHelper.GetPathToBoardGameSideImage(5);
+
+            // Assert
+            Assert.That(result, Is.EqualTo("C:\\project\\images\\BoardGame\\sideImage-5.jpg"));
         }
     }
 }
