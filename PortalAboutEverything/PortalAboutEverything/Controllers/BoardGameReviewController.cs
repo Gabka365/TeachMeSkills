@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Models.BoardGameReview;
 using PortalAboutEverything.Services;
-using PortalAboutEverything.Services.Dtos;
+using BoardGamesReviewsApi.Dtos;
 
 namespace PortalAboutEverything.Controllers
 {

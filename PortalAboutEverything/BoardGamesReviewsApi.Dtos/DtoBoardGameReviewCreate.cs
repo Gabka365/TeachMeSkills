@@ -1,4 +1,4 @@
-﻿namespace PortalAboutEverything.Services.Dtos
+﻿namespace BoardGamesReviewsApi.Dtos
 {
     public class DtoBoardGameReviewCreate
     {

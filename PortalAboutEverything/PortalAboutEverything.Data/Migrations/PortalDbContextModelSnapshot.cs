@@ -498,12 +498,16 @@ namespace PortalAboutEverything.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
+                    b.Property<int?>("GoodId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("GoodId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserWhoLeavedAReview")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

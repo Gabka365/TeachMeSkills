@@ -8,6 +8,8 @@ using PortalAboutEverything.Hubs;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Services.Interfaces;
 using PortalAboutEverything.VideoServices.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,7 +37,10 @@ builder.Services.AddScoped<UserRepository>();
 
 builder.Services.AddScoped<BlogRepositories>();
 builder.Services.AddScoped<MovieRepositories>();
+
+builder.Services.AddScoped<IBoardGameRepositories, BoardGameRepositories>();
 builder.Services.AddScoped<BoardGameRepositories>();
+
 builder.Services.AddScoped<BoardGameReviewRepositories>();
 builder.Services.AddScoped<HistoryRepositories>();
 builder.Services.AddScoped<BookRepositories>();
@@ -48,8 +53,13 @@ builder.Services.AddScoped<LikeRepositories>();
 
 // Services
 builder.Services.AddScoped<LikeHelper>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<AuthService>();
+
 builder.Services.AddScoped<BoardGameMapper>();
+
+builder.Services.AddSingleton<IPathHelper, PathHelper>();
 builder.Services.AddSingleton<PathHelper>();
 
 builder.Services.AddHttpContextAccessor();
@@ -90,6 +100,7 @@ app.MapHub<ChatHub>("/hubs/chat");
 app.MapHub<BoardGameHub>("/hubs/boardGame");
 app.MapHub<MovieHub>("/hubs/movie");
 app.MapHub<CommentTravelingHub>("/hubs/CommentTraveling");
+app.MapHub<GoodReviewHub>("/hubs/goodReview");
 
 app.MapControllerRoute(
     name: "default",
