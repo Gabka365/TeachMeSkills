@@ -71,6 +71,8 @@ builder.Services.AddHttpClient<HttpChatApiService>(
     x => x.BaseAddress = new Uri("https://localhost:7072/"));
 builder.Services.AddHttpClient<HttpBoardGamesReviewsApiService>(
     x => x.BaseAddress = new Uri("https://localhost:7289/"));
+builder.Services.AddHttpClient<HttpNewsTravelingsApi>(
+    t => t.BaseAddress = new Uri("https://localhost:7032"));
 
 var app = builder.Build();
 
@@ -99,6 +101,7 @@ app.MapHub<ChatHub>("/hubs/chat");
 app.MapHub<BoardGameHub>("/hubs/boardGame");
 app.MapHub<MovieHub>("/hubs/movie");
 app.MapHub<CommentTravelingHub>("/hubs/CommentTraveling");
+app.MapHub<GoodReviewHub>("/hubs/goodReview");
 
 app.MapControllerRoute(
     name: "default",

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using System.Linq;
 using PortalAboutEverything.Services.AuthStuff;
 using System.Xml.Linq;
+using PortalAboutEverything.Services.Dtos;
 
 
 namespace PortalAboutEverything.Controllers
@@ -26,6 +27,7 @@ namespace PortalAboutEverything.Controllers
         private LikeRepositories _likeRepository;
         private IWebHostEnvironment _hostingEnvironment;
         private AuthService _authService;
+        private HttpNewsTravelingsApi _httpNewsTravelingsApi;
         private readonly string _pathTravelingUserPictures;
         private readonly string _pathTravelingIndexPictures;
         private readonly CommentRepository _commentRepository;
@@ -33,7 +35,7 @@ namespace PortalAboutEverything.Controllers
 
         public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment,
                                    UserRepository userRepository, AuthService authService, CommentRepository commentRepository,
-                                    LikeRepositories likeRepository)
+                                    LikeRepositories likeRepository, HttpNewsTravelingsApi httpNewsTravelingsApi)
         {
             _travelingRepositories = travelingRepositories;
             _hostingEnvironment = hostingEnvironment;
@@ -43,6 +45,7 @@ namespace PortalAboutEverything.Controllers
             _authService = authService;
             _commentRepository = commentRepository;
             _likeRepository = likeRepository;
+            _httpNewsTravelingsApi = httpNewsTravelingsApi;
         }
 
         public IActionResult Index()
@@ -123,6 +126,7 @@ namespace PortalAboutEverything.Controllers
         [HttpGet]
         public IActionResult TravelingPosts()
         {
+            var lastNews = _httpNewsTravelingsApi.GetLastNews();
             var model = new TravelingShowPostsViewModel();
 
             var travelingPosts = _travelingRepositories
@@ -164,7 +168,7 @@ namespace PortalAboutEverything.Controllers
 
             model.TravelingPostsViewModels = travelingPosts;            
             model.IsTravingAdmin = User.Identity.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
-
+            model.LastNews = lastNews.Text;
             return View(model);
         }
         [HttpGet]

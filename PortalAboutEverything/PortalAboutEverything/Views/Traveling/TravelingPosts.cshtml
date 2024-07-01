@@ -1,4 +1,5 @@
 ﻿@inject PortalAboutEverything.Services.AuthStuff.AuthService authSErvise
+@inject PortalAboutEverything.Services.HttpNewsTravelingsApi newsTravelingsApi
 @model PortalAboutEverything.Models.Traveling.TravelingShowPostsViewModel
 
 @section Style {
@@ -11,9 +12,28 @@
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="/js/Traveling/showPost.js"></script>
+    <script src="/js/Traveling/createNews.js"></script>
+    <script src="/js/Traveling/delNews.js"></script>
 }
 
 <div class="u-body u-xl-mode" data-lang="ru">
+    <div class="traveling-news">
+        <h2 class="traveling-news-title">Последняя новость</h2>
+        <p class="traveling-news-text">@Model.LastNews</p>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <input class="traveling-news-text-input" />
+            <button class="traveling-news-btn" data-user-id="@authSErvise.GetUserId()" disabled>Добавить новость</button>
+        }
+        else
+        {            
+            <a href="/Auth/Login" class="btn-Login">Зайти на сайт</a>
+        }
+        @if (authSErvise.IsAdmin())
+        {
+            <button class="traveling-news-btn-del" data-news-id="@newsTravelingsApi.GeLastNewsId()">Удалить новость</button>
+        }
+    </div>
     <section class="u-align-center u-clearfix u-section-1" id="sec-b5d7">
         <div class="u-clearfix u-sheet u-sheet-1">
             <div class="u-container-style u-post-details u-post-details-1">

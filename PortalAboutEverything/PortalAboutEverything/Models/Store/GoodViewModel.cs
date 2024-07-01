@@ -18,7 +18,7 @@ namespace PortalAboutEverything.Models.Store
         [GoodNoSpecialCharacters]
         public int? Price { get; set; }
 
-        public List<AddGoodReviewViewModel>? Reviews { get; set; }
+        public List<GoodReviewViewModel>? Reviews { get; set; }
         
         public IFormFile? Cover { get; set; }
 
