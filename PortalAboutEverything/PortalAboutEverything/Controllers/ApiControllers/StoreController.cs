@@ -4,6 +4,7 @@ using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
+using PortalAboutEverything.Models.Store;
 
 namespace PortalAboutEverything.Controllers.ApiControllers
 {
@@ -16,11 +17,14 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         private PathHelper _pathHelper;
 
         private AuthService _authService;
-        public StoreController(StoreRepositories storeRepositories, PathHelper pathHelper, AuthService authService)
+
+        private GoodReviewRepositories _goodReviewRepositories;
+        public StoreController(StoreRepositories storeRepositories, PathHelper pathHelper, AuthService authService, GoodReviewRepositories goodReviewRepositories)
         {
             _storeRepositories = storeRepositories;
             _pathHelper = pathHelper;
             _authService = authService;
+            _goodReviewRepositories = goodReviewRepositories;
         }
 
         public class AddToFavouriteRequest
@@ -62,6 +66,18 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             {
                 return Json(new { success = true, isLiked = false });
             }
+        }
+
+        [HttpPost]
+        public JsonResult AddReview([FromBody] AddNewReviewViewModel review)
+        {
+            var userName = _authService.IsAuthenticated()
+                           ? _authService.GetUserName()
+                           : "Гость";
+            _goodReviewRepositories.AddReview(review.GoodId, review.Text, userName);
+
+            var result = new { success = true };
+            return Json(result);
         }
     }
 }
