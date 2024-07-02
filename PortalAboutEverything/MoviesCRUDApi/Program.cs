@@ -61,6 +61,20 @@ app.MapGet("/updateReview", (
     movieRepository.Update(movieReviewDataModel);
 });
 
+app.MapPost("/deleteAllReviewsByMovieId", (
+	int movieId,
+	MovieReviewRepositories movieRepository) =>
+{
+	movieRepository.DeleteAllReviewsByMovieId(movieId);
+});
+
+app.MapGet("/getAmountOfReviewsByMovie", (
+    int movieId,
+    MovieReviewRepositories movieRepository) =>
+{
+    return movieRepository.GetAmountOfReviewsByMovie(movieId);
+});
+
 app.MapGet("/deleteReview", (
     int reviewId,
     MovieReviewRepositories movieRepository) =>

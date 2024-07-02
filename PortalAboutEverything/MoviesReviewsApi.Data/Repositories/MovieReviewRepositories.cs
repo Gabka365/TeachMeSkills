@@ -15,11 +15,6 @@ namespace MoviesReviewsApi.Data.Repositories
             _dbSet = dbContext.Set<MovieReview>();
         }
 
-        public List<MovieReview> GetAll()
-        {
-            return _dbSet.ToList();
-        }
-
         public List<MovieReview> FindReviewsByMovieId(int movieId)
         {
             return _dbSet.Where(movieReview => movieReview.MovieId == movieId).ToList();
@@ -51,10 +46,25 @@ namespace MoviesReviewsApi.Data.Repositories
             Delete(model);
         }
 
-        public virtual void Delete(MovieReview model)
+        public void Delete(MovieReview model)
         {
             _dbSet.Remove(model);
             _dbContext.SaveChanges();
+        }
+
+        public void DeleteAllReviewsByMovieId(int movieId)
+        {
+            var reviews = FindReviewsByMovieId(movieId);
+            foreach (var review in reviews) 
+            {
+				Delete(review);
+			}
+		}
+
+        public int GetAmountOfReviewsByMovie(int movieId)
+        {
+            var reviews = FindReviewsByMovieId(movieId);
+            return reviews.Count();
         }
 
         public void Update(MovieReview movieReview)

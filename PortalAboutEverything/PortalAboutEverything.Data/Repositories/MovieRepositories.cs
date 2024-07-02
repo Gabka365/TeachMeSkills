@@ -39,5 +39,10 @@ namespace PortalAboutEverything.Data.Repositories
 
         public bool Exist(int id)
             => _dbSet.Any(x => x.Id == id);
+
+		public List<int> FindAllMovieId()
+		{
+            return _dbSet.Select(movie => movie.Id).ToList();
+        }
     }
 }
