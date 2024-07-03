@@ -9,6 +9,6 @@ namespace PortalAboutEverything.Tests.E2E.PagesSelectors
 {
     public static class TravelingPage
     {
-        public static By TravelingPostLink = By.CssSelector(".traveling-post-link");
+        public static By TravelingPostsLink = By.CssSelector(".traveling-post-link");
     }
 }
