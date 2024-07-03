@@ -15,7 +15,7 @@ namespace PortalAboutEverything.Models.ValidationAttributes
             }
 
             var input = value.ToString();
-            var regex = new Regex(@"^[a-zA-Zа-яА-ЯёЁ]+$");
+            var regex = new Regex(@"^[a-zA-Zа-яА-ЯёЁ\s]+$");
 
             if (!regex.IsMatch(input))
             {

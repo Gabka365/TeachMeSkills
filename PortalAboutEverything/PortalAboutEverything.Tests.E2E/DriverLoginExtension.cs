@@ -7,6 +7,8 @@ namespace PortalAboutEverything.Tests.E2E
     {
         public const string ADMIN_NAME = "admin";
         public const string ADMIN_PASSWORD = "admin";
+        public const string Traveling_ADMIN = "travelingAdmin";
+        public const string Traveling_ADMIN_ADMIN_PASSWORD = "travelingAdmin";
 
         public static void LoginAsAdmin(this IWebDriver driver)
         {
@@ -21,6 +23,28 @@ namespace PortalAboutEverything.Tests.E2E
             driver
                 .FindElement(LoginPage.PasswordInput)
                 .SendKeys(ADMIN_PASSWORD);
+            driver
+                .FindElement(LoginPage.SubmitButton)
+                .Click();
+        }
+        public static void LoginTravelinAdmin(this IWebDriver driver)
+        {
+            driver.Url = CommonConstants.BASE_URL;
+            var logoutLink = driver.FindElements(Layout.LogoutLink).Count();
+            if (logoutLink == 1)
+            {
+                driver.FindElement(Layout.LogoutLink).Click();
+            }
+
+            driver
+                .FindElement(Layout.LoginLink)
+                .Click();
+            driver
+                .FindElement(LoginPage.LoginInput)
+                .SendKeys(Traveling_ADMIN);
+            driver
+                .FindElement(LoginPage.PasswordInput)
+                .SendKeys(Traveling_ADMIN_ADMIN_PASSWORD);
             driver
                 .FindElement(LoginPage.SubmitButton)
                 .Click();
