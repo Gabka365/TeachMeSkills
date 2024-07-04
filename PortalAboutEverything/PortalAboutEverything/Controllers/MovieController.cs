@@ -175,6 +175,19 @@ namespace PortalAboutEverything.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        public IActionResult MovieUpdateReview(int movieId, int reviewId)
+        {
+            var movieName = _movieRepositories.GetMovieName(movieId);
+            var viewModel = new MovieUpdateReviewViewModel
+			{
+                MovieId = movieId,
+				ReviewId = reviewId,
+				MovieName = movieName,
+            };
+            return View(viewModel);
+        }
+
         [Authorize]
         public IActionResult MoviesFan()
         {

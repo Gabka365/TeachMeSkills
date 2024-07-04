@@ -48,7 +48,7 @@ app.MapGet("/findReviewsByMovieId", (
     return movieRepository.FindReviewsByMovieId(movieId);
 });
 
-app.MapGet("/updateReview", (
+app.MapPost("/updateReview", (
 	[FromBody] ReviewModel review,
     MovieReviewRepositories movieRepository) =>
 {
@@ -81,6 +81,13 @@ app.MapGet("/deleteReview", (
 {
     movieRepository.Delete(reviewId);
     return true;
+});
+
+app.MapGet("/findReviewInfo", (
+    int reviewId,
+	MovieReviewRepositories movieRepository) =>
+{
+	return movieRepository.Get(reviewId);
 });
 
 app.Run();

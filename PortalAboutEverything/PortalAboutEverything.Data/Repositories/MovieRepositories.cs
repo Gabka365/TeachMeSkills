@@ -44,5 +44,11 @@ namespace PortalAboutEverything.Data.Repositories
 		{
             return _dbSet.Select(movie => movie.Id).ToList();
         }
+
+		public string GetMovieName(int id)
+		{
+			var movieName = Get(id).Name;
+			return movieName;
+		}
     }
 }
