@@ -9,10 +9,9 @@ $(document).ready(function () {
         $.get(baseApiUrl + `findReviewsByMovieId?movieId=${movieId}`)
             .done(function (reviews) {
                 reviews.forEach((review) => {
-                    const timeWithData = review.dateOfCreation.slice(0, 19);
-                    const time = timeWithData.slice(-8);
-                    const date = review.dateOfCreation.slice(0, 10);
-                    const dateOfCreation = date + " " + time;
+                    const dateOfCreation = new Date(review.dateOfCreation).toLocaleString('ru-RU')
+                        .replace(',', '')                        ;
+                    
                     addNewReview(review.movieId, dateOfCreation, review.comment, review.rate, review.id);
                 });
             });
