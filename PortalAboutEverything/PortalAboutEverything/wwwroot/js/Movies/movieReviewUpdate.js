@@ -4,18 +4,19 @@ $(document).ready(function () {
     init();
 
     function init() {
-        const reviewId = $('.reviewId').val();
+        const reviewId = $('[name=ReviewId]').val();
 
-        $.get(baseApiUrl + `findReviewInfo?movieId=${reviewId}`)
+        $.get(baseApiUrl + `findReviewInfo?reviewId=${reviewId}`)
             .done(function (review) {
-                $('.comment').text(review.comment);
-                $('.rate').val(review.rate);
+                const newReviewBlock = $(`<textarea name="comment" class="comment">${review.comment}</textarea>`);
+                $('.comment').append(newReviewBlock);
+                $(`input[name="rate"][value=${review.rate}]`).prop('checked', true);
             })
     }
 
     $('.sendReview').click(function () {
         const rate = $('input[name="rate"]:checked').val() - 0;
-        const comment = $('.comment').val();
+        const comment = $('[name=comment]').val();
         const reviewId = $('[name=ReviewId]').val() - 0;
         const body = {
             rate: rate,

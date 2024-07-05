@@ -54,7 +54,7 @@ app.MapPost("/updateReview", (
 {
     var movieReviewDataModel = new MovieReview
     {
-        Id = review.Id,
+        Id = review.ReviewId,
         Rate = review.Rate,
         Comment = review.Comment,
     };

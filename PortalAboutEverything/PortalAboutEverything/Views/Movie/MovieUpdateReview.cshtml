@@ -22,7 +22,7 @@
 		<div class="movieNameReview">
 			@Html.TextBoxFor(x => x.MovieName, new { placeholder = "Название фильма" })
 		</div>
-		<div>
+		<div class="rate">
 			@foreach (var rate in Model.AvailableRate)
 			{
 				<label class="rate">Оценка @rate
@@ -31,7 +31,6 @@
 			}
 		</div>
 		<div class="comment">
-			<textarea name="comment" class="comment"></textarea>
 		</div>
 		<div>
 			<button class="sendReview">Отправить отзыв</button>
