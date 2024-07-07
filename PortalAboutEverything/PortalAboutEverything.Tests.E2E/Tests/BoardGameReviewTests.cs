@@ -23,8 +23,6 @@ namespace PortalAboutEverything.Tests.E2E.Tests
         {
             _driver.LoginAsAdmin();
 
-            _driver.Url = CommonConstants.BASE_URL;
-
             _driver.FindElement(Layout.BoardGameLink).Click();
             _driver.FindElement(BoardGameIndexPage.FirstBoardGame).Click();
 
@@ -43,6 +41,23 @@ namespace PortalAboutEverything.Tests.E2E.Tests
             var reviewsAfterAddOneMore = _driver.FindElements(BoardGamePage.Review).Count();
 
             Assert.That(reviewsBeforeAddOneMore + 1, Is.EqualTo(reviewsAfterAddOneMore));
+
+            _driver.FindElement(BoardGamePage.LastUpdateButton).Click();
+
+            _driver.FindElement(ReviewPage.TextInput).SendKeys("Test review!");
+            _driver.FindElement(ReviewPage.SendButton).Click();
+
+            Thread.Sleep(5000);
+
+            var textOfLastReview = _driver.FindElement(BoardGamePage.LastReviewText).Text;
+
+            Assert.That(textOfLastReview, Is.EqualTo("Test review!" + "Test review!"));
+
+            _driver.FindElement(BoardGamePage.LastDeleteButton).Click();
+            Thread.Sleep(1000);
+            var reviewsAfterRemoveOneMore = _driver.FindElements(BoardGamePage.Review).Count();
+
+            Assert.That(reviewsAfterRemoveOneMore, Is.EqualTo(reviewsBeforeAddOneMore));
         }
 
         [OneTimeTearDown]

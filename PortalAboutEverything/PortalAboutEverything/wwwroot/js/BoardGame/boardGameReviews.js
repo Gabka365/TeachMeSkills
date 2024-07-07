@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ${reviewData.text}
         </p>
         <div class="update-and-delete">
-            <a href="/BoardGameReview/Update?id=${reviewData.id}&gameId=${boardGameId}"><img src="/images/BoardGame/edit.svg" /></a>
+            <a class="update-button" href="/BoardGameReview/Update?id=${reviewData.id}&gameId=${boardGameId}"><img src="/images/BoardGame/edit.svg" /></a>
             <a class="delete-button" ><img src="/images/BoardGame/delete.svg" /></a>
         </div>
     </div>`
