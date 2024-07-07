@@ -50,13 +50,13 @@
 <div>
     @if (Model.IsMovieAdmin)
     {
-            <a href="/Movie/CreateMovie">@Movie_Index.CreateMovie</a>
+            <a class="create-link" href="/Movie/CreateMovie">@Movie_Index.CreateMovie</a>
     }
 </div>
 <div>
     @if (User.Identity?.IsAuthenticated ?? false)
     {
-            <a href="/Movie/MoviesFan">@Movie_Index.MovieFanPage</a>
+            <a class="moviesFan-link" href="/Movie/MoviesFan">@Movie_Index.MovieFanPage</a>
     }
 </div>
 <div>
@@ -88,7 +88,7 @@
                 </div>
                 <form action="/Movie/AddMovieToMoviesFan" method="post">
                     <input type="hidden" value="@movie.Id" name="movieId" />
-                    <input type="submit" value="@Movie_Index.Add @movie.Name @Movie_Index.ToFavorites_LowerCase" />
+                    <input class="addToMoviesFan" type="submit" value="@Movie_Index.Add @movie.Name @Movie_Index.ToFavorites_LowerCase" />
                 </form>
                 <div>
                     <a href="/Movie/MovieAddReview?id=@movie.Id">@Movie_Index.LeaveReviewForMovie "@movie.Name"</a>
