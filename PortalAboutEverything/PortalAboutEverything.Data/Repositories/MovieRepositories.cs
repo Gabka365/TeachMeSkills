@@ -9,13 +9,6 @@ namespace PortalAboutEverything.Data.Repositories
 	{
 		public MovieRepositories(PortalDbContext db) : base(db) { }
 
-		public List<Movie> GetAllWithReviews()
-		{
-			return _dbContext.Movies
-				.Include(x => x.Reviews)
-				.ToList();
-		}
-
 		public void Update(Movie movie)
 		{
 			var dbMovie = Get(movie.Id);
@@ -46,5 +39,16 @@ namespace PortalAboutEverything.Data.Repositories
 
         public bool Exist(int id)
             => _dbSet.Any(x => x.Id == id);
+
+		public List<int> FindAllMovieId()
+		{
+            return _dbSet.Select(movie => movie.Id).ToList();
+        }
+
+		public string GetMovieName(int id)
+		{
+			var movieName = Get(id).Name;
+			return movieName;
+		}
     }
 }

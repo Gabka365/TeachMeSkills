@@ -84,5 +84,22 @@ namespace PortalAboutEverything.Tests.Services
             // Assert
             Assert.That(result, Is.EqualTo("C:\\project\\images\\BoardGame\\sideImage-5.jpg"));
         }
+
+        [Test]
+        [TestCase(12, "C:\\project\\images\\Movie\\cover-12.jpg")]
+        [TestCase(35, "C:\\project\\images\\Movie\\cover-35.jpg")]
+        public void GetPathToMovieImage(int movieId, string path)
+        {
+            // Prepare
+            _webHostEnvironmentMock
+                .Setup(x => x.WebRootPath)
+                .Returns(FAKE_PROJECT_PATH);
+
+            // Act
+            var result = _pathHelper.GetPathToMovieImage(movieId);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(path));
+        }
     }
 }
