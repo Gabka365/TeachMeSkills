@@ -47,7 +47,6 @@ builder.Services.AddScoped<UserRepository>();
 
 builder.Services.AddScoped<BlogRepositories>();
 builder.Services.AddScoped<MovieRepositories>();
-builder.Services.AddScoped<MovieReviewRepositories>();
 
 builder.Services.AddScoped<IBoardGameRepositories, BoardGameRepositories>();
 builder.Services.AddScoped<BoardGameRepositories>();

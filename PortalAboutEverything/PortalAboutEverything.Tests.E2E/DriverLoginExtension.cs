@@ -25,5 +25,32 @@ namespace PortalAboutEverything.Tests.E2E
                 .FindElement(LoginPage.SubmitButton)
                 .Click();
         }
+
+        public static void Login(this IWebDriver driver, string login, string password)
+        {
+            driver.Url = CommonConstants.BASE_URL;
+
+            driver
+                .FindElement(Layout.LoginLink)
+                .Click();
+            driver
+                .FindElement(LoginPage.LoginInput)
+                .SendKeys(login);
+            driver
+                .FindElement(LoginPage.PasswordInput)
+                .SendKeys(password);
+            driver
+                .FindElement(LoginPage.SubmitButton)
+                .Click();
+        }
+
+        public static void Logout(this IWebDriver driver)
+        {
+            driver.Url = CommonConstants.BASE_URL;
+
+            driver
+                .FindElement(Layout.LogoutLink)
+                .Click();
+        }
     }
 }

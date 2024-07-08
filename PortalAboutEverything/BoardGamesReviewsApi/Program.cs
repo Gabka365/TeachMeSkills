@@ -1,8 +1,6 @@
 using BoardGamesRiviewsApi.Data;
-using BoardGamesRiviewsApi.Data.Models;
 using BoardGamesRiviewsApi.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using BoardGamesReviewsApi.Middlewares;
 using BoardGamesReviewsApi.Dtos;
@@ -39,38 +37,16 @@ app.MapGet("/get", (BoardGameReviewRepositories repositories, BoardGameReviewMap
 });
 app.MapGet("/getAll", (BoardGameReviewRepositories repositories, int gameId) => repositories.GetAllForGame(gameId));
 app.MapGet("/delete", (BoardGameReviewRepositories repositories, int id) => repositories.Delete(id));
-app.MapGet("/createReview", (BoardGameReviewRepositories repositories, BoardGameReviewMapper mapper, /*[FromBody] DtoBoardGameReviewCreate review,*/
-    string userName, int userId, string dateOfCreation, string text, int boardGameId) =>
+app.MapPost("/createReview", (BoardGameReviewRepositories repositories, BoardGameReviewMapper mapper, [FromBody] DtoBoardGameReviewCreate review) =>
 {
-    //var reviewDataModel = mapper.BuildBoardGameReview(review);
-
-    var dateFormat = dateOfCreation.Contains('/') ? "M/d/yyyy h:mm:ss tt" : "dd.MM.yyyy H:mm:ss";
-
-    var reviewDto = new DtoBoardGameReviewCreate()
-    {
-        UserName = userName,
-        UserId = userId,
-        DateOfCreation = DateTime.ParseExact(dateOfCreation, dateFormat, CultureInfo.InvariantCulture),
-        Text = text,
-        BoardGameId = boardGameId
-    };
-
-    var reviewDataModel = mapper.BuildBoardGameReviewFromCreate(reviewDto);
+    var reviewDataModel = mapper.BuildBoardGameReviewFromCreate(review);
     repositories.Create(reviewDataModel);
 
     return true;
 });
-app.MapGet("/updateReview", (BoardGameReviewRepositories repositories, BoardGameReviewMapper mapper, /*[FromBody] DtoBoardGameReviewUpdate review,*/
-    int id, string text) =>
+app.MapPost("/updateReview", (BoardGameReviewRepositories repositories, BoardGameReviewMapper mapper, [FromBody] DtoBoardGameReviewUpdate review) =>
 {
-
-    var reviewDto = new DtoBoardGameReviewUpdate()
-    {
-        Id = id,
-        Text = text
-    };
-
-    var reviewDataModel = mapper.BuildBoardGameReviewFromUpdate(reviewDto);
+    var reviewDataModel = mapper.BuildBoardGameReviewFromUpdate(review);
     repositories.Update(reviewDataModel);
 
     return true;
