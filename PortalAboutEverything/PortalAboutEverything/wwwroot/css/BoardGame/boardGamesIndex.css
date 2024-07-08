@@ -61,12 +61,14 @@
     height: 20px;
 }
 
-.add-board-game {
+.add-board-game,
+.favorite-board-game {
     text-align: center;
     margin-top: 20px;
 }
 
-.add-board-game-link {
+.add-board-game-link,
+.favorite-board-game-link {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
@@ -77,7 +79,8 @@
     transition: background-color 0.3s;
 }
 
-    .add-board-game-link:hover {
+    .add-board-game-link:hover,
+    .favorite-board-game-link:hover {
         background-color: #dd7e68;
         color: #fff;
     }
