@@ -17,6 +17,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddCors(x =>
+{
+    x.AddDefaultPolicy(p =>
+    {
+        p.AllowAnyMethod();
+        p.AllowAnyOrigin();
+        p.AllowAnyHeader();
+    });
+});
+
 builder.Services
     .AddAuthentication(AuthController.AUTH_METHOD)
     .AddCookie(AuthController.AUTH_METHOD, option =>
@@ -78,6 +88,8 @@ var app = builder.Build();
 
 var seed = new Seed();
 seed.Fill(app.Services);
+
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
