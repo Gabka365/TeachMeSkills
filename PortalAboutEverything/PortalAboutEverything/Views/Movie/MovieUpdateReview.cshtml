@@ -1,11 +1,11 @@
-﻿@model PortalAboutEverything.Models.Movie.MovieAddReviewViewModel
+﻿@model PortalAboutEverything.Models.Movie.MovieUpdateReviewViewModel
 
 @section Style {
 			<link rel="stylesheet" href="/css/Movie/movieStyle.css" />
 }
 
 @section Scripts {
-	<script src="/js/Movies/movieReviewAdd.js"></script>
+	<script src="/js/Movies/movieReviewUpdate.js"></script>
 }
 
 <div>
@@ -16,10 +16,13 @@
 		<div class="movieId">
 			@Html.HiddenFor(x => x.MovieId)
 		</div>
-		<div>
-			@Html.TextBoxFor(x => x.Name, new { placeholder = "Название фильма" })
+		<div class="reviewId">
+			@Html.HiddenFor(x => x.ReviewId)
 		</div>
-		<div>
+		<div class="movieNameReview">
+			@Html.TextBoxFor(x => x.MovieName, new { placeholder = "Название фильма" })
+		</div>
+		<div class="rate">
 			@foreach (var rate in Model.AvailableRate)
 			{
 				<label class="rate">Оценка @rate
@@ -27,8 +30,7 @@
 				</label>
 			}
 		</div>
-		<div>
-			<textarea name="comment" class="comment"></textarea>
+		<div class="comment">
 		</div>
 		<div>
 			<button class="sendReview">Отправить отзыв</button>

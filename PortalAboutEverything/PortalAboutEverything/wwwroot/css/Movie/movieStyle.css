@@ -75,7 +75,7 @@
     display: flex;
 }
 
-.movieTableCell {
+.cell {
     padding: 5px;
     border: 1px solid black;
     width: 200px;
@@ -83,8 +83,20 @@
     align-content: center;
 }
 
-.deleteReview {
+.delete {
     color: red;
     text-align: right;
     font-size: small;
+    cursor: pointer;
+}
+
+.update {
+    color: green;
+    text-align: right;
+    font-size: small;
+    cursor: pointer;
+}
+
+.sendReview {
+    cursor: pointer;
 }
