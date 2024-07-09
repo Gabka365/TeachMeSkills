@@ -417,3 +417,4 @@ PortalAboutEverything/PortalAboutEverything/wwwroot/images/Movie/*.*
 PortalAboutEverything/PortalAboutEverything/wwwroot/images/GameStore/*.*
 !PortalAboutEverything/PortalAboutEverything/wwwroot/images/GameStore/cover-default.jpg
 
+/react/portal-react/.vscode
