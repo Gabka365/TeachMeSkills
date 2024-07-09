@@ -2,6 +2,6 @@
 {
     public class CommonConstants
     {
-        public const string BASE_URL = "https://localhost:7219/";
+        public const string BASE_URL = "http://localhost:5213/";
     }
 }

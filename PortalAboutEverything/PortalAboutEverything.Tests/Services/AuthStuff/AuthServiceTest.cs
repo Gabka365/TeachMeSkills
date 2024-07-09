@@ -147,5 +147,58 @@ namespace PortalAboutEverything.Tests.Services.AuthStuff
             // Assert
             Assert.That(isAdminActual, Is.EqualTo(isAdminExpected));
         }
+
+        [Test]
+        [TestCase("Admin", "MovieAdmin", true)]
+        [TestCase("MovieAdmin", "MovieAdmin", true)]
+        [TestCase("User", "Moderator", false)]
+        public void HasRoleOrHigher(string currentRole, UserRole role, bool isCurrentRoleEqualOrHigher)
+        {
+            // Prepare
+            var listClaims = new List<Claim> { new Claim("ROLE", currentRole) };
+            _httpContextAccessorMock
+                .Setup(x => x.HttpContext.User.Claims)
+                .Returns(listClaims);
+
+            // Act
+            var result = _authService.HasRoleOrHigher(role);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(isCurrentRoleEqualOrHigher));
+        }
+
+        [Test]
+        [TestCase("123hhh", "User")]
+        [TestCase("Guest", "User")]
+        public void HasRoleOrHigher_ClaimsHasntRole(string currentRole, UserRole role)
+        {
+            // Prepare
+            var listClaims = new List<Claim> { new Claim("ROLE", currentRole) };
+            _httpContextAccessorMock
+                .Setup(x => x.HttpContext.User.Claims)
+                .Returns(listClaims);
+
+            // Act
+            // Assert
+            Assert.Throws<ArgumentException>(() => _authService.HasRoleOrHigher(role));
+        }
+
+        [Test]
+        [TestCase("CanUpdateMovie")]
+        [TestCase("CanLeaveReviewForMovie")]
+        public void HasPermission(string permission)
+        {
+            // Prepare
+            var listClaims = new List<Claim> { new Claim("PERMISSION", permission) };
+            _httpContextAccessorMock
+                .Setup(x => x.HttpContext.User.Claims)
+                .Returns(listClaims);
+
+            // Act
+            var result = _authService.HasPermission(Enum.Parse<Permission>(permission));
+
+            // Assert
+            Assert.That(result, Is.True);
+        }
     }
 }

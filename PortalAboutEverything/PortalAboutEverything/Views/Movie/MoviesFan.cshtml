@@ -12,11 +12,9 @@
 </div>
 @foreach (var movie in Model.Movies)
 {
-    <div>
+    <div class="favoriteMovie">
         @movie.Name
-        <a href="/Movie/DeleteMovieFromMovieFan?movieId=@movie.Id">Удалить</a>
+        <a class="delete-link" href="/Movie/DeleteMovieFromMovieFan?movieId=@movie.Id">Удалить</a>
     </div>
 }
-<form action="/Movie/Index" method="post">
-    <input type="submit" value="Вернуться на главную" />
-</form>
+<a class="backToMainPage" href="/Movie/Index">Вернуться на главную</a>
