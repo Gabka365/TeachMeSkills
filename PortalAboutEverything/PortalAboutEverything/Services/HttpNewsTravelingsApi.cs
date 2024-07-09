@@ -5,10 +5,11 @@ namespace PortalAboutEverything.Services
     public class HttpNewsTravelingsApi
     {
         private HttpClient _httpClient;
-
+        
         public HttpNewsTravelingsApi(HttpClient httpClient)
         {
             _httpClient = httpClient;
+           
         }
         public DtoLastNews GetLastNews()
         {
@@ -17,7 +18,7 @@ namespace PortalAboutEverything.Services
                 .Result!
                 .Content
                 .ReadFromJsonAsync<DtoLastNews>()
-                .Result!;
+                .Result!;           
         }
         public int GeLastNewsId()
         {
