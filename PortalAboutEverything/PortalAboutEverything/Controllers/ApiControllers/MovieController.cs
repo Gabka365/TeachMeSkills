@@ -30,5 +30,10 @@ namespace PortalAboutEverything.Controllers.ApiControllers
 
             return !_movieRepositories.Exist(movieId);
         }
+
+        public List<int> FindAllMovieId()
+        {
+            return _movieRepositories.FindAllMovieId();
+        }
     }
 }

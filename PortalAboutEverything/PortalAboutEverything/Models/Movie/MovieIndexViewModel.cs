@@ -11,7 +11,5 @@
 		public string CountryOfOrigin { get; set; }
 
 		public bool HasCover { get; set; }
-
-		public List<MovieReviewViewModel> Reviews { get; set; }
 	}
 }

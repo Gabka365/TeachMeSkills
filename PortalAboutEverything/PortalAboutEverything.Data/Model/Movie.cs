@@ -11,7 +11,6 @@ namespace PortalAboutEverything.Data.Model
         public int Budget { get; set; }
         public string CountryOfOrigin { get; set; }
 
-        public virtual List<MovieReview> Reviews { get; set; }
         public virtual List<User> UsersWhoFavoriteTheMovie { get; set; }
     }
 }
