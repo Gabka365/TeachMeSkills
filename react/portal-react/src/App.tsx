@@ -1,18 +1,35 @@
-import "./App.css";
-import Games from "./components/games/games";
-import BoardGames from "./components/boardGames/boardGames";
+import './App.css';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BoardGames, Home } from './components/pages';
+import { CreateGame, GameDetails, Games } from './components/pages/games';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        Smile
-        <Games></Games>
-        <BoardGames></BoardGames>
-        <BoardGames></BoardGames>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <BrowserRouter>
+                <div>
+                    <Link to="/">Home</Link>
+                    <Link to="/game">Games</Link>
+                    <Link to="/boardGames">Board Games</Link>
+                </div>
+                <div className="content">
+                    <Routes>
+                        <Route path="" Component={Home}></Route>
+                        <Route path="/game">
+                            <Route path=":id" Component={GameDetails}></Route>
+                            <Route path="" Component={Games}></Route>
+                            <Route path="create" Component={CreateGame}></Route>
+                        </Route>
+
+                        <Route
+                            path="/boardGames"
+                            Component={BoardGames}
+                        ></Route>
+                    </Routes>
+                </div>
+            </BrowserRouter>
+        </div>
+    );
 }
 
 export default App;

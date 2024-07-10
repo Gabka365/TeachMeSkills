@@ -1,7 +1,7 @@
 import axios from "axios";
 import FavoriteBoardGameIndexViewModel from "../models/FavoriteBoardGameIndexViewModel";
+import { BASE_API_URL } from "./apiConstatns";
 
-const BASE_API_URL = 'http://localhost:5213/';
 const BOARD_GAME_API_URL = `${BASE_API_URL}api/BoardGame/`;
 
 function getTop3(){

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import BoardGame from "../boardGame/boardGame";
+import BoardGame from "./boardGame/boardGame";
 import "./boardGames.css";
-import gameRepository from "../../repositories/boardGameRepository";
-import FavoriteBoardGameIndexViewModel from "../../models/FavoriteBoardGameIndexViewModel";
+import gameRepository from "../../../repositories/boardGameRepository";
+import FavoriteBoardGameIndexViewModel from "../../../models/FavoriteBoardGameIndexViewModel";
 
 function BoardGames() {
   const { getTop3 } = gameRepository;
