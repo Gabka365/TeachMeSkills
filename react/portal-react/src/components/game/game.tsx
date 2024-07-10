@@ -1,17 +1,20 @@
-import { FC } from "react"
-import './game.css'
+import { FC } from 'react';
+import './game.css';
+import GameModel from '../../models/GameModel';
+import { Link } from 'react-router-dom';
 
 interface GameProp {
-	name: string,
-	yearOfRelease: number
+    game: GameModel;
 }
 
-const Game: FC<GameProp> = ({ name, yearOfRelease }) => {
-	return (
-		<div className="game">
-			{name} release in {yearOfRelease}
-		</div>
-	)
-}
+const Game: FC<GameProp> = ({ game }) => {
+    return (
+        <div className="game">
+            <Link to={`/game/${game.id}`}>{game.name}</Link>
+            release in
+            {game.yearOfRelease}
+        </div>
+    );
+};
 
-export default Game
+export default Game;

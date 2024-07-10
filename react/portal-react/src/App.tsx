@@ -1,15 +1,18 @@
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import Games from './components/games/games';
+import AppRoutes from './components/routes';
+import AppHeader from './components/layout/AppHeader';
+import AuthContext from './contexts/AuthContext';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        Smile
-		<Games></Games>
-      </header>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <AuthContext>
+                <AppHeader></AppHeader>
+                <AppRoutes></AppRoutes>
+            </AuthContext>
+        </BrowserRouter>
+    );
 }
 
 export default App;
