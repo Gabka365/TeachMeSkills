@@ -1,7 +1,7 @@
 import axios from "axios";
 import GameModel from "../models/GameModel";
 
-const BASE_API_URL = 'https://localhost:7219/';
+const BASE_API_URL = 'http://localhost:5213/';
 const GAME_API_URL = `${BASE_API_URL}api/games/`;
 
 function getAll() {
