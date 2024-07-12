@@ -72,5 +72,14 @@ namespace PortalAboutEverything.Controllers.ApiControllers
                 .Select(_mapper.BuildFavoriteBoardGameIndexViewModel)
                 .ToList();
         }
+
+        [AllowAnonymous]
+        public List<BoardGameIndexViewModel> GetAll()
+        {
+            return _gameRepositories
+                .GetAll()
+                .Select(_mapper.BuildBoardGameIndexViewModel)
+                .ToList();
+        }
     }
 }

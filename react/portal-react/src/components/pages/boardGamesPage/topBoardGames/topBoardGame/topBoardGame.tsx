@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import './topBoardGame.css';
 
-interface BoardGameProp {
+interface TopBoardGameProp {
     index: number;
     id: number;
     title: string;
     countOfUserWhoLikeIt: number;
 }
 
-const TopBoardGame: FC<BoardGameProp> = ({
+const TopBoardGame: FC<TopBoardGameProp> = ({
     index,
     id,
     title,
