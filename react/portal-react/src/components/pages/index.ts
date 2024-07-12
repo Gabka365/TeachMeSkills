@@ -1,4 +1,4 @@
-import BoardGames from './boardGames/boardGames';
+import TopBoardGames from './topBoardGames/topBoardGames';
 import Home from './Home';
 
-export { Home, BoardGames };
+export { Home, TopBoardGames };

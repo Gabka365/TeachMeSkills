@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import { BoardGames, Home } from './components/pages';
+import { TopBoardGames, Home } from './components/pages';
 import { CreateGame, GameDetails, Games } from './components/pages/games';
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
 
                         <Route
                             path="/boardGames"
-                            Component={BoardGames}
+                            Component={TopBoardGames}
                         ></Route>
                     </Routes>
                 </div>

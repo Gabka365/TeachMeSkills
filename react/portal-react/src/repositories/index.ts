@@ -1,4 +1,4 @@
-import boardGameRepositiry from './boardGameRepository';
+import boardGameRepository from './boardGameRepository';
 import gameRepository from './gameRepository';
 
-export { gameRepository, boardGameRepositiry };
+export { gameRepository, boardGameRepository };
