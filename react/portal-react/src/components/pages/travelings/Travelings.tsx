@@ -15,7 +15,7 @@ function Travelings() {
 
     const onTravelingDelete = useCallback((id: number) => {
         setTravelings((oldTravelings) => [
-            ...oldTravelings.filter((g) => g.id !== id),
+            ...oldTravelings.filter((t) => t.id !== id),
         ]);
     }, []);
     return (
