@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { BoardGames, Home } from './components/pages';
 import { CreateGame, GameDetails, Games } from './components/pages/games';
-import Movies from './components/pages/movies/movies';
+import { CreateMovie, MovieDetails, Movies } from './components/pages/movies';
 
 function App() {
     return (
@@ -28,10 +28,11 @@ function App() {
                             Component={BoardGames}
                         ></Route>
 
-                        <Route
-                            path="/movies"
-                            Component={Movies}
-                        ></Route>
+                        <Route path="/movies">
+                            <Route path="" Component={Movies}></Route>
+                            <Route path=":id" Component={MovieDetails}></Route>
+                            <Route path="create" Component={CreateMovie}></Route>
+                        </Route>
                     </Routes>
                 </div>
             </BrowserRouter>

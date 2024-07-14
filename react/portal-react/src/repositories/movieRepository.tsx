@@ -8,8 +8,23 @@ function getAll() {
     return axios.get<MovieModel[]>(`${MOVIE_API_URL}GetAll`);
 }
 
+function get(id: number) {
+    return axios.get(`${MOVIE_API_URL}get?id=${id}`);
+}
+
+function remove (id: number) {
+    return axios.get(`${MOVIE_API_URL}remove?id=${id}`);
+}
+
+function add(movie: MovieModel) {
+    return axios.post(`${MOVIE_API_URL}create`, movie);
+}
+
 const movieRepository = {
     getAll,
-};
+    get,
+    remove,
+    add,
+}
 
 export default movieRepository;

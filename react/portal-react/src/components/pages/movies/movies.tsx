@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './movies.css';
 import Movie from './movie/movie';
-import movieRepository from '../../../repositories/movieRepository';
 import MovieModel from '../../../models/MovieModel';
+import { movieRepository } from '../../../repositories';
+import { Link } from 'react-router-dom';
 
 function Movies() {
     const {getAll} = movieRepository;
@@ -15,10 +16,15 @@ function Movies() {
         });
     }, []);
 
+    const onMovieDelete = useCallback((id: number) => {
+        setMovies((oldListMovies) => [...oldListMovies.filter((movie) => movie.id !== id)]);
+    }, []);
+
     return (
         <div className="movies">
-            {movies.map(movie => (
-                <Movie movie={movie} key={movie.id}></Movie>
+            <Link to={'/movies/create'}>Create movie</Link>
+            {movies.map((movie) => (
+                <Movie movie={movie} onDelete={onMovieDelete} key={movie.id}></Movie>
             ))}
         </div>
     );
