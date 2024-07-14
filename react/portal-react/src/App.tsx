@@ -1,8 +1,9 @@
 import './App.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import { BoardGames, Home } from './components/pages';
+import { BoardGames, Home,} from './components/pages';
 import { CreateGame, GameDetails, Games } from './components/pages/games';
-import Traveling from './components/pages/travelings/traveling/Traveling';
+import { Travelings } from './components/pages/travelings/Index';
+
 
 
 function App() {
@@ -29,10 +30,9 @@ function App() {
                             Component={BoardGames}
                         ></Route>
 
-                         <Route
-                            path="/traveling"
-                            Component={Traveling}
-                        ></Route>
+                        <Route path="/traveling">
+                            <Route path="" Component={Travelings} ></Route> 
+                        </Route>
                     </Routes>
                 </div>
             </BrowserRouter>

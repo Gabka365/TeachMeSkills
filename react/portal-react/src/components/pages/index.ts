@@ -1,4 +1,4 @@
 import BoardGames from './boardGames/boardGames';
 import Home from './Home';
-
-export { Home, BoardGames };
+import LastNews from './travelings/lastNews/LastNews';
+export { Home, BoardGames};

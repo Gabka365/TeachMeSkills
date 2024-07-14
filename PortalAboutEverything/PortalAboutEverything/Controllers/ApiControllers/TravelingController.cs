@@ -12,6 +12,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
     [Route("/api/[controller]/[action]")]
     public class TravelingController : Controller
     {
+        private const string BASE_API_URL = "http://localhost:5213/";
         private UserRepository _userRepository;
         private TravelingRepositories _travelingRepositories;
         private LikeRepositories _likeRepositories;
@@ -63,6 +64,25 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             var likeCount = _travelingRepositories.CountLike(postId);
 
             return likeCount;
+        }
+
+        public List<TravelingApiViewModel> GetAll()
+        {
+            var travelingModel = _travelingRepositories.GetAll()
+                                                       .Select(BuildTravelingApiViewModel)
+                                                       .ToList();
+            
+            return travelingModel;           
+        }
+
+        private TravelingApiViewModel BuildTravelingApiViewModel(Traveling traveling)
+        {           
+            return new TravelingApiViewModel
+            {
+                Id = traveling.Id,
+                Desc = traveling.Desc,
+                Name = traveling.Name               
+            };
         }
     }
 }
