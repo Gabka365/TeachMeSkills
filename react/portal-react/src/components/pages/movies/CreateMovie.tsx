@@ -82,10 +82,6 @@ function CreateMovie() {
                 <input type="text" value={description} onChange={onDescChange} />
             </div>
             <div>
-                ReleaseYear:
-                <input type="number" value={releaseYear} onChange={onReleaseYearChange} />
-            </div>
-            <div>
                 Director:
                 <input type="text" value={director} onChange={onDirectorChange} />
             </div>
