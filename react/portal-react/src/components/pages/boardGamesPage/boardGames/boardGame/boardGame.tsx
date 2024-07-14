@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { BASE_API_URL } from '../../../../../repositories/apiConstatns';
 import './boardGame.css';
+import { Link } from 'react-router-dom';
 
 interface BoardGameProp {
     id: number;
@@ -11,9 +12,9 @@ const BoardGame: FC<BoardGameProp> = ({ id, title }) => {
     return (
         <li className="board-game-item board-game">
             <input className="board-game-id" type="hidden" value={id} />
-            <a className="board-game-title text-dark" href="#">
+            <Link className="board-game-title text-dark" to={`/boardGame/${id}`}>
                 {title}
-            </a>
+            </Link>
             <div className="update-and-delete">
                 <a className="edit-link" href="#">
                     <img

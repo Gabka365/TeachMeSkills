@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import BoardGame from './boardGame/boardGame';
 import './boardGames.css';
 import gameRepository from '../../../../repositories/boardGameRepository';
-import BoardGameIndexViewModel from '../../../../models/BoardGameIndexViewModel';
+import BoardGameIndexViewModel from '../../../../models/boardGames/BoardGameIndexViewModel';
 
 function BoardGames() {
     const { getAll } = gameRepository;

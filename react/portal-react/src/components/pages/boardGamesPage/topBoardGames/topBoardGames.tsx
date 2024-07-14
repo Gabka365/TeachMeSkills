@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import TopBoardGame from './topBoardGame/topBoardGame';
 import './topBoardGames.css';
 import gameRepository from '../../../../repositories/boardGameRepository';
-import FavoriteBoardGameIndexViewModel from '../../../../models/FavoriteBoardGameIndexViewModel';
+import FavoriteBoardGameIndexViewModel from '../../../../models/boardGames/FavoriteBoardGameIndexViewModel';
 
 function TopBoardGames() {
     const { getTop3 } = gameRepository;

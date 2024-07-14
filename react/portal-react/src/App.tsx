@@ -2,7 +2,10 @@ import './App.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { Home } from './components/pages';
 import { CreateGame, GameDetails, Games } from './components/pages/games';
-import BoardGamesPage from './components/pages/boardGamesPage/boardGamesPage';
+import {
+    BoardGamesPage,
+    BoardGameDetails,
+} from './components/pages/boardGamesPage';
 
 function App() {
     return (
@@ -11,7 +14,7 @@ function App() {
                 <div>
                     <Link to="/">Home</Link>
                     <Link to="/game">Games</Link>
-                    <Link to="/boardGames">Board Games</Link>
+                    <Link to="/boardGame">Board Games</Link>
                 </div>
                 <div className="content">
                     <Routes>
@@ -22,10 +25,10 @@ function App() {
                             <Route path="create" Component={CreateGame}></Route>
                         </Route>
 
-                        <Route
-                            path="/boardGames"
-                            Component={BoardGamesPage}
-                        ></Route>
+                        <Route path="/boardGame">
+                            <Route path=":id" Component={BoardGameDetails}></Route>
+                            <Route path="" Component={BoardGamesPage}></Route>
+                        </Route>
                     </Routes>
                 </div>
             </BrowserRouter>
