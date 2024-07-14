@@ -1,0 +1,7 @@
+.movie {
+	border: 1px solid green;
+	margin: 2px;
+}
+.deleted{
+	border: 1px red solid;
+}

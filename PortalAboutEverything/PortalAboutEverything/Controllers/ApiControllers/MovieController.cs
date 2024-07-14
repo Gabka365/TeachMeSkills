@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Models.Movie;
 using PortalAboutEverything.Services;
 
 namespace PortalAboutEverything.Controllers.ApiControllers
@@ -34,6 +35,25 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         public List<int> FindAllMovieId()
         {
             return _movieRepositories.FindAllMovieId();
+        }
+
+        public List<MovieIndexViewModel> GetAll()
+        {
+            var movieViewModel = _movieRepositories
+                .GetAll()
+                .Select(movie => new MovieIndexViewModel
+                {
+                    Id = movie.Id,
+                    Name = movie.Name,
+                    Description = movie.Description,
+                    ReleaseYear = movie.ReleaseYear,
+                    Director = movie.Director,
+                    Budget = movie.Budget,
+                    CountryOfOrigin = movie.CountryOfOrigin,
+                    HasCover = _pathHelper.IsMovieImageExist(movie.Id),
+                })
+                .ToList();
+            return movieViewModel;
         }
     }
 }
