@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import BoardGame from './boardGame/boardGame';
 import './boardGames.css';
 import gameRepository from '../../../../repositories/boardGameRepository';
@@ -6,13 +6,18 @@ import BoardGameIndexViewModel from '../../../../models/boardGames/BoardGameInde
 
 function BoardGames() {
     const { getAll } = gameRepository;
-    const [boardGames, setBoardGame] = useState<BoardGameIndexViewModel[]>([]);
+    const [boardGames, setBoardGames] = useState<BoardGameIndexViewModel[]>([]);
 
     useEffect(() => {
         getAll().then((boardGames) => {
-            setBoardGame(boardGames.data);
+            setBoardGames(boardGames.data);
         });
     }, []);
+
+    const onBoardGameDelete = useCallback((id: number) => {
+        setBoardGames((oldGames) => [...oldGames.filter((g) => g.id !== id)]);
+    }, []);
+
 
     return (
         <div>
@@ -20,8 +25,8 @@ function BoardGames() {
             <ul className="board-games">
                 {boardGames.map((boardGame) => (
                     <BoardGame
-                        id={boardGame.id}
-                        title={boardGame.title}
+                        boardGame={boardGame}
+                        onDelete={onBoardGameDelete}
                         key={boardGame.id}
                     ></BoardGame>
                 ))}

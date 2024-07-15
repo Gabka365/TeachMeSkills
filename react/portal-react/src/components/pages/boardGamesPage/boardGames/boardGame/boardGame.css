@@ -39,3 +39,7 @@
   width: 20px;
   height: 20px;
 }
+
+.deleted {
+  border: 1px red solid;
+}

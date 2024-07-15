@@ -32,7 +32,8 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             _authServise = authServise;
         }
 
-        [HasPermission(Permission.CanDeleteBoardGames)]
+        //[HasPermission(Permission.CanDeleteBoardGames)]
+        [AllowAnonymous]
         public bool Delete(int id)
         {
             if(!_gameRepositories.Delete(id))

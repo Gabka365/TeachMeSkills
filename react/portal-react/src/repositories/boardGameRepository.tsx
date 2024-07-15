@@ -19,10 +19,15 @@ function get(id: number) {
     return axios.get(`${BOARD_GAME_API_URL}Get?id=${id}`);
 }
 
+function remove(id: number) {
+    return axios.get(`${BOARD_GAME_API_URL}Delete?id=${id}`);
+}
+
 const boardGameRepository = {
     getTop3,
     getAll,
     get,
+    remove,
 };
 
 export default boardGameRepository;
