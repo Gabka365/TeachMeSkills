@@ -1,0 +1,18 @@
+export interface PermissionType {
+    None: boolean,
+    CanCreateGame: boolean,
+    CanDeleteGame: boolean,
+    CanViewPremission: boolean,
+    CanEditPremission: boolean,
+    CanCreateMovie: boolean,
+    CanDeleteMovie: boolean,
+    CanUpdateMovie: boolean,
+    CanLeaveReviewForMovie: boolean,
+    CanCreateAndUpdateBoardGames: boolean,
+    CanDeleteBoardGames: boolean,
+    CanModerateReviewsOfBoardGames: boolean,
+    CanPostInBlog: boolean,
+    CanCreateGameInGameStore: boolean,
+    CanDeleteGameInGameStore: boolean,
+    CanUpdateGameInGameStore: boolean,
+}

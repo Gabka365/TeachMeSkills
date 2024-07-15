@@ -1,5 +1,20 @@
+import { useAuthContext } from '../../../contexts/AuthContext';
+
 function Home() {
-    return <div>Home</div>;
+    const authData = useAuthContext();
+
+    return (
+        <div>
+            {authData.user ? (
+                <div>
+                    <div>Hi {authData.user.userName}</div>
+                    <div>IsAdmin: {authData.user.isAdmin + ''}</div>
+                </div>
+            ) : (
+                <div>Привет гость</div>
+            )}
+        </div>
+    );
 }
 
 export default Home;

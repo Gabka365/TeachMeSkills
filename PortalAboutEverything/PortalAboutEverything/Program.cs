@@ -85,6 +85,8 @@ builder.Services.AddHttpClient<HttpNewsTravelingsApi>(
 
 var app = builder.Build();
 
+app.UseMiddleware<MyGlobalHandlerException>();
+
 var seed = new Seed();
 seed.Fill(app.Services);
 
