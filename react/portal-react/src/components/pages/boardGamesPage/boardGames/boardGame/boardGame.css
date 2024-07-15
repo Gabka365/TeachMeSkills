@@ -1,0 +1,45 @@
+.board-game-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+  .board-game-item.active-board-game {
+      border: 2px solid #ef6747;
+  }
+
+  .board-game-item:hover {
+      background-color: #f1f1f1;
+  }
+
+.board-game-title {
+  font-size: 18px;
+  color: #333;
+  text-decoration: none;
+}
+
+.update-and-delete {
+  /*display: none;*/
+  display: flex;
+  gap: 10px;
+}
+
+.edit-link, .delete-link {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.deleted {
+  border: 1px red solid;
+}

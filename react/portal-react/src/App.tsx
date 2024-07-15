@@ -3,6 +3,10 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { BoardGames, Home, Login } from './components/pages';
 import { CreateGame, GameDetails, Games } from './components/pages/games';
 import { CreateMovie, MovieDetails, Movies } from './components/pages/movies';
+import {
+    BoardGamesPage,
+    BoardGameDetails,
+} from './components/pages/boardGamesPage';
 import AuthContext from './contexts/AuthContext';
 
 function App() {
@@ -33,10 +37,10 @@ function App() {
                                 ></Route>
                             </Route>
 
-                            <Route
-                                path="/boardGames"
-                                Component={BoardGames}
-                            ></Route>
+                        <Route path="/boardGame">
+                            <Route path=":id" Component={BoardGameDetails}></Route>
+                            <Route path="" Component={BoardGamesPage}></Route>
+                        </Route>
 
                             <Route path="/movies">
                                 <Route path="" Component={Movies}></Route>
