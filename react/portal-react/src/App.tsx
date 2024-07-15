@@ -27,10 +27,10 @@ function App() {
                             <Route path="create" Component={CreateGame}></Route>
                         </Route>
 
-                        <Route
-                            path="/boardGame"
-                            Component={BoardGames}
-                        ></Route>
+                        <Route path="/boardGame">
+                            <Route path=":id" Component={BoardGameDetails}></Route>
+                            <Route path="" Component={BoardGamesPage}></Route>
+                        </Route>
 
                         <Route path="/movies">
                             <Route path="" Component={Movies}></Route>
