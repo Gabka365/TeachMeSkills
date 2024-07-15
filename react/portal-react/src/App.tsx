@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import { BoardGames, Home,} from './components/pages';
+import { BoardGames, Home} from './components/pages';
 import { CreateGame, GameDetails, Games } from './components/pages/games';
 import { Travelings, СreateTravelings } from './components/pages/travelings/Index';
 
