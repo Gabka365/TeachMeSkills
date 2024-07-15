@@ -1,4 +1,4 @@
-export default interface GameModel {
+export default interface NewsModel {
 	id: number,
 	text: string
 }
