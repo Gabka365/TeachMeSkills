@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Traveling, LastNews } from './Index';
 import travelingRepsoitory from '../../../repositories/travelingRepsoitory';
 import TravelingModel from '../../../models/TravelingModel';
+import { Link } from 'react-router-dom';
 
 function Travelings() {
     const { getAll } = travelingRepsoitory;
@@ -20,16 +21,20 @@ function Travelings() {
     }, []);
     return (
         <div className="Travelings">
-            <LastNews></LastNews>
-            {travelings.map((traveling) => (
-                <div>
-                    <Traveling
-                        traveling={traveling}
-                        onDelete={onTravelingDelete}
-                        key={traveling.id}
-                    />
-                </div>
-            ))}
+            <LastNews />
+            {travelings.length > 0 ? (
+                travelings.map((traveling) => (
+                    <div key={traveling.id}>
+                        <Traveling
+                            traveling={traveling}
+                            onDelete={onTravelingDelete}
+                        />
+                    </div>
+                ))
+            ) : (
+                <p>Ничего не найдено или сервер отключен</p>
+            )}
+            <Link to={'/traveling/create'}>Создать</Link>
         </div>
     );
 }

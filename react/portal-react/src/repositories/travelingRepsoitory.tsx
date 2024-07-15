@@ -15,10 +15,14 @@ function getAll() {
 function remove(id: number) {
     return axios.get(`${TRAVELING_API_URL}DeletePost?postId=${id}`);
 }
+function create(data: FormData) {
+    return axios.post(`${TRAVELING_API_URL}CreateTravelings`, data);
+}
 
 const travelingRepsoitory = {
     getLastNews,
     getAll,
     remove,
+    create,
 };
 export default travelingRepsoitory;

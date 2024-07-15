@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Traveling;
@@ -46,8 +47,9 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             _travelingRepositories.Delete(postId);
         }
 
-        public int LikePost(int postId)         {
-           
+        public int LikePost(int postId)
+        {
+
             var userId = _authService.GetUserId();
 
             if (!_likeRepositories.CheckLikeUserOnTravelingPost(userId, postId))
@@ -71,18 +73,54 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             var travelingModel = _travelingRepositories.GetAll()
                                                        .Select(BuildTravelingApiViewModel)
                                                        .ToList();
-            
-            return travelingModel;           
+
+            return travelingModel;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateTravelings(TravelingCreateViewModel travelingCreate)
+        {
+            if (travelingCreate.Image != null && travelingCreate.Image.Length > 0)
+            {
+                var user = _userRepository.GetStandartUser();
+
+                var traveling = new Traveling
+                {
+                    Name = travelingCreate.Name,
+                    Desc = travelingCreate.Desc,
+                    TimeOfCreation = travelingCreate.TimeOfCreation,
+                    User = user,
+
+                };
+                _travelingRepositories.Create(traveling);
+
+                var fileExt = GetFileExtension(travelingCreate.Image.FileName);
+                var imageName = $"{traveling.Id}.{fileExt}";
+                var path = Path.Combine(_pathHelper.GetPathToTravelingImageFolder(), imageName);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await travelingCreate.Image.CopyToAsync(stream);
+                }
+
+                return Ok(new { message = "Upload successful" });
+            }
+            return BadRequest("Invalid data");
+        }
+
+
         private TravelingApiViewModel BuildTravelingApiViewModel(Traveling traveling)
-        {           
+        {
             return new TravelingApiViewModel
             {
                 Id = traveling.Id,
                 Desc = traveling.Desc,
-                Name = traveling.Name               
+                Name = traveling.Name
             };
+        }
+        private string GetFileExtension(string fileName)
+        {
+            return Path.GetExtension(Path.GetFileName(fileName)).Substring(1).ToLower();
         }
     }
 }

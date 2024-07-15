@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { BoardGames, Home,} from './components/pages';
 import { CreateGame, GameDetails, Games } from './components/pages/games';
-import { Travelings } from './components/pages/travelings/Index';
+import { Travelings, СreateTravelings } from './components/pages/travelings/Index';
 
 
 
@@ -31,7 +31,11 @@ function App() {
                         ></Route>
 
                         <Route path="/traveling">
-                            <Route path="" Component={Travelings} ></Route> 
+                            <Route path="" Component={Travelings}></Route>
+                            <Route
+                                path="create"
+                                Component={СreateTravelings}
+                            ></Route>
                         </Route>
                     </Routes>
                 </div>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.Identity.Client;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories.Interfaces;
@@ -63,5 +64,8 @@ namespace PortalAboutEverything.Data.Repositories
              => _dbSet
             .Include(user => user.FavoriteMovies)
             .Single(user => user.Id == id);
+
+        public User GetStandartUser() 
+            => _dbSet.Where(u => u.UserName == "User").First();
     }
 }
