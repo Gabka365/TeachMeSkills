@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './lastNews.module.css';
 import travelingRepsoitory from '../../../../repositories/travelingRepsoitory';
-import newsModel from '../../../../models/NewsModel';
+import newsModel from '../../../../models/newsModel';
 import { useEffect, useState } from 'react';
 
 function LastNews() {

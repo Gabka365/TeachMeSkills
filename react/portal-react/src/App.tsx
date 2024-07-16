@@ -41,10 +41,10 @@ function App() {
                                 ></Route>
                             </Route>
 
-                        <Route path="/boardGame">
-                            <Route path=":id" Component={BoardGameDetails}></Route>
-                            <Route path="" Component={BoardGamesPage}></Route>
-                        </Route>
+                            <Route path="/boardGame">
+                                <Route path=":id" Component={BoardGameDetails}></Route>
+                                <Route path="" Component={BoardGamesPage}></Route>
+                            </Route>
 
                             <Route path="/movies">
                                 <Route path="" Component={Movies}></Route>

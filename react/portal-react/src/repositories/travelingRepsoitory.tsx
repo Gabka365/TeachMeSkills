@@ -1,7 +1,6 @@
 import axios from "axios";
 import { NEWS_API_URL, BASE_API_URL } from "./apiConstatns";
-import { json } from 'react-router-dom';
-import NewsModel from '../models/NewsModel';
+import NewsModel from '../models/newsModel';
 import TravelingModel from '../models/TravelingModel'
 
 const TRAVELING_API_URL = `${BASE_API_URL}api/traveling/`;
