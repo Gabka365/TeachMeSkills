@@ -10,8 +10,6 @@ import {
 import AuthContext from './contexts/AuthContext';
 import { Travelings, СreateTravelings } from './components/pages/travelings/Index';
 
-
-
 function App() {
     return (
         <div className="App">
