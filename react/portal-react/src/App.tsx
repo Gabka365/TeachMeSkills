@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import { BoardGames, Home, Login } from './components/pages';
+import { Home, Login } from './components/pages';
 import { CreateGame, GameDetails, Games } from './components/pages/games';
 import { CreateMovie, MovieDetails, Movies } from './components/pages/movies';
 import {
@@ -16,15 +16,15 @@ function App() {
                 <BrowserRouter>
                     <div>
                         <Link to="/">Home</Link>
-						<Link to="/login">Login</Link>
+                        <Link to="/login">Login</Link>
                         <Link to="/game">Games</Link>
-                        <Link to="/boardGames">Board Games</Link>
+                        <Link to="/boardGame">Board Games</Link>
                         <Link to="/movies">Movies</Link>
                     </div>
                     <div className="content">
                         <Routes>
                             <Route path="" Component={Home}></Route>
-							<Route path="/login" Component={Login}></Route>
+                            <Route path="/login" Component={Login}></Route>
                             <Route path="/game">
                                 <Route
                                     path=":id"
@@ -37,10 +37,16 @@ function App() {
                                 ></Route>
                             </Route>
 
-                        <Route path="/boardGame">
-                            <Route path=":id" Component={BoardGameDetails}></Route>
-                            <Route path="" Component={BoardGamesPage}></Route>
-                        </Route>
+                            <Route path="/boardGame">
+                                <Route
+                                    path=":id"
+                                    Component={BoardGameDetails}
+                                ></Route>
+                                <Route
+                                    path=""
+                                    Component={BoardGamesPage}
+                                ></Route>
+                            </Route>
 
                             <Route path="/movies">
                                 <Route path="" Component={Movies}></Route>
