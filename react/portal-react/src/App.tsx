@@ -8,6 +8,10 @@ import {
     BoardGameDetails,
 } from './components/pages/boardGamesPage';
 import AuthContext from './contexts/AuthContext';
+import {
+    Travelings,
+    СreateTravelings,
+} from './components/pages/travelings/Index';
 
 function App() {
     return (
@@ -16,15 +20,16 @@ function App() {
                 <BrowserRouter>
                     <div>
                         <Link to="/">Home</Link>
-						<Link to="/login">Login</Link>
+                        <Link to="/login">Login</Link>
                         <Link to="/game">Games</Link>
                         <Link to="/boardGames">Board Games</Link>
                         <Link to="/movies">Movies</Link>
+                        <Link to="/traveling">Traveling</Link>
                     </div>
                     <div className="content">
                         <Routes>
                             <Route path="" Component={Home}></Route>
-							<Route path="/login" Component={Login}></Route>
+                            <Route path="/login" Component={Login}></Route>
                             <Route path="/game">
                                 <Route
                                     path=":id"
@@ -37,10 +42,16 @@ function App() {
                                 ></Route>
                             </Route>
 
-                        <Route path="/boardGame">
-                            <Route path=":id" Component={BoardGameDetails}></Route>
-                            <Route path="" Component={BoardGamesPage}></Route>
-                        </Route>
+                            <Route path="/boardGame">
+                                <Route
+                                    path=":id"
+                                    Component={BoardGameDetails}
+                                ></Route>
+                                <Route
+                                    path=""
+                                    Component={BoardGamesPage}
+                                ></Route>
+                            </Route>
 
                             <Route path="/movies">
                                 <Route path="" Component={Movies}></Route>
@@ -51,6 +62,13 @@ function App() {
                                 <Route
                                     path="create"
                                     Component={CreateMovie}
+                                ></Route>
+                            </Route>
+                            <Route path="/traveling">
+                                <Route path="" Component={Travelings}></Route>
+                                <Route
+                                    path="create"
+                                    Component={СreateTravelings}
                                 ></Route>
                             </Route>
                         </Routes>
