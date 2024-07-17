@@ -4,6 +4,7 @@ import './boardGames.css';
 import gameRepository from '../../../../repositories/boardGameRepository';
 import BoardGameIndexViewModel from '../../../../models/boardGames/BoardGameIndexViewModel';
 import { Link } from 'react-router-dom';
+import Permission from '../../../../contexts/Permission';
 
 function BoardGames() {
     const { getAll } = gameRepository;
@@ -18,7 +19,6 @@ function BoardGames() {
     const onBoardGameDelete = useCallback((id: number) => {
         setBoardGames((oldGames) => [...oldGames.filter((g) => g.id !== id)]);
     }, []);
-
 
     return (
         <div>
@@ -37,11 +37,16 @@ function BoardGames() {
                     Ваши любимые игры
                 </a>
             </div>
-            <div className="add-board-game">
-                <Link className="add-board-game-link" to="/boardGame/create">
-                    Добавить игру
-                </Link>
-            </div>
+            <Permission check={(p) => p.CanCreateAndUpdateBoardGames}>
+                <div className="add-board-game">
+                    <Link
+                        className="add-board-game-link"
+                        to="/boardGame/create"
+                    >
+                        Добавить игру
+                    </Link>
+                </div>
+            </Permission>
         </div>
     );
 }
