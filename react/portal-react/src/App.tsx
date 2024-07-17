@@ -9,6 +9,10 @@ import {
     CreateBoardGame,
 } from './components/pages/boardGamesPage';
 import AuthContext from './contexts/AuthContext';
+import {
+    Travelings,
+    СreateTravelings,
+} from './components/pages/travelings/Index';
 
 function App() {
     return (
@@ -21,6 +25,7 @@ function App() {
                         <Link to="/game">Games</Link>
                         <Link to="/boardGame">Board Games</Link>
                         <Link to="/movies">Movies</Link>
+                        <Link to="/traveling">Traveling</Link>
                     </div>
                     <div className="content">
                         <Routes>
@@ -62,6 +67,13 @@ function App() {
                                 <Route
                                     path="create"
                                     Component={CreateMovie}
+                                ></Route>
+                            </Route>
+                            <Route path="/traveling">
+                                <Route path="" Component={Travelings}></Route>
+                                <Route
+                                    path="create"
+                                    Component={СreateTravelings}
                                 ></Route>
                             </Route>
                         </Routes>

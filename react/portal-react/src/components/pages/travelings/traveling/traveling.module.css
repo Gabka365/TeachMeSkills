@@ -1,0 +1,9 @@
+.wrapper{    
+    display: inline-block;
+}
+.name{
+    color: rgb(202, 162, 162);
+}
+.desc{
+    color: rgb(192, 230, 230);
+}

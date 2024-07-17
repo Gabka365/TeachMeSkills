@@ -212,6 +212,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\Game\" />
     <Folder Include="wwwroot\images\Movie\" />
+    <Folder Include="wwwroot\images\Traveling\UserPictures\" />
     <Folder Include="wwwroot\js\BoardGame\" />
   </ItemGroup>
 
