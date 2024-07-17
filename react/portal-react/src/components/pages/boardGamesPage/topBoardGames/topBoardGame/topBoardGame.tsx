@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import './topBoardGame.css';
+import { Link } from 'react-router-dom';
 
 interface TopBoardGameProp {
     index: number;
@@ -18,12 +19,12 @@ const TopBoardGame: FC<TopBoardGameProp> = ({
         <li className="board-game-item top-board-game-item">
             <input className="top-board-game-id" type="hidden" value={id} />
             <p>{index}</p>
-            <a
+            <Link
                 className="board-game-title text-dark top-board-game-title"
-                href="#"
+                to={`/boardGame/${id}`}
             >
                 {title}
-            </a>
+            </Link>
             <p className="like-count">{countOfUserWhoLikeIt}</p>
         </li>
     );
