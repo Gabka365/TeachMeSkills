@@ -4,6 +4,7 @@ using PortalAboutEverything.CustomMiddlewareServices;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Repositories.Interfaces;
+using PortalAboutEverything.Helpers;
 using PortalAboutEverything.Hubs;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Services;
@@ -39,27 +40,10 @@ builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbConte
 
 //Repository
 builder.Services.AddVideoLibraryServices();
-builder.Services.AddScoped<TravelingRepositories>();
-builder.Services.AddScoped<GameRepositories>();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<UserRepository>();
-
-builder.Services.AddScoped<BlogRepositories>();
-builder.Services.AddScoped<MovieRepositories>();
-
-builder.Services.AddScoped<IBoardGameRepositories, BoardGameRepositories>();
-builder.Services.AddScoped<BoardGameRepositories>();
-
-builder.Services.AddScoped<BoardGameReviewRepositories>();
-builder.Services.AddScoped<HistoryRepositories>();
-builder.Services.AddScoped<BookRepositories>();
-builder.Services.AddScoped<BookReviewRepositories>();
-builder.Services.AddScoped<StoreRepositories>();
-builder.Services.AddScoped<GoodReviewRepositories>();
-builder.Services.AddScoped<GameStoreRepositories>();
-builder.Services.AddScoped<CommentRepository>();
-builder.Services.AddScoped<LikeRepositories>();
+var autoRegistrator = new AutoRegistrator();
+autoRegistrator.RegiterRepositories(builder.Services);
+autoRegistrator.RegiterRepositoriesByInterface(builder.Services);
 
 // Services
 builder.Services.AddScoped<LikeHelper>();
