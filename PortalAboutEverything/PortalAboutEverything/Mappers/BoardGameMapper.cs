@@ -52,6 +52,18 @@ namespace PortalAboutEverything.Mappers
                 ProductCode = gameViewModel.ProductCode.Value,
             };
 
+        public BoardGame BuildBoardGameDataModelFromCreateReact(BoardGameCreateViewModelReact gameViewModel)
+            => new BoardGame
+            {
+                Title = gameViewModel.Title,
+                MiniTitle = gameViewModel.MiniTitle,
+                Description = gameViewModel.Description,
+                Essence = gameViewModel.Essence,
+                Tags = gameViewModel.Tags,
+                Price = gameViewModel.Price.Value,
+                ProductCode = gameViewModel.ProductCode.Value,
+            };
+
         public BoardGameUpdateViewModel BuildBoardGameUpdateDataModel(BoardGame game)
             => new BoardGameUpdateViewModel
             {

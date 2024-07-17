@@ -3,6 +3,7 @@ import BoardGame from './boardGame/boardGame';
 import './boardGames.css';
 import gameRepository from '../../../../repositories/boardGameRepository';
 import BoardGameIndexViewModel from '../../../../models/boardGames/BoardGameIndexViewModel';
+import { Link } from 'react-router-dom';
 
 function BoardGames() {
     const { getAll } = gameRepository;
@@ -37,9 +38,9 @@ function BoardGames() {
                 </a>
             </div>
             <div className="add-board-game">
-                <a className="add-board-game-link" href="#">
+                <Link className="add-board-game-link" to="/boardGame/create">
                     Добавить игру
-                </a>
+                </Link>
             </div>
         </div>
     );

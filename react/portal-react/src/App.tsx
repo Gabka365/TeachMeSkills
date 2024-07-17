@@ -6,6 +6,7 @@ import { CreateMovie, MovieDetails, Movies } from './components/pages/movies';
 import {
     BoardGamesPage,
     BoardGameDetails,
+    CreateBoardGame,
 } from './components/pages/boardGamesPage';
 import AuthContext from './contexts/AuthContext';
 
@@ -45,6 +46,10 @@ function App() {
                                 <Route
                                     path=""
                                     Component={BoardGamesPage}
+                                ></Route>
+                                <Route
+                                    path="create"
+                                    Component={CreateBoardGame}
                                 ></Route>
                             </Route>
 
