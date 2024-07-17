@@ -1,11 +1,12 @@
 import './App.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import { BoardGames, Home, Login } from './components/pages';
+import { Home, Login } from './components/pages';
 import { CreateGame, GameDetails, Games } from './components/pages/games';
 import { CreateMovie, MovieDetails, Movies } from './components/pages/movies';
 import {
     BoardGamesPage,
     BoardGameDetails,
+    CreateBoardGame,
 } from './components/pages/boardGamesPage';
 import AuthContext from './contexts/AuthContext';
 import {
@@ -22,7 +23,7 @@ function App() {
                         <Link to="/">Home</Link>
                         <Link to="/login">Login</Link>
                         <Link to="/game">Games</Link>
-                        <Link to="/boardGames">Board Games</Link>
+                        <Link to="/boardGame">Board Games</Link>
                         <Link to="/movies">Movies</Link>
                         <Link to="/traveling">Traveling</Link>
                     </div>
@@ -50,6 +51,10 @@ function App() {
                                 <Route
                                     path=""
                                     Component={BoardGamesPage}
+                                ></Route>
+                                <Route
+                                    path="create"
+                                    Component={CreateBoardGame}
                                 ></Route>
                             </Route>
 

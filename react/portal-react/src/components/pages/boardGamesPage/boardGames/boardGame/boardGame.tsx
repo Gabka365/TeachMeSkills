@@ -4,6 +4,7 @@ import './boardGame.css';
 import { Link } from 'react-router-dom';
 import boardGameRepository from '../../../../../repositories/boardGameRepository';
 import BoardGameIndexViewModel from '../../../../../models/boardGames/BoardGameIndexViewModel';
+import Permission from '../../../../../contexts/Permission';
 
 interface BoardGameProp {
     boardGame: BoardGameIndexViewModel;
@@ -33,6 +34,7 @@ const BoardGame: FC<BoardGameProp> = ({ boardGame, onDelete }) => {
                 {boardGame.title}
             </Link>
             <div className="update-and-delete">
+            <Permission check={(p) => p.CanCreateAndUpdateBoardGames}>
                 <a className="edit-link" href="#">
                     <img
                         className="icon edit-icon"
@@ -40,17 +42,19 @@ const BoardGame: FC<BoardGameProp> = ({ boardGame, onDelete }) => {
                         alt="Изменить"
                     />
                 </a>
-
-                <div
-                    className={`delete-link ${isDeleted ? 'deleted' : ''}`}
-                    onClick={() => removeBoardGame(boardGame.id)}
-                >
-                    <img
-                        className="icon delete-icon"
-                        src={`${BASE_API_URL}/images/BoardGame/delete.svg`}
-                        alt="Удалить"
-                    />
-                </div>
+                </Permission>
+                <Permission check={(p) => p.CanDeleteBoardGames}>
+                    <div
+                        className={`delete-link ${isDeleted ? 'deleted' : ''}`}
+                        onClick={() => removeBoardGame(boardGame.id)}
+                    >
+                        <img
+                            className="icon delete-icon"
+                            src={`${BASE_API_URL}/images/BoardGame/delete.svg`}
+                            alt="Удалить"
+                        />
+                    </div>
+                </Permission>
             </div>
         </li>
     );

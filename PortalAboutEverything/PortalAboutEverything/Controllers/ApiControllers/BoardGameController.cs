@@ -32,6 +32,36 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             _authServise = authServise;
         }
 
+        [AllowAnonymous]
+        public bool Create(BoardGameCreateViewModelReact boardGameViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return false;
+            }
+
+            BoardGame game = _mapper.BuildBoardGameDataModelFromCreateReact(boardGameViewModel);
+
+            _gameRepositories.Create(game);
+
+            //var pathToMainImage = _pathHelper.GetPathToBoardGameMainImage(game.Id);
+            //using (var fs = new FileStream(pathToMainImage, FileMode.Create))
+            //{
+            //    boardGameViewModel.MainImage.CopyTo(fs);
+            //}
+
+            //if (boardGameViewModel.SideImage is not null)
+            //{
+            //    var pathToSideImage = _pathHelper.GetPathToBoardGameSideImage(game.Id);
+            //    using (var fs = new FileStream(pathToSideImage, FileMode.Create))
+            //    {
+            //        boardGameViewModel.SideImage.CopyTo(fs);
+            //    }
+            //}
+
+            return true;
+        }
+
         //[HasPermission(Permission.CanDeleteBoardGames)]
         [AllowAnonymous]
         public bool Delete(int id)
