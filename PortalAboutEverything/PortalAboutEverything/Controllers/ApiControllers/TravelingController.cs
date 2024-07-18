@@ -20,6 +20,8 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         private AuthService _authService;
         private readonly string[] _validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 
+        public TravelingController() { }
+
         public TravelingController(TravelingRepositories travelingRepositories, PathHelper pathHelper, LikeRepositories likeRepositories, AuthService authService, UserRepository userRepository)
         {
             _travelingRepositories = travelingRepositories;

@@ -1,21 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Traveling;
 using PortalAboutEverything.Services;
-using static System.Net.Mime.MediaTypeNames;
-using System.Drawing;
-using System.Reflection;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
-using System.Linq;
 using PortalAboutEverything.Services.AuthStuff;
-using System.Xml.Linq;
-using PortalAboutEverything.Services.Dtos;
+using System.Reflection;
+
 
 
 namespace PortalAboutEverything.Controllers
@@ -135,7 +129,7 @@ namespace PortalAboutEverything.Controllers
                 .ToList();
 
             if (travelingPosts.Count != 0)
-            { 
+            {
                 var topTraveling = _travelingRepositories.GetTopTreveling();
 
                 var topTravelinViewModel = new TopTravelingByCommentsViewModel
@@ -161,12 +155,12 @@ namespace PortalAboutEverything.Controllers
                     {
                         travelingPosts.Remove(post);
                         break;
-                    }               
+                    }
                 }
                 model.TopTravelingByCommentsViewModel = topTravelinViewModel;
             }
 
-            model.TravelingPostsViewModels = travelingPosts;            
+            model.TravelingPostsViewModels = travelingPosts;
             model.IsTravingAdmin = User.Identity.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
             model.LastNews = lastNews.Text;
             return View(model);
@@ -224,28 +218,6 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("TravelingPosts");
         }
 
-        //[HttpPost]
-        //public IActionResult CreateComment(TravelingCreateComment travelingCreateComment)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        var errors = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage;
-
-        //        TempData["ErrorMessage"] = errors;
-
-        //        return RedirectToAction("TravelingPosts");
-        //    }
-        //    var comment = new Comment
-        //    {
-        //        Text = travelingCreateComment.Text,
-        //        Traveling = _travelingRepositories.Get(travelingCreateComment.PostId)
-        //    };
-
-        //    _commentRepository.Create(comment);
-
-        //    return RedirectToAction("TravelingPosts");
-        //}
-               
 
         [HttpGet]
         public IActionResult UpdatePost(int id)
@@ -276,6 +248,38 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("TravelingPosts");
         }
 
+        public IActionResult TravelingApiInfo()
+        {
+            var travelingApi = new PortalAboutEverything.Controllers.ApiControllers.TravelingController();
+            var typeTravelingApi = travelingApi.GetType();
+
+            var listMethodsTravelingApi = new List<string>();
+            var allMethods = typeTravelingApi.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+            var customMethods = allMethods.Where(m => m.DeclaringType == typeTravelingApi);
+            foreach (var method in customMethods)
+            {
+                var parameters = method.GetParameters();
+                string infoparameter = "";
+                foreach (var parameter in parameters)
+                {
+                    infoparameter += $"Имя {parameter.Name} тип {parameter.ParameterType}<br/>";
+                }
+                listMethodsTravelingApi.Add($"Название метода {method.Name},<br/>" +
+                            $"Он вернет параметр {method.ReturnParameter.Name} типа {method.ReturnType},<br/>" +
+                            $"Входящие параметры:<br/>{infoparameter}<br/>");
+            }
+            var modelList = new List<MethodInfoViewModel>();
+            foreach (var methodInfo in listMethodsTravelingApi)
+            {
+                var model = new MethodInfoViewModel();
+                model.MethodInfo = methodInfo;
+                modelList.Add(model);
+
+            }
+
+            return View(modelList);
+        }
+
         private TravelingPostsViewModel BuildTravelingShowPostsViewModel(Traveling traveling)
            => new TravelingPostsViewModel
            {
@@ -289,7 +293,7 @@ namespace PortalAboutEverything.Controllers
                    Text = c.Text,
 
                }).ToList(),
-               countLike = _travelingRepositories.CountLike(traveling.Id) 
+               countLike = _travelingRepositories.CountLike(traveling.Id)
 
            };
         private void SaveImageToDirectory(string directoryPath, string filePath, IFormFile image)
