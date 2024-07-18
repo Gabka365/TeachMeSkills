@@ -253,9 +253,13 @@ namespace PortalAboutEverything.Controllers
             var travelingApi = new PortalAboutEverything.Controllers.ApiControllers.TravelingController();
             var typeTravelingApi = travelingApi.GetType();
 
-            var listMethodsTravelingApi = new List<string>();
-            var allMethods = typeTravelingApi.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-            var customMethods = allMethods.Where(m => m.DeclaringType == typeTravelingApi);
+            var customMethods = typeTravelingApi
+                        .GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+                        .Where(m => m.DeclaringType == typeTravelingApi);
+         
+            var model = new MethodInfoViewModel();
+            var modelList = new List<MethodInfoViewModel>();
+
             foreach (var method in customMethods)
             {
                 var parameters = method.GetParameters();
@@ -264,17 +268,10 @@ namespace PortalAboutEverything.Controllers
                 {
                     infoparameter += $"Имя {parameter.Name} тип {parameter.ParameterType}<br/>";
                 }
-                listMethodsTravelingApi.Add($"Название метода {method.Name},<br/>" +
+                model.MethodInfo = ($"Название метода {method.Name},<br/>" +
                             $"Он вернет параметр {method.ReturnParameter.Name} типа {method.ReturnType},<br/>" +
                             $"Входящие параметры:<br/>{infoparameter}<br/>");
-            }
-            var modelList = new List<MethodInfoViewModel>();
-            foreach (var methodInfo in listMethodsTravelingApi)
-            {
-                var model = new MethodInfoViewModel();
-                model.MethodInfo = methodInfo;
                 modelList.Add(model);
-
             }
 
             return View(modelList);
