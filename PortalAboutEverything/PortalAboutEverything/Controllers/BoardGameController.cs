@@ -101,7 +101,7 @@ namespace PortalAboutEverything.Controllers
                 }
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -148,7 +148,7 @@ namespace PortalAboutEverything.Controllers
                 }
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HasPermission(Permission.CanDeleteBoardGames)]
@@ -165,7 +165,7 @@ namespace PortalAboutEverything.Controllers
                 System.IO.File.Delete(pathToSideImage);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [AllowAnonymous]
@@ -210,11 +210,11 @@ namespace PortalAboutEverything.Controllers
 
             if (isGamePage)
             {
-                return RedirectToAction("BoardGame", new { id = gameId });
+                return RedirectToAction(nameof(BoardGame), new { id = gameId });
             }
             else
             {
-                return RedirectToAction("UserFavoriteBoardGames");
+                return RedirectToAction(nameof(UserFavoriteBoardGames));
             }
         }
 
