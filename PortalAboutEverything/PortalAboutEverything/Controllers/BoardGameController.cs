@@ -8,6 +8,7 @@ using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Mappers;
+using System.Reflection;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -215,6 +216,21 @@ namespace PortalAboutEverything.Controllers
             {
                 return RedirectToAction("UserFavoriteBoardGames");
             }
+        }
+
+        public IActionResult ApiMethods()
+        {
+            List<ApiMethodViewModel> viewModel = new();
+
+            var apiType = typeof(ApiControllers.BoardGameController);
+            var apiMethods = apiType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+
+            foreach (var method in apiMethods)
+            {
+                viewModel.Add(new ApiMethodViewModel { Name = method.Name });
+            }
+
+            return View(viewModel);
         }
     }
 }
