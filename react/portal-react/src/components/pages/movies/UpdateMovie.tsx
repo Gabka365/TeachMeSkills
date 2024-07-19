@@ -5,28 +5,30 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateMovie() {
     const {movieId} = useParams();
-    const { get } = movieRepository;
+    const [id, setMovieid] = useState<number>(+movieId!);
+    const { get, update } = movieRepository;
     const [movie, setMovie] = useState<MovieModel>();
 
-    useEffect(() => {
-        if (movieId) {
-            get(+movieId).then((response) => {
-                setMovie(response.data as MovieModel);
-            });
-        } else {
-            console.error('There is no ID');
-        }
-    }, []);
-
-    const [name, setName] = useState(movie?.name);
-    const [releaseYear, setReleaseYear] = useState(movie?.releaseYear);
-    const [director, setDirector] = useState(movie?.director);
-    const [budget, setBudget] = useState(movie?.budget);
-    const [countryOfOrigin, setCountry] = useState(movie?.countryOfOrigin);
-    const [description, setDescription] = useState(movie?.description);
-    const [id, setMovieid] = useState<number>(+movieId!);
-    const { update } = movieRepository;
+    const [name, setName] = useState<string>();
+    const [releaseYear, setReleaseYear] = useState<number>();
+    const [director, setDirector] = useState<string>();
+    const [budget, setBudget] = useState<number>();
+    const [countryOfOrigin, setCountry] = useState<string>();
+    const [description, setDescription] = useState<string>();
     let navigate = useNavigate();
+    const [changeInfo, setChangeInfo] = useState(false);
+
+    useEffect(() => {
+        get(+id).then((response) => {
+            setMovie(response.data as MovieModel);
+            setName(movie?.name);
+            setReleaseYear(movie?.releaseYear);
+            setDirector(movie?.director);
+            setBudget(movie?.budget!);
+            setCountry(movie?.countryOfOrigin);
+            setDescription(movie?.description);
+        });
+    }, [changeInfo]);
 
     const onNameChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,6 +79,10 @@ function UpdateMovie() {
         []
     );
 
+    const onFill = useCallback(() => {
+        setChangeInfo(true);
+    }, []);
+
     const onUpdate = useCallback(() => {
         update({ id, name, releaseYear, director, budget, countryOfOrigin, description} as MovieModel).then((answer) => {
             if (answer.data) {
@@ -86,8 +92,10 @@ function UpdateMovie() {
             }
         });
     }, [name, releaseYear, director, budget, countryOfOrigin, description]);
+
     return (
         <div>
+            <button onClick={onFill}>Fill info about movie</button>
             <div>
                 Name:
                 <input type="text" value={name} onChange={onNameChange} />
