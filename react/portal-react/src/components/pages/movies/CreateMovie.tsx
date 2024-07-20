@@ -5,93 +5,99 @@ import { useNavigate } from "react-router-dom";
 
 
 function CreateMovie() {
-    const [name, setName] = useState<string>();
-    const [releaseYear, setReleaseYear] = useState<number>();
-    const [director, setDirector] = useState<string>();
-    const [budget, setBudget] = useState<number>();
-    const [countryOfOrigin, setCountry] = useState<string>();
-    const [description, setDescription] = useState<string>();
-
+    const [movie, setMovie] = useState<MovieModel>({} as MovieModel);
     const { add } = movieRepository;
     let navigate = useNavigate();
 
     const onNameChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            setName(e.target.value);
+            setMovie(oldMovie => {
+                return {...oldMovie, name: e.target.value}
+            });
         },
         []
     );
 
     const onReleaseYearChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            setReleaseYear(+e.target.value);
+            setMovie(oldMovie => {
+                return {...oldMovie, releaseYear: +e.target.value}
+            });
         },
         []
     );
 
     const onDirectorChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            setDirector(e.target.value);
+            setMovie(oldMovie => {
+                return {...oldMovie, director: e.target.value}
+            });
         },
         []
     );
 
     const onBudgetChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            setBudget(+e.target.value);
+            setMovie(oldMovie => {
+                return {...oldMovie, budget: +e.target.value}
+            });
         },
         []
     );
 
     const onCountryChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            setCountry(e.target.value);
+            setMovie(oldMovie => {
+                return {...oldMovie, countryOfOrigin: e.target.value}
+            });
         },
         []
     );
 
     const onDescChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            setDescription(e.target.value);
+            setMovie(oldMovie => {
+                return {...oldMovie, description: e.target.value}
+            });
         },
         []
     ); 
 
     const onCreate = useCallback(() => {
-        add({ name, releaseYear, director, budget, countryOfOrigin, description} as MovieModel).then((answer) => {
+        add(movie as MovieModel).then((answer) => {
             if (answer.data) {
                 navigate('/movies');
             } else {
                 console.log('error');
             }
         });
-    }, [name, releaseYear, director, budget, countryOfOrigin, description]);
+    }, [movie]);
 
     return (
         <div>
             <div>
                 Name:
-                <input type="text" value={name} onChange={onNameChange} />
+                <input type="text" value={movie.name} onChange={onNameChange} />
             </div>
             <div>
                 ReleaseYear:
-                <input type="number" value={releaseYear} onChange={onReleaseYearChange} />
+                <input type="number" value={movie.releaseYear} onChange={onReleaseYearChange} />
             </div>
             <div>
                 Description:
-                <input type="text" value={description} onChange={onDescChange} />
+                <input type="text" value={movie.description} onChange={onDescChange} />
             </div>
             <div>
                 Director:
-                <input type="text" value={director} onChange={onDirectorChange} />
+                <input type="text" value={movie.director} onChange={onDirectorChange} />
             </div>
             <div>
                 Budget:
-                <input type="number" value={budget} onChange={onBudgetChange} />
+                <input type="number" value={movie.budget} onChange={onBudgetChange} />
             </div>
             <div>
                 Country:
-                <input type="text" value={countryOfOrigin} onChange={onCountryChange} />
+                <input type="text" value={movie.countryOfOrigin} onChange={onCountryChange} />
             </div>
 
             <button onClick={onCreate}>Create</button>
