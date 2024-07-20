@@ -4,10 +4,12 @@ import Movie from './movie/movie';
 import MovieModel from '../../../models/MovieModel';
 import { movieRepository } from '../../../repositories';
 import { Link } from 'react-router-dom';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 function Movies() {
     const {getAll} = movieRepository;
     const [movies, setMovies] = useState<MovieModel[]>([]);
+    const {user} = useAuthContext();
 
     useEffect(() => {
         getAll()
@@ -22,7 +24,7 @@ function Movies() {
 
     return (
         <div className="movies">
-            <Link to={'/movies/create'}>Create movie</Link>
+            <>{user.isAdmin && <Link to={'/movies/create'}>Create movie</Link>}</>
             {movies.map((movie) => (
                 <Movie movie={movie} onDelete={onMovieDelete} key={movie.id}></Movie>
             ))}
