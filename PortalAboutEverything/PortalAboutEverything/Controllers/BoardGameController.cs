@@ -227,10 +227,34 @@ namespace PortalAboutEverything.Controllers
 
             foreach (var method in apiMethods)
             {
-                viewModel.Add(new ApiMethodViewModel { Name = method.Name });
+                List<ParameterViewModel> parametersViewModel = new();
+                var parameters = method.GetParameters();
+                foreach (var parameter in parameters)
+                {
+                    var parameterViewModel = new ParameterViewModel { ParameterTitle = parameter.Name, ParameterTypeName = GetTypeName(parameter.ParameterType) };
+                    parametersViewModel.Add(parameterViewModel);
+                }
+
+                var methodViewModel = new ApiMethodViewModel { Name = method.Name, ReturnTypeName = GetTypeName(method.ReturnType), Parameters = parametersViewModel };
+
+                viewModel.Add(methodViewModel);
             }
 
             return View(viewModel);
+        }
+
+        private string GetTypeName(Type type)
+        {
+            if (!type.IsGenericType)
+            {
+                return type.Name;
+            }
+
+            var genericType = type.GetGenericTypeDefinition();
+            var genericArguments = type.GetGenericArguments();
+            var genericTypeName = genericType.Name.Split('`')[0];
+            var argumentTypeNames = string.Join(", ", genericArguments.Select(GetTypeName));
+            return $"{genericTypeName}<{argumentTypeNames}>";
         }
     }
 }
