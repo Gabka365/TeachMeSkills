@@ -7,6 +7,7 @@ using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
+using System.Reflection;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -180,10 +181,10 @@ namespace PortalAboutEverything.Controllers
         {
             var movieName = _movieRepositories.GetMovieName(movieId);
             var viewModel = new MovieUpdateReviewViewModel
-			{
+            {
                 MovieId = movieId,
-				ReviewId = reviewId,
-				MovieName = movieName,
+                ReviewId = reviewId,
+                MovieName = movieName,
             };
             return View(viewModel);
         }
@@ -229,6 +230,44 @@ namespace PortalAboutEverything.Controllers
             _userRepository.DeleteMovieFromMoviesFan(movie, userId);
 
             return RedirectToAction("MoviesFan");
+        }
+
+        public IActionResult Methods()
+        {
+            var movieApiController = typeof(ApiControllers.MovieController);
+            var methods = movieApiController.GetMethods(BindingFlags.Instance | BindingFlags.Public
+                | BindingFlags.DeclaredOnly);
+            var methodsArrayModel = new List<MethodViewModel>();
+
+            foreach (var method in methods)
+            {
+                var methodName = method.Name;
+                var methodType = method.ReturnType.Name;
+                var parameters = method.GetParameters();
+                var parametersArrayModel = new List<MethodParametersViewModel>();
+                foreach (var parameter in parameters)
+                {
+                    var parameterName = parameter.Name;
+                    var parameterType = parameter.ParameterType.Name;
+
+                    var parameterModel = new MethodParametersViewModel
+                    {
+                        ParameterName = parameterName,
+                        ParameterType = parameterType,
+                    };
+                    parametersArrayModel.Add(parameterModel);
+                }
+                
+                var methodModel = new MethodViewModel
+                {
+                    MethodName = methodName,
+                    MethodType = methodType,
+                    ParametersInfo = parametersArrayModel,
+                };
+                methodsArrayModel.Add(methodModel);
+            }
+
+            return View(methodsArrayModel);
         }
     }
 }
