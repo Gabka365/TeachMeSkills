@@ -11,29 +11,25 @@ namespace PortalAboutEverything.Services
             _httpClient = httpClient;
         }
 
-        public DtoBoardGameReview GetReview(int id)
+        public async Task<DtoBoardGameReview> GetReviewAsync(int id)
         {
-            return _httpClient
-                .GetAsync($"get?id={id}")
-                .Result
+            var response = await _httpClient.GetAsync($"get?id={id}");
+            var dto = await response
                 .Content
-                .ReadFromJsonAsync<DtoBoardGameReview>()
-                .Result!;
+                .ReadFromJsonAsync<DtoBoardGameReview>();
+            return dto;
         }
 
-        public void CreateReview(DtoBoardGameReviewCreate review)
+        public async Task CreateReviewAsync(DtoBoardGameReviewCreate review)
         {
-            _httpClient
-               .PostAsJsonAsync("createReview", review)
-               .Result
-               .EnsureSuccessStatusCode();
+            var response = await _httpClient.PostAsJsonAsync("createReview", review);
+            response.EnsureSuccessStatusCode();
         }
 
-        public void UpdateReview(DtoBoardGameReviewUpdate review)
+        public async Task UpdateReviewAsync(DtoBoardGameReviewUpdate review)
         {
-            _httpClient
-               .PostAsJsonAsync("updateReview", review)
-               .Result
+            (await _httpClient
+               .PostAsJsonAsync("updateReview", review))
                .EnsureSuccessStatusCode();
         }
     }

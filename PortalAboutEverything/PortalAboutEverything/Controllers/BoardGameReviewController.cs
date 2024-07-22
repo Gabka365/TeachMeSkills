@@ -38,7 +38,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(BoardGameCreateReviewViewModel boardGameReviewViewModel)
+        public async Task<IActionResult> CreateAsync(BoardGameCreateReviewViewModel boardGameReviewViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -47,15 +47,15 @@ namespace PortalAboutEverything.Controllers
 
             DtoBoardGameReviewCreate review = _mapper.BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
             review.BoardGameId = boardGameReviewViewModel.BoardGameId;
-            _httpService.CreateReview(review);
+            await _httpService.CreateReviewAsync(review);
 
             return RedirectToAction("BoardGame", "BoardGame", new { id = review.BoardGameId });
         }
 
         [HttpGet]
-        public IActionResult Update(int id, int gameId)
+        public async Task<IActionResult> Update(int id, int gameId)
         {
-            DtoBoardGameReview reviewForUpdate = _httpService.GetReview(id);
+            DtoBoardGameReview reviewForUpdate = await _httpService.GetReviewAsync(id);
             BoardGameUpdateReviewViewModel viewModel = _mapper.BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
             viewModel.BoardGameId = gameId;
 
@@ -63,7 +63,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
+        public async Task<IActionResult> UpdateAsync(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -71,7 +71,7 @@ namespace PortalAboutEverything.Controllers
             }
 
             DtoBoardGameReviewUpdate updatedReview = _mapper.BuildBoardGameRewievDataModelFromUpdate(boardGameReviewViewModel);
-            _httpService.UpdateReview(updatedReview);
+            await _httpService.UpdateReviewAsync(updatedReview);
 
             return RedirectToAction("BoardGame", "BoardGame", new { id = boardGameReviewViewModel.BoardGameId });
         }     
