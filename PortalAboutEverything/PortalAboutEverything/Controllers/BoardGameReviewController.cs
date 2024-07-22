@@ -12,17 +12,14 @@ namespace PortalAboutEverything.Controllers
     public class BoardGameReviewController : Controller
     {
         private readonly BoardGameRepositories _gameRepositories;
-        private readonly BoardGameReviewRepositories _reviewRepositories;
         private readonly BoardGameMapper _mapper;
         private readonly HttpBoardGamesReviewsApiService _httpService;
 
         public BoardGameReviewController(BoardGameRepositories gameRepositories,
-            BoardGameReviewRepositories reviewRepositories,
             BoardGameMapper mapper,
             HttpBoardGamesReviewsApiService httpService)
         {
             _gameRepositories = gameRepositories;
-            _reviewRepositories = reviewRepositories;
             _mapper = mapper;
             _httpService = httpService;
         }

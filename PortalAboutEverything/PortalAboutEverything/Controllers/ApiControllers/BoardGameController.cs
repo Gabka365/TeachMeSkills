@@ -135,5 +135,15 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             return viewModel;
 
         }
+
+        public BoardGameViewModel TestMethod(int id, List<BoardGameCreateViewModel> boards)
+        {
+            return null;
+        }
+
+        public void TestMethod(int id, Dictionary<List<int>, int> keyValuePairs)
+        {
+
+        }
     }
 }
