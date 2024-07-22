@@ -95,12 +95,11 @@ namespace PortalAboutEverything.Controllers
                 .Wait();
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            HttpContext
-                .SignOutAsync()
-                .Wait();
-
+            await HttpContext
+                .SignOutAsync();
+            
             return Redirect("/");
         }
 

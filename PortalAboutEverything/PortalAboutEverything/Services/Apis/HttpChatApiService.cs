@@ -1,6 +1,6 @@
 ﻿using PortalAboutEverything.Services.Dtos;
 
-namespace PortalAboutEverything.Services
+namespace PortalAboutEverything.Services.Apis
 {
     public class HttpChatApiService
     {
@@ -11,17 +11,16 @@ namespace PortalAboutEverything.Services
             _httpClient = httpClient;
         }
 
-        public DtoMessageCount GetMessageCount()
+        public async Task<DtoMessageCount> GetMessageCountAsync()
         {
             // It's a bad solution. We just to harry up
             try
             {
-                return _httpClient
-                    .GetAsync("GetMessageCount")
-                    .Result!
+                var httpResponse = await _httpClient.GetAsync("GetMessageCount");
+                var dto = await httpResponse
                     .Content
-                    .ReadFromJsonAsync<DtoMessageCount>()
-                    .Result!;
+                    .ReadFromJsonAsync<DtoMessageCount>();
+                return dto;
             }
             catch
             {

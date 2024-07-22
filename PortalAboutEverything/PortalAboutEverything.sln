@@ -45,7 +45,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesReviewsApi", "MoviesC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesReviewsApi.Data", "MoviesReviewsApi.Data\MoviesReviewsApi.Data.csproj", "{37360A63-8F74-4C99-B0E9-EDB1F7E3C07F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionExample", "ReflectionExample\ReflectionExample.csproj", "{324CB37C-F921-41D9-A08A-5597C944D9DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReflectionExample", "ReflectionExample\ReflectionExample.csproj", "{324CB37C-F921-41D9-A08A-5597C944D9DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadVsAsync", "ThreadVsAsync\ThreadVsAsync.csproj", "{D38BA3A4-21D0-49B5-A9DE-97783AF937CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,6 +139,10 @@ Global
 		{324CB37C-F921-41D9-A08A-5597C944D9DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{324CB37C-F921-41D9-A08A-5597C944D9DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{324CB37C-F921-41D9-A08A-5597C944D9DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D38BA3A4-21D0-49B5-A9DE-97783AF937CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D38BA3A4-21D0-49B5-A9DE-97783AF937CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D38BA3A4-21D0-49B5-A9DE-97783AF937CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D38BA3A4-21D0-49B5-A9DE-97783AF937CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,6 +8,7 @@ using PortalAboutEverything.Helpers;
 using PortalAboutEverything.Hubs;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.Apis;
 using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services.AuthStuff.Interfaces;
 using PortalAboutEverything.Services.Interfaces;
@@ -66,6 +67,9 @@ builder.Services.AddHttpClient<HttpBoardGamesReviewsApiService>(
     x => x.BaseAddress = new Uri("https://localhost:7289/"));
 builder.Services.AddHttpClient<HttpNewsTravelingsApi>(
     t => t.BaseAddress = new Uri("https://localhost:7032"));
+builder.Services.AddHttpClient<HttpApiKittyService>(
+    t => t.BaseAddress = new Uri("https://api.thecatapi.com"));
+
 
 var app = builder.Build();
 
