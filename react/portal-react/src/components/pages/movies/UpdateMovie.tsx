@@ -1,13 +1,19 @@
-import { useCallback, useState } from "react";
-import { movieRepository } from "../../../repositories";
+import { useCallback, useEffect, useState } from "react";
 import MovieModel from "../../../models/MovieModel";
-import { useNavigate } from "react-router-dom";
+import { movieRepository } from "../../../repositories";
+import { useNavigate, useParams } from "react-router-dom";
 
-
-function CreateMovie() {
+function UpdateMovie() {
+    const {movieId} = useParams();
+    const { get, update } = movieRepository;
     const [movie, setMovie] = useState<MovieModel>({} as MovieModel);
-    const { add } = movieRepository;
     let navigate = useNavigate();
+
+    useEffect(() => {
+        get(+movieId!).then((response) => {
+            setMovie(response.data as MovieModel);
+        });
+    }, []);
 
     const onNameChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,10 +67,10 @@ function CreateMovie() {
             });
         },
         []
-    ); 
+    );
 
-    const onCreate = useCallback(() => {
-        add(movie as MovieModel).then((answer) => {
+    const onUpdate = useCallback(() => {
+        update(movie as MovieModel).then((answer) => {
             if (answer.data) {
                 navigate('/movies');
             } else {
@@ -99,10 +105,12 @@ function CreateMovie() {
                 Country:
                 <input type="text" value={movie.countryOfOrigin} onChange={onCountryChange} />
             </div>
-
-            <button onClick={onCreate}>Create</button>
+            <div>
+                <input type="hidden" value={movieId} />
+            </div>
+            <button onClick={onUpdate}>Update</button>
         </div>
     );
 }
 
-export default CreateMovie;
+export default UpdateMovie;

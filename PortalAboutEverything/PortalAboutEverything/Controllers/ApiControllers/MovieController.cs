@@ -89,12 +89,36 @@ namespace PortalAboutEverything.Controllers.ApiControllers
                 Name = movie.Name,
                 Description = movie.Description,
                 ReleaseYear = movie.ReleaseYear,
-                Director = movie.Name,
+                Director = movie.Director,
                 Budget = movie.Budget,
                 CountryOfOrigin = movie.CountryOfOrigin,
             };
 
             _movieRepositories.Create(movieDb);
+
+            return true;
+        }
+
+        [HttpPost]
+        public bool Update(MovieAddViewModel movie)
+        {
+            if (!ModelState.IsValid)
+            {
+                return false;
+            }
+
+            var movieDb = new Movie
+            {
+                Id = movie.Id,
+                Name = movie.Name,
+                Description = movie.Description,
+                ReleaseYear = movie.ReleaseYear,
+                Director = movie.Director,
+                Budget = movie.Budget,
+                CountryOfOrigin = movie.CountryOfOrigin,
+            };
+
+            _movieRepositories.Update(movieDb);
 
             return true;
         }

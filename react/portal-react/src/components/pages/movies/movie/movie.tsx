@@ -3,6 +3,7 @@ import './movie.css';
 import MovieModel from '../../../../models/MovieModel';
 import { Link } from 'react-router-dom';
 import { movieRepository } from '../../../../repositories';
+import Permission from '../../../../contexts/Permission';
 
 interface MovieProp {
     movie: MovieModel;
@@ -11,18 +12,23 @@ interface MovieProp {
 
 const Movie: FC<MovieProp> = ({movie, onDelete}) => {
     const { remove } = movieRepository;
-    const [isDeleted, setIsDeleted] = useState(false);
     const removeMovie = useCallback((id: number) => {
-        setIsDeleted(true);
         remove(id);
         onDelete(id);
     }, []);
 
     return (
-        <div className={`movie ${isDeleted ? 'deleted' : ''}`}>
+        <div>
             <Link to={`/movies/${movie.id}`}>{movie.name}</Link>
             released in {movie.releaseYear} directed by {movie.director}
-            <button onClick={() => removeMovie(movie.id)}>Remove</button>
+
+            <Permission check={(p) => p.CanDeleteMovie}>
+                <button onClick={() => removeMovie(movie.id)}>Remove</button>
+            </Permission>
+
+            <Permission check={(p) => p.CanUpdateMovie}>
+                <Link to={`/movies/update/${movie.id}`}>Update</Link>
+            </Permission>
         </div>
     );
 }

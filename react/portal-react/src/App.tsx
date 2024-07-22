@@ -13,6 +13,7 @@ import {
     Travelings,
     СreateTravelings,
 } from './components/pages/travelings/Index';
+import UpdateMovie from './components/pages/movies/UpdateMovie';
 
 function App() {
     return (
@@ -67,6 +68,12 @@ function App() {
                                 <Route
                                     path="create"
                                     Component={CreateMovie}
+                                ></Route>
+                            </Route>
+                            <Route path="/movies/update">
+                                <Route
+                                    path=":movieId"
+                                    Component={UpdateMovie}
                                 ></Route>
                             </Route>
                             <Route path="/traveling">

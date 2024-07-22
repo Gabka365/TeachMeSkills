@@ -20,11 +20,16 @@ function add(movie: MovieModel) {
     return axios.post(`${MOVIE_API_URL}create`, movie);
 }
 
+function update(movie: MovieModel) {
+    return axios.post(`${MOVIE_API_URL}update`, movie);
+}
+
 const movieRepository = {
     getAll,
     get,
     remove,
     add,
+    update,
 }
 
 export default movieRepository;
