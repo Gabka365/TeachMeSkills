@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Models.BoardGameReview;
-using PortalAboutEverything.Services;
 using BoardGamesReviewsApi.Dtos;
+using PortalAboutEverything.Services.Apis;
 
 namespace PortalAboutEverything.Controllers
 {

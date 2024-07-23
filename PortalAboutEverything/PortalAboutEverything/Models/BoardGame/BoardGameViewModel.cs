@@ -15,5 +15,6 @@ namespace PortalAboutEverything.Models.BoardGame
         public double Price { get; set; }
         public long ProductCode { get; set; }
         public bool IsFavoriteForUser { get; set; }
+        public BoardGameOfDayViewModel BoardGameOfDay { get; set; }
     }
 }

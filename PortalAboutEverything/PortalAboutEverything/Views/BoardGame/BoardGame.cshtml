@@ -99,15 +99,15 @@
                     <p class="code">@BoardGame_GamePage.ProductCode: @Model.ProductCode</p>
                 </div>
                 <div class="buttons">
-                    <button class="highlighted-button">@BoardGame_GamePage.AddToCart</button>           
+                    <button class="highlighted-button">@BoardGame_GamePage.AddToCart</button>
                     @if (Model.IsFavoriteForUser)
                     {
-                        <input type="hidden" class="is-add" value="0"/>                       
+                        <input type="hidden" class="is-add" value="0" />
                         <button class="usual-button favorite-button">@BoardGame_GamePage.RemoveFromFavorites</button>
                     }
                     else
                     {
-                        <input type="hidden" class="is-add" value="1" />                      
+                        <input type="hidden" class="is-add" value="1" />
                         <button class="usual-button favorite-button">@BoardGame_GamePage.AddToFavorites</button>
                     }
                 </div>
@@ -120,12 +120,30 @@
     <div class="container">
         <h3 class="reviews-head">@BoardGame_GamePage.Reviews</h3>
         <div class="reviews-container">
-            
         </div>
         <div class="review-buttons">
             <button class="usual-button">@BoardGame_GamePage.ShowMore</button>
             <button class="highlighted-button create-review-button" onclick="window.location.href = '/BoardGameReview/Create?GameId=@Model.Id';">@BoardGame_GamePage.AddReview</button>
         </div>
+    </div>
+</div>
+
+<div class="special-games">
+    <div class="container">
+        @if (Model.BoardGameOfDay.HasMainImage)
+        {
+            <img src="/images/BoardGame/mainImage-@(Model.BoardGameOfDay.Id).jpg"
+                  alt="@BoardGame_GamePage.FotoOfGame"
+                  class="square-image" />
+        }
+        else
+        {
+            <img src="/images/BoardGame/mainImage-default.jpg"
+                 alt="@BoardGame_GamePage.FotoOfGame"
+                 class="square-image" />
+        }
+        <a href="/BoardGame/BoardGame?Id=@Model.BoardGameOfDay.Id">@Model.BoardGameOfDay.Title</a>
+        <div>@Model.BoardGameOfDay.Price</div>
     </div>
 </div>
 

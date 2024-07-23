@@ -9,6 +9,7 @@ using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Mappers;
 using System.Reflection;
+using PortalAboutEverything.Services.Apis;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -20,18 +21,21 @@ namespace PortalAboutEverything.Controllers
         private readonly AuthService _authServise;
         private readonly PathHelper _pathHelper;
         private readonly BoardGameMapper _mapper;
+        private readonly HttpBoardGameOfDayServise _boardGameOfDayServise;
 
         public BoardGameController(BoardGameRepositories gameRepositories,
             UserRepository userRepository,
             AuthService authService,
             PathHelper pathHelper,
-            BoardGameMapper mapper)
+            BoardGameMapper mapper,
+            HttpBoardGameOfDayServise boardGameOfDayServise)
         {
             _gameRepositories = gameRepositories;
             _userRepository = userRepository;
             _authServise = authService;
             _pathHelper = pathHelper;
             _mapper = mapper;
+            _boardGameOfDayServise = boardGameOfDayServise;
         }
 
         [AllowAnonymous]
@@ -169,7 +173,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult BoardGame(int id)
+        public async Task<IActionResult> BoardGame(int id)
         {
             BoardGame gameViewModel = _gameRepositories.Get(id)!;
             BoardGameViewModel viewModel = _mapper.BuildBoardGameViewModel(gameViewModel);
@@ -183,6 +187,11 @@ namespace PortalAboutEverything.Controllers
                     viewModel.IsFavoriteForUser = true;
                 }
             }
+
+            var boardGameOfDay = await _boardGameOfDayServise.GetBoardGameOfDayAsync();
+            var boardGameOfDayViewModel = _mapper.BuildBoardGameOfDayViewModel(boardGameOfDay);
+
+            viewModel.BoardGameOfDay = boardGameOfDayViewModel;
 
             return View(viewModel);
         }

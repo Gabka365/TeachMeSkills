@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\BoardGameOfDayApi.Dtos\BoardGameOfDayApi.Dtos.csproj" />
 		<ProjectReference Include="..\BoardGamesReviewsApi.Dtos\BoardGamesReviewsApi.Dtos.csproj" />
 		<ProjectReference Include="..\PortalAboutEverything.Data\PortalAboutEverything.Data.csproj" />
 		<ProjectReference Include="..\PortalAboutEverything.VideoServices\PortalAboutEverything.VideoServices.csproj" />

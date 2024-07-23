@@ -1,6 +1,6 @@
 ﻿using BoardGamesReviewsApi.Dtos;
 
-namespace PortalAboutEverything.Services
+namespace PortalAboutEverything.Services.Apis
 {
     public class HttpBoardGamesReviewsApiService
     {
