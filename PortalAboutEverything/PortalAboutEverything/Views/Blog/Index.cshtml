@@ -103,7 +103,10 @@
                                     else
                                     {
                                         <div>
-                                            <img class="cover" src="/images/Blog/cover-default.png" />
+                                            <form action="/Blog/AddCover?id=@post.Id" method="post" enctype="multipart/form-data">
+                                                <input type="file" name="@nameof(Model.Cover)" accept="image/png, image/jpeg" />
+                                                <input type="submit" name="name" value="Post" class="cover-submit" />
+                                            </form>
                                         </div>            
                                     }
 

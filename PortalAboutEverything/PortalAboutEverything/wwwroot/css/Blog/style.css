@@ -262,3 +262,13 @@ form {
     .post .body .post-stuff .cover-post div img {
         width: 30px;
     }
+
+    .post .body .post-stuff .cover-post .cover-submit {
+        background: url('/images/Blog/cover-default.png');
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        border: none;
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0);
+    }

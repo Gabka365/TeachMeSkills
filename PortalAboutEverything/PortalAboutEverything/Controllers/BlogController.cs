@@ -187,15 +187,22 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddCover(Post post)
+        [Authorize]
+        [HasRoleOrHigher(Data.Enums.UserRole.BlogAdmin)]
+        public IActionResult AddCover(BlogViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index");
             }
 
-            
-            
+
+            var path = _pathHelper.GetPathToPostCover(viewModel.Id);
+
+            using (var fs = new FileStream(path, FileMode.Create))
+            {
+                viewModel.Cover.CopyTo(fs);
+            }
 
             return RedirectToAction("Index");
         }
