@@ -6,7 +6,10 @@
 }
 
 <div>
-    Привет @Model.UserName
+    Привет <span class="user-name">@Model.UserName. У нас @Model.ChatMessageCount</span>
+</div>
+<div>
+    <img src="@Model.KittyUrl" style="max-width: 100px" />
 </div>
 <div>
     <input type="hidden" name="userName" value="@Model.UserName" />

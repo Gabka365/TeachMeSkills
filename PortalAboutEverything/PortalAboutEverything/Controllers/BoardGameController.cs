@@ -8,6 +8,7 @@ using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Mappers;
+using System.Reflection;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -100,7 +101,7 @@ namespace PortalAboutEverything.Controllers
                 }
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -147,7 +148,7 @@ namespace PortalAboutEverything.Controllers
                 }
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HasPermission(Permission.CanDeleteBoardGames)]
@@ -164,7 +165,7 @@ namespace PortalAboutEverything.Controllers
                 System.IO.File.Delete(pathToSideImage);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [AllowAnonymous]
@@ -209,12 +210,51 @@ namespace PortalAboutEverything.Controllers
 
             if (isGamePage)
             {
-                return RedirectToAction("BoardGame", new { id = gameId });
+                return RedirectToAction(nameof(BoardGame), new { id = gameId });
             }
             else
             {
-                return RedirectToAction("UserFavoriteBoardGames");
+                return RedirectToAction(nameof(UserFavoriteBoardGames));
             }
+        }
+
+        public IActionResult ApiMethods()
+        {
+            List<ApiMethodViewModel> viewModel = new();
+
+            var apiType = typeof(ApiControllers.BoardGameController);
+            var apiMethods = apiType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+
+            foreach (var method in apiMethods)
+            {
+                List<ParameterViewModel> parametersViewModel = new();
+                var parameters = method.GetParameters();
+                foreach (var parameter in parameters)
+                {
+                    var parameterViewModel = new ParameterViewModel { ParameterTitle = parameter.Name, ParameterTypeName = GetTypeName(parameter.ParameterType) };
+                    parametersViewModel.Add(parameterViewModel);
+                }
+
+                var methodViewModel = new ApiMethodViewModel { Name = method.Name, ReturnTypeName = GetTypeName(method.ReturnType), Parameters = parametersViewModel };
+
+                viewModel.Add(methodViewModel);
+            }
+
+            return View(viewModel);
+        }
+
+        private string GetTypeName(Type type)
+        {
+            if (!type.IsGenericType)
+            {
+                return type.Name;
+            }
+
+            var genericType = type.GetGenericTypeDefinition();
+            var genericArguments = type.GetGenericArguments();
+            var genericTypeName = genericType.Name.Split('`')[0];
+            var argumentTypeNames = string.Join(", ", genericArguments.Select(GetTypeName));
+            return $"{genericTypeName}<{argumentTypeNames}>";
         }
     }
 }

@@ -8,6 +8,7 @@ using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Services.AuthStuff;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 
 namespace PortalAboutEverything.Controllers.ApiControllers
 {
@@ -18,18 +19,51 @@ namespace PortalAboutEverything.Controllers.ApiControllers
     {
         private readonly PathHelper _pathHelper;
         private readonly BoardGameRepositories _gameRepositories;
+        private readonly UserRepository _userRepository;
         private readonly BoardGameMapper _mapper;
         private readonly AuthService _authServise;
 
-        public BoardGameController(PathHelper pathHelper, BoardGameRepositories gameRepositories, BoardGameMapper mapper, AuthService authServise)
+        public BoardGameController(PathHelper pathHelper, BoardGameRepositories gameRepositories, UserRepository userRepository, BoardGameMapper mapper, AuthService authServise)
         {
             _pathHelper = pathHelper;
             _gameRepositories = gameRepositories;
+            _userRepository = userRepository;
             _mapper = mapper;
             _authServise = authServise;
         }
 
-        [HasPermission(Permission.CanDeleteBoardGames)]
+        [AllowAnonymous]
+        public bool Create(BoardGameCreateViewModelReact boardGameViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return false;
+            }
+
+            BoardGame game = _mapper.BuildBoardGameDataModelFromCreateReact(boardGameViewModel);
+
+            _gameRepositories.Create(game);
+
+            //var pathToMainImage = _pathHelper.GetPathToBoardGameMainImage(game.Id);
+            //using (var fs = new FileStream(pathToMainImage, FileMode.Create))
+            //{
+            //    boardGameViewModel.MainImage.CopyTo(fs);
+            //}
+
+            //if (boardGameViewModel.SideImage is not null)
+            //{
+            //    var pathToSideImage = _pathHelper.GetPathToBoardGameSideImage(game.Id);
+            //    using (var fs = new FileStream(pathToSideImage, FileMode.Create))
+            //    {
+            //        boardGameViewModel.SideImage.CopyTo(fs);
+            //    }
+            //}
+
+            return true;
+        }
+
+        //[HasPermission(Permission.CanDeleteBoardGames)]
+        [AllowAnonymous]
         public bool Delete(int id)
         {
             if(!_gameRepositories.Delete(id))
@@ -71,6 +105,45 @@ namespace PortalAboutEverything.Controllers.ApiControllers
                 .GetTop3()
                 .Select(_mapper.BuildFavoriteBoardGameIndexViewModel)
                 .ToList();
+        }
+
+        [AllowAnonymous]
+        public List<BoardGameIndexViewModel> GetAll()
+        {
+            return _gameRepositories
+                .GetAll()
+                .Select(_mapper.BuildBoardGameIndexViewModel)
+                .ToList();
+        }
+
+        [AllowAnonymous]
+        public BoardGameViewModel Get(int id)
+        {
+            BoardGame gameViewModel = _gameRepositories.Get(id)!;
+            BoardGameViewModel viewModel = _mapper.BuildBoardGameViewModel(gameViewModel);
+
+            if (_authServise.IsAuthenticated())
+            {
+                int userId = _authServise.GetUserId();
+                User user = _userRepository.GetWithFavoriteBoardGames(userId);
+                if (user.FavoriteBoardsGames.Any(boardGame => boardGame.Id == id))
+                {
+                    viewModel.IsFavoriteForUser = true;
+                }
+            }
+
+            return viewModel;
+
+        }
+
+        public BoardGameViewModel TestMethod(int id, List<BoardGameCreateViewModel> boards)
+        {
+            return null;
+        }
+
+        public void TestMethod(int id, Dictionary<List<int>, int> keyValuePairs)
+        {
+
         }
     }
 }

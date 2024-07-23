@@ -63,5 +63,8 @@ namespace PortalAboutEverything.Data.Repositories
              => _dbSet
             .Include(user => user.FavoriteMovies)
             .Single(user => user.Id == id);
+
+        public User GetStandartUser() 
+            => _dbSet.Where(u => u.UserName == "User").First();
     }
 }

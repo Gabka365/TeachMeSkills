@@ -1,0 +1,22 @@
+﻿@model List<PortalAboutEverything.Models.Movie.MethodViewModel>
+
+@section Style {
+    <link rel="stylesheet" href="/css/Movie/movieStyle.css?=2" />
+}
+
+<div>
+    All methods:
+    <div class="methods">
+        @foreach (var method in Model)
+        {
+            <div class="method">
+                @method.MethodName: возвращаемые данные - @method.MethodType.
+                Параметры: 
+                @foreach (var parameter in method.ParametersInfo)
+                {
+                     <div>@parameter.ParameterName с типом @parameter.ParameterType</div>
+                }
+            </div>   
+        }
+    </div>
+</div>

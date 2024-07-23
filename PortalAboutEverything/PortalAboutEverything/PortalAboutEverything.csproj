@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\BoardGamesReviewsApi.Dtos\BoardGamesReviewsApi.Dtos.csproj" />
 		<ProjectReference Include="..\PortalAboutEverything.Data\PortalAboutEverything.Data.csproj" />
 		<ProjectReference Include="..\PortalAboutEverything.VideoServices\PortalAboutEverything.VideoServices.csproj" />
 	</ItemGroup>
@@ -235,6 +236,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\Game\" />
     <Folder Include="wwwroot\images\Movie\" />
+    <Folder Include="wwwroot\images\Traveling\UserPictures\" />
     <Folder Include="wwwroot\js\BoardGame\" />
   </ItemGroup>
 

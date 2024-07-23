@@ -12,7 +12,7 @@
 <div>
     @if (Model.CanCreateGame)
     {
-        <a href="/Game/Create">@Game_Index.CreateGame</a>
+        <a class="create-link" href="/Game/Create">@Game_Index.CreateGame</a>
     }
     @if (User.Identity?.IsAuthenticated ?? false)
     {

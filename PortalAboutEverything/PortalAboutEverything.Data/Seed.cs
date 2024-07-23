@@ -151,6 +151,26 @@ namespace PortalAboutEverything.Data
                 };
                 userRepository.Create(blogAdmin);
 
+                var boardGameCreator = new User
+                {
+                    UserName = "boardGameCreator",
+                    Password = "1",
+                    Role = UserRole.BoardGameAdmin,
+                    Permission = Permission.CanCreateAndUpdateBoardGames,
+                    Language = Language.Ru
+                };
+                userRepository.Create(boardGameCreator);
+
+                var boardGameModerator = new User
+                {
+                    UserName = "boardGameModerator",
+                    Password = "1",
+                    Role = UserRole.BoardGameAdmin,
+                    Permission = Permission.CanDeleteBoardGames,
+                    Language = Language.Ru
+                };
+                userRepository.Create(boardGameModerator);
+
             }
         }
 

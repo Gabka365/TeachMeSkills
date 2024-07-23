@@ -29,7 +29,7 @@
                         @if ((!User?.Identity?.IsAuthenticated) ?? true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Auth/Login">Login</a>
+                                <a class="nav-link text-dark login-link" href="/Auth/Login">Login</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" href="/Auth/Registration">Register</a>
@@ -38,7 +38,7 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Auth/Logout">Logout</a>
+                                <a class="nav-link text-dark logout-link" href="/Auth/Logout">Logout</a>
                             </li>
                         }
 
@@ -49,13 +49,13 @@
                             <a class="nav-link text-dark" href="/History/Index">История</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Traveling/Index">Путешествие</a>
+                            <a class="nav-link text-dark traveling_link" href="/Traveling/Index">Путешествие</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/VideoLibrary">Ancient</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/BoardGame/Index">Настольные игры</a>
+                            <a class="nav-link text-dark board-game-link" href="/BoardGame/Index">Настольные игры</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Movie/Index">Фильмы</a>

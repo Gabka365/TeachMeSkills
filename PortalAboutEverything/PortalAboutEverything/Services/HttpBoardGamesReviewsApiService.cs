@@ -1,4 +1,4 @@
-﻿using PortalAboutEverything.Services.Dtos;
+﻿using BoardGamesReviewsApi.Dtos;
 
 namespace PortalAboutEverything.Services
 {
@@ -23,34 +23,18 @@ namespace PortalAboutEverything.Services
 
         public void CreateReview(DtoBoardGameReviewCreate review)
         {
-            //_httpClient
-            //   .PostAsJsonAsync("createReview", review)
-            //   .Result
-            //   .EnsureSuccessStatusCode();
-
-            var url = $"createReview?userName={review.UserName}&userId={review.UserId}&dateOfCreation={review.DateOfCreation}&text={review.Text}&boardGameId={review.BoardGameId}";
-            var a = _httpClient
-                .GetAsync(url)
-                .Result
-                .Content
-                .ReadFromJsonAsync<bool>()
-                .Result; 
+            _httpClient
+               .PostAsJsonAsync("createReview", review)
+               .Result
+               .EnsureSuccessStatusCode();
         }
 
         public void UpdateReview(DtoBoardGameReviewUpdate review)
         {
-            //_httpClient
-            //   .PostAsJsonAsync("updateReview", review)
-            //   .Result
-            //   .EnsureSuccessStatusCode();
-
-            var url = $"updateReview?id={review.Id}&text={review.Text}";
-            var a = _httpClient
-                .GetAsync(url)
-                .Result
-                .Content
-                .ReadFromJsonAsync<bool>()
-                .Result;
+            _httpClient
+               .PostAsJsonAsync("updateReview", review)
+               .Result
+               .EnsureSuccessStatusCode();
         }
     }
 }

@@ -17,23 +17,23 @@
                 <form method="post" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style="padding: 10px;" enctype="multipart/form-data">
                     <div class="u-form-group u-form-group-1">
                         <label class="u-label">Название</label>
-                        @Html.TextBoxFor(x => x.Name, new { placeholder = Traveling_Index.PostTitle, @class = "u-input u-input-rectangle" })
+                        @Html.TextBoxFor(x => x.Name, new { placeholder = Traveling_Index.PostTitle, @class = "u-input u-input-rectangle input-name" })
                         @Html.ValidationMessageFor(x => x.Name)
 
                     </div>
                     <div class="u-form-group u-form-message">
                         <label class="u-label">Отзыв</label>
-                        @Html.TextAreaFor(x => x.Desc, new { placeholder = "Оставьте свой отзыв", @class = "u-input u-input-rectangle", @rows = "4", @cols = "50" })
+                        @Html.TextAreaFor(x => x.Desc, new { placeholder = "Оставьте свой отзыв", @class = "u-input u-input-rectangle text-area-review", @rows = "4", @cols = "50" })
                         @Html.ValidationMessageFor(x => x.Desc)
                     </div>
                     <div class="u-form-group u-form-message">
                         <label for="file-upload" class="u-label custom-file-upload">Загрузить изображение</label>
-                        <input id="file-upload" class="file-input" type="file" name="image" placeholder="Выбрать изображение" onchange="updateFileName(this.value)" />
+                        <input id="file-upload" class="file-input upload-file" type="file" name="image" placeholder="Выбрать изображение" onchange="updateFileName(this.value)" />
                         @Html.ValidationMessageFor(x => x.Image)
                         <span class="file-name"></span>
                     </div>
                     <div class="u-align-left u-form-group u-form-submit">
-                        <input type="submit" value="Создать " class="u-btn u-btn-submit u-button-style u-btn-1" />
+                        <input type="submit" value="Создать " class="u-btn u-btn-submit u-button-style u-btn-1 button-created" />
                     </div>
                 </form>
             </div>

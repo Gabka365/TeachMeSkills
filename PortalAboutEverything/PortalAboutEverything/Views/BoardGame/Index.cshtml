@@ -16,7 +16,7 @@
     <ul class="board-games">
         @foreach (var boardGame in Model.BoardGames)
         {
-            <li class="board-game-item">
+            <li class="board-game-item board-game">
                 <input class="board-game-id" type="hidden" value="@boardGame.Id"/>
                 <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@boardGame.Id">@boardGame.Title</a>
                 <div class="update-and-delete">
@@ -37,8 +37,8 @@
         }
     </ul>
 
-    <div class="add-board-game">
-        <a class="add-board-game-link" href="/BoardGame/UserFavoriteBoardGames">@BoardGame_Index.FavoriteButton</a>
+    <div class="favorite-board-game">
+        <a class="favorite-board-game-link" href="/BoardGame/UserFavoriteBoardGames">@BoardGame_Index.FavoriteButton</a>
     </div>
     @if (Model.CanCreateAndUpdateBoardGames)
     {
