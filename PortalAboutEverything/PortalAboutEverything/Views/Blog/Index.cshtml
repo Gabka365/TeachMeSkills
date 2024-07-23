@@ -5,7 +5,7 @@
 
 @section Style
 {
-    <link href="/css/Blog/style.css?v=2.1" rel="stylesheet" />
+    <link href="/css/Blog/style.css?v=2.4" rel="stylesheet" />
 }
 
 
@@ -90,8 +90,25 @@
                             <div class="litle-ava">
                                 <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
                             </div>
-                            <div class="text-of-post">
-                                @post.Message
+                            <div class="post-stuff">
+                                <div class="text-of-post">
+                                    @post.Message
+                                </div>
+                                <div class="cover-post">
+
+                                    @if (post.HasCover)
+                                    {
+                                        <img class="cover" src="/images/Blog/cover-@(post.Id).jpg" />
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <img class="cover" src="/images/Blog/cover-default.png" />
+                                        </div>            
+                                    }
+
+                                    
+                                </div>
                             </div>
                         </div>
 
@@ -104,7 +121,7 @@
                                 <img src="/images/Blog/png/dislike.png" alt="" />
                             </span>
                             <span class="answers">
-                                <span> <a href="/Blog/DeleteMessage?id=@post.Id">@Blog_Index.PostDelete</a></span>
+                                <span> <a href="/Blog/DeletePost?id=@post.Id">@Blog_Index.PostDelete</a></span>
                                 <span><a href="/Blog/UpdateMessage?id=@post.Id">@Blog_Index.PostUpdate</a></span>
                             </span>
                         </div>

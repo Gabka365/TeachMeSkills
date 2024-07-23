@@ -9,8 +9,8 @@ using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Blog;
+using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
-
 
 namespace PortalAboutEverything.Controllers
 {
@@ -18,11 +18,13 @@ namespace PortalAboutEverything.Controllers
     {
         private BlogRepositories _posts;
         private AuthService _authService;
+        private PortalAboutEverything.Services.PathHelper _pathHelper;
 
-        public BlogController(BlogRepositories posts, AuthService authService)
+        public BlogController(BlogRepositories posts, AuthService authService, PortalAboutEverything.Services.PathHelper pathHelper)
         {
             _posts = posts;
             _authService = authService;
+            _pathHelper = pathHelper;
         }
 
         public IActionResult Index()
@@ -69,9 +71,13 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteMessage(int id)
+        public IActionResult DeletePost(int id)
         {
             _posts.Delete(id);
+
+            var path = _pathHelper.GetPathToPostCover(id);
+            System.IO.File.Delete(path);
+
             return RedirectToAction("Index");
         }
 
@@ -86,13 +92,18 @@ namespace PortalAboutEverything.Controllers
 
             var NewPost = new Post
             {
-               
                 Name = viewModel.Name,
                 Message = viewModel.Message,
                 CurrentTime = DateTime.Now,
             };
 
             _posts.Create(NewPost);
+            var path = _pathHelper.GetPathToPostCover(NewPost.Id);
+
+            using (var fs = new FileStream(path, FileMode.Create))
+            {
+                viewModel.Cover.CopyTo(fs);
+            }
 
             return RedirectToAction("Index");
         }
@@ -175,6 +186,20 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public IActionResult AddCover(Post post)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            
+            
+
+            return RedirectToAction("Index");
+        }
+
         private MessageViewModel BuildMessageViewModel()
             => new MessageViewModel
             {
@@ -190,6 +215,7 @@ namespace PortalAboutEverything.Controllers
                 Message = post.Message,
                 CurrentTime = post.CurrentTime,
                 Name = post.Name,
+                HasCover = _pathHelper.IsPostCoverExist(post.Id),
                 CommentsBlog = post
                 .CommentsBlog
                 .Select(BuildBlogCommentViewModel)

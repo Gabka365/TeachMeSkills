@@ -416,3 +416,6 @@ PortalAboutEverything/PortalAboutEverything/wwwroot/images/Movie/*.*
 PortalAboutEverything/PortalAboutEverything/wwwroot/images/GameStore/*.*
 !PortalAboutEverything/PortalAboutEverything/wwwroot/images/GameStore/cover-default.jpg
 
+PortalAboutEverything/PortalAboutEverything/wwwroot/images/Blog/*.*
+!PortalAboutEverything/PortalAboutEverything/wwwroot/images/Blog/cover-default.png
+

@@ -10,6 +10,8 @@
 
         public DateTime? CurrentTime { get; set; }
 
+        public bool HasCover { get; set; }
+
         public List<BlogCommentViewModel> CommentsBlog { get; set; }
     }
 }

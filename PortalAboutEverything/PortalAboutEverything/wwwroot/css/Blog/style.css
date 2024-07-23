@@ -241,3 +241,24 @@ form {
     margin-left: 200px;
     margin-right: 150px;
 }
+
+
+
+.post .body .post-stuff div {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.post .body .post-stuff .cover-post {
+    align-items: flex-start;
+}
+
+    .post .body .post-stuff .cover-post img {
+        width: 400px
+    }
+
+
+    .post .body .post-stuff .cover-post div img {
+        width: 30px;
+    }
