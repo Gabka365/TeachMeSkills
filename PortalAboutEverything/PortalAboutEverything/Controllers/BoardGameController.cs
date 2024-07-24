@@ -22,13 +22,15 @@ namespace PortalAboutEverything.Controllers
         private readonly PathHelper _pathHelper;
         private readonly BoardGameMapper _mapper;
         private readonly HttpBoardGameOfDayServise _boardGameOfDayServise;
+        private readonly HttpBestBoardGameServise _bestBoardGameServise;
 
         public BoardGameController(BoardGameRepositories gameRepositories,
             UserRepository userRepository,
             AuthService authService,
             PathHelper pathHelper,
             BoardGameMapper mapper,
-            HttpBoardGameOfDayServise boardGameOfDayServise)
+            HttpBoardGameOfDayServise boardGameOfDayServise,
+            HttpBestBoardGameServise bestBoardGameServise)
         {
             _gameRepositories = gameRepositories;
             _userRepository = userRepository;
@@ -36,6 +38,7 @@ namespace PortalAboutEverything.Controllers
             _pathHelper = pathHelper;
             _mapper = mapper;
             _boardGameOfDayServise = boardGameOfDayServise;
+            _bestBoardGameServise = bestBoardGameServise;
         }
 
         [AllowAnonymous]
@@ -188,10 +191,16 @@ namespace PortalAboutEverything.Controllers
                 }
             }
 
-            var boardGameOfDay = await _boardGameOfDayServise.GetBoardGameOfDayAsync();
-            var boardGameOfDayViewModel = _mapper.BuildBoardGameOfDayViewModel(boardGameOfDay);
+            var boardGameOfDay = _boardGameOfDayServise.GetBoardGameOfDayAsync();
+            var bestBoardGame = _bestBoardGameServise.GetBestBoardGameAsync();
+
+            await Task.WhenAll(boardGameOfDay,  bestBoardGame);
+
+            var boardGameOfDayViewModel = _mapper.BuildBoardGameOfDayViewModel(boardGameOfDay.Result);
+            var bestBoardGameViewModel = _mapper.BuildBestBoardGameViewModel(bestBoardGame.Result);
 
             viewModel.BoardGameOfDay = boardGameOfDayViewModel;
+            viewModel.BestBoardGame = bestBoardGameViewModel;
 
             return View(viewModel);
         }

@@ -71,6 +71,8 @@ builder.Services.AddHttpClient<HttpApiKittyService>(
     t => t.BaseAddress = new Uri("https://api.thecatapi.com"));
 builder.Services.AddHttpClient<HttpBoardGameOfDayServise>(
     t => t.BaseAddress = new Uri("https://localhost:7008/"));
+builder.Services.AddHttpClient<HttpBestBoardGameServise>(
+    t => t.BaseAddress = new Uri("https://localhost:7193/"));
 
 
 var app = builder.Build();

@@ -8,6 +8,7 @@ using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Services.AuthStuff.Interfaces;
 using PortalAboutEverything.Services.Interfaces;
 using BoardGameOfDayApi.Dtos;
+using BestBoardGameApi.Dtos;
 
 namespace PortalAboutEverything.Mappers
 {
@@ -112,6 +113,16 @@ namespace PortalAboutEverything.Mappers
                 Id = game.Id,
                 Title = game.Title,
                 Price = game.Price,
+                HasMainImage = _pathHelper.IsBoardGameMainImageExist(game.Id),
+            };
+
+        public BestBoardGameViewModel BuildBestBoardGameViewModel(DtoBestBoardGame game)
+            => new BestBoardGameViewModel
+            {
+                Id = game.Id,
+                Title = game.Title,
+                Price = game.Price,
+                CountOfUserWhoLikeIt = game.CountOfUserWhoLikeIt,
                 HasMainImage = _pathHelper.IsBoardGameMainImageExist(game.Id),
             };
         #endregion

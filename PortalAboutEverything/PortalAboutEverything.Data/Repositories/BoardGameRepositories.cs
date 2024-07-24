@@ -88,5 +88,11 @@ namespace PortalAboutEverything.Data.Repositories
             return CustomSqlQuery<int>(SqlQueryManager.GetAllBoardGamesId)
                 .ToList();
         }
+
+        public BestBoardGameDataModel GetBest()
+        {
+            return CustomSqlQuery<BestBoardGameDataModel>(SqlQueryManager.GetBestBoardGame)
+                .First();
+        }
     }
 }

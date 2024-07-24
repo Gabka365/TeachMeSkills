@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Repositories\RawSql\GetAllBoardGamesId.sql" />
+    <None Remove="Repositories\RawSql\GetBestBoardGame.sql" />
     <None Remove="Repositories\RawSql\GetMovieStatistic.sql" />
     <None Remove="Repositories\RawSql\GetTop3BoardGames.sql" />
     <None Remove="Repositories\RawSql\GetTop3Games.sql" />
@@ -17,6 +18,9 @@
 
   <ItemGroup>
     <Content Include="Repositories\RawSql\GetAllBoardGamesId.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Repositories\RawSql\GetBestBoardGame.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Repositories\RawSql\GetTopGoods.sql">
