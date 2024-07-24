@@ -69,6 +69,8 @@ builder.Services.AddHttpClient<HttpNewsTravelingsApi>(
     t => t.BaseAddress = new Uri("https://localhost:7032"));
 builder.Services.AddHttpClient<HttpApiKittyService>(
     t => t.BaseAddress = new Uri("https://api.thecatapi.com"));
+builder.Services.AddHttpClient<HttpApiJoke>(
+    t => t.BaseAddress = new Uri("https://official-joke-api.appspot.com/"));
 
 
 var app = builder.Build();

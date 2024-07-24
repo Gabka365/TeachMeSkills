@@ -11,19 +11,18 @@ namespace PortalAboutEverything.Services
             _httpClient = httpClient;
            
         }
-        public DtoLastNews GetLastNews()
+        public async Task<DtoLastNews> GetLastNewsAsync()
         {
-            return _httpClient
-                .GetAsync("DtoLastNews")
-                .Result!
-                .Content
-                .ReadFromJsonAsync<DtoLastNews>()
-                .Result!;           
+            var response = await _httpClient.GetAsync("DtoLastNews");
+            response.EnsureSuccessStatusCode();
+            var lastNews = await response.Content.ReadFromJsonAsync<DtoLastNews>();
+            return lastNews!;
         }
         public int GeLastNewsId()
         {
-            var lastNews = GetLastNews();
+            var lastNews = GetLastNewsAsync().Result;
             return lastNews.Id;
         }
+       
     }
 }
