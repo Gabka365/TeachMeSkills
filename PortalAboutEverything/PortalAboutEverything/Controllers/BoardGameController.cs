@@ -9,6 +9,7 @@ using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Mappers;
 using System.Reflection;
+using PortalAboutEverything.Services.Apis;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -20,18 +21,24 @@ namespace PortalAboutEverything.Controllers
         private readonly AuthService _authServise;
         private readonly PathHelper _pathHelper;
         private readonly BoardGameMapper _mapper;
+        private readonly HttpBoardGameOfDayServise _boardGameOfDayServise;
+        private readonly HttpBestBoardGameServise _bestBoardGameServise;
 
         public BoardGameController(BoardGameRepositories gameRepositories,
             UserRepository userRepository,
             AuthService authService,
             PathHelper pathHelper,
-            BoardGameMapper mapper)
+            BoardGameMapper mapper,
+            HttpBoardGameOfDayServise boardGameOfDayServise,
+            HttpBestBoardGameServise bestBoardGameServise)
         {
             _gameRepositories = gameRepositories;
             _userRepository = userRepository;
             _authServise = authService;
             _pathHelper = pathHelper;
             _mapper = mapper;
+            _boardGameOfDayServise = boardGameOfDayServise;
+            _bestBoardGameServise = bestBoardGameServise;
         }
 
         [AllowAnonymous]
@@ -169,7 +176,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult BoardGame(int id)
+        public async Task<IActionResult> BoardGame(int id)
         {
             BoardGame gameViewModel = _gameRepositories.Get(id)!;
             BoardGameViewModel viewModel = _mapper.BuildBoardGameViewModel(gameViewModel);
@@ -183,6 +190,17 @@ namespace PortalAboutEverything.Controllers
                     viewModel.IsFavoriteForUser = true;
                 }
             }
+
+            var boardGameOfDay = _boardGameOfDayServise.GetBoardGameOfDayAsync();
+            var bestBoardGame = _bestBoardGameServise.GetBestBoardGameAsync();
+
+            await Task.WhenAll(boardGameOfDay,  bestBoardGame);
+
+            var boardGameOfDayViewModel = _mapper.BuildBoardGameOfDayViewModel(boardGameOfDay.Result);
+            var bestBoardGameViewModel = _mapper.BuildBestBoardGameViewModel(bestBoardGame.Result);
+
+            viewModel.BoardGameOfDay = boardGameOfDayViewModel;
+            viewModel.BestBoardGame = bestBoardGameViewModel;
 
             return View(viewModel);
         }
