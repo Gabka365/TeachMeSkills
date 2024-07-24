@@ -1,4 +1,5 @@
 using BoardGameOfDayApi.Dtos;
+using BoardGameOfDayApi.Services;
 using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
@@ -19,17 +20,17 @@ builder.Services.AddCors(o =>
 builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbContext.CONNECTION_STRING));
 builder.Services.AddScoped<BoardGameRepositories>();
 
+builder.Services.AddSingleton<CacheService>();
+
 var app = builder.Build();
 
 app.UseCors();
 
 app.MapGet("/", () => "Board game of day api");
-app.MapGet("/getBoardGameOfDay", (BoardGameRepositories repository) => {
-    var allId = repository.GetAllId();
-    var random = new Random();
-    var index = random.Next(allId.Count);
+app.MapGet("/getBoardGameOfDay", (BoardGameRepositories repository, CacheService cache) => {
 
-    var boardGame = repository.Get(allId[index]);
+    var id = cache.GetBoardGameOfDayId(repository.GetAllId());
+    var boardGame = repository.Get(id);
     var dto = new DtoBoardGameOfDay
     {
         Id = boardGame.Id,
