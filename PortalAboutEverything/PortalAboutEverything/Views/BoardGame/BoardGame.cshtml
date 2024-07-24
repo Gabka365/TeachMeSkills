@@ -131,6 +131,7 @@
 <div class="special-games">
     <div class="container">
         <div class="game-of-day">
+            <h3>@BoardGame_GamePage.BoardGameOfDay</h3>
             @if (Model.BoardGameOfDay.HasMainImage)
             {
                 <img src="/images/BoardGame/mainImage-@(Model.BoardGameOfDay.Id).jpg"
@@ -144,9 +145,10 @@
                      class="square-image" />
             }
             <a href="/BoardGame/BoardGame?Id=@Model.BoardGameOfDay.Id">@Model.BoardGameOfDay.Title</a>
-            <div>@Model.BoardGameOfDay.Price</div>
+            <div class="price">@Model.BoardGameOfDay.Price ₽</div>
         </div>
         <div class="best-game">
+            <h3>@BoardGame_GamePage.BestBoardGame</h3>
             @if (Model.BestBoardGame.HasMainImage)
             {
                 <img src="/images/BoardGame/mainImage-@(Model.BestBoardGame.Id).jpg"
@@ -160,11 +162,12 @@
                      class="square-image" />
             }
             <a href="/BoardGame/BoardGame?Id=@Model.BestBoardGame.Id">@Model.BestBoardGame.Title</a>
-            <div>@Model.BestBoardGame.Price</div>
-            <div>@Model.BestBoardGame.CountOfUserWhoLikeIt</div>
+            <div class="price">@Model.BestBoardGame.Price ₽</div>
+            <div class="count-of-user-who-like-it">@BoardGame_GamePage.CountOfLikes: @Model.BestBoardGame.CountOfUserWhoLikeIt</div>
         </div>
     </div>
 </div>
+
 
 <div class="board-game-footer">
     <div class="container">

@@ -132,6 +132,15 @@
   <data name="AdvertisingBanner" xml:space="preserve">
     <value>Advertising banner</value>
   </data>
+  <data name="BestBoardGame" xml:space="preserve">
+    <value>The best game</value>
+  </data>
+  <data name="BoardGameOfDay" xml:space="preserve">
+    <value>Game of the Day</value>
+  </data>
+  <data name="CountOfLikes" xml:space="preserve">
+    <value>Number of likes</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
