@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalAboutEverything.Data;
 
@@ -11,9 +12,11 @@ using PortalAboutEverything.Data;
 namespace PortalAboutEverything.Data.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    partial class PortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240724164949_CreateAlert")]
+    partial class CreateAlert
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,7 +145,7 @@ namespace PortalAboutEverything.Data.Migrations
                     b.ToTable("MovieUser");
                 });
 
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.Alerts.Alert", b =>
+            modelBuilder.Entity("PortalAboutEverything.Data.Model.Alert", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -163,32 +166,6 @@ namespace PortalAboutEverything.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Alerts");
-                });
-
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.Alerts.AlertUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AlertId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("WhenUserSawAlert")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AlertId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AlertUser");
                 });
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGame", b =>
@@ -805,25 +782,6 @@ namespace PortalAboutEverything.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.Alerts.AlertUser", b =>
-                {
-                    b.HasOne("PortalAboutEverything.Data.Model.Alerts.Alert", "Alert")
-                        .WithMany("UsersWhoAlreadySawIt")
-                        .HasForeignKey("AlertId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PortalAboutEverything.Data.Model.User", "User")
-                        .WithMany("AlertsWhichISaw")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Alert");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BoardGameReview", b =>
                 {
                     b.HasOne("PortalAboutEverything.Data.Model.Game", "Game")
@@ -912,11 +870,6 @@ namespace PortalAboutEverything.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PortalAboutEverything.Data.Model.Alerts.Alert", b =>
-                {
-                    b.Navigation("UsersWhoAlreadySawIt");
-                });
-
             modelBuilder.Entity("PortalAboutEverything.Data.Model.BookClub.Book", b =>
                 {
                     b.Navigation("BookReviews");
@@ -944,8 +897,6 @@ namespace PortalAboutEverything.Data.Migrations
 
             modelBuilder.Entity("PortalAboutEverything.Data.Model.User", b =>
                 {
-                    b.Navigation("AlertsWhichISaw");
-
                     b.Navigation("Travelings");
                 });
 

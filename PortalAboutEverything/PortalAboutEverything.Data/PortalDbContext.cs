@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Model.Alerts;
 using PortalAboutEverything.Data.Model.BookClub;
 using PortalAboutEverything.Data.Model.Store;
 using PortalAboutEverything.Data.Model.VideoLibrary;
@@ -11,6 +12,7 @@ namespace PortalAboutEverything.Data
     {
         public const string CONNECTION_STRING = "Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True;Database=Net16Portal";
 
+        public DbSet<Alert> Alerts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
@@ -113,6 +115,14 @@ namespace PortalAboutEverything.Data
             modelBuilder.Entity<User>()
                 .HasMany(x => x.Posts)
                 .WithMany(x => x.Users);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.AlertsWhichISaw)
+                .WithOne(x => x.User);
+
+            modelBuilder.Entity<Alert>()
+                .HasMany(x => x.UsersWhoAlreadySawIt)
+                .WithOne(x => x.Alert);
 
             base.OnModelCreating(modelBuilder);
         }

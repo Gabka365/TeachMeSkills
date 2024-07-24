@@ -53,6 +53,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<AuthService>();
 
 builder.Services.AddScoped<BoardGameMapper>();
+builder.Services.AddScoped<AlertMapper>();
 
 builder.Services.AddSingleton<IPathHelper, PathHelper>();
 builder.Services.AddSingleton<PathHelper>();
@@ -107,6 +108,8 @@ app.MapHub<BoardGameHub>("/hubs/boardGame");
 app.MapHub<MovieHub>("/hubs/movie");
 app.MapHub<CommentTravelingHub>("/hubs/CommentTraveling");
 app.MapHub<GoodReviewHub>("/hubs/goodReview");
+app.MapHub<AlertHub>("/hubs/alert");
+
 
 app.MapControllerRoute(
     name: "default",
