@@ -7,6 +7,7 @@ using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Traveling;
 using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.Apis;
 using PortalAboutEverything.Services.AuthStuff;
 using System.Reflection;
 
@@ -26,10 +27,11 @@ namespace PortalAboutEverything.Controllers
         private readonly string _pathTravelingIndexPictures;
         private readonly CommentRepository _commentRepository;
         private readonly string[] _validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
+        private HttpApiJoke _httpApiJoke;
 
         public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment,
                                    UserRepository userRepository, AuthService authService, CommentRepository commentRepository,
-                                    LikeRepositories likeRepository, HttpNewsTravelingsApi httpNewsTravelingsApi)
+                                    LikeRepositories likeRepository, HttpNewsTravelingsApi httpNewsTravelingsApi, HttpApiJoke httpApiJoke)
         {
             _travelingRepositories = travelingRepositories;
             _hostingEnvironment = hostingEnvironment;
@@ -40,6 +42,7 @@ namespace PortalAboutEverything.Controllers
             _commentRepository = commentRepository;
             _likeRepository = likeRepository;
             _httpNewsTravelingsApi = httpNewsTravelingsApi;
+            _httpApiJoke = httpApiJoke;
         }
 
         public IActionResult Index()
@@ -120,7 +123,9 @@ namespace PortalAboutEverything.Controllers
         [HttpGet]
         public IActionResult TravelingPosts()
         {
-            var lastNews = _httpNewsTravelingsApi.GetLastNews();
+            var joke = _httpApiJoke.GetRandomJokeAsync().Result;
+
+            var lastNews = _httpNewsTravelingsApi.GetLastNewsAsync().Result;
             var model = new TravelingShowPostsViewModel();
 
             var travelingPosts = _travelingRepositories
@@ -163,8 +168,10 @@ namespace PortalAboutEverything.Controllers
             model.TravelingPostsViewModels = travelingPosts;
             model.IsTravingAdmin = User.Identity.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
             model.LastNews = lastNews.Text;
+            model.RandomJoke = joke.Setup;
             return View(model);
         }
+
         [HttpGet]
         public IActionResult ShowImage(int id)
         {
@@ -256,21 +263,25 @@ namespace PortalAboutEverything.Controllers
             var customMethods = typeTravelingApi
                         .GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                         .Where(m => m.DeclaringType == typeTravelingApi);
-         
-            var model = new MethodInfoViewModel();
+
+
             var modelList = new List<MethodInfoViewModel>();
 
             foreach (var method in customMethods)
             {
+                var model = new MethodInfoViewModel();
                 var parameters = method.GetParameters();
                 string infoparameter = "";
                 foreach (var parameter in parameters)
                 {
                     infoparameter += $"Имя {parameter.Name} тип {parameter.ParameterType}<br/>";
                 }
-                model.MethodInfo = ($"Название метода {method.Name},<br/>" +
-                            $"Он вернет параметр {method.ReturnParameter.Name} типа {method.ReturnType},<br/>" +
-                            $"Входящие параметры:<br/>{infoparameter}<br/>");
+                model.MethodInfo = $"""
+                                    Название метода: {method.Name},<br/>
+                                    Он вернет параметр: {method.ReturnParameter.Name} типа {method.ReturnType},<br/>
+                                    Входящие параметры:<br/>
+                                    {infoparameter}<br/>
+                                    """;
                 modelList.Add(model);
             }
 
