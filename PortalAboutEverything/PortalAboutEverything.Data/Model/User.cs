@@ -1,4 +1,5 @@
 ﻿using PortalAboutEverything.Data.Enums;
+using PortalAboutEverything.Data.Model.Alerts;
 using PortalAboutEverything.Data.Model.BookClub;
 using PortalAboutEverything.Data.Model.Store;
 using System.Security.Principal;
@@ -26,5 +27,7 @@ namespace PortalAboutEverything.Data.Model
         public virtual List<Good> FavouriteGoods { get; set; }
         public virtual List<Book> FavoriteBooksOfUser { get; set; }
         public virtual List<Like> Likes { get; set; }
+
+        public virtual List<AlertUser> AlertsWhichISaw { get; set; }
     }
 }

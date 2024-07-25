@@ -53,6 +53,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<AuthService>();
 
 builder.Services.AddScoped<BoardGameMapper>();
+builder.Services.AddScoped<AlertMapper>();
 
 builder.Services.AddSingleton<IPathHelper, PathHelper>();
 builder.Services.AddSingleton<PathHelper>();
@@ -71,7 +72,10 @@ builder.Services.AddHttpClient<HttpApiKittyService>(
     t => t.BaseAddress = new Uri("https://api.thecatapi.com"));
 builder.Services.AddHttpClient<HttpApiJoke>(
     t => t.BaseAddress = new Uri("https://official-joke-api.appspot.com/"));
-
+builder.Services.AddHttpClient<HttpBoardGameOfDayServise>(
+    t => t.BaseAddress = new Uri("https://localhost:7008/"));
+builder.Services.AddHttpClient<HttpBestBoardGameServise>(
+    t => t.BaseAddress = new Uri("https://localhost:7193/"));
 
 var app = builder.Build();
 
@@ -105,6 +109,8 @@ app.MapHub<BoardGameHub>("/hubs/boardGame");
 app.MapHub<MovieHub>("/hubs/movie");
 app.MapHub<CommentTravelingHub>("/hubs/CommentTraveling");
 app.MapHub<GoodReviewHub>("/hubs/goodReview");
+app.MapHub<AlertHub>("/hubs/alert");
+
 
 app.MapControllerRoute(
     name: "default",
