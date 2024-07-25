@@ -34,7 +34,7 @@ namespace PortalAboutEverything.Tests.Services
         [TestCase(1, "Test News 1")]
         [TestCase(2, "Test News 2")]
         [TestCase(3, "Test News 3")]
-        public void GetLastNews(int expectedId, string expectedText)
+        public async void GetLastNews(int expectedId, string expectedText)
         {
             // Arrange
             var expectedNews = new DtoLastNews { Id = expectedId, Text = expectedText };
@@ -52,7 +52,7 @@ namespace PortalAboutEverything.Tests.Services
                 .ReturnsAsync(responseMessage);
 
             // Act
-            var result = _httpNewsTravelingsApi.GetLastNews();
+            var result = await _httpNewsTravelingsApi.GetLastNewsAsync();
 
             // Assert
             Assert.That(result, Is.Not.Null);

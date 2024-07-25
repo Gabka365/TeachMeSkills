@@ -111,7 +111,6 @@ app.MapHub<CommentTravelingHub>("/hubs/CommentTraveling");
 app.MapHub<GoodReviewHub>("/hubs/goodReview");
 app.MapHub<AlertHub>("/hubs/alert");
 
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

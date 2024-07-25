@@ -257,8 +257,8 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult TravelingApiInfo()
         {
-            var travelingApi = new PortalAboutEverything.Controllers.ApiControllers.TravelingController();
-            var typeTravelingApi = travelingApi.GetType();
+
+            var typeTravelingApi = typeof(PortalAboutEverything.Controllers.ApiControllers.TravelingController);
 
             var customMethods = typeTravelingApi
                         .GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
