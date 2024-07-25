@@ -178,17 +178,27 @@ namespace PortalAboutEverything.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> BoardGame(int id)
         {
-            BoardGame gameViewModel = _gameRepositories.Get(id)!;
-            BoardGameViewModel viewModel = _mapper.BuildBoardGameViewModel(gameViewModel);
+            var boardGame = _gameRepositories.Get(id)!;
+            var viewModel = _mapper.BuildBoardGameViewModel(boardGame);
 
             if (_authServise.IsAuthenticated())
             {
                 int userId = _authServise.GetUserId();
+                viewModel.CurrentUserId = userId;
+
                 User user = _userRepository.GetWithFavoriteBoardGames(userId);
                 if (user.FavoriteBoardsGames.Any(boardGame => boardGame.Id == id))
                 {
                     viewModel.IsFavoriteForUser = true;
                 }
+                if (_authServise.HasPermission(Permission.CanModerateReviewsOfBoardGames))
+                {
+                    viewModel.IsModerator = true;
+                }
+            }
+            else
+            {
+                viewModel.CurrentUserId = -1;
             }
 
             var boardGameOfDay = _boardGameOfDayServise.GetBoardGameOfDayAsync();

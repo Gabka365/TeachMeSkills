@@ -2,7 +2,7 @@
 @using PortalAboutEverything.LocalizationResources.BoardGame
 
 @section Style {
-    <link href="/css/BoardGame/style.css" rel="stylesheet" />
+    <link href="/css/BoardGame/style.css?v=1" rel="stylesheet" />
 }
 
 @section Scripts {
@@ -34,6 +34,9 @@
 <input type="hidden" class="text-for-add" value="@BoardGame_GamePage.AddToFavorites" />
 <input type="hidden" class="text-for-remove" value="@BoardGame_GamePage.RemoveFromFavorites" />
 <input type="hidden" class="absence-of-reviews-text" value="@BoardGame_GamePage.AbsenceOfReviewsText" />
+
+<input type="hidden" class="current-user-id" value="@Model.CurrentUserId" />
+<input type="hidden" class="is-moderator" value="@Model.IsModerator" />
 
 <div class="title">
     <div class="container">
