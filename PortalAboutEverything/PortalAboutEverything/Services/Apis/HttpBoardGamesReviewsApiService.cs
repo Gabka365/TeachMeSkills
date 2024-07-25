@@ -11,6 +11,12 @@ namespace PortalAboutEverything.Services.Apis
             _httpClient = httpClient;
         }
 
+        public async Task CreateReviewAsync(DtoBoardGameReviewCreate review)
+        {
+            var response = await _httpClient.PostAsJsonAsync("createReview", review);
+            response.EnsureSuccessStatusCode();
+        }
+
         public async Task<DtoBoardGameReview> GetReviewAsync(int id)
         {
             var response = await _httpClient.GetAsync($"get?id={id}");
@@ -20,17 +26,16 @@ namespace PortalAboutEverything.Services.Apis
             return dto;
         }
 
-        public async Task CreateReviewAsync(DtoBoardGameReviewCreate review)
-        {
-            var response = await _httpClient.PostAsJsonAsync("createReview", review);
-            response.EnsureSuccessStatusCode();
-        }
-
         public async Task UpdateReviewAsync(DtoBoardGameReviewUpdate review)
         {
             (await _httpClient
                .PostAsJsonAsync("updateReview", review))
                .EnsureSuccessStatusCode();
+        }
+
+        public async Task DeleteReviewAsync(int id)
+        {
+            await _httpClient.GetAsync($"delete?id={id}");
         }
     }
 }

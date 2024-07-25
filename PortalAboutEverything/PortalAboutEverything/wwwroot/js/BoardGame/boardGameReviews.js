@@ -51,13 +51,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const reviewForDelete = reviewContainer.querySelector(`#review-${reviewData.id}`);
     const deleteButton = reviewForDelete.querySelector(".delete-button");
     deleteButton.addEventListener("click", () => {
-      $.get(baseApiUrl + `delete?id=${reviewData.id}`)
-        .done(() => {
-          reviewForDelete.remove();
-          if(reviewContainer.querySelector(".review")){
-            return;
+      const url = `/api/BoardGameReview/Delete?id=${reviewData.id}`;
+      $.get(url)
+        .done((successfully) => {
+          if(successfully){
+            reviewForDelete.remove();
+            if(reviewContainer.querySelector(".review")){
+              return;
+            }
+            reviewContainer.insertAdjacentHTML("beforeend", `<p>${absenceOfReviewsText}</p>`);
+          } else {
+            window.location.href = "/Auth/AccessDenied"; 
           }
-          reviewContainer.insertAdjacentHTML("beforeend", `<p>${absenceOfReviewsText}</p>`);
         });
     });
   }

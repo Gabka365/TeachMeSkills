@@ -5,6 +5,7 @@ using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Models.BoardGameReview;
 using BoardGamesReviewsApi.Dtos;
 using PortalAboutEverything.Services.Apis;
+using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -14,14 +15,17 @@ namespace PortalAboutEverything.Controllers
         private readonly BoardGameRepositories _gameRepositories;
         private readonly BoardGameMapper _mapper;
         private readonly HttpBoardGamesReviewsApiService _httpService;
+        private readonly AuthService _authService;
 
         public BoardGameReviewController(BoardGameRepositories gameRepositories,
             BoardGameMapper mapper,
-            HttpBoardGamesReviewsApiService httpService)
+            HttpBoardGamesReviewsApiService httpService,
+            AuthService authService)
         {
             _gameRepositories = gameRepositories;
             _mapper = mapper;
             _httpService = httpService;
+            _authService = authService;
         }
 
         [HttpGet]
@@ -38,7 +42,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(BoardGameCreateReviewViewModel boardGameReviewViewModel)
+        public async Task<IActionResult> Create(BoardGameCreateReviewViewModel boardGameReviewViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -54,8 +58,14 @@ namespace PortalAboutEverything.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Update(int id, int gameId)
-        {
+        {          
             DtoBoardGameReview reviewForUpdate = await _httpService.GetReviewAsync(id);
+
+            if (_authService.GetUserId() != reviewForUpdate.UserId)
+            {
+                return RedirectToAction("AccessDenied", "Auth");
+            } 
+
             BoardGameUpdateReviewViewModel viewModel = _mapper.BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
             viewModel.BoardGameId = gameId;
 
@@ -63,7 +73,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateAsync(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
+        public async Task<IActionResult> Update(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
         {
             if (!ModelState.IsValid)
             {
