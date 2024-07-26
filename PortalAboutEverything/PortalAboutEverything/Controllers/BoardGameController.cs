@@ -10,6 +10,10 @@ using PortalAboutEverything.Services;
 using PortalAboutEverything.Mappers;
 using System.Reflection;
 using PortalAboutEverything.Services.Apis;
+using PortalAboutEverything.Data.Model.Alerts;
+using Microsoft.AspNetCore.SignalR;
+using PortalAboutEverything.Hubs;
+using PortalAboutEverything.LocalizationResources.BoardGame;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -23,6 +27,8 @@ namespace PortalAboutEverything.Controllers
         private readonly BoardGameMapper _mapper;
         private readonly HttpBoardGameOfDayServise _boardGameOfDayServise;
         private readonly HttpBestBoardGameServise _bestBoardGameServise;
+        private readonly AlertRepository _alertRepository;
+        public IHubContext<AlertHub, IAlertHub> _alertHub;
 
         public BoardGameController(BoardGameRepositories gameRepositories,
             UserRepository userRepository,
@@ -30,7 +36,9 @@ namespace PortalAboutEverything.Controllers
             PathHelper pathHelper,
             BoardGameMapper mapper,
             HttpBoardGameOfDayServise boardGameOfDayServise,
-            HttpBestBoardGameServise bestBoardGameServise)
+            HttpBestBoardGameServise bestBoardGameServise,
+            AlertRepository alertRepository,
+            IHubContext<AlertHub, IAlertHub> alertHub)
         {
             _gameRepositories = gameRepositories;
             _userRepository = userRepository;
@@ -39,6 +47,8 @@ namespace PortalAboutEverything.Controllers
             _mapper = mapper;
             _boardGameOfDayServise = boardGameOfDayServise;
             _bestBoardGameServise = bestBoardGameServise;
+            _alertRepository = alertRepository;
+            _alertHub = alertHub;
         }
 
         [AllowAnonymous]
@@ -82,7 +92,7 @@ namespace PortalAboutEverything.Controllers
 
         [HttpPost]
         [HasPermission(Permission.CanCreateAndUpdateBoardGames)]
-        public IActionResult Create(BoardGameCreateViewModel boardGameViewModel)
+        public async Task<IActionResult> Create(BoardGameCreateViewModel boardGameViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -107,6 +117,11 @@ namespace PortalAboutEverything.Controllers
                     boardGameViewModel.SideImage.CopyTo(fs);
                 }
             }
+
+            var alert = new Alert() { Text = string.Format(BoardGame_Index.AlertForNewBoardGame, game.Title), EndDate = DateTime.UtcNow.AddDays(3) };
+            _alertRepository.Create(alert);
+
+            await _alertHub.Clients.All.AlertWasCreatedAsync(alert.Id, alert.Text);
 
             return RedirectToAction(nameof(Index));
         }

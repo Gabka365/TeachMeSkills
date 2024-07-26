@@ -49,7 +49,7 @@ namespace PortalAboutEverything.Controllers
                 return View(boardGameReviewViewModel);
             }
 
-            DtoBoardGameReviewCreate review = _mapper.BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
+            var review = _mapper.BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
             review.BoardGameId = boardGameReviewViewModel.BoardGameId;
             await _httpService.CreateReviewAsync(review);
 
