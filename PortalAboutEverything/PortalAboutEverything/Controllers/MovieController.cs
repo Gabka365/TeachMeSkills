@@ -8,6 +8,7 @@ using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
 using System.Reflection;
+using PortalAboutEverything.Services.Apis;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -17,16 +18,19 @@ namespace PortalAboutEverything.Controllers
         private AuthService _authService;
         private UserRepository _userRepository;
         private PathHelper _pathHelper;
+        private HttpMoviesAverageRateApiService _httpMoviesAverageRateApiService;
 
         public MovieController(MovieRepositories movieRepositories,
             AuthService authService,
             UserRepository userRepository,
-            PathHelper pathHelper)
+            PathHelper pathHelper,
+            HttpMoviesAverageRateApiService httpMoviesAverageRateApiService)
         {
             _movieRepositories = movieRepositories;
             _authService = authService;
             _userRepository = userRepository;
             _pathHelper = pathHelper;
+            _httpMoviesAverageRateApiService = httpMoviesAverageRateApiService;
         }
 
         public IActionResult Index()
@@ -167,11 +171,11 @@ namespace PortalAboutEverything.Controllers
         [HasPermission(Permission.CanLeaveReviewForMovie)]
         public IActionResult MovieAddReview(int id)
         {
-            var movie = _movieRepositories.Get(id);
+            var movieName = _movieRepositories.GetMovieName(id);
             var viewModel = new MovieAddReviewViewModel
             {
-                MovieId = movie.Id,
-                Name = movie.Name,
+                MovieId = id,
+                Name = movieName,
             };
             return View(viewModel);
         }
@@ -195,6 +199,11 @@ namespace PortalAboutEverything.Controllers
             var userName = _authService.GetUserName();
             var userId = _authService.GetUserId();
             var movies = _movieRepositories.GetFavoriteMoviesByUserId(userId);
+            var moviesId = movies.Select(m => m.Id).ToList();
+
+            var averageRatesTask = _httpMoviesAverageRateApiService.GetAverageRatesAsync(moviesId);
+            var averageRates = averageRatesTask.Result;
+
             var viewModel = new MoviesFanViewModel
             {
                 Name = userName,
@@ -207,9 +216,12 @@ namespace PortalAboutEverything.Controllers
                     Director = movie.Director,
                     Budget = movie.Budget,
                     CountryOfOrigin = movie.CountryOfOrigin,
+                    AverageRate = averageRates
+                    .FirstOrDefault(dto => dto.MovieId == movie.Id)
+                    .AverageRate,
                 }).ToList(),
             };
-
+            
             return View(viewModel);
         }
 

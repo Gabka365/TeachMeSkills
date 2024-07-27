@@ -13,7 +13,7 @@
 @foreach (var movie in Model.Movies)
 {
     <div class="favoriteMovie">
-        @movie.Name
+        @movie.Name, средняя оценка @movie.AverageRate
         <a class="delete-link" href="/Movie/DeleteMovieFromMovieFan?movieId=@movie.Id">Удалить</a>
     </div>
 }
