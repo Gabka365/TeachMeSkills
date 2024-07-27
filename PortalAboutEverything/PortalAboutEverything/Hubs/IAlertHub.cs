@@ -2,6 +2,6 @@
 {
     public interface IAlertHub
     {
-        Task AlertWasCreatedAsync(int alertId, string text);
+        Task AlertWasCreatedAsync(int alertId, string text, bool isNewBoardGameAlert = false);
     }
 }

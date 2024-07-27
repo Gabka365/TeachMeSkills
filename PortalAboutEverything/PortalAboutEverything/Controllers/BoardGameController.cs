@@ -118,10 +118,15 @@ namespace PortalAboutEverything.Controllers
                 }
             }
 
-            var alert = new Alert() { Text = string.Format(BoardGame_Index.AlertForNewBoardGame, game.Title), EndDate = DateTime.UtcNow.AddDays(3) };
+            var alert = new Alert() 
+            { 
+                Text = $"{nameof(BoardGame_Index)};{nameof(BoardGame_Index.AlertForNewBoardGame)};{game.Title}", 
+                EndDate = DateTime.UtcNow.AddDays(3),
+                IsNewBoardGameAlert = true
+            };
             _alertRepository.Create(alert);
 
-            await _alertHub.Clients.All.AlertWasCreatedAsync(alert.Id, alert.Text);
+            await _alertHub.Clients.All.AlertWasCreatedAsync(alert.Id, alert.Text, alert.IsNewBoardGameAlert);
 
             return RedirectToAction(nameof(Index));
         }

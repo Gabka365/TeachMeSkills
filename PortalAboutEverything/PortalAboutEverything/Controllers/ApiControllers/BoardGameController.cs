@@ -9,6 +9,7 @@ using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Data.Repositories.Interfaces;
+using System.Reflection;
 
 namespace PortalAboutEverything.Controllers.ApiControllers
 {
@@ -66,7 +67,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         [AllowAnonymous]
         public bool Delete(int id)
         {
-            if(!_gameRepositories.Delete(id))
+            if (!_gameRepositories.Delete(id))
             {
                 return false;
             }
@@ -95,7 +96,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         public void RemoveFavoriteBoardGameForUser(int gameId)
         {
             User user = _authServise.GetUser();
-            _gameRepositories.RemoveUserWhoFavoriteThisBoardGame(user, gameId); 
+            _gameRepositories.RemoveUserWhoFavoriteThisBoardGame(user, gameId);
         }
 
         [AllowAnonymous]
@@ -136,14 +137,34 @@ namespace PortalAboutEverything.Controllers.ApiControllers
 
         }
 
-        public BoardGameViewModel TestMethod(int id, List<BoardGameCreateViewModel> boards)
+        public string GetCorrectTextForAlert(string text)
         {
-            return null;
+            var parametrs = text.Split(';');
+
+            var messageResourceType = GetClassType(parametrs[0]);
+            var messageResourceName = parametrs[1];
+            var boardGameTitle = parametrs[2];
+
+            var message = messageResourceType!.GetProperty(messageResourceName)!.GetValue(null);
+            var correctText = string.Format((string)message, boardGameTitle);
+
+            return correctText;
         }
 
-        public void TestMethod(int id, Dictionary<List<int>, int> keyValuePairs)
+        private Type GetClassType(string className)
         {
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
+            // Перебираем все типы в текущей сборке
+            foreach (Type type in currentAssembly.GetTypes())
+            {
+                if (type.Name == className)
+                {
+                    return type;
+                }
+            }
+
+            return null;
         }
     }
 }

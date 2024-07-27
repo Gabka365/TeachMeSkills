@@ -28,6 +28,7 @@ namespace PortalAboutEverything.Mappers
             {
                 Id = alert.Id,
                 Text = alert.Text,
+                IsNewBoardGameAlert = alert.IsNewBoardGameAlert,
             };
     }
 }
