@@ -14,6 +14,14 @@ namespace PortalAboutEverything.Mappers
                 IsActive = alert.IsActive,
             };
 
+        public AlertIndexViewModel MapToIndex(Alert alert)
+            => new AlertIndexViewModel
+            {
+                Id = alert.Id,
+                Text = alert.Text,
+                EndDate = alert.EndDate,
+            };
+
         public Alert MapToDataBaseModel(AlertCreateViewModel viewModel)
             => new Alert
             {

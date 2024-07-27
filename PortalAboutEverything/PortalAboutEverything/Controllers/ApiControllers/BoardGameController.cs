@@ -23,14 +23,16 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         private readonly UserRepository _userRepository;
         private readonly BoardGameMapper _mapper;
         private readonly AuthService _authServise;
+        private readonly LocalizatoinService _localizatoinService;
 
-        public BoardGameController(PathHelper pathHelper, BoardGameRepositories gameRepositories, UserRepository userRepository, BoardGameMapper mapper, AuthService authServise)
+        public BoardGameController(PathHelper pathHelper, BoardGameRepositories gameRepositories, UserRepository userRepository, BoardGameMapper mapper, AuthService authServise, LocalizatoinService localizatoinService)
         {
             _pathHelper = pathHelper;
             _gameRepositories = gameRepositories;
             _userRepository = userRepository;
             _mapper = mapper;
             _authServise = authServise;
+            _localizatoinService = localizatoinService;
         }
 
         [AllowAnonymous]
@@ -139,32 +141,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
 
         public string GetCorrectTextForAlert(string text)
         {
-            var parametrs = text.Split(';');
-
-            var messageResourceType = GetClassType(parametrs[0]);
-            var messageResourceName = parametrs[1];
-            var boardGameTitle = parametrs[2];
-
-            var message = messageResourceType!.GetProperty(messageResourceName)!.GetValue(null);
-            var correctText = string.Format((string)message, boardGameTitle);
-
-            return correctText;
-        }
-
-        private Type GetClassType(string className)
-        {
-            Assembly currentAssembly = Assembly.GetExecutingAssembly();
-
-            // Перебираем все типы в текущей сборке
-            foreach (Type type in currentAssembly.GetTypes())
-            {
-                if (type.Name == className)
-                {
-                    return type;
-                }
-            }
-
-            return null;
-        }
+            return _localizatoinService.GetLocalizedNewBoardGameAlert(text);
+        }     
     }
 }

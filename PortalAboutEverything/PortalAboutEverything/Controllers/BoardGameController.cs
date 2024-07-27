@@ -120,7 +120,7 @@ namespace PortalAboutEverything.Controllers
 
             var alert = new Alert() 
             { 
-                Text = $"{nameof(BoardGame_Index)};{nameof(BoardGame_Index.AlertForNewBoardGame)};{game.Title}", 
+                Text = game.Title, 
                 EndDate = DateTime.UtcNow.AddDays(3),
                 IsNewBoardGameAlert = true
             };

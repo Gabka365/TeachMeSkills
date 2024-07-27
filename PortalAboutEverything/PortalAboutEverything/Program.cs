@@ -56,6 +56,8 @@ builder.Services.AddScoped<AlertMapper>();
 builder.Services.AddSingleton<IPathHelper, PathHelper>();
 builder.Services.AddSingleton<PathHelper>();
 
+builder.Services.AddScoped<LocalizatoinService>();
+
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSignalR();
