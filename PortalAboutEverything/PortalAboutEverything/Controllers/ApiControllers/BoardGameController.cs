@@ -7,9 +7,9 @@ using PortalAboutEverything.Services;
 using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Data.Model;
-using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Data.Repositories.Interfaces;
-using System.Reflection;
+using PortalAboutEverything.Services.Interfaces;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
 
 namespace PortalAboutEverything.Controllers.ApiControllers
 {
@@ -18,14 +18,14 @@ namespace PortalAboutEverything.Controllers.ApiControllers
     [Authorize]
     public class BoardGameController : Controller
     {
-        private readonly PathHelper _pathHelper;
-        private readonly BoardGameRepositories _gameRepositories;
-        private readonly UserRepository _userRepository;
+        private readonly IPathHelper _pathHelper;
+        private readonly IBoardGameRepositories _gameRepositories;
+        private readonly IUserRepository _userRepository;
         private readonly BoardGameMapper _mapper;
-        private readonly AuthService _authServise;
+        private readonly IAuthService _authServise;
         private readonly LocalizatoinService _localizatoinService;
 
-        public BoardGameController(PathHelper pathHelper, BoardGameRepositories gameRepositories, UserRepository userRepository, BoardGameMapper mapper, AuthService authServise, LocalizatoinService localizatoinService)
+        public BoardGameController(IPathHelper pathHelper, IBoardGameRepositories gameRepositories, IUserRepository userRepository, BoardGameMapper mapper, IAuthService authServise, LocalizatoinService localizatoinService)
         {
             _pathHelper = pathHelper;
             _gameRepositories = gameRepositories;
@@ -65,8 +65,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             return true;
         }
 
-        //[HasPermission(Permission.CanDeleteBoardGames)]
-        [AllowAnonymous]
+        [HasPermission(Permission.CanDeleteBoardGames)]
         public bool Delete(int id)
         {
             if (!_gameRepositories.Delete(id))

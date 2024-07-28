@@ -1,26 +1,26 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Models.BoardGameReview;
 using BoardGamesReviewsApi.Dtos;
 using PortalAboutEverything.Services.Apis;
-using PortalAboutEverything.Services.AuthStuff;
+using PortalAboutEverything.Data.Repositories.Interfaces;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
 
 namespace PortalAboutEverything.Controllers
 {
     [Authorize]
     public class BoardGameReviewController : Controller
     {
-        private readonly BoardGameRepositories _gameRepositories;
+        private readonly IBoardGameRepositories _gameRepositories;
         private readonly BoardGameMapper _mapper;
         private readonly HttpBoardGamesReviewsApiService _httpService;
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
-        public BoardGameReviewController(BoardGameRepositories gameRepositories,
+        public BoardGameReviewController(IBoardGameRepositories gameRepositories,
             BoardGameMapper mapper,
             HttpBoardGamesReviewsApiService httpService,
-            AuthService authService)
+            IAuthService authService)
         {
             _gameRepositories = gameRepositories;
             _mapper = mapper;

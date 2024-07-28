@@ -14,30 +14,33 @@ using PortalAboutEverything.Data.Model.Alerts;
 using Microsoft.AspNetCore.SignalR;
 using PortalAboutEverything.Hubs;
 using PortalAboutEverything.LocalizationResources.BoardGame;
+using PortalAboutEverything.Services.Interfaces;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 
 namespace PortalAboutEverything.Controllers
 {
     [Authorize]
     public class BoardGameController : Controller
     {
-        private readonly BoardGameRepositories _gameRepositories;
-        private readonly UserRepository _userRepository;
-        private readonly AuthService _authServise;
-        private readonly PathHelper _pathHelper;
+        private readonly IBoardGameRepositories _gameRepositories;
+        private readonly IUserRepository _userRepository;
+        private readonly IAuthService _authServise;
+        private readonly IPathHelper _pathHelper;
         private readonly BoardGameMapper _mapper;
         private readonly HttpBoardGameOfDayServise _boardGameOfDayServise;
         private readonly HttpBestBoardGameServise _bestBoardGameServise;
-        private readonly AlertRepository _alertRepository;
+        private readonly IAlertRepository _alertRepository;
         public IHubContext<AlertHub, IAlertHub> _alertHub;
 
-        public BoardGameController(BoardGameRepositories gameRepositories,
-            UserRepository userRepository,
-            AuthService authService,
-            PathHelper pathHelper,
+        public BoardGameController(IBoardGameRepositories gameRepositories,
+            IUserRepository userRepository,
+            IAuthService authService,
+            IPathHelper pathHelper,
             BoardGameMapper mapper,
             HttpBoardGameOfDayServise boardGameOfDayServise,
             HttpBestBoardGameServise bestBoardGameServise,
-            AlertRepository alertRepository,
+            IAlertRepository alertRepository,
             IHubContext<AlertHub, IAlertHub> alertHub)
         {
             _gameRepositories = gameRepositories;

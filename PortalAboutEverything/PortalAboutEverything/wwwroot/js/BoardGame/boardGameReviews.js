@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const baseApiUrl = `https://localhost:7289/`;
   const boardGameId = document.querySelector(".game-id").value;
   const reviewContainer = document.querySelector(".reviews-container");
+
   const absenceOfReviewsText = document.querySelector(".absence-of-reviews-text").value;
+  const uploadingReviewsText = document.querySelector(".uploading-reviews-text").value;
 
   const currentUserId = document.querySelector(".current-user-id").value - 0;
   const isModerator = document.querySelector(".is-moderator").value;
@@ -10,12 +12,14 @@ document.addEventListener("DOMContentLoaded", function () {
   init();
 
   function init() {
-    reviewContainer.innerHTML = "";
+    reviewContainer.innerHTML = uploadingReviewsText;
     $.get(baseApiUrl + `getAll?gameId=${boardGameId}`)
       .done(function (reviews) {
         if (reviews.length === 0) {
+          reviewContainer.innerHTML = "";
           reviewContainer.insertAdjacentHTML("beforeend", `<p>${absenceOfReviewsText}</p>`);
         } else {
+          reviewContainer.innerHTML = "";
           reviews.forEach(review => {
             addReview(review);
           });
@@ -61,26 +65,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     reviewContainer.insertAdjacentHTML("beforeend", review);
 
+    let deleteButtonIsClickable = true;
     const reviewForDelete = reviewContainer.querySelector(`#review-${reviewData.id}`);
     const deleteButton = reviewForDelete.querySelector(".delete-button");
     if (deleteButton) {
-      deleteButton.addEventListener("click", () => {
-        const url = `/api/BoardGameReview/Delete?id=${reviewData.id}`;
-        $.get(url)
-          .done((successfully) => {
-            if (successfully) {
-              reviewForDelete.remove();
-              if (reviewContainer.querySelector(".review")) {
-                return;
+      deleteButton.addEventListener("click", async function() {
+        if (deleteButtonIsClickable) {
+          deleteButtonIsClickable = false;
+          const url = `/api/BoardGameReview/Delete?id=${reviewData.id}`;
+          await $.get(url)
+            .done((successfully) => {
+              if (successfully) {
+                reviewForDelete.remove();
+                if (reviewContainer.querySelector(".review")) {
+                  return;
+                }
+                reviewContainer.insertAdjacentHTML("beforeend", `<p>${absenceOfReviewsText}</p>`);
+              } else {
+                window.location.href = "/Auth/AccessDenied";
               }
-              reviewContainer.insertAdjacentHTML("beforeend", `<p>${absenceOfReviewsText}</p>`);
-            } else {
-              window.location.href = "/Auth/AccessDenied";
-            }
-          })
-          .fail(() => {
-            window.location.href = "/Auth/Login";
-          });
+            })
+            .fail(() => {
+              window.location.href = "/Auth/Login";
+            });
+            deleteButtonIsClickable = true;
+        } else {
+          return;
+        }
       });
     }
   }

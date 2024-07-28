@@ -1,15 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
-using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Services;
-using PortalAboutEverything.Models.BoardGame;
-using PortalAboutEverything.Mappers;
-using PortalAboutEverything.Data.Model;
-using PortalAboutEverything.Services.AuthStuff;
-using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Services.Apis;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
 
 namespace PortalAboutEverything.Controllers.ApiControllers
 {
@@ -18,10 +11,10 @@ namespace PortalAboutEverything.Controllers.ApiControllers
     [Authorize]
     public class BoardGameReviewController : Controller
     {
-        private readonly AuthService _authServise;
+        private readonly IAuthService _authServise;
         private readonly HttpBoardGamesReviewsApiService _apiServise;
 
-        public BoardGameReviewController(AuthService authServise, HttpBoardGamesReviewsApiService apiServise)
+        public BoardGameReviewController(IAuthService authServise, HttpBoardGamesReviewsApiService apiServise)
         {
             _authServise = authServise;
             _apiServise = apiServise;
