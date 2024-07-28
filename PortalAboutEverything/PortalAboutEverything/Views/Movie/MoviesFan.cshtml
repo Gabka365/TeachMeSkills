@@ -7,9 +7,13 @@
 <div>
     Пользователь с именем @Model.Name
 </div>
-<div>
-    Любимые фильмы:
+<div class="spellOfDay">
+    Заклинание дня: 
+    <span class="spell">@Model.Spell</span>:
+    <span class="useOfSpell">@Model.UsageOfSpell</span>
 </div>
+<div class="favoriteMovies">
+    Любимые фильмы:
 @foreach (var movie in Model.Movies)
 {
     <div class="favoriteMovie">
@@ -17,4 +21,7 @@
         <a class="delete-link" href="/Movie/DeleteMovieFromMovieFan?movieId=@movie.Id">Удалить</a>
     </div>
 }
+</div>
+<div class="backToMainPage">
 <a class="backToMainPage" href="/Movie/Index">Вернуться на главную</a>
+</div>

@@ -19,18 +19,21 @@ namespace PortalAboutEverything.Controllers
         private UserRepository _userRepository;
         private PathHelper _pathHelper;
         private HttpMoviesAverageRateApiService _httpMoviesAverageRateApiService;
+        private HttpApiSpellService _httpApiSpellService;
 
         public MovieController(MovieRepositories movieRepositories,
             AuthService authService,
             UserRepository userRepository,
             PathHelper pathHelper,
-            HttpMoviesAverageRateApiService httpMoviesAverageRateApiService)
+            HttpMoviesAverageRateApiService httpMoviesAverageRateApiService,
+            HttpApiSpellService httpApiSpellService)
         {
             _movieRepositories = movieRepositories;
             _authService = authService;
             _userRepository = userRepository;
             _pathHelper = pathHelper;
             _httpMoviesAverageRateApiService = httpMoviesAverageRateApiService;
+            _httpApiSpellService = httpApiSpellService;
         }
 
         public IActionResult Index()
@@ -194,7 +197,7 @@ namespace PortalAboutEverything.Controllers
         }
 
         [Authorize]
-        public IActionResult MoviesFan()
+        public async Task<IActionResult> MoviesFan()
         {
             var userName = _authService.GetUserName();
             var userId = _authService.GetUserId();
@@ -202,7 +205,9 @@ namespace PortalAboutEverything.Controllers
             var moviesId = movies.Select(m => m.Id).ToList();
 
             var averageRatesTask = _httpMoviesAverageRateApiService.GetAverageRatesAsync(moviesId);
-            var averageRates = averageRatesTask.Result;
+            var spellTask = _httpApiSpellService.GetSpellAsync();
+
+            await Task.WhenAll(averageRatesTask, spellTask);
 
             var viewModel = new MoviesFanViewModel
             {
@@ -216,10 +221,12 @@ namespace PortalAboutEverything.Controllers
                     Director = movie.Director,
                     Budget = movie.Budget,
                     CountryOfOrigin = movie.CountryOfOrigin,
-                    AverageRate = averageRates
+                    AverageRate = averageRatesTask.Result
                     .FirstOrDefault(dto => dto.MovieId == movie.Id)
                     .AverageRate,
                 }).ToList(),
+                Spell = spellTask.Result.Spell,
+                UsageOfSpell = spellTask.Result.Use,
             };
             
             return View(viewModel);
