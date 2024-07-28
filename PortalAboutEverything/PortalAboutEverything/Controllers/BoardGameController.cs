@@ -1,19 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Data.Model;
-using PortalAboutEverything.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
-using PortalAboutEverything.Services.AuthStuff;
-using PortalAboutEverything.Services;
 using PortalAboutEverything.Mappers;
 using System.Reflection;
 using PortalAboutEverything.Services.Apis;
 using PortalAboutEverything.Data.Model.Alerts;
 using Microsoft.AspNetCore.SignalR;
 using PortalAboutEverything.Hubs;
-using PortalAboutEverything.LocalizationResources.BoardGame;
 using PortalAboutEverything.Services.Interfaces;
 using PortalAboutEverything.Services.AuthStuff.Interfaces;
 using PortalAboutEverything.Data.Repositories.Interfaces;
@@ -252,21 +248,6 @@ namespace PortalAboutEverything.Controllers
             };
 
             return View(viewModel);
-        }
-
-        public IActionResult RemoveFavoriteBoardGameForUser(int gameId, bool isGamePage)
-        {
-            User user = _authServise.GetUser();
-            _gameRepositories.RemoveUserWhoFavoriteThisBoardGame(user, gameId);
-
-            if (isGamePage)
-            {
-                return RedirectToAction(nameof(BoardGame), new { id = gameId });
-            }
-            else
-            {
-                return RedirectToAction(nameof(UserFavoriteBoardGames));
-            }
         }
 
         public IActionResult ApiMethods()

@@ -16,24 +16,24 @@ document.addEventListener("DOMContentLoaded", function () {
   hub.start();
   
   const deleteButtons = document.querySelectorAll(".delete-link");
-  
   let deleteButtonIsClickable = true;
+  if (deleteButtons.length) {
+    deleteButtons.forEach((deleteButton) => {
+      deleteButton.addEventListener("click", () => {
+        if (deleteButtonIsClickable) {
+          const deletedId = deleteButton
+            .closest(".board-game-item")
+            .querySelector(".board-game-id")
+            .value;
   
-  deleteButtons.forEach((deleteButton) => {
-    deleteButton.addEventListener("click", () => {
-      if (deleteButtonIsClickable) {
-        const deletedId = deleteButton
-          .closest(".board-game-item")
-          .querySelector(".board-game-id")
-          .value;
-
-        deleteButtonIsClickable = false;
-        deleteBoardGame(deletedId);
-      } else {
-        return;
-      }
+          deleteButtonIsClickable = false;
+          deleteBoardGame(deletedId);
+        } else {
+          return;
+        };
+      });
     });
-  });
+  };
 
   function deleteBoardGameFromHTML(deletedId) {
     document
