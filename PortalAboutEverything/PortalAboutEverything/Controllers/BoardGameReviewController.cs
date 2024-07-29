@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Models.BoardGameReview;
-using BoardGamesReviewsApi.Dtos;
 using PortalAboutEverything.Services.Apis;
 using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Services.AuthStuff.Interfaces;
@@ -53,20 +52,20 @@ namespace PortalAboutEverything.Controllers
             review.BoardGameId = boardGameReviewViewModel.BoardGameId;
             await _httpService.CreateReviewAsync(review);
 
-            return RedirectToAction("BoardGame", "BoardGame", new { id = review.BoardGameId });
+            return RedirectToAction(nameof(BoardGameController.BoardGame), nameof(BoardGameController)[..^"Controller".Length], new { id = review.BoardGameId });
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id, int gameId)
         {          
-            DtoBoardGameReview reviewForUpdate = await _httpService.GetReviewAsync(id);
+            var reviewForUpdate = await _httpService.GetReviewAsync(id);
 
             if (_authService.GetUserId() != reviewForUpdate.UserId)
             {
-                return RedirectToAction("AccessDenied", "Auth");
+                return RedirectToAction(nameof(AuthController.AccessDenied), nameof(AuthController)[..^"Controller".Length]);
             } 
 
-            BoardGameUpdateReviewViewModel viewModel = _mapper.BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
+            var viewModel = _mapper.BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
             viewModel.BoardGameId = gameId;
 
             return View(viewModel);
@@ -80,10 +79,17 @@ namespace PortalAboutEverything.Controllers
                 return View(boardGameReviewViewModel);
             }
 
-            DtoBoardGameReviewUpdate updatedReview = _mapper.BuildBoardGameRewievDataModelFromUpdate(boardGameReviewViewModel);
+            var review = await _httpService.GetReviewAsync(boardGameReviewViewModel.Id);
+
+            if (_authService.GetUserId() != review.UserId)
+            {
+                return RedirectToAction(nameof(AuthController.AccessDenied), nameof(AuthController)[..^"Controller".Length]);
+            }
+
+            var updatedReview = _mapper.BuildBoardGameRewievDataModelFromUpdate(boardGameReviewViewModel);
             await _httpService.UpdateReviewAsync(updatedReview);
 
-            return RedirectToAction("BoardGame", "BoardGame", new { id = boardGameReviewViewModel.BoardGameId });
+            return RedirectToAction(nameof(BoardGameController.BoardGame), nameof(BoardGameController)[..^"Controller".Length], new { id = boardGameReviewViewModel.BoardGameId });
         }     
     }
 }
