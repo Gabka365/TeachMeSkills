@@ -2,14 +2,12 @@
 {
     public class CacheService
     {
-        private static int _boardGameOfDayId;
-        private static DateTime _dayOfChange;
-
-        public CacheService() { }
+        private int _boardGameOfDayId;
+        private DateTime _dayOfChange;
 
         public int GetBoardGameOfDayId(List<int> allId)
         {
-            if (_boardGameOfDayId == 0 || _dayOfChange.Date < DateTime.Now.Date) 
+            if (_boardGameOfDayId == 0 || _dayOfChange.Date != DateTime.Now.Date) 
             {
                 var random = new Random();
                 var index = random.Next(allId.Count);

@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
-using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Data.Model;
-using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Data.Repositories.Interfaces;
+using PortalAboutEverything.Services.Interfaces;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
 
 namespace PortalAboutEverything.Controllers.ApiControllers
 {
@@ -17,19 +17,21 @@ namespace PortalAboutEverything.Controllers.ApiControllers
     [Authorize]
     public class BoardGameController : Controller
     {
-        private readonly PathHelper _pathHelper;
-        private readonly BoardGameRepositories _gameRepositories;
-        private readonly UserRepository _userRepository;
+        private readonly IPathHelper _pathHelper;
+        private readonly IBoardGameRepositories _gameRepositories;
+        private readonly IUserRepository _userRepository;
         private readonly BoardGameMapper _mapper;
-        private readonly AuthService _authServise;
+        private readonly IAuthService _authServise;
+        private readonly LocalizatoinService _localizatoinService;
 
-        public BoardGameController(PathHelper pathHelper, BoardGameRepositories gameRepositories, UserRepository userRepository, BoardGameMapper mapper, AuthService authServise)
+        public BoardGameController(IPathHelper pathHelper, IBoardGameRepositories gameRepositories, IUserRepository userRepository, BoardGameMapper mapper, IAuthService authServise, LocalizatoinService localizatoinService)
         {
             _pathHelper = pathHelper;
             _gameRepositories = gameRepositories;
             _userRepository = userRepository;
             _mapper = mapper;
             _authServise = authServise;
+            _localizatoinService = localizatoinService;
         }
 
         [AllowAnonymous]
@@ -62,11 +64,10 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             return true;
         }
 
-        //[HasPermission(Permission.CanDeleteBoardGames)]
-        [AllowAnonymous]
+        [HasPermission(Permission.CanDeleteBoardGames)]
         public bool Delete(int id)
         {
-            if(!_gameRepositories.Delete(id))
+            if (!_gameRepositories.Delete(id))
             {
                 return false;
             }
@@ -95,7 +96,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         public void RemoveFavoriteBoardGameForUser(int gameId)
         {
             User user = _authServise.GetUser();
-            _gameRepositories.RemoveUserWhoFavoriteThisBoardGame(user, gameId); 
+            _gameRepositories.RemoveUserWhoFavoriteThisBoardGame(user, gameId);
         }
 
         [AllowAnonymous]
@@ -136,14 +137,9 @@ namespace PortalAboutEverything.Controllers.ApiControllers
 
         }
 
-        public BoardGameViewModel TestMethod(int id, List<BoardGameCreateViewModel> boards)
+        public string GetCorrectTextForAlert(string text)
         {
-            return null;
-        }
-
-        public void TestMethod(int id, Dictionary<List<int>, int> keyValuePairs)
-        {
-
-        }
+            return _localizatoinService.GetLocalizedNewBoardGameAlert(text);
+        }     
     }
 }

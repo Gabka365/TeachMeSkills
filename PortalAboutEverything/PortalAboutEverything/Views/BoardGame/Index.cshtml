@@ -17,7 +17,7 @@
         @foreach (var boardGame in Model.BoardGames)
         {
             <li class="board-game-item board-game">
-                <input class="board-game-id" type="hidden" value="@boardGame.Id"/>
+                <input class="board-game-id" type="hidden" value="@boardGame.Id" />
                 <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@boardGame.Id">@boardGame.Title</a>
                 <div class="update-and-delete">
                     @if (Model.CanCreateAndUpdateBoardGames)
@@ -48,12 +48,12 @@
     }
 
     <ul class="board-games top-board-games">
-        @for(int i = 0; i < Model.Top3FavoriteBoardGames.Count; i++)
+        @for (int i = 0; i < Model.Top3FavoriteBoardGames.Count; i++)
         {
             var favoriteBoardGame = Model.Top3FavoriteBoardGames[i];
             <li class="board-game-item top-board-game-item">
                 <input class="top-board-game-id" type="hidden" value="@favoriteBoardGame.Id" />
-                <p>@(i+1)</p>
+                <p>@(i + 1)</p>
                 <a class="board-game-title text-dark top-board-game-title" href="/BoardGame/BoardGame?Id=@favoriteBoardGame.Id">@favoriteBoardGame.Title</a>
                 <p class="like-count">@favoriteBoardGame.CountOfUserWhoLikeIt</p>
             </li>

@@ -4,6 +4,7 @@ using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Hubs;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Models.Alert;
+using PortalAboutEverything.Services;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -12,22 +13,34 @@ namespace PortalAboutEverything.Controllers
         private IAlertRepository _alertRepository;
         private AlertMapper _alertMapper;
         public IHubContext<AlertHub, IAlertHub> _alertHub;
+        public LocalizatoinService _localizatoinService;
 
-        public AlertController(IAlertRepository alertRepository, 
-            AlertMapper alertMapper, 
-            IHubContext<AlertHub, IAlertHub> alertHub)
+        public AlertController(IAlertRepository alertRepository,
+            AlertMapper alertMapper,
+            IHubContext<AlertHub, IAlertHub> alertHub,
+            LocalizatoinService localizatoinService)
         {
             _alertRepository = alertRepository;
             _alertMapper = alertMapper;
             _alertHub = alertHub;
+            _localizatoinService = localizatoinService;
         }
 
         public IActionResult Index()
         {
-            var alertViewModels = _alertRepository
-                .GetAll()
-                .Select(_alertMapper.Map)
-                .ToList();
+            var alerts = _alertRepository.GetAll();
+            var alertViewModels = new List<AlertIndexViewModel>();
+
+            foreach (var alert in alerts)
+            {
+                var alertViewModel = _alertMapper.MapToIndex(alert);
+                if (alert.IsNewBoardGameAlert)
+                {
+                    alertViewModel.Text = _localizatoinService.GetLocalizedNewBoardGameAlert(alert.Text);
+                }
+                alertViewModels.Add(alertViewModel);
+            }
+
             return View(alertViewModels);
         }
 

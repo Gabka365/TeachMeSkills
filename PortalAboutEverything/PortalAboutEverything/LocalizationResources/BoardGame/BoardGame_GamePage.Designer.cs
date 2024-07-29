@@ -232,6 +232,15 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Uploading reviews....
+        /// </summary>
+        public static string UploadingReviews {
+            get {
+                return ResourceManager.GetString("UploadingReviews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Work schedule.
         /// </summary>
         public static string WorkSchedule {

@@ -163,6 +163,10 @@ button {
     max-width: 20px;
 }
 
+.update-and-delete .delete-button {
+    cursor: pointer;
+}
+
 .review-buttons {
     margin-top: 35px;
     margin-bottom: 40px;

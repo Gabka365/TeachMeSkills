@@ -120,6 +120,9 @@
   <data name="AddButton" xml:space="preserve">
     <value>Добавить игру</value>
   </data>
+  <data name="AlertForNewBoardGame" xml:space="preserve">
+    <value>Появилась новая настольная игра "{0}"!</value>
+  </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Удалить</value>
   </data>

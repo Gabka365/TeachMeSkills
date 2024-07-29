@@ -1,9 +1,11 @@
 ﻿namespace PortalAboutEverything.Models.Alert
 {
-    public class AlertShortInfoViewModel
+    public class AlertIndexViewModel
     {
         public int Id { get; set; }
+
         public string Text { get; set; }
-        public bool IsNewBoardGameAlert { get; set; }
+
+        public DateTime? EndDate { get; set; }
     }
 }

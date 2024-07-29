@@ -90,4 +90,18 @@ app.MapGet("/findReviewInfo", (
 	return movieRepository.Get(reviewId);
 });
 
+app.MapPost("/getAverageRateOfMovies", ([FromBody] List<int> moviesId, MovieReviewRepositories repository) =>
+{
+    var moviesAverageRateList = new List<AverageRateOfMovie>();
+    foreach (int movieId in moviesId)
+    {
+        var averageRate =  repository.GetAverageRateOfMovie(movieId);
+        moviesAverageRateList.Add(new AverageRateOfMovie {
+        AverageRate = averageRate,
+        MovieId = movieId
+        });
+    }
+    return moviesAverageRateList;
+});
+
 app.Run();
