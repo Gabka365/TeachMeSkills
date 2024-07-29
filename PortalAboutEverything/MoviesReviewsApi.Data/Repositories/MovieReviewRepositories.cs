@@ -76,5 +76,18 @@ namespace MoviesReviewsApi.Data.Repositories
 
             _dbContext.SaveChanges();
         }
+
+        public int GetAverageRateOfMovie(int movieId)
+        {
+            var averageRate = 0;
+            var reviewList = FindReviewsByMovieId(movieId);
+
+            if (reviewList.Count() != 0)
+            {
+                averageRate = (int)reviewList.Select(rev => rev.Rate).Average();
+            }
+               
+            return averageRate;
+        }
     }
 }

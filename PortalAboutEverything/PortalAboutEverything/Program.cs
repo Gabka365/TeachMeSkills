@@ -76,6 +76,10 @@ builder.Services.AddHttpClient<HttpBoardGameOfDayServise>(
     t => t.BaseAddress = new Uri("https://localhost:7008/"));
 builder.Services.AddHttpClient<HttpBestBoardGameServise>(
     t => t.BaseAddress = new Uri("https://localhost:7193/"));
+builder.Services.AddHttpClient<HttpMoviesAverageRateApiService>(
+    x => x.BaseAddress = new Uri("https://localhost:58814/"));
+builder.Services.AddHttpClient<HttpApiSpellService>(
+    x => x.BaseAddress = new Uri("https://potterapi-fedeperin.vercel.app/"));
 
 var app = builder.Build();
 
