@@ -7,11 +7,19 @@
 
     hub.on('AlertWasCreatedAsync', cretaeAlert);
 
-    function cretaeAlert(alertId, text) {
+    async function cretaeAlert(alertId, text, isNewBoardGameAlert) {
         const alertContainer = $('.alert-container');
         alertContainer.show();
         const alert = alertTemplate.clone();
-        alert.text(text);
+
+        let correctText;
+        if (isNewBoardGameAlert) {
+            correctText = await $.get(`/api/BoardGame/GetCorrectTextForAlert?text=${text}`);
+        } else {
+            correctText = text;
+        }
+
+        alert.text(correctText);
         alertContainer.prepend(alert);
 
         setTimeout(() => {
@@ -29,7 +37,7 @@
     $.get('/api/alert/getAlertWhatIMiss')
         .then(function (alerts) {
             alerts.forEach(function (alert) {
-                cretaeAlert(alert.id, alert.text);
+                cretaeAlert(alert.id, alert.text, alert.isNewBoardGameAlert);
             });
         });
 });

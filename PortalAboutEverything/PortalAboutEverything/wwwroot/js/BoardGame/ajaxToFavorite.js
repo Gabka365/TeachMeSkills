@@ -13,18 +13,34 @@ document.addEventListener("DOMContentLoaded", function () {
   let textForButtonAfterClick = !isAdd
     ? textForAdd
     : textForRemove;
+  let buttonIsClickable = true;
 
   buttonToFavorite.addEventListener("click", () => {
 
-    if (isAdd) {
-      AddOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`)
+    if (buttonIsClickable) {
+      buttonIsClickable = false;
+      if (isAdd) {
+        addOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`);
+      } else {
+        addOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`);
+      }
     } else {
-      AddOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`)
+      return;
     }
+
+    // if (isAdd && buttonIsClickable) {
+    //   buttonIsClickable = false;
+    //   addOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`);
+    // } else if (!isAdd && buttonIsClickable) {
+    //   buttonIsClickable = false;
+    //   addOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`);
+    // } else {
+    //   return;
+    // }
   });
 
-  function AddOrRemoveOnServer(url) {
-    $.get(url)
+  async function addOrRemoveOnServer(url) {
+    await $.get(url)
       .done(() => {
         buttonToFavorite.textContent = textForButtonAfterClick;
         hub.invoke("ChangeFavorites");
@@ -34,8 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
           : textForRemove
       })
       .fail(() => {
-        alert("Ошибка сервера");
+        window.location.href = "/Auth/Login";
       });
+    buttonIsClickable = true;
   }
 
 });

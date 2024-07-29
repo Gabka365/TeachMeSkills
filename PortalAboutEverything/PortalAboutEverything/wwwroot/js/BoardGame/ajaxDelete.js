@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-
+  
   const hub = new signalR.HubConnectionBuilder()
     .withUrl("/hubs/boardGame")
     .build();
@@ -8,35 +8,32 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteBoardGameFromHTML(gameId);
     updateTop();
   });
-
+  
   hub.on("NotifyAboutChangeFavorites", function () {
     updateTop();
   });
-
+  
   hub.start();
-
+  
   const deleteButtons = document.querySelectorAll(".delete-link");
-  if (!deleteButtons.length) {
-    return;
-  }
-
-  const debounceDeleteBoardGame = debounce(deleteBoardGame, 500);
-
-  deleteButtons.forEach((deleteButton) => {
-
-    deleteButton.addEventListener("click", () => {
-
-
-      const deletedId = deleteButton
-        .closest(".board-game-item")
-        .querySelector(".board-game-id")
-        .value;
-
-      debounceDeleteBoardGame.call(null, deletedId)
-
+  let deleteButtonIsClickable = true;
+  if (deleteButtons.length) {
+    deleteButtons.forEach((deleteButton) => {
+      deleteButton.addEventListener("click", () => {
+        if (deleteButtonIsClickable) {
+          const deletedId = deleteButton
+            .closest(".board-game-item")
+            .querySelector(".board-game-id")
+            .value;
+  
+          deleteButtonIsClickable = false;
+          deleteBoardGame(deletedId);
+        } else {
+          return;
+        };
+      });
     });
-
-  });
+  };
 
   function deleteBoardGameFromHTML(deletedId) {
     document
@@ -45,21 +42,23 @@ document.addEventListener("DOMContentLoaded", function () {
       .remove();
   }
 
-  function deleteBoardGame(deletedId) {
+  async function deleteBoardGame(deletedId) {
     const url = `/api/BoardGame/Delete?id=${deletedId}`;
-    $.get(url)
+    await $.get(url)
       .done((isSuccessful) => {
         if (isSuccessful) {
           deleteBoardGameFromHTML(deletedId);
           updateTop();
           hub.invoke("DeleteBoardGame", deletedId - 0);
         } else {
-          alert("Ошибка удаления");
+          console.error("Deletion error");
         }
       })
       .fail(() => {
-        alert("Ошибка сервера");
+        console.error("Server error");
       });
+
+    deleteButtonIsClickable = true;
   }
 
   function updateTop() {
@@ -85,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       })
       .fail(() => {
-        alert("Ошибка получения топа");
+        console.error("Error getting the top");
       });
   }
 });

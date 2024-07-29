@@ -1,36 +1,43 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Models.BoardGame;
 using PortalAboutEverything.Data.Model;
-using PortalAboutEverything.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
-using PortalAboutEverything.Services.AuthStuff;
-using PortalAboutEverything.Services;
 using PortalAboutEverything.Mappers;
 using System.Reflection;
 using PortalAboutEverything.Services.Apis;
+using PortalAboutEverything.Data.Model.Alerts;
+using Microsoft.AspNetCore.SignalR;
+using PortalAboutEverything.Hubs;
+using PortalAboutEverything.Services.Interfaces;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 
 namespace PortalAboutEverything.Controllers
 {
     [Authorize]
     public class BoardGameController : Controller
     {
-        private readonly BoardGameRepositories _gameRepositories;
-        private readonly UserRepository _userRepository;
-        private readonly AuthService _authServise;
-        private readonly PathHelper _pathHelper;
+        private readonly IBoardGameRepositories _gameRepositories;
+        private readonly IUserRepository _userRepository;
+        private readonly IAuthService _authServise;
+        private readonly IPathHelper _pathHelper;
         private readonly BoardGameMapper _mapper;
         private readonly HttpBoardGameOfDayServise _boardGameOfDayServise;
         private readonly HttpBestBoardGameServise _bestBoardGameServise;
+        private readonly IAlertRepository _alertRepository;
+        public IHubContext<AlertHub, IAlertHub> _alertHub;
 
-        public BoardGameController(BoardGameRepositories gameRepositories,
-            UserRepository userRepository,
-            AuthService authService,
-            PathHelper pathHelper,
+        public BoardGameController(IBoardGameRepositories gameRepositories,
+            IUserRepository userRepository,
+            IAuthService authService,
+            IPathHelper pathHelper,
             BoardGameMapper mapper,
             HttpBoardGameOfDayServise boardGameOfDayServise,
-            HttpBestBoardGameServise bestBoardGameServise)
+            HttpBestBoardGameServise bestBoardGameServise,
+            IAlertRepository alertRepository,
+            IHubContext<AlertHub, IAlertHub> alertHub)
         {
             _gameRepositories = gameRepositories;
             _userRepository = userRepository;
@@ -39,6 +46,8 @@ namespace PortalAboutEverything.Controllers
             _mapper = mapper;
             _boardGameOfDayServise = boardGameOfDayServise;
             _bestBoardGameServise = bestBoardGameServise;
+            _alertRepository = alertRepository;
+            _alertHub = alertHub;
         }
 
         [AllowAnonymous]
@@ -82,7 +91,7 @@ namespace PortalAboutEverything.Controllers
 
         [HttpPost]
         [HasPermission(Permission.CanCreateAndUpdateBoardGames)]
-        public IActionResult Create(BoardGameCreateViewModel boardGameViewModel)
+        public async Task<IActionResult> Create(BoardGameCreateViewModel boardGameViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -107,6 +116,16 @@ namespace PortalAboutEverything.Controllers
                     boardGameViewModel.SideImage.CopyTo(fs);
                 }
             }
+
+            var alert = new Alert() 
+            { 
+                Text = game.Title, 
+                EndDate = DateTime.UtcNow.AddDays(3),
+                IsNewBoardGameAlert = true
+            };
+            _alertRepository.Create(alert);
+
+            await _alertHub.Clients.All.AlertWasCreatedAsync(alert.Id, alert.Text, alert.IsNewBoardGameAlert);
 
             return RedirectToAction(nameof(Index));
         }
@@ -178,17 +197,27 @@ namespace PortalAboutEverything.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> BoardGame(int id)
         {
-            BoardGame gameViewModel = _gameRepositories.Get(id)!;
-            BoardGameViewModel viewModel = _mapper.BuildBoardGameViewModel(gameViewModel);
+            var boardGame = _gameRepositories.Get(id)!;
+            var viewModel = _mapper.BuildBoardGameViewModel(boardGame);
 
             if (_authServise.IsAuthenticated())
             {
                 int userId = _authServise.GetUserId();
+                viewModel.CurrentUserId = userId;
+
                 User user = _userRepository.GetWithFavoriteBoardGames(userId);
                 if (user.FavoriteBoardsGames.Any(boardGame => boardGame.Id == id))
                 {
                     viewModel.IsFavoriteForUser = true;
                 }
+                if (_authServise.HasPermission(Permission.CanModerateReviewsOfBoardGames))
+                {
+                    viewModel.IsModerator = true;
+                }
+            }
+            else
+            {
+                viewModel.CurrentUserId = -1;
             }
 
             var boardGameOfDay = _boardGameOfDayServise.GetBoardGameOfDayAsync();
@@ -219,21 +248,6 @@ namespace PortalAboutEverything.Controllers
             };
 
             return View(viewModel);
-        }
-
-        public IActionResult RemoveFavoriteBoardGameForUser(int gameId, bool isGamePage)
-        {
-            User user = _authServise.GetUser();
-            _gameRepositories.RemoveUserWhoFavoriteThisBoardGame(user, gameId);
-
-            if (isGamePage)
-            {
-                return RedirectToAction(nameof(BoardGame), new { id = gameId });
-            }
-            else
-            {
-                return RedirectToAction(nameof(UserFavoriteBoardGames));
-            }
         }
 
         public IActionResult ApiMethods()
