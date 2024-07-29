@@ -241,6 +241,7 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.JSInterop" Version="8.0.7" />
 		<PackageReference Include="System.Drawing.Common" Version="8.0.6" />
 	</ItemGroup>
 
