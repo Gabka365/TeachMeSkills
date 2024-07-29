@@ -100,9 +100,12 @@ namespace PortalAboutEverything.Controllers
             _posts.Create(NewPost);
             var path = _pathHelper.GetPathToPostCover(NewPost.Id);
 
-            using (var fs = new FileStream(path, FileMode.Create))
+            if (viewModel.Cover is not null)
             {
-                viewModel.Cover.CopyTo(fs);
+                using (var fs = new FileStream(path, FileMode.Create))
+                {
+                    viewModel.Cover.CopyTo(fs);
+                }
             }
 
             return RedirectToAction("Index");
