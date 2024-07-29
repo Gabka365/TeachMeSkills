@@ -2,8 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Controllers;
 using PortalAboutEverything.CustomMiddlewareServices;
 using PortalAboutEverything.Data;
-using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Data.Repositories.Interfaces;
+using PortalAboutEverything.Data.CacheServices;
 using PortalAboutEverything.Helpers;
 using PortalAboutEverything.Hubs;
 using PortalAboutEverything.Mappers;
@@ -11,6 +10,7 @@ using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.Apis;
 using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Services.BackgroundServices;
 using PortalAboutEverything.Services.Interfaces;
 using PortalAboutEverything.VideoServices.Extensions;
 
@@ -46,6 +46,8 @@ var autoRegistrator = new AutoRegistrator();
 autoRegistrator.RegiterRepositories(builder.Services);
 autoRegistrator.RegiterRepositoriesByInterface(builder.Services);
 
+builder.Services.AddSingleton<GameCache>();
+
 // Services
 builder.Services.AddScoped<LikeHelper>();
 
@@ -76,6 +78,9 @@ builder.Services.AddHttpClient<HttpBoardGameOfDayServise>(
     t => t.BaseAddress = new Uri("https://localhost:7008/"));
 builder.Services.AddHttpClient<HttpBestBoardGameServise>(
     t => t.BaseAddress = new Uri("https://localhost:7193/"));
+
+builder.Services.AddHostedService<ImageGenerator>();
+builder.Services.AddSingleton<ImageGenerationQueueService>();
 
 var app = builder.Build();
 
