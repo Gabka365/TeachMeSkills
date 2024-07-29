@@ -1,21 +1,40 @@
-﻿namespace BoardGameOfDayApi.Services
+﻿using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Data.Repositories.DataModel;
+
+namespace BoardGameOfDayApi.Services
 {
     public class CacheService
     {
-        private int _boardGameOfDayId;
-        private DateTime _dayOfChange;
+        private BoardGameOfDay _boardGameOfDay;
+        private DateTime _dayOfChange = DateTime.MinValue;
 
-        public int GetBoardGameOfDayId(List<int> allId)
+        private readonly IServiceScopeFactory _scopeFactory;
+        private readonly object _lock = new();
+
+        public CacheService(IServiceScopeFactory scopeFactory)
         {
-            if (_boardGameOfDayId == 0 || _dayOfChange.Date != DateTime.Now.Date) 
+            _scopeFactory = scopeFactory;
+        }
+
+        public BoardGameOfDay GetBoardGameOfDay()
+        {
+            if (_dayOfChange.Date != DateTime.Now.Date)
             {
-                var random = new Random();
-                var index = random.Next(allId.Count);
-                _dayOfChange = DateTime.Now;
-                _boardGameOfDayId = allId[index];
+                lock (_lock)
+                {
+                    if (_dayOfChange.Date != DateTime.Now.Date)
+                    {
+                        using (var scope = _scopeFactory.CreateScope())
+                        {
+                            var repository = scope.ServiceProvider.GetRequiredService<BoardGameRepositories>();
+                            _boardGameOfDay = repository.GetBoardGameOfDay();
+                        }
+                        _dayOfChange = DateTime.Now.Date;
+                    }
+                }
             }
 
-            return _boardGameOfDayId;
+            return _boardGameOfDay;
         }
     }
 }

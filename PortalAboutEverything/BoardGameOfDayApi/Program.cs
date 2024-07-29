@@ -6,6 +6,9 @@ using PortalAboutEverything.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors(o =>
 {
     o.AddDefaultPolicy(p =>
@@ -27,10 +30,9 @@ var app = builder.Build();
 app.UseCors();
 
 app.MapGet("/", () => "Board game of day api");
-app.MapGet("/getBoardGameOfDay", (BoardGameRepositories repository, CacheService cache) => {
+app.MapGet("/getBoardGameOfDay", (CacheService cache) => {
 
-    var id = cache.GetBoardGameOfDayId(repository.GetAllId());
-    var boardGame = repository.Get(id);
+    var boardGame = cache.GetBoardGameOfDay();
     var dto = new DtoBoardGameOfDay
     {
         Id = boardGame.Id,
@@ -40,5 +42,8 @@ app.MapGet("/getBoardGameOfDay", (BoardGameRepositories repository, CacheService
 
     return dto;
 });
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();
