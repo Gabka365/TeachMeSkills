@@ -13,6 +13,7 @@ using PortalAboutEverything.Hubs;
 using PortalAboutEverything.Services.Interfaces;
 using PortalAboutEverything.Services.AuthStuff.Interfaces;
 using PortalAboutEverything.Data.Repositories.Interfaces;
+using PortalAboutEverything.Data.CacheServices;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -27,6 +28,7 @@ namespace PortalAboutEverything.Controllers
         private readonly HttpBoardGameOfDayServise _boardGameOfDayServise;
         private readonly HttpBestBoardGameServise _bestBoardGameServise;
         private readonly IAlertRepository _alertRepository;
+        private readonly BoardGameCache _cache;
         public IHubContext<AlertHub, IAlertHub> _alertHub;
 
         public BoardGameController(IBoardGameRepositories gameRepositories,
@@ -37,7 +39,8 @@ namespace PortalAboutEverything.Controllers
             HttpBoardGameOfDayServise boardGameOfDayServise,
             HttpBestBoardGameServise bestBoardGameServise,
             IAlertRepository alertRepository,
-            IHubContext<AlertHub, IAlertHub> alertHub)
+            IHubContext<AlertHub, IAlertHub> alertHub,
+            BoardGameCache cache)
         {
             _gameRepositories = gameRepositories;
             _userRepository = userRepository;
@@ -48,6 +51,7 @@ namespace PortalAboutEverything.Controllers
             _bestBoardGameServise = bestBoardGameServise;
             _alertRepository = alertRepository;
             _alertHub = alertHub;
+            _cache = cache;
         }
 
         [AllowAnonymous]
@@ -58,8 +62,8 @@ namespace PortalAboutEverything.Controllers
                 .Select(_mapper.BuildFavoriteBoardGameIndexViewModel)
                 .ToList();
 
-            var gamesViewModel = _gameRepositories
-                .GetAll()
+            var gamesViewModel = _cache
+                .GetBoardGames()
                 .Select(_mapper.BuildBoardGameIndexViewModel)
                 .ToList();
 
@@ -124,6 +128,7 @@ namespace PortalAboutEverything.Controllers
                 IsNewBoardGameAlert = true
             };
             _alertRepository.Create(alert);
+            _cache.ResetCache();
 
             await _alertHub.Clients.All.AlertWasCreatedAsync(alert.Id, alert.Text, alert.IsNewBoardGameAlert);
 
@@ -172,23 +177,6 @@ namespace PortalAboutEverything.Controllers
                 {
                     boardGameViewModel.SideImage.CopyTo(fs);
                 }
-            }
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        [HasPermission(Permission.CanDeleteBoardGames)]
-        public IActionResult Delete(int id)
-        {
-            _gameRepositories.Delete(id);
-
-            var pathToMainImage = _pathHelper.GetPathToBoardGameMainImage(id);
-            System.IO.File.Delete(pathToMainImage);
-
-            if (_pathHelper.IsBoardGameSideImageExist(id))
-            {
-                var pathToSideImage = _pathHelper.GetPathToBoardGameSideImage(id);
-                System.IO.File.Delete(pathToSideImage);
             }
 
             return RedirectToAction(nameof(Index));

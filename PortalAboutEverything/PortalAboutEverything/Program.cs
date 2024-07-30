@@ -50,6 +50,7 @@ autoRegistrator.RegiterRepositories(builder.Services);
 autoRegistrator.RegiterRepositoriesByInterface(builder.Services);
 
 builder.Services.AddSingleton<GameCache>();
+builder.Services.AddSingleton<BoardGameCache>();
 
 // Services
 builder.Services.AddScoped<LikeHelper>();
