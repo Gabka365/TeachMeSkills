@@ -104,6 +104,7 @@ namespace PortalAboutEverything.Mappers
                 Id = game.Id,
                 Title = game.Title,
                 CountOfUserWhoLikeIt = game.CountOfUserWhoLikeIt,
+                Rank = game.Rank,
             };
 
         public BoardGameOfDayViewModel BuildBoardGameOfDayViewModel(DtoBoardGameOfDay game)

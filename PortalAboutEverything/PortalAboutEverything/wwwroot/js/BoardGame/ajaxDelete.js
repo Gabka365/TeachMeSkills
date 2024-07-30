@@ -71,18 +71,17 @@ document.addEventListener("DOMContentLoaded", function () {
     $.get(`/api/BoardGame/GetTop3`)
       .done((top3FavoriteBoardGames) => {
 
-        for (let i = 0; i < top3FavoriteBoardGames.length; i++) {
-          const favoriteBoardGame = top3FavoriteBoardGames[i];
+        top3FavoriteBoardGames.forEach((favoriteBoardGame) => {
           const topGame =
-            `<li class="board-game-item top-board-game-item">
-              <input class="top-board-game-id" type="hidden" value="${favoriteBoardGame.id}" />
-              <p>${i + 1}</p>
-              <a class="board-game-title text-dark top-board-game-title" href="/BoardGame/BoardGame?Id=${favoriteBoardGame.id}">${favoriteBoardGame.title}</a>
-              <p class="like-count">${favoriteBoardGame.countOfUserWhoLikeIt}</p>
-            </li>`;
+          `<li class="board-game-item top-board-game-item">
+            <input class="top-board-game-id" type="hidden" value="${favoriteBoardGame.id}" />
+            <img class="top-icon" src="/images//BoardGame/top-${favoriteBoardGame.rank}.png"/>
+            <a class="board-game-title text-dark top-board-game-title" href="/BoardGame/BoardGame?Id=${favoriteBoardGame.id}">${favoriteBoardGame.title}</a>
+            <p class="like-count">${favoriteBoardGame.countOfUserWhoLikeIt}</p>
+          </li>`;
 
-          topContainer.insertAdjacentHTML("beforeend", topGame);
-        }
+        topContainer.insertAdjacentHTML("beforeend", topGame);
+        });
       })
       .fail(() => {
         console.error("Error getting the top");

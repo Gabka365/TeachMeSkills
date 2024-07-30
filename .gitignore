@@ -407,7 +407,8 @@ PortalAboutEverything/PortalAboutEverything/wwwroot/images/Game/*.*
 PortalAboutEverything/PortalAboutEverything/wwwroot/images/Store/MainPage/ImagesForGoods/*.*
 !PortalAboutEverything/PortalAboutEverything/wwwroot/images/Store/MainPage/ImagesForGoods/goodImage-default.jpg
 
-PortalAboutEverything/PortalAboutEverything/wwwroot/images/BoardGame/*.*
+PortalAboutEverything/PortalAboutEverything/wwwroot/images/BoardGame/mainImage*.*
+PortalAboutEverything/PortalAboutEverything/wwwroot/images/BoardGame/sideImage*.*
 !PortalAboutEverything/PortalAboutEverything/wwwroot/images/BoardGame/mainImage-default.jpg
 !PortalAboutEverything/PortalAboutEverything/wwwroot/images/BoardGame/sideImage-default.png
 
@@ -418,3 +419,4 @@ PortalAboutEverything/PortalAboutEverything/wwwroot/images/GameStore/*.*
 !PortalAboutEverything/PortalAboutEverything/wwwroot/images/GameStore/cover-default.jpg
 
 /react/portal-react/.vscode
+PortalAboutEverything/PortalAboutEverything/wwwroot/.vscode
