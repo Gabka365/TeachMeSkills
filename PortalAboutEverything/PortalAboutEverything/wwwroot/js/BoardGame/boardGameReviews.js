@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const baseApiUrl = `https://localhost:7289/`;
   const boardGameId = document.querySelector(".game-id").value;
   const reviewContainer = document.querySelector(".reviews-container");
 
@@ -13,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function init() {
     reviewContainer.innerHTML = uploadingReviewsText;
-    $.get(baseApiUrl + `getAll?gameId=${boardGameId}`)
+    $.get(`/api/BoardGameReview/GelAllForBoardGame?gameId=${boardGameId}`)
       .done(function (reviews) {
         if (reviews.length === 0) {
           reviewContainer.innerHTML = "";

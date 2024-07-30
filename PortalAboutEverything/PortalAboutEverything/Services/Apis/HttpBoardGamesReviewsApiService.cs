@@ -11,6 +11,15 @@ namespace PortalAboutEverything.Services.Apis
             _httpClient = httpClient;
         }
 
+        public async Task<List<DtoBoardGameReview>> GetAllReviewsForGameAsync(int boardGameId)
+        {
+            var response = await _httpClient.GetAsync($"getAll?gameId={boardGameId}");
+            var dtos = await response
+                .Content
+                .ReadFromJsonAsync<List<DtoBoardGameReview>>();
+            return dtos;
+        }
+
         public async Task CreateReviewAsync(DtoBoardGameReviewCreate review)
         {
             var response = await _httpClient.PostAsJsonAsync("createReview", review);
