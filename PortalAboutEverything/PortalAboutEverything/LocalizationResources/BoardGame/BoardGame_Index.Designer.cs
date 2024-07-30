@@ -106,6 +106,15 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Board games.
+        /// </summary>
+        public static string TitleOfPage {
+            get {
+                return ResourceManager.GetString("TitleOfPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Top board games.
         /// </summary>
         public static string TopTitle {

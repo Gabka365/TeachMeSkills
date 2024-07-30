@@ -132,6 +132,9 @@
   <data name="PageTitle" xml:space="preserve">
     <value>Список наших настольных игр</value>
   </data>
+  <data name="TitleOfPage" xml:space="preserve">
+    <value>Настольные игры</value>
+  </data>
   <data name="TopTitle" xml:space="preserve">
     <value>Топ настольных игр</value>
   </data>

@@ -1,6 +1,11 @@
 ﻿@model PortalAboutEverything.Models.BoardGame.BoardGameViewModel
 @using PortalAboutEverything.LocalizationResources.BoardGame
 
+@section Title {
+    <link rel="shortcut icon" href="/images/BoardGame/logo.png" type="image/png">
+    <title>@Model.Title</title>
+}
+
 @section Style {
     <link href="/css/BoardGame/style.css?v=1" rel="stylesheet" />
 }

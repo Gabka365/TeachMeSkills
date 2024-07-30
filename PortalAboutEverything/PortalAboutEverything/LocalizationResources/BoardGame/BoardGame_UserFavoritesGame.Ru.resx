@@ -123,6 +123,9 @@
   <data name="AddToCart" xml:space="preserve">
     <value>Добавить в корзину</value>
   </data>
+  <data name="PageTitle" xml:space="preserve">
+    <value>Список любимых настольных игр пользователя</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Цена</value>
   </data>
@@ -133,6 +136,6 @@
     <value>Название</value>
   </data>
   <data name="TitleOfPage" xml:space="preserve">
-    <value>Список любимых настольных игр пользователя</value>
+    <value>Избранное</value>
   </data>
 </root>
