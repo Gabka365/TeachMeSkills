@@ -7,19 +7,18 @@
 
     hub.on('AlertWasCreatedAsync', cretaeAlert);
 
-    async function cretaeAlert(alertId, text, isNewBoardGameAlert) {
+    hub.on('NewBoardGameAlertWasCreatedAsync', cretaeNewBoardGameAlert);
+
+    async function cretaeNewBoardGameAlert(alertId, boardGameTitle) {
+        const text = await $.get(`/api/BoardGame/GetCorrectTextForAlert?text=${boardGameTitle}`);
+        cretaeAlert(alertId, text);
+    }
+
+    function cretaeAlert(alertId, text) {
         const alertContainer = $('.alert-container');
         alertContainer.show();
         const alert = alertTemplate.clone();
-
-        let correctText;
-        if (isNewBoardGameAlert) {
-            correctText = await $.get(`/api/BoardGame/GetCorrectTextForAlert?text=${text}`);
-        } else {
-            correctText = text;
-        }
-
-        alert.text(correctText);
+        alert.text(text);
         alertContainer.prepend(alert);
 
         setTimeout(() => {
@@ -37,7 +36,11 @@
     $.get('/api/alert/getAlertWhatIMiss')
         .then(function (alerts) {
             alerts.forEach(function (alert) {
-                cretaeAlert(alert.id, alert.text, alert.isNewBoardGameAlert);
+                if (alert.isNewBoardGameAlert) {
+                    cretaeNewBoardGameAlert(alert.id, alert.text);
+                } else {
+                    cretaeAlert(alert.id, alert.text);
+                };
             });
         });
 });

@@ -29,7 +29,7 @@ namespace PortalAboutEverything.Controllers
         private readonly HttpBestBoardGameServise _bestBoardGameServise;
         private readonly IAlertRepository _alertRepository;
         private readonly BoardGameCache _cache;
-        public IHubContext<AlertHub, IAlertHub> _alertHub;
+        private readonly IHubContext<AlertHub, IAlertHub> _alertHub;
 
         public BoardGameController(IBoardGameRepositories gameRepositories,
             IUserRepository userRepository,
@@ -130,7 +130,7 @@ namespace PortalAboutEverything.Controllers
             _alertRepository.Create(alert);
             _cache.ResetCache();
 
-            await _alertHub.Clients.All.AlertWasCreatedAsync(alert.Id, alert.Text, alert.IsNewBoardGameAlert);
+            await _alertHub.Clients.All.NewBoardGameAlertWasCreatedAsync(alert.Id, alert.Text);
 
             return RedirectToAction(nameof(Index));
         }
