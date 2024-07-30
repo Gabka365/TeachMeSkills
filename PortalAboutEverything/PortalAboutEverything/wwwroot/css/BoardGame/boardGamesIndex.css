@@ -61,10 +61,6 @@
     height: 20px;
 }
 
-.add-board-game{
-    margin-bottom: 50px;
-}
-
 .add-board-game,
 .favorite-board-game {
     text-align: center;
@@ -87,6 +83,10 @@
 .favorite-board-game-link:hover {
     background-color: #dd7e68;
     color: #fff;
+}
+
+.top-title{
+    margin-top: 50px;
 }
 
 .top-board-games {
