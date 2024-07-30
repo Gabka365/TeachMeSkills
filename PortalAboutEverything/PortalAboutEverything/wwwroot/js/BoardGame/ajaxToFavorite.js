@@ -17,26 +17,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   buttonToFavorite.addEventListener("click", () => {
 
-    if (buttonIsClickable) {
-      buttonIsClickable = false;
-      if (isAdd) {
-        addOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`);
-      } else {
-        addOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`);
-      }
-    } else {
+    if (!buttonIsClickable) {
       return;
-    }
+    };
+    buttonIsClickable = false;
 
-    // if (isAdd && buttonIsClickable) {
-    //   buttonIsClickable = false;
-    //   addOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`);
-    // } else if (!isAdd && buttonIsClickable) {
-    //   buttonIsClickable = false;
-    //   addOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`);
-    // } else {
-    //   return;
-    // }
+    if (isAdd) {
+      addOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`);
+    } else {
+      addOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`);
+    };
   });
 
   async function addOrRemoveOnServer(url) {
@@ -49,10 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
           ? textForAdd
           : textForRemove
       })
-      .fail(() => {
-        window.location.href = "/Auth/Login";
+      .fail((error) => {
+        if (error.statusText == "Unauthorized") {
+          window.location.href = "/Auth/Login";
+        };
       });
     buttonIsClickable = true;
   }
-
 });

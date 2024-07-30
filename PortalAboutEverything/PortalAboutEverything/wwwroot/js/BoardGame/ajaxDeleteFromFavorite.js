@@ -12,17 +12,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   deleteButtons.forEach((deleteButton) => {
     deleteButton.addEventListener("click", () => {
-      if (deleteButtonIsClickable) {
-        const deletedId = deleteButton
-          .closest(".board-game-item")
-          .querySelector(".board-game-id")
-          .value;
-
-        deleteButtonIsClickable = false;
-        deleteFromFavorite(deletedId);
-      } else {
+      if (!deleteButtonIsClickable) {
         return;
       };
+      const deletedId = deleteButton
+        .closest(".board-game-item")
+        .querySelector(".board-game-id")
+        .value;
+
+      deleteButtonIsClickable = false;
+      deleteFromFavorite(deletedId);
     });
 
     async function deleteFromFavorite(gameId) {
@@ -34,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .fail(() => {
           window.location.href = "/Auth/Login";
         });
-        deleteButtonIsClickable = true;
+      deleteButtonIsClickable = true;
     }
 
     function deleteFromHTML(deletedId) {

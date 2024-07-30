@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  
+
   const hub = new signalR.HubConnectionBuilder()
     .withUrl("/hubs/boardGame")
     .build();
@@ -8,32 +8,34 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteBoardGameFromHTML(gameId);
     updateTop();
   });
-  
+
   hub.on("NotifyAboutChangeFavorites", function () {
     updateTop();
   });
-  
+
   hub.start();
-  
+
   const deleteButtons = document.querySelectorAll(".delete-link");
   let deleteButtonIsClickable = true;
-  if (deleteButtons.length) {
-    deleteButtons.forEach((deleteButton) => {
-      deleteButton.addEventListener("click", () => {
-        if (deleteButtonIsClickable) {
-          const deletedId = deleteButton
-            .closest(".board-game-item")
-            .querySelector(".board-game-id")
-            .value;
-  
-          deleteButtonIsClickable = false;
-          deleteBoardGame(deletedId);
-        } else {
-          return;
-        };
-      });
-    });
+  if (!deleteButtons.length) {
+    return;
   };
+
+  deleteButtons.forEach((deleteButton) => {
+    deleteButton.addEventListener("click", () => {
+      if (!deleteButtonIsClickable) {
+        return;
+      }
+      const deletedId = deleteButton
+        .closest(".board-game-item")
+        .querySelector(".board-game-id")
+        .value;
+
+      deleteButtonIsClickable = false;
+      deleteBoardGame(deletedId);
+    });
+  });
+
 
   function deleteBoardGameFromHTML(deletedId) {
     document
@@ -66,8 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const topContainer = document.querySelector(".top-board-games");
     topContainer.innerHTML = "";
 
-    const url = `/api/BoardGame/GetTop3`;
-    $.get(url)
+    $.get(`/api/BoardGame/GetTop3`)
       .done((top3FavoriteBoardGames) => {
 
         for (let i = 0; i < top3FavoriteBoardGames.length; i++) {

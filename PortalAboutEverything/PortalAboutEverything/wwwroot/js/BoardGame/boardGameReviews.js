@@ -68,29 +68,30 @@ document.addEventListener("DOMContentLoaded", function () {
     const reviewForDelete = reviewContainer.querySelector(`#review-${reviewData.id}`);
     const deleteButton = reviewForDelete.querySelector(".delete-button");
     if (deleteButton) {
-      deleteButton.addEventListener("click", async function() {
-        if (deleteButtonIsClickable) {
-          deleteButtonIsClickable = false;
-          const url = `/api/BoardGameReview/Delete?id=${reviewData.id}`;
-          await $.get(url)
-            .done((successfully) => {
-              if (successfully) {
-                reviewForDelete.remove();
-                if (reviewContainer.querySelector(".review")) {
-                  return;
-                }
-                reviewContainer.insertAdjacentHTML("beforeend", `<p>${absenceOfReviewsText}</p>`);
-              } else {
-                window.location.href = "/Auth/AccessDenied";
-              }
-            })
-            .fail(() => {
-              window.location.href = "/Auth/Login";
-            });
-            deleteButtonIsClickable = true;
-        } else {
+      deleteButton.addEventListener("click", async function () {
+        if (!deleteButtonIsClickable) {
           return;
         }
+
+        deleteButtonIsClickable = false;
+        await $.get(`/api/BoardGameReview/Delete?id=${reviewData.id}`)
+          .done((successfully) => {
+            if (successfully) {
+              reviewForDelete.remove();
+              if (reviewContainer.querySelector(".review")) {
+                return;
+              }
+              reviewContainer.insertAdjacentHTML("beforeend", `<p>${absenceOfReviewsText}</p>`);
+            } else {
+              window.location.href = "/Auth/AccessDenied";
+            }
+          })
+          .fail((error) => {
+            if (error.statusText == "Unauthorized") {
+              window.location.href = "/Auth/Login";
+            };
+          });
+        deleteButtonIsClickable = true;
       });
     }
   }
