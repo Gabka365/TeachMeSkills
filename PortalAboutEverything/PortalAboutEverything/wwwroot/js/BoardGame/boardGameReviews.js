@@ -6,9 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const reviewsNotAvailableText = document.querySelector(".reviews-not-available-text").value;
   const uploadingReviewsText = document.querySelector(".uploading-reviews-text").value;
 
-  const currentUserId = document.querySelector(".current-user-id").value - 0;
-  const isModerator = document.querySelector(".is-moderator").value;
-
   init();
 
   function init() {
@@ -50,12 +47,12 @@ document.addEventListener("DOMContentLoaded", function () {
       .replaceAll('/', '.');
 
     let updateButtonHtml = ''
-    if (currentUserId === reviewData.userId) {
+    if (reviewData.canEdit) {
       updateButtonHtml = `<a class="update-button" href="/BoardGameReview/Update?id=${reviewData.id}&gameId=${boardGameId}"><img src="/images/BoardGame/edit.svg" /></a>`
     }
 
     let deleteButtonHtml = ''
-    if (currentUserId === reviewData.userId || isModerator) {
+    if (reviewData.CanDelete) {
       deleteButtonHtml = `<a class="delete-button" ><img src="/images/BoardGame/delete.svg" /></a>`
     }
 

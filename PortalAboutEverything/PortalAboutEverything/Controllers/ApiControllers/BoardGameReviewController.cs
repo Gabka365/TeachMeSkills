@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Data.Enums;
+using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Models.BoardGameReview;
 using PortalAboutEverything.Services.Apis;
@@ -29,10 +30,20 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         [AllowAnonymous]
         public async Task<List<BoardGameReviewViewModel>> GelAllForBoardGame(int gameId)
         {
+            User user = null;
+            bool isModerator = false; ;
+
+            if (_authServise.IsAuthenticated())
+            {
+                user = _authServise.GetUser();
+                isModerator = _authServise.HasPermission(Permission.CanModerateReviewsOfBoardGames);
+            }
+
             var reviewsDto = await _apiServise.GetAllReviewsForGameAsync(gameId);
-            return reviewsDto
-                .Select(_mapper.BuildBoardGameReviewViewModel)
+            var dtos = reviewsDto
+                .Select((dto) => _mapper.BuildBoardGameReviewViewModel(dto, user, isModerator))
                 .ToList();
+            return dtos;
         }
 
         public async Task<bool> Delete(int id)

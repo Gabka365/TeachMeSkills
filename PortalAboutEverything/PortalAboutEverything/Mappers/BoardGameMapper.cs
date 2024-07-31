@@ -9,6 +9,7 @@ using PortalAboutEverything.Services.AuthStuff.Interfaces;
 using PortalAboutEverything.Services.Interfaces;
 using BoardGameOfDayApi.Dtos;
 using BestBoardGameApi.Dtos;
+using PortalAboutEverything.Data.Enums;
 
 namespace PortalAboutEverything.Mappers
 {
@@ -128,7 +129,7 @@ namespace PortalAboutEverything.Mappers
         #endregion
 
         #region ReviewBuilders
-        public BoardGameReviewViewModel BuildBoardGameReviewViewModel(DtoBoardGameReview review)
+        public BoardGameReviewViewModel BuildBoardGameReviewViewModel(DtoBoardGameReview review, User currentUser, bool isModerator)
             => new BoardGameReviewViewModel
             {
                 Id = review.Id,
@@ -136,6 +137,8 @@ namespace PortalAboutEverything.Mappers
                 UserName = review.UserName,
                 DateOfCreation = review.DateOfCreation,
                 Text = review.Text,
+                CanEdit = review.UserId == currentUser?.Id,
+                CanDelete = review.UserId == currentUser?.Id || isModerator,
             };
 
         public DtoBoardGameReviewCreate BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)

@@ -2,8 +2,6 @@
 {
     public class BoardGameViewModel
     {
-        public int CurrentUserId { get; set; }
-        public bool IsModerator { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
         public string MiniTitle { get; set; }

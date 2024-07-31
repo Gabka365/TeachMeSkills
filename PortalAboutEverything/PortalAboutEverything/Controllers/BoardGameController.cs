@@ -191,21 +191,12 @@ namespace PortalAboutEverything.Controllers
             if (_authServise.IsAuthenticated())
             {
                 int userId = _authServise.GetUserId();
-                viewModel.CurrentUserId = userId;
 
                 User user = _userRepository.GetWithFavoriteBoardGames(userId);
                 if (user.FavoriteBoardsGames.Any(boardGame => boardGame.Id == id))
                 {
                     viewModel.IsFavoriteForUser = true;
                 }
-                if (_authServise.HasPermission(Permission.CanModerateReviewsOfBoardGames))
-                {
-                    viewModel.IsModerator = true;
-                }
-            }
-            else
-            {
-                viewModel.CurrentUserId = -1;
             }
 
             var boardGameOfDayTask = _boardGameOfDayServise.GetBoardGameOfDayAsync();
