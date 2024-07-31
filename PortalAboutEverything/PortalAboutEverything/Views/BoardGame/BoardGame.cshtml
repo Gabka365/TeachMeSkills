@@ -141,7 +141,7 @@
 
 <div class="special-games">
     <div class="container">
-        @if (Model.BoardGameOfDay.Id != -1)
+        @if (Model.BoardGameOfDay is not null)
         {
             <div class="game-of-day">
                 <h3>@BoardGame_GamePage.BoardGameOfDay</h3>
@@ -161,7 +161,7 @@
                 <div class="price">@Model.BoardGameOfDay.Price ₽</div>
             </div>
         }
-        @if (Model.BestBoardGame.Id != -1)
+        @if (Model.BestBoardGame is not null)
         {
             <div class="best-game">
                 <h3>@BoardGame_GamePage.BestBoardGame</h3>

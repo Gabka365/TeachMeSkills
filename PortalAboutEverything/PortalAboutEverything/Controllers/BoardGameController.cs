@@ -121,9 +121,9 @@ namespace PortalAboutEverything.Controllers
                 }
             }
 
-            var alert = new Alert() 
-            { 
-                Text = game.Title, 
+            var alert = new Alert()
+            {
+                Text = game.Title,
                 EndDate = DateTime.UtcNow.AddDays(3),
                 IsNewBoardGameAlert = true
             };
@@ -208,16 +208,22 @@ namespace PortalAboutEverything.Controllers
                 viewModel.CurrentUserId = -1;
             }
 
-            var boardGameOfDay = _boardGameOfDayServise.GetBoardGameOfDayAsync();
-            var bestBoardGame = _bestBoardGameServise.GetBestBoardGameAsync();
+            var boardGameOfDayTask = _boardGameOfDayServise.GetBoardGameOfDayAsync();
+            var bestBoardGameTask = _bestBoardGameServise.GetBestBoardGameAsync();
 
-            await Task.WhenAll(boardGameOfDay,  bestBoardGame);
+            await Task.WhenAll(boardGameOfDayTask, bestBoardGameTask);
 
-            var boardGameOfDayViewModel = _mapper.BuildBoardGameOfDayViewModel(boardGameOfDay.Result);
-            var bestBoardGameViewModel = _mapper.BuildBestBoardGameViewModel(bestBoardGame.Result);
+            if (boardGameOfDayTask.Result.IsSuccess)
+            {
+                var boardGameOfDayViewModel = _mapper.BuildBoardGameOfDayViewModel(boardGameOfDayTask.Result.Data);
+                viewModel.BoardGameOfDay = boardGameOfDayViewModel;
+            }
 
-            viewModel.BoardGameOfDay = boardGameOfDayViewModel;
-            viewModel.BestBoardGame = bestBoardGameViewModel;
+            if (bestBoardGameTask.Result.IsSuccess)
+            {
+                var bestBoardGameViewModel = _mapper.BuildBestBoardGameViewModel(bestBoardGameTask.Result.Data);
+                viewModel.BestBoardGame = bestBoardGameViewModel;
+            }
 
             return View(viewModel);
         }
