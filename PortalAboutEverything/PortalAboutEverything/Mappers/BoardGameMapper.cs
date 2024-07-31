@@ -41,7 +41,6 @@ namespace PortalAboutEverything.Mappers
             ProductCode = game.ProductCode
         };
 
-
         public BoardGame BuildBoardGameDataModelFromCreate(BoardGameCreateViewModel gameViewModel)
             => new BoardGame
             {
@@ -105,6 +104,7 @@ namespace PortalAboutEverything.Mappers
                 Id = game.Id,
                 Title = game.Title,
                 CountOfUserWhoLikeIt = game.CountOfUserWhoLikeIt,
+                Rank = game.Rank,
             };
 
         public BoardGameOfDayViewModel BuildBoardGameOfDayViewModel(DtoBoardGameOfDay game)
@@ -128,14 +128,24 @@ namespace PortalAboutEverything.Mappers
         #endregion
 
         #region ReviewBuilders
+        public BoardGameReviewViewModel BuildBoardGameReviewViewModel(DtoBoardGameReview review)
+            => new BoardGameReviewViewModel
+            {
+                Id = review.Id,
+                UserId = review.UserId,
+                UserName = review.UserName,
+                DateOfCreation = review.DateOfCreation,
+                Text = review.Text,
+            };
+
         public DtoBoardGameReviewCreate BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
-        => new DtoBoardGameReviewCreate
-        {
-            UserName = _authServise.GetUserName(),
-            UserId = _authServise.GetUserId(),
-            DateOfCreation = DateTime.Now,
-            Text = reviewViewModel.Text,
-        };
+            => new DtoBoardGameReviewCreate
+            {
+                UserName = _authServise.GetUserName(),
+                UserId = _authServise.GetUserId(),
+                DateOfCreation = DateTime.Now,
+                Text = reviewViewModel.Text,
+            };
 
         public DtoBoardGameReviewUpdate BuildBoardGameRewievDataModelFromUpdate(BoardGameUpdateReviewViewModel reviewViewModel)
             => new DtoBoardGameReviewUpdate

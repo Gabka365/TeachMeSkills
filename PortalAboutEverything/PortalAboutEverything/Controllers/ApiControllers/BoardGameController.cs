@@ -9,6 +9,7 @@ using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Services.Interfaces;
 using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Data.CacheServices;
 
 namespace PortalAboutEverything.Controllers.ApiControllers
 {
@@ -23,8 +24,15 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         private readonly BoardGameMapper _mapper;
         private readonly IAuthService _authServise;
         private readonly LocalizatoinService _localizatoinService;
+        private readonly BoardGameCache _cache;
 
-        public BoardGameController(IPathHelper pathHelper, IBoardGameRepositories gameRepositories, IUserRepository userRepository, BoardGameMapper mapper, IAuthService authServise, LocalizatoinService localizatoinService)
+        public BoardGameController(IPathHelper pathHelper,
+            IBoardGameRepositories gameRepositories,
+            IUserRepository userRepository,
+            BoardGameMapper mapper,
+            IAuthService authServise,
+            LocalizatoinService localizatoinService,
+            BoardGameCache cache)
         {
             _pathHelper = pathHelper;
             _gameRepositories = gameRepositories;
@@ -32,6 +40,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             _mapper = mapper;
             _authServise = authServise;
             _localizatoinService = localizatoinService;
+            _cache = cache;
         }
 
         [AllowAnonymous]
@@ -46,25 +55,11 @@ namespace PortalAboutEverything.Controllers.ApiControllers
 
             _gameRepositories.Create(game);
 
-            //var pathToMainImage = _pathHelper.GetPathToBoardGameMainImage(game.Id);
-            //using (var fs = new FileStream(pathToMainImage, FileMode.Create))
-            //{
-            //    boardGameViewModel.MainImage.CopyTo(fs);
-            //}
-
-            //if (boardGameViewModel.SideImage is not null)
-            //{
-            //    var pathToSideImage = _pathHelper.GetPathToBoardGameSideImage(game.Id);
-            //    using (var fs = new FileStream(pathToSideImage, FileMode.Create))
-            //    {
-            //        boardGameViewModel.SideImage.CopyTo(fs);
-            //    }
-            //}
-
             return true;
-        }
+        } // For react
 
         [HasPermission(Permission.CanDeleteBoardGames)]
+        [AllowAnonymous] // For react
         public bool Delete(int id)
         {
             if (!_gameRepositories.Delete(id))
@@ -83,6 +78,8 @@ namespace PortalAboutEverything.Controllers.ApiControllers
                 var pathToSideImage = _pathHelper.GetPathToBoardGameSideImage(id);
                 System.IO.File.Delete(pathToSideImage);
             }
+
+            _cache.ResetCache();
 
             return true;
         }
@@ -137,9 +134,10 @@ namespace PortalAboutEverything.Controllers.ApiControllers
 
         }
 
+        [AllowAnonymous]
         public string GetCorrectTextForAlert(string text)
         {
             return _localizatoinService.GetLocalizedNewBoardGameAlert(text);
-        }     
+        }
     }
 }

@@ -1,6 +1,11 @@
 ﻿@model PortalAboutEverything.Models.BoardGame.UserFavoriteBoardGamesViewModel
 @using PortalAboutEverything.LocalizationResources.BoardGame
 
+@section Title {
+    <link rel="shortcut icon" href="/images/BoardGame/logo.png" type="image/png">
+    <title>@BoardGame_UserFavoritesGame.TitleOfPage</title>
+}
+
 @section Style {
     <link href="/css/BoardGame/boardGamesFavorite.css" rel="stylesheet" />
 }
@@ -13,7 +18,7 @@
 <input type="hidden" class="absence-of-games-text" value="@BoardGame_UserFavoritesGame.AbsenceOfGamesText" />
 
 <div class="board-game-list">
-    <h2 class="title">@BoardGame_UserFavoritesGame.TitleOfPage "@Model.Name"</h2>
+    <h2 class="title">@BoardGame_UserFavoritesGame.PageTitle "@Model.Name"</h2>
     @if (Model.FavoriteBoardGames.Any())
     {
         <table>

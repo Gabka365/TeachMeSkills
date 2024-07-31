@@ -1,8 +1,13 @@
 ﻿@model PortalAboutEverything.Models.BoardGame.IndexViewModel
 @using PortalAboutEverything.LocalizationResources.BoardGame
 
+@section Title {
+    <link rel="shortcut icon" href="/images/BoardGame/logo.png" type="image/png">
+    <title>@BoardGame_Index.TitleOfPage</title>
+}
+
 @section Style {
-    <link href="/css/BoardGame/boardGamesIndex.css?v=4" rel="stylesheet" />
+    <link href="/css/BoardGame/boardGamesIndex.css?v=5" rel="stylesheet" />
 }
 
 @section Scripts {
@@ -47,13 +52,13 @@
         </div>
     }
 
+    <h2 class="title top-title">@BoardGame_Index.TopTitle</h2>
     <ul class="board-games top-board-games">
-        @for (int i = 0; i < Model.Top3FavoriteBoardGames.Count; i++)
+        @foreach (var favoriteBoardGame in Model.Top3FavoriteBoardGames)
         {
-            var favoriteBoardGame = Model.Top3FavoriteBoardGames[i];
             <li class="board-game-item top-board-game-item">
                 <input class="top-board-game-id" type="hidden" value="@favoriteBoardGame.Id" />
-                <p>@(i + 1)</p>
+                <img class="top-icon" src="/images//BoardGame/top-@(favoriteBoardGame.Rank).png"/>
                 <a class="board-game-title text-dark top-board-game-title" href="/BoardGame/BoardGame?Id=@favoriteBoardGame.Id">@favoriteBoardGame.Title</a>
                 <p class="like-count">@favoriteBoardGame.CountOfUserWhoLikeIt</p>
             </li>

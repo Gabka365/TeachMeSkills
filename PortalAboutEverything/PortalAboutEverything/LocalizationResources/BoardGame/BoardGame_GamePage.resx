@@ -165,6 +165,9 @@
   <data name="Reviews" xml:space="preserve">
     <value>Reviews</value>
   </data>
+  <data name="ReviewsNotAvailableText" xml:space="preserve">
+    <value>Reviews are not available :(</value>
+  </data>
   <data name="Shops" xml:space="preserve">
     <value>The shops</value>
   </data>

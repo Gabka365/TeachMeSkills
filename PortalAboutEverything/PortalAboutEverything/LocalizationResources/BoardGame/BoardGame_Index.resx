@@ -132,6 +132,12 @@
   <data name="PageTitle" xml:space="preserve">
     <value>List of our board games</value>
   </data>
+  <data name="TitleOfPage" xml:space="preserve">
+    <value>Board games</value>
+  </data>
+  <data name="TopTitle" xml:space="preserve">
+    <value>Top board games</value>
+  </data>
   <data name="UpdateButton" xml:space="preserve">
     <value>Edit</value>
   </data>

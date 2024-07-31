@@ -13,11 +13,19 @@ namespace PortalAboutEverything.Services.Apis
 
         public async Task<DtoBestBoardGame> GetBestBoardGameAsync()
         {
-            var response = await _httpClient.GetAsync("/getBestBoardGame");
-            var dto = await response
-                .Content
-                .ReadFromJsonAsync<DtoBestBoardGame>();
-            return dto;
+            try
+            {
+
+                var response = await _httpClient.GetAsync("/getBestBoardGame");
+                var dto = await response
+                    .Content
+                    .ReadFromJsonAsync<DtoBestBoardGame>();
+                return dto;
+            }
+            catch
+            {
+                return new DtoBestBoardGame() { Id = -1 };
+            }
         }
     }
 }

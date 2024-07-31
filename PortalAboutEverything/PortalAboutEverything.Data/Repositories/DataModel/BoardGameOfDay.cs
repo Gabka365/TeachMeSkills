@@ -1,10 +1,9 @@
 ﻿namespace PortalAboutEverything.Data.Repositories.DataModel
 {
-    public class Top3BoardGameDataModel
+    public class BoardGameOfDay
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public int CountOfUserWhoLikeIt { get; set; }
-        public int Rank { get; set; }
+        public double Price { get; set; }
     }
 }
