@@ -205,6 +205,15 @@ namespace PortalAboutEverything.LocalizationResources.BoardGame {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Reviews are not available :(.
+        /// </summary>
+        public static string ReviewsNotAvailableText {
+            get {
+                return ResourceManager.GetString("ReviewsNotAvailableText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на The shops.
         /// </summary>
         public static string Shops {

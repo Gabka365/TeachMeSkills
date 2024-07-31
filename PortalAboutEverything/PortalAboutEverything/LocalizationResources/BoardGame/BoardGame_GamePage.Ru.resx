@@ -165,6 +165,9 @@
   <data name="Reviews" xml:space="preserve">
     <value>Отзывы</value>
   </data>
+  <data name="ReviewsNotAvailableText" xml:space="preserve">
+    <value>Отзывы недоступны :(</value>
+  </data>
   <data name="Shops" xml:space="preserve">
     <value>Магазины</value>
   </data>

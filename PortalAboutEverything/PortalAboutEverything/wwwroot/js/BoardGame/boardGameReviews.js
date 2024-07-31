@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const reviewContainer = document.querySelector(".reviews-container");
 
   const absenceOfReviewsText = document.querySelector(".absence-of-reviews-text").value;
+  const reviewsNotAvailableText = document.querySelector(".reviews-not-available-text").value;
   const uploadingReviewsText = document.querySelector(".uploading-reviews-text").value;
 
   const currentUserId = document.querySelector(".current-user-id").value - 0;
@@ -22,7 +23,17 @@ document.addEventListener("DOMContentLoaded", function () {
           reviews.forEach(review => {
             addReview(review);
           });
-        }
+        };
+      })
+      .fail((error) => {
+        if (error.statusText == "Internal Server Error") {
+          document
+            .querySelector(".create-review-button")
+            .remove();
+
+          reviewContainer.innerHTML = "";
+          reviewContainer.insertAdjacentHTML("beforeend", `<p>${reviewsNotAvailableText}</p>`);
+        };
       });
   }
 
