@@ -55,25 +55,11 @@ namespace PortalAboutEverything.Controllers.ApiControllers
 
             _gameRepositories.Create(game);
 
-            //var pathToMainImage = _pathHelper.GetPathToBoardGameMainImage(game.Id);
-            //using (var fs = new FileStream(pathToMainImage, FileMode.Create))
-            //{
-            //    boardGameViewModel.MainImage.CopyTo(fs);
-            //}
-
-            //if (boardGameViewModel.SideImage is not null)
-            //{
-            //    var pathToSideImage = _pathHelper.GetPathToBoardGameSideImage(game.Id);
-            //    using (var fs = new FileStream(pathToSideImage, FileMode.Create))
-            //    {
-            //        boardGameViewModel.SideImage.CopyTo(fs);
-            //    }
-            //}
-
             return true;
-        }
+        } // For react
 
         [HasPermission(Permission.CanDeleteBoardGames)]
+        [AllowAnonymous] // For react
         public bool Delete(int id)
         {
             if (!_gameRepositories.Delete(id))
@@ -148,6 +134,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
 
         }
 
+        [AllowAnonymous]
         public string GetCorrectTextForAlert(string text)
         {
             return _localizatoinService.GetLocalizedNewBoardGameAlert(text);
