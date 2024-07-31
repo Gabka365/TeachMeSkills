@@ -17,7 +17,9 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         private readonly HttpBoardGamesReviewsApiService _apiServise;
         private readonly BoardGameMapper _mapper;
 
-        public BoardGameReviewController(IAuthService authServise, HttpBoardGamesReviewsApiService apiServise, BoardGameMapper mapper = null)
+        public BoardGameReviewController(IAuthService authServise, 
+            HttpBoardGamesReviewsApiService apiServise, 
+            BoardGameMapper mapper)
         {
             _authServise = authServise;
             _apiServise = apiServise;
