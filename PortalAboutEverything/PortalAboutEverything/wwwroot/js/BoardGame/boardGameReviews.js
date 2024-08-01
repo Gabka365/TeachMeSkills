@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
       })
       .fail((error) => {
-        if (error.statusText == "Internal Server Error") {
+        if (error.status == 500) {
           document
             .querySelector(".create-review-button")
             .remove();
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           })
           .fail((error) => {
-            if (error.statusText == "Unauthorized") {
+            if (error.status === 401) {
               window.location.href = "/Auth/Login";
             };
           });
