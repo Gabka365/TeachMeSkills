@@ -1,5 +1,6 @@
 ﻿using BestBoardGameApi.Dtos;
 using BoardGameOfDayApi.Dtos;
+using PortalAboutEverything.Services.Dtos;
 
 namespace PortalAboutEverything.Services.Apis
 {
@@ -12,7 +13,7 @@ namespace PortalAboutEverything.Services.Apis
             _httpClient = httpClient;
         }
 
-        public async Task<DtoBoardGameOfDay> GetBoardGameOfDayAsync()
+        public async Task<ApiResponseDto<DtoBoardGameOfDay>> GetBoardGameOfDayAsync()
         {
             try
             {
@@ -21,11 +22,12 @@ namespace PortalAboutEverything.Services.Apis
                 var dto = await response
                     .Content
                     .ReadFromJsonAsync<DtoBoardGameOfDay>();
-                return dto;
+
+                return new ApiResponseDto<DtoBoardGameOfDay> { Data = dto};
             }
-            catch
+            catch (Exception ex) 
             {
-                return new DtoBoardGameOfDay() { Id = -1 };
+                return new ApiResponseDto<DtoBoardGameOfDay> { IsSuccess = false, ErrorText = ex.Message};
             }
         }
     }

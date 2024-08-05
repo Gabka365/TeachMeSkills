@@ -121,9 +121,9 @@ namespace PortalAboutEverything.Controllers
                 }
             }
 
-            var alert = new Alert() 
-            { 
-                Text = game.Title, 
+            var alert = new Alert()
+            {
+                Text = game.Title,
                 EndDate = DateTime.UtcNow.AddDays(3),
                 IsNewBoardGameAlert = true
             };
@@ -191,33 +191,30 @@ namespace PortalAboutEverything.Controllers
             if (_authServise.IsAuthenticated())
             {
                 int userId = _authServise.GetUserId();
-                viewModel.CurrentUserId = userId;
 
                 User user = _userRepository.GetWithFavoriteBoardGames(userId);
                 if (user.FavoriteBoardsGames.Any(boardGame => boardGame.Id == id))
                 {
                     viewModel.IsFavoriteForUser = true;
                 }
-                if (_authServise.HasPermission(Permission.CanModerateReviewsOfBoardGames))
-                {
-                    viewModel.IsModerator = true;
-                }
             }
-            else
+
+            var boardGameOfDayTask = _boardGameOfDayServise.GetBoardGameOfDayAsync();
+            var bestBoardGameTask = _bestBoardGameServise.GetBestBoardGameAsync();
+
+            await Task.WhenAll(boardGameOfDayTask, bestBoardGameTask);
+
+            if (boardGameOfDayTask.Result.IsSuccess)
             {
-                viewModel.CurrentUserId = -1;
+                var boardGameOfDayViewModel = _mapper.BuildBoardGameOfDayViewModel(boardGameOfDayTask.Result.Data);
+                viewModel.BoardGameOfDay = boardGameOfDayViewModel;
             }
 
-            var boardGameOfDay = _boardGameOfDayServise.GetBoardGameOfDayAsync();
-            var bestBoardGame = _bestBoardGameServise.GetBestBoardGameAsync();
-
-            await Task.WhenAll(boardGameOfDay,  bestBoardGame);
-
-            var boardGameOfDayViewModel = _mapper.BuildBoardGameOfDayViewModel(boardGameOfDay.Result);
-            var bestBoardGameViewModel = _mapper.BuildBestBoardGameViewModel(bestBoardGame.Result);
-
-            viewModel.BoardGameOfDay = boardGameOfDayViewModel;
-            viewModel.BestBoardGame = bestBoardGameViewModel;
+            if (bestBoardGameTask.Result.IsSuccess)
+            {
+                var bestBoardGameViewModel = _mapper.BuildBestBoardGameViewModel(bestBoardGameTask.Result.Data);
+                viewModel.BestBoardGame = bestBoardGameViewModel;
+            }
 
             return View(viewModel);
         }

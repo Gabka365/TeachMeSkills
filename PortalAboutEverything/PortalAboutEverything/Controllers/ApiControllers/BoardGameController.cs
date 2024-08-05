@@ -44,7 +44,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         }
 
         [AllowAnonymous]
-        public bool Create(BoardGameCreateViewModelReact boardGameViewModel)
+        public bool Create(BoardGameCreateViewModelReact boardGameViewModel) // For react
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             _gameRepositories.Create(game);
 
             return true;
-        } // For react
+        } 
 
         [HasPermission(Permission.CanDeleteBoardGames)]
         [AllowAnonymous] // For react

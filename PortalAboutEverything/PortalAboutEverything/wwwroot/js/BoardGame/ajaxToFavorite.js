@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
           : textForRemove
       })
       .fail((error) => {
-        if (error.statusText == "Unauthorized") {
+        if (error.status === 401) {
           window.location.href = "/Auth/Login";
         };
       });
