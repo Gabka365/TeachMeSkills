@@ -20,8 +20,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         private AuthService _authService;
         private readonly string[] _validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
 
-        public TravelingController() { }
-
+        
         public TravelingController(TravelingRepositories travelingRepositories, PathHelper pathHelper, LikeRepositories likeRepositories, AuthService authService, UserRepository userRepository)
         {
             _travelingRepositories = travelingRepositories;
@@ -31,6 +30,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             _userRepository = userRepository;
         }
 
+        [HttpDelete]
         public void DeletePost(int postId)
         {
             foreach (var ext in _validExtensions)
@@ -47,7 +47,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             }
             _travelingRepositories.Delete(postId);
         }
-
+        [HttpGet]
         public int LikePost(int postId)
         {
 

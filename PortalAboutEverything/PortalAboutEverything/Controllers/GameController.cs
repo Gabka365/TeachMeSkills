@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Data.CacheServices;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
+using PortalAboutEverything.Services.BackgroundServices;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -17,19 +19,29 @@ namespace PortalAboutEverything.Controllers
         private AuthService _authService;
         private PathHelper _pathHelper;
 
+        private GameCache _gameCache;
+
+        private ImageGenerationQueueService _imageGenerationQueue;
+
         public GameController(GameRepositories gameRepositories,
             BoardGameReviewRepositories boardGameReviewRepositories,
             AuthService authService,
-            PathHelper pathBuilder)
+            PathHelper pathBuilder,
+            ImageGenerationQueueService imageGenerationQueue,
+            GameCache gameCache)
         {
             _gameRepositories = gameRepositories;
             _boardGameReviewRepositories = boardGameReviewRepositories;
             _authService = authService;
             _pathHelper = pathBuilder;
+            _imageGenerationQueue = imageGenerationQueue;
+            _gameCache = gameCache;
         }
 
         public IActionResult Index()
         {
+            var games = _gameCache.GetGames();
+
             var gamesViewModel = _gameRepositories
                 .GetAllWithReviews()
                 .Select(BuildGameIndexViewModel)
@@ -145,6 +157,13 @@ namespace PortalAboutEverything.Controllers
             };
 
             return View(viewModel);
+        }
+
+        public IActionResult GetNiceImage(string desc)
+        {
+            _imageGenerationQueue.DesciptonInQueue.Enqueue(desc);
+
+            return View();
         }
 
         private GameIndexViewModel BuildGameIndexViewModel(Game game)

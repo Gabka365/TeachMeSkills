@@ -13,18 +13,24 @@ document.addEventListener("DOMContentLoaded", function () {
   let textForButtonAfterClick = !isAdd
     ? textForAdd
     : textForRemove;
+  let buttonIsClickable = true;
 
   buttonToFavorite.addEventListener("click", () => {
 
+    if (!buttonIsClickable) {
+      return;
+    };
+    buttonIsClickable = false;
+
     if (isAdd) {
-      AddOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`)
+      addOrRemoveOnServer(`/api/BoardGame/AddFavoriteBoardGameForUser?GameId=${gameId}`);
     } else {
-      AddOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`)
-    }
+      addOrRemoveOnServer(`/api/BoardGame/RemoveFavoriteBoardGameForUser?GameId=${gameId}`);
+    };
   });
 
-  function AddOrRemoveOnServer(url) {
-    $.get(url)
+  async function addOrRemoveOnServer(url) {
+    await $.get(url)
       .done(() => {
         buttonToFavorite.textContent = textForButtonAfterClick;
         hub.invoke("ChangeFavorites");
@@ -33,9 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
           ? textForAdd
           : textForRemove
       })
-      .fail(() => {
-        alert("Ошибка сервера");
+      .fail((error) => {
+        if (error.status === 401) {
+          window.location.href = "/Auth/Login";
+        };
       });
+    buttonIsClickable = true;
   }
-
 });

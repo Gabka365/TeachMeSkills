@@ -9,6 +9,7 @@
 		public string Director { get; set; }
 		public int Budget { get; set; }
 		public string CountryOfOrigin { get; set; }
+		public int AverageRate { get; set; }
 
 		public bool HasCover { get; set; }
 	}

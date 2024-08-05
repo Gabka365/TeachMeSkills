@@ -120,6 +120,9 @@
   <data name="AddButton" xml:space="preserve">
     <value>Add a game</value>
   </data>
+  <data name="AlertForNewBoardGame" xml:space="preserve">
+    <value>There is a new board game "{0}"!</value>
+  </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -128,6 +131,12 @@
   </data>
   <data name="PageTitle" xml:space="preserve">
     <value>List of our board games</value>
+  </data>
+  <data name="TitleOfPage" xml:space="preserve">
+    <value>Board games</value>
+  </data>
+  <data name="TopTitle" xml:space="preserve">
+    <value>Top board games</value>
   </data>
   <data name="UpdateButton" xml:space="preserve">
     <value>Edit</value>

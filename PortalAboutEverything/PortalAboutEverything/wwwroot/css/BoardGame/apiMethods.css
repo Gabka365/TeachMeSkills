@@ -17,26 +17,26 @@
     background-color: #f9f9f9;
 }
 
-    .api-method span {
-        font-size: 16px;
-        color: #333;
-    }
+.api-method span {
+    font-size: 16px;
+    color: #333;
+}
 
-    .api-method .return-type {
-        font-weight: bold;
-        color: #555;
-    }
+.api-method .return-type {
+    font-weight: bold;
+    color: #555;
+}
 
-    .api-method .method-name {
-        color: #ef6747;
-        font-weight: bold;
-    }
+.api-method .method-name {
+    color: #ef6747;
+    font-weight: bold;
+}
 
-    .api-method .parameter {
-        font-style: italic;
-        color: #666;
-    }
+.api-method .parameter {
+    font-style: italic;
+    color: #666;
+}
 
-    .api-method .comma {
-        color: #666;
-    }
+.api-method .comma {
+    color: #666;
+}

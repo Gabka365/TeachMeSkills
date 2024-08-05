@@ -8,13 +8,16 @@ using BoardGamesReviewsApi.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors(o =>
 {
     o.AddDefaultPolicy(p =>
     {
         p.AllowAnyHeader();
         p.AllowAnyMethod();
-        p.SetIsOriginAllowed(x => true);
+        p.SetIsOriginAllowed(x => false);
         p.AllowCredentials();
     });
 });
@@ -35,7 +38,13 @@ app.MapGet("/get", (BoardGameReviewRepositories repositories, BoardGameReviewMap
     var review = repositories.Get(id);
     return mapper.BuildBoardGameReviewDto(review);
 });
-app.MapGet("/getAll", (BoardGameReviewRepositories repositories, int gameId) => repositories.GetAllForGame(gameId));
+app.MapGet("/getAll", (BoardGameReviewRepositories repositories, BoardGameReviewMapper mapper, int gameId) =>
+{
+    return repositories
+        .GetAllForGame(gameId)
+        .Select(mapper.BuildBoardGameReviewDto)
+        .ToList();
+});
 app.MapGet("/delete", (BoardGameReviewRepositories repositories, int id) => repositories.Delete(id));
 app.MapPost("/createReview", (BoardGameReviewRepositories repositories, BoardGameReviewMapper mapper, [FromBody] DtoBoardGameReviewCreate review) =>
 {
@@ -51,5 +60,8 @@ app.MapPost("/updateReview", (BoardGameReviewRepositories repositories, BoardGam
 
     return true;
 });
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();

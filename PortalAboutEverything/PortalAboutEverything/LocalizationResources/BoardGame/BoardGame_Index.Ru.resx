@@ -120,6 +120,9 @@
   <data name="AddButton" xml:space="preserve">
     <value>Добавить игру</value>
   </data>
+  <data name="AlertForNewBoardGame" xml:space="preserve">
+    <value>Появилась новая настольная игра "{0}"!</value>
+  </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Удалить</value>
   </data>
@@ -128,6 +131,12 @@
   </data>
   <data name="PageTitle" xml:space="preserve">
     <value>Список наших настольных игр</value>
+  </data>
+  <data name="TitleOfPage" xml:space="preserve">
+    <value>Настольные игры</value>
+  </data>
+  <data name="TopTitle" xml:space="preserve">
+    <value>Топ настольных игр</value>
   </data>
   <data name="UpdateButton" xml:space="preserve">
     <value>Изменить</value>

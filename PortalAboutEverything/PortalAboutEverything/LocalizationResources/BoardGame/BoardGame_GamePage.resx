@@ -132,6 +132,15 @@
   <data name="AdvertisingBanner" xml:space="preserve">
     <value>Advertising banner</value>
   </data>
+  <data name="BestBoardGame" xml:space="preserve">
+    <value>The best game</value>
+  </data>
+  <data name="BoardGameOfDay" xml:space="preserve">
+    <value>Game of the Day</value>
+  </data>
+  <data name="CountOfLikes" xml:space="preserve">
+    <value>Number of likes</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -156,6 +165,9 @@
   <data name="Reviews" xml:space="preserve">
     <value>Reviews</value>
   </data>
+  <data name="ReviewsNotAvailableText" xml:space="preserve">
+    <value>Reviews are not available :(</value>
+  </data>
   <data name="Shops" xml:space="preserve">
     <value>The shops</value>
   </data>
@@ -164,6 +176,9 @@
   </data>
   <data name="SideImages" xml:space="preserve">
     <value>Side images</value>
+  </data>
+  <data name="UploadingReviews" xml:space="preserve">
+    <value>Uploading reviews...</value>
   </data>
   <data name="WorkSchedule" xml:space="preserve">
     <value>Work schedule</value>

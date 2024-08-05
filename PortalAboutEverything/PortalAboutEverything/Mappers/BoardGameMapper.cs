@@ -7,6 +7,9 @@ using BoardGamesReviewsApi.Dtos;
 using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Services.AuthStuff.Interfaces;
 using PortalAboutEverything.Services.Interfaces;
+using BoardGameOfDayApi.Dtos;
+using BestBoardGameApi.Dtos;
+using PortalAboutEverything.Data.Enums;
 
 namespace PortalAboutEverything.Mappers
 {
@@ -38,7 +41,6 @@ namespace PortalAboutEverything.Mappers
             Price = game.Price,
             ProductCode = game.ProductCode
         };
-
 
         public BoardGame BuildBoardGameDataModelFromCreate(BoardGameCreateViewModel gameViewModel)
             => new BoardGame
@@ -103,18 +105,50 @@ namespace PortalAboutEverything.Mappers
                 Id = game.Id,
                 Title = game.Title,
                 CountOfUserWhoLikeIt = game.CountOfUserWhoLikeIt,
+                Rank = game.Rank,
+            };
+
+        public BoardGameOfDayViewModel BuildBoardGameOfDayViewModel(DtoBoardGameOfDay game)
+            => new BoardGameOfDayViewModel
+            {
+                Id = game.Id,
+                Title = game.Title,
+                Price = game.Price,
+                HasMainImage = _pathHelper.IsBoardGameMainImageExist(game.Id),
+            };
+
+        public BestBoardGameViewModel BuildBestBoardGameViewModel(DtoBestBoardGame game)
+            => new BestBoardGameViewModel
+            {
+                Id = game.Id,
+                Title = game.Title,
+                Price = game.Price,
+                CountOfUserWhoLikeIt = game.CountOfUserWhoLikeIt,
+                HasMainImage = _pathHelper.IsBoardGameMainImageExist(game.Id),
             };
         #endregion
 
         #region ReviewBuilders
+        public BoardGameReviewViewModel BuildBoardGameReviewViewModel(DtoBoardGameReview review, User currentUser, bool isModerator)
+            => new BoardGameReviewViewModel
+            {
+                Id = review.Id,
+                UserId = review.UserId,
+                UserName = review.UserName,
+                DateOfCreation = review.DateOfCreation,
+                Text = review.Text,
+                CanEdit = review.UserId == currentUser?.Id,
+                CanDelete = review.UserId == currentUser?.Id || isModerator,
+            };
+
         public DtoBoardGameReviewCreate BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
-        => new DtoBoardGameReviewCreate
-        {
-            UserName = _authServise.GetUserName(),
-            UserId = _authServise.GetUserId(),
-            DateOfCreation = DateTime.Now,
-            Text = reviewViewModel.Text,
-        };
+            => new DtoBoardGameReviewCreate
+            {
+                UserName = _authServise.GetUserName(),
+                UserId = _authServise.GetUserId(),
+                DateOfCreation = DateTime.Now,
+                Text = reviewViewModel.Text,
+            };
 
         public DtoBoardGameReviewUpdate BuildBoardGameRewievDataModelFromUpdate(BoardGameUpdateReviewViewModel reviewViewModel)
             => new DtoBoardGameReviewUpdate

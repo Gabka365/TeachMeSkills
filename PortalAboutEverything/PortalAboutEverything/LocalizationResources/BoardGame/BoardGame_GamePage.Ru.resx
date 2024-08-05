@@ -132,6 +132,15 @@
   <data name="AdvertisingBanner" xml:space="preserve">
     <value>Рекламный банер</value>
   </data>
+  <data name="BestBoardGame" xml:space="preserve">
+    <value>Лучшая игра</value>
+  </data>
+  <data name="BoardGameOfDay" xml:space="preserve">
+    <value>Игра дня</value>
+  </data>
+  <data name="CountOfLikes" xml:space="preserve">
+    <value>Количество лайков</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Описание</value>
   </data>
@@ -156,6 +165,9 @@
   <data name="Reviews" xml:space="preserve">
     <value>Отзывы</value>
   </data>
+  <data name="ReviewsNotAvailableText" xml:space="preserve">
+    <value>Отзывы недоступны :(</value>
+  </data>
   <data name="Shops" xml:space="preserve">
     <value>Магазины</value>
   </data>
@@ -164,6 +176,9 @@
   </data>
   <data name="SideImages" xml:space="preserve">
     <value>Боковые фото</value>
+  </data>
+  <data name="UploadingReviews" xml:space="preserve">
+    <value>Загрузка отзывов...</value>
   </data>
   <data name="WorkSchedule" xml:space="preserve">
     <value>График работы</value>

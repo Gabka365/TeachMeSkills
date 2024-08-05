@@ -16,27 +16,26 @@ document.addEventListener("DOMContentLoaded", function () {
   hub.start();
 
   const deleteButtons = document.querySelectorAll(".delete-link");
+  let deleteButtonIsClickable = true;
   if (!deleteButtons.length) {
     return;
-  }
-
-  const debounceDeleteBoardGame = debounce(deleteBoardGame, 500);
+  };
 
   deleteButtons.forEach((deleteButton) => {
-
     deleteButton.addEventListener("click", () => {
-
-
+      if (!deleteButtonIsClickable) {
+        return;
+      }
       const deletedId = deleteButton
         .closest(".board-game-item")
         .querySelector(".board-game-id")
         .value;
 
-      debounceDeleteBoardGame.call(null, deletedId)
-
+      deleteButtonIsClickable = false;
+      deleteBoardGame(deletedId);
     });
-
   });
+
 
   function deleteBoardGameFromHTML(deletedId) {
     document
@@ -45,21 +44,23 @@ document.addEventListener("DOMContentLoaded", function () {
       .remove();
   }
 
-  function deleteBoardGame(deletedId) {
+  async function deleteBoardGame(deletedId) {
     const url = `/api/BoardGame/Delete?id=${deletedId}`;
-    $.get(url)
+    await $.get(url)
       .done((isSuccessful) => {
         if (isSuccessful) {
           deleteBoardGameFromHTML(deletedId);
           updateTop();
           hub.invoke("DeleteBoardGame", deletedId - 0);
         } else {
-          alert("Ошибка удаления");
+          console.error("Deletion error");
         }
       })
       .fail(() => {
-        alert("Ошибка сервера");
+        console.error("Server error");
       });
+
+    deleteButtonIsClickable = true;
   }
 
   function updateTop() {
@@ -67,25 +68,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const topContainer = document.querySelector(".top-board-games");
     topContainer.innerHTML = "";
 
-    const url = `/api/BoardGame/GetTop3`;
-    $.get(url)
+    $.get(`/api/BoardGame/GetTop3`)
       .done((top3FavoriteBoardGames) => {
 
-        for (let i = 0; i < top3FavoriteBoardGames.length; i++) {
-          const favoriteBoardGame = top3FavoriteBoardGames[i];
+        top3FavoriteBoardGames.forEach((favoriteBoardGame) => {
           const topGame =
-            `<li class="board-game-item top-board-game-item">
-              <input class="top-board-game-id" type="hidden" value="${favoriteBoardGame.id}" />
-              <p>${i + 1}</p>
-              <a class="board-game-title text-dark top-board-game-title" href="/BoardGame/BoardGame?Id=${favoriteBoardGame.id}">${favoriteBoardGame.title}</a>
-              <p class="like-count">${favoriteBoardGame.countOfUserWhoLikeIt}</p>
-            </li>`;
+          `<li class="board-game-item top-board-game-item">
+            <input class="top-board-game-id" type="hidden" value="${favoriteBoardGame.id}" />
+            <img class="top-icon" src="/images//BoardGame/top-${favoriteBoardGame.rank}.png"/>
+            <a class="board-game-title text-dark top-board-game-title" href="/BoardGame/BoardGame?Id=${favoriteBoardGame.id}">${favoriteBoardGame.title}</a>
+            <p class="like-count">${favoriteBoardGame.countOfUserWhoLikeIt}</p>
+          </li>`;
 
-          topContainer.insertAdjacentHTML("beforeend", topGame);
-        }
+        topContainer.insertAdjacentHTML("beforeend", topGame);
+        });
       })
       .fail(() => {
-        alert("Ошибка получения топа");
+        console.error("Error getting the top");
       });
   }
 });

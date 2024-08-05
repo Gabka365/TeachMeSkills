@@ -12,7 +12,7 @@ function getAll() {
     return axios.get<TravelingModel[]>(`${TRAVELING_API_URL}getAll`);
 }
 function remove(id: number) {
-    return axios.get(`${TRAVELING_API_URL}DeletePost?postId=${id}`);
+    return axios.delete(`${TRAVELING_API_URL}DeletePost?postId=${id}`);
 }
 function create(data: FormData) {
     return axios.post(`${TRAVELING_API_URL}CreateTravelings`, data);

@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 //register service into DI container here
 builder.Services.AddScoped<ChatRepositoryFake>();
 
@@ -40,7 +43,7 @@ app.MapGet("/GetMessageCount", (ChatRepositoryFake repo) => new
     MessageCount = repo.Count()
 });
 
-app.MapGet("/add", (
+app.MapPost("/add", (
     [FromQuery] string name,
     [FromQuery] string text,
     ChatRepositoryFake repo) =>
@@ -48,5 +51,8 @@ app.MapGet("/add", (
     repo.AddMessage(name, text);
     return true;
 });
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();
