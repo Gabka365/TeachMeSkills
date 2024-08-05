@@ -5,11 +5,12 @@
 
 @section Style
 {
-    <link href="/css/Blog/style.css?v=3.0" rel="stylesheet" />
+    <link href="/css/Blog/style.css?v=3.1" rel="stylesheet" />
 }
 
 @section Scripts {
     <script src="/js/Blog/BlogIndex.js"></script>
+    <script src="/js/Blog/ajaxLikeSystem.js"></script>
 }
 
 <div>
@@ -119,12 +120,16 @@
                          
                         <div class="post-footer">
                             <div class="interaction">
-                                <span class="like">
-                                    <img src="/images/Blog/png/like.png" alt="" />
-                                </span>
-                                <span class="dislike">
-                                    <img src="/images/Blog/png/dislike.png" alt="" />
-                                </span>
+                                
+                                <button class="like-cover">
+                                    <span class="like"> <img src="/images/Blog/png/like.png" alt="" /> </span>
+                                </button>
+
+
+                                <button class="dislike-cover">
+                                    <span class="dislike"> <img src="/images/Blog/png/dislike.png" alt="" /> </span>
+                                </button>
+                                
                                 <span class="answers">
                                     <span class="delete"> <a href="/Blog/DeletePost?id=@post.Id">@Blog_Index.PostDelete</a></span>
                                     <span><a href="/Blog/UpdateMessage?id=@post.Id">@Blog_Index.PostUpdate</a></span>

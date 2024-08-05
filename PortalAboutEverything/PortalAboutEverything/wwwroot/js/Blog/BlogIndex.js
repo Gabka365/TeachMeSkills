@@ -19,4 +19,21 @@ $(document).ready(function () {
 		
 	});
 
+
+	$('.like-cover').click(function () {
+
+		$(this).removeClass(.like)
+
+
+		let img = $(this).find('img');
+
+		if (img.attr('src') === '/images/Blog/png/like.png') {
+			img.attr('src', '/images/Blog/png/like_pressed.png');
+
+			setTimeout(function () {
+				img.attr('src', '/images/Blog/png/like.png');
+			}, 2 * 1000);
+		}
+	});
+
 });

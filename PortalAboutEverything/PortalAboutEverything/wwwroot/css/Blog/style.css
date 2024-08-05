@@ -193,12 +193,10 @@
 
         .interactive-section .post .interaction .like img {
             max-width: 30px;
-            margin-left: 50px;
         }
 
         .interactive-section .post .interaction .dislike img {
             max-width: 30px;
-            margin-right: 460px;
         }
 
 
@@ -282,4 +280,17 @@ form {
 
     .post.active {
         background-color: darkseagreen;
+    }
+
+
+    .like-cover{
+        background: none;
+        border: none;
+    }
+
+    .dislike-cover{
+        margin-right: 500px;
+        margin-bottom: 20px;
+        background: none;
+        border: none;
     }

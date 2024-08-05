@@ -30,7 +30,40 @@ namespace PortalAboutEverything.Data.Repositories
             .Where(x => x.Users.Any(u => u.Id == userId))
             .ToList();
 
+        public int? GetLikeCountByPostId(int postId)
+        {
+            return _dbSet
+                .Where(x => x.Id == postId)
+                .Select(x => x.LikeCount)
+                .FirstOrDefault();
+        }
 
+        public int? GetDislikeCountByPostId(int postId)
+        {
+            return _dbSet
+                .Where(x => x.Id == postId)
+                .Select(x => x.DislikeCount)
+                .FirstOrDefault();
+        }
+
+
+        public void UpdateLikeCountByPostId(int postId)
+        {
+            var db = Get(postId);
+
+            db.LikeCount = db.LikeCount + 1;
+
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateDislikeCountByPostId(int postId)
+        {
+            var db = Get(postId);
+
+            db.DislikeCount = db.DislikeCount + 1;
+
+            _dbContext.SaveChanges();
+        }
 
         public void Update(Post post)
         {

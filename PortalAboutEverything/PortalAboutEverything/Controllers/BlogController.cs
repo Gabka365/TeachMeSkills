@@ -95,6 +95,8 @@ namespace PortalAboutEverything.Controllers
                 Name = viewModel.Name,
                 Message = viewModel.Message,
                 CurrentTime = DateTime.Now,
+                LikeCount = 0,
+                DislikeCount = 0,
             };
 
             _posts.Create(NewPost);
