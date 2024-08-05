@@ -7,16 +7,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\BestBoardGameApi.Dtos\BestBoardGameApi.Dtos.csproj" />
-		<ProjectReference Include="..\BoardGameOfDayApi.Dtos\BoardGameOfDayApi.Dtos.csproj" />
 		<ProjectReference Include="..\BoardGamesReviewsApi.Dtos\BoardGamesReviewsApi.Dtos.csproj" />
-		<ProjectReference Include="..\BestBoardGameApi.Dtos\BestBoardGameApi.Dtos.csproj" />
-		<ProjectReference Include="..\BoardGameOfDayApi.Dtos\BoardGameOfDayApi.Dtos.csproj" />
 		<ProjectReference Include="..\PortalAboutEverything.Data\PortalAboutEverything.Data.csproj" />
 		<ProjectReference Include="..\PortalAboutEverything.VideoServices\PortalAboutEverything.VideoServices.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="LocalizationResources\Blog\Blog_AdditionalContent.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Blog_AdditionalContent.resx</DependentUpon>
+		</Compile>
+		<Compile Update="LocalizationResources\Blog\Blog_Index.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Blog_Index.resx</DependentUpon>
+		</Compile>
 		<Compile Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateGame.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -120,6 +126,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Update="LocalizationResources\Blog\Blog_AdditionalContent.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>Blog_AdditionalContent.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\Blog\Blog_AdditionalContent.ru.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\Blog\Blog_Index.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>Blog_Index.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="LocalizationResources\Blog\Blog_Index.ru.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
 		<EmbeddedResource Update="LocalizationResources\BoardGame\BoardGame_CreateAndUpdateGame.Ru.resx">
 			<Generator></Generator>
 		</EmbeddedResource>
@@ -221,7 +241,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+		<PackageReference Include="Microsoft.JSInterop" Version="8.0.7" />
 		<PackageReference Include="System.Drawing.Common" Version="8.0.6" />
 	</ItemGroup>
 

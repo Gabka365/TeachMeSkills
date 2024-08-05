@@ -94,3 +94,13 @@
         border-radius: 5px;
         margin-left: 30px;
     }
+
+.sending .header {
+    display: flex;
+    flex-direction: column;
+}
+
+    .sending .header .cover-field input {
+        border-radius: 100px;
+        background-color: white;
+    }

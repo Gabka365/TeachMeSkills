@@ -18,11 +18,52 @@ namespace PortalAboutEverything.Data.Repositories
             .Include(x => x.CommentsBlog)
             .ToList();
 
+        public List<Post> GetPostsWithCommentsBlogByUserId(int userId)
+            => _dbSet
+            .Include(x => x.CommentsBlog)
+            .Where(x => x.Users.Any(u => u.Id == userId))
+            .ToList();
+
 
         public List<Post> GetPostsByUserId(int userId)
             => _dbSet
             .Where(x => x.Users.Any(u => u.Id == userId))
             .ToList();
+
+        public int? GetLikeCountByPostId(int postId)
+        {
+            return _dbSet
+                .Where(x => x.Id == postId)
+                .Select(x => x.LikeCount)
+                .FirstOrDefault();
+        }
+
+        public int? GetDislikeCountByPostId(int postId)
+        {
+            return _dbSet
+                .Where(x => x.Id == postId)
+                .Select(x => x.DislikeCount)
+                .FirstOrDefault();
+        }
+
+
+        public void UpdateLikeCountByPostId(int postId)
+        {
+            var db = Get(postId);
+
+            db.LikeCount = db.LikeCount + 1;
+
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateDislikeCountByPostId(int postId)
+        {
+            var db = Get(postId);
+
+            db.DislikeCount = db.DislikeCount + 1;
+
+            _dbContext.SaveChanges();
+        }
 
         public void Update(Post post)
         {
@@ -34,7 +75,7 @@ namespace PortalAboutEverything.Data.Repositories
         }
 
 
-        public void AddComment(int postId, string text)
+        public void AddComment(int postId, string text, string name)
         {
             var post = Get(postId);
 
@@ -42,8 +83,8 @@ namespace PortalAboutEverything.Data.Repositories
             {
                 Message = text,
                 Post = post,
-                Now = DateTime.Now,
-                Name = "Anonymous"
+                CurrentTime = DateTime.Now,
+                Name = name
             };
 
 

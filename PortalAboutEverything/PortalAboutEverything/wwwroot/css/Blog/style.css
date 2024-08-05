@@ -23,6 +23,7 @@
 }
 
     .menu div {
+        display: none;
         margin-left: 70px;
         margin-right: 70px;
         background-color: antiquewhite;
@@ -53,11 +54,13 @@
         background-color: bisque;
         padding: 40px;
         border-radius: 5px;
+        display: none;
     }
 
 
     .inf-about-blog-author .ava {
         display: flex;
+        display: none;
     }
 
 
@@ -104,6 +107,7 @@
 /* Posts By Author */
 
 .interactive-section {
+    display: none;
     background-color: black;
     margin-left: 100px;
     margin-right: 100px;
@@ -134,6 +138,7 @@
 
 
     .interactive-section .post {
+        display: none;
         display: flex;
         background-color: rgb(99, 66, 19);
         padding: 10px;
@@ -181,17 +186,17 @@
                 overflow-y: scroll;
             }
 
-
+        .interactive-section .post .post-footer {
+            display: none;
+        }
 
 
         .interactive-section .post .interaction .like img {
             max-width: 30px;
-            margin-left: 50px;
         }
 
         .interactive-section .post .interaction .dislike img {
             max-width: 30px;
-            margin-right: 460px;
         }
 
 
@@ -241,3 +246,51 @@ form {
     margin-left: 200px;
     margin-right: 150px;
 }
+
+
+
+.post .body .post-stuff div {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.post .body .post-stuff .cover-post {
+    align-items: flex-start;
+}
+
+    .post .body .post-stuff .cover-post img {
+        width: 400px
+    }
+
+
+    .post .body .post-stuff .cover-post div img {
+        width: 30px;
+    }
+
+    .post .body .post-stuff .cover-post .cover-submit {
+        background: url('/images/Blog/cover-default.png');
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        border: none;
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0);
+    }
+
+    .post.active {
+        background-color: darkseagreen;
+    }
+
+
+    .like-cover{
+        background: none;
+        border: none;
+    }
+
+    .dislike-cover{
+        margin-right: 500px;
+        margin-bottom: 20px;
+        background: none;
+        border: none;
+    }

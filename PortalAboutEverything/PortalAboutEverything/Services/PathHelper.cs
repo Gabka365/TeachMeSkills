@@ -11,6 +11,12 @@ namespace PortalAboutEverything.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
+        public string GetPathToPostCover(int postId)
+        {
+            var fileName = $"cover-{postId}.jpg";
+            return GetPathByFolder("images\\Blog", fileName);
+        }
+
         public string GetPathToTravelingImageFolder()
         {
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Traveling", "UserPictures");
@@ -45,6 +51,12 @@ namespace PortalAboutEverything.Services
         {
             var fileName = $"mainImage-{boardGameId}.jpg";
             return GetPathByFolder("images\\BoardGame", fileName);
+        }
+        
+        public bool IsPostCoverExist (int postId)
+        {
+            var path = GetPathToPostCover(postId);
+            return File.Exists(path);
         }
 
         public bool IsBoardGameMainImageExist(int id)

@@ -7,13 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BoardGamesReviewsApi.Dtos\BoardGamesReviewsApi.Dtos.csproj" />
     <ProjectReference Include="..\BoardGamesRiviewsApi.Data\BoardGamesReviewsApi.Data.csproj" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
 </Project>

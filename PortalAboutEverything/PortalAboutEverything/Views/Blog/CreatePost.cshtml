@@ -1,27 +1,31 @@
 ﻿@model PortalAboutEverything.Models.Blog.MessageViewModel
+@using PortalAboutEverything.LocalizationResources.Blog
 
-<html>
+
 <div class="section-output">
     <header>
-        <link href="/css/Blog/menu.css?v=1.1" rel="stylesheet" />
+        <link href="/css/Blog/menu.css?v=1.3" rel="stylesheet" />
     </header>
     <body>
-        <form action="/Blog/CreatePost" method="post">
+        <form action="/Blog/CreatePost" method="post" enctype="multipart/form-data">
             <div class="sending">
                 <div class="header">
                     <div class="inf-about-author">
                         <img src="/images/Blog/jpeg/first_ava.jpg" />
-                        @Model.Now <br>
-                        <input type="hidden" name="Now" value="@Model.Now" />
-                        from: @Model.Name <br>
+                        @Model.CurrentTime <br>
+                        <input type="hidden" name="Now" value="@Model.CurrentTime" />
+                        @Blog_AdditionalContent.From: @Model.Name <br>
                         <input type="hidden" name="Name" value="@Model.Name" />
                     </div>
                     <div class="text-field">
                         @Html.TextAreaFor(x => x.Message)
                     </div>
+                    <div class="cover-field">
+                        <input type="file" name="@nameof(Model.Cover)" accept="image/png, image/jpeg" />
+                    </div>
                 </div>
                 <div class="mood-rate">
-                    Mood rate: @Html.TextBoxFor(x => x.MoodRate)
+                    @Blog_AdditionalContent.MoodRate: @Html.TextBoxFor(x => x.MoodRate)
                 </div>
                 <span class="Submit">
                     <input type="submit" name="name" value="Post" />
@@ -34,8 +38,10 @@
             <div class="validation-error">
                 @Html.ValidationMessageFor(x => x.MoodRate)
             </div>
+            <div class="validation-error">
+                @Html.ValidationMessageFor(x => x.Cover)
+            </div>
         </form>
     </body>
 
 </div>
-</html>

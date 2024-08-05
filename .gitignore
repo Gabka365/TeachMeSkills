@@ -419,3 +419,7 @@ PortalAboutEverything/PortalAboutEverything/wwwroot/images/GameStore/*.*
 !PortalAboutEverything/PortalAboutEverything/wwwroot/images/GameStore/cover-default.jpg
 
 *.vscode
+/react/portal-react/.vscode
+PortalAboutEverything/PortalAboutEverything/wwwroot/images/Blog/*.*
+!PortalAboutEverything/PortalAboutEverything/wwwroot/images/Blog/cover-default.png
+

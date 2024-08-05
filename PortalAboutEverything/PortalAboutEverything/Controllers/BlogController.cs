@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.Hosting;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data;
+using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Models.Blog;
+using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
-
 
 namespace PortalAboutEverything.Controllers
 {
@@ -16,28 +18,51 @@ namespace PortalAboutEverything.Controllers
     {
         private BlogRepositories _posts;
         private AuthService _authService;
+        private PortalAboutEverything.Services.PathHelper _pathHelper;
 
-        public BlogController(BlogRepositories posts, AuthService authService)
+        public BlogController(BlogRepositories posts, AuthService authService, PortalAboutEverything.Services.PathHelper pathHelper)
         {
             _posts = posts;
             _authService = authService;
+            _pathHelper = pathHelper;
         }
 
         public IActionResult Index()
         {
+            BlogViewModel viewModel;
 
-            var postsViewModel = _posts
+            
+            if (_authService.IsAuthenticated())
+            {
+                var postsViewModel = _posts
                 .GetAllWithCommentsBlog()
                 .Select(BuildPostIndexViewModel)
                 .ToList();
+                    
+                viewModel = new BlogViewModel()
+                {
+                    Name = _authService.GetUserName(),
+                    Posts = postsViewModel,
+                    IsAccessible = _authService.HasRoleOrHigher(UserRole.User),
+                    UserLanguage = _authService.GetUserLanguage(),
+                    Role = _authService.GetUserRole(),
+                };
+            }
+            else
+            {
+                viewModel = new BlogViewModel()
+                {
+                    IsAccessible = false
+                };
+            }
 
-            return View(postsViewModel);
+            return View(viewModel);
         }
 
 
         [HttpGet]
         [Authorize]
-        [HasRole(Data.Enums.UserRole.BlogAdmin)]
+        [HasRoleOrHigher(Data.Enums.UserRole.BlogAdmin)]
         public IActionResult CreatePost()
         {
             var viewModel = BuildMessageViewModel();
@@ -46,9 +71,13 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteMessage(int id)
+        public IActionResult DeletePost(int id)
         {
             _posts.Delete(id);
+
+            var path = _pathHelper.GetPathToPostCover(id);
+            System.IO.File.Delete(path);
+
             return RedirectToAction("Index");
         }
 
@@ -61,15 +90,25 @@ namespace PortalAboutEverything.Controllers
                 return View(viewModel);
             }
 
-
             var NewPost = new Post
             {
                 Name = viewModel.Name,
                 Message = viewModel.Message,
-                Now = viewModel.Now
+                CurrentTime = DateTime.Now,
+                LikeCount = 0,
+                DislikeCount = 0,
             };
 
             _posts.Create(NewPost);
+            var path = _pathHelper.GetPathToPostCover(NewPost.Id);
+
+            if (viewModel.Cover is not null)
+            {
+                using (var fs = new FileStream(path, FileMode.Create))
+                {
+                    viewModel.Cover.CopyTo(fs);
+                }
+            }
 
             return RedirectToAction("Index");
         }
@@ -111,7 +150,7 @@ namespace PortalAboutEverything.Controllers
                 Id = viewModel.Id,
                 Name = viewModel.Name,
                 Message = viewModel.message,
-                Now = viewModel.Now
+                CurrentTime = viewModel.CurrentTime
             };
 
             _posts.Update(Post);
@@ -146,15 +185,38 @@ namespace PortalAboutEverything.Controllers
                 return RedirectToAction("Index");
             }
 
-            _posts.AddComment(viewModel.postId, viewModel.Text);
+            var name = _authService.GetUserName();  
+
+            _posts.AddComment(viewModel.postId, viewModel.Text, name);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [Authorize]
+        [HasRoleOrHigher(Data.Enums.UserRole.BlogAdmin)]
+        public IActionResult AddCover(BlogViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+
+            var path = _pathHelper.GetPathToPostCover(viewModel.Id);
+
+            using (var fs = new FileStream(path, FileMode.Create))
+            {
+                viewModel.Cover.CopyTo(fs);
+            }
+
             return RedirectToAction("Index");
         }
 
         private MessageViewModel BuildMessageViewModel()
             => new MessageViewModel
             {
-                Now = DateTime.Now,
-                Name = "Morgan Freeman"
+                CurrentTime = DateTime.Now,
+                Name = _authService.GetUserName(),
             };
 
         private PostIndexViewModel BuildPostIndexViewModel(Post post)
@@ -163,8 +225,9 @@ namespace PortalAboutEverything.Controllers
             {
                 Id = post.Id,
                 Message = post.Message,
-                Now = post.Now,
+                CurrentTime = post.CurrentTime,
                 Name = post.Name,
+                HasCover = _pathHelper.IsPostCoverExist(post.Id),
                 CommentsBlog = post
                 .CommentsBlog
                 .Select(BuildBlogCommentViewModel)
@@ -177,7 +240,7 @@ namespace PortalAboutEverything.Controllers
             return new BlogCommentViewModel
             {
                 Message = commentBlog.Message,
-                Now = commentBlog.Now,
+                CurrentTime = commentBlog.CurrentTime,
                 Name = commentBlog.Name,
             };
         }
@@ -188,7 +251,7 @@ namespace PortalAboutEverything.Controllers
             {
                 Id = post.Id,
                 message = post.Message,
-                Now = post.Now,
+                CurrentTime = post.CurrentTime,
                 Name = post.Name,
             };
         }
