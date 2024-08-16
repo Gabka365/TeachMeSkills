@@ -288,9 +288,38 @@ form {
         border: none;
     }
 
-    .dislike-cover{
-        margin-right: 500px;
-        margin-bottom: 20px;
+    .dislike-cover {
         background: none;
         border: none;
     }
+
+
+    .rate {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .rate-count {
+        width: 100px;
+        height: 30px;
+        margin-right: 500px;
+    }
+
+        .rate-count.like {
+            display: flex;
+            background-color: greenyellow;
+            border-radius: 50px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rate-count.dislike {
+            display: flex;
+            background-color: lightcoral;
+            border-radius: 50px;
+            justify-content: center;
+            align-items: center;
+        }
+
+    

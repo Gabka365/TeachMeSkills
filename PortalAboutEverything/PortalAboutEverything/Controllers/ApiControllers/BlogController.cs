@@ -17,11 +17,13 @@ namespace PortalAboutEverything.Controllers.ApiControllers
 
         public int? GetLikes(int id)
         {
+            UpdateLikes(id);
             return _blogRepositories.GetLikeCountByPostId(id);
         }
 
         public int? GetDislikes(int id)
         {
+            UpdateDislikes(id);
             return _blogRepositories.GetDislikeCountByPostId(id);
         }
 

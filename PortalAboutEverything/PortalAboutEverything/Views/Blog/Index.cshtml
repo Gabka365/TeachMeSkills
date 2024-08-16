@@ -5,12 +5,13 @@
 
 @section Style
 {
-    <link href="/css/Blog/style.css?v=3.1" rel="stylesheet" />
+    <link href="/css/Blog/style.css?v=3.5" rel="stylesheet" />
 }
 
 @section Scripts {
-    <script src="/js/Blog/BlogIndex.js"></script>
-    <script src="/js/Blog/ajaxLikeSystem.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/Blog/BlogIndex.js?v=1.6"></script>
+    <script src="/js/Blog/ajaxLikeSystem.js?v=1.6"></script>
 }
 
 <div>
@@ -120,16 +121,21 @@
                          
                         <div class="post-footer">
                             <div class="interaction">
-                                
-                                <button class="like-cover">
-                                    <span class="like"> <img src="/images/Blog/png/like.png" alt="" /> </span>
-                                </button>
+
+                                <div class="rate">
+                                    <button class="like-cover" name="postId" value=@post.Id>
+                                        <span class="like"> <img src="/images/Blog/png/like.png" alt="" /> </span>
+                                    </button>
+
+                                    <button class="dislike-cover" name="postId" value=@post.Id>
+                                        <span class="dislike"> <img src="/images/Blog/png/dislike.png" alt="" /> </span>
+                                    </button>
+
+                                    <div class="rate-count">
+                                    </div>
+                                </div>
 
 
-                                <button class="dislike-cover">
-                                    <span class="dislike"> <img src="/images/Blog/png/dislike.png" alt="" /> </span>
-                                </button>
-                                
                                 <span class="answers">
                                     <span class="delete"> <a href="/Blog/DeletePost?id=@post.Id">@Blog_Index.PostDelete</a></span>
                                     <span><a href="/Blog/UpdateMessage?id=@post.Id">@Blog_Index.PostUpdate</a></span>
