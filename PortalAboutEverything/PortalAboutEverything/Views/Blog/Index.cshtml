@@ -10,9 +10,9 @@
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
-    <script src="/js/Blog/blogIndex.js"></script>
-    <script src="/js/Blog/ajaxLikeSystem.js?v=1.6"></script>
-    <script src="/js/Blog/lifePage.js?v=1.1"></script>
+    <script src="/js/Blog/blogIndex.js?v=1.2"></script>
+    <script src="/js/Blog/ajaxLikeSystem.js?v=1.8"></script>
+    <script src="/js/Blog/lifePage.js?v=1.3"></script>
 }
 
 <div>
@@ -142,6 +142,8 @@
                                     <span><a href="/Blog/UpdateMessage?id=@post.Id">@Blog_Index.PostUpdate</a></span>
                                 </span>
                             </div>
+
+                            <input type="hidden" name="userName" value="@Model.Name"/>
 
                             <form action="/Blog/AddComment" method="post">
                                 <input class="post-comment" type="hidden" value="@post.Id" name="postId" />
