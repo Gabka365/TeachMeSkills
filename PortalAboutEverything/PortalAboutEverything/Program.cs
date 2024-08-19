@@ -124,6 +124,7 @@ app.MapHub<BoardGameHub>("/hubs/boardGame");
 app.MapHub<MovieHub>("/hubs/movie");
 app.MapHub<CommentTravelingHub>("/hubs/CommentTraveling");
 app.MapHub<GoodReviewHub>("/hubs/goodReview");
+app.MapHub<BlogCommentHub>("/hubs/BlogComment");
 app.MapHub<AlertHub>("/hubs/alert");
 
 app.MapControllerRoute(

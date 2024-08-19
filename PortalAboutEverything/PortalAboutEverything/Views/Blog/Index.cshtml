@@ -5,13 +5,14 @@
 
 @section Style
 {
-    <link href="/css/Blog/style.css?v=3.5" rel="stylesheet" />
+    <link href="/css/Blog/style.css?v=3.6" rel="stylesheet" />
 }
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
-    <script src="/js/Blog/BlogIndex.js?v=1.6"></script>
+    <script src="/js/Blog/blogIndex.js"></script>
     <script src="/js/Blog/ajaxLikeSystem.js?v=1.6"></script>
+    <script src="/js/Blog/lifePage.js?v=1.1"></script>
 }
 
 <div>
@@ -143,24 +144,25 @@
                             </div>
 
                             <form action="/Blog/AddComment" method="post">
-                                <input type="hidden" value="@post.Id" name="postId" />
-                                <textarea name="text" placeholder="Text for comment"></textarea>
-                                <input type="submit" value="Comment" />
+                                <input class="post-comment" type="hidden" value="@post.Id" name="postId" />
+                                <textarea class="textarea-comment" name="text" placeholder="Text for comment"></textarea>
+                                <input class="submit-comment" type="submit" value="Comment" />
                             </form>
                         </div>
                         
 
                     </div>
 
-                    @foreach (var comment in post.CommentsBlog)
-                    {
-                        <div class="comment">
-                            <span class="author-name">@comment.Name</span>
-                            <span class="date">@comment.CurrentTime</span>
-                            <span class="comment-text">@comment.Message</span>
-                        </div>
-                    }
-
+                    <div class="comments">
+                        @foreach (var comment in post.CommentsBlog)
+                        {
+                            <div class="comment">
+                                <span class="author-name">@comment.Name</span>
+                                <span class="date">@comment.CurrentTime</span>
+                                <span class="comment-text">@comment.Message</span>
+                            </div>
+                        }
+                    </div>
                 }
             }
 
