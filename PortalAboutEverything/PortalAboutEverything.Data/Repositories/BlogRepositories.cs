@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class BlogRepositories : BaseRepository<Post>
+    public class BlogRepositories : BaseRepository<Post>, IBlogRepositories
     {
         public BlogRepositories(PortalDbContext db) : base(db) { }
 

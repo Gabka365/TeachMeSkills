@@ -8,19 +8,22 @@ using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Models.Blog;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Services.Interfaces;
 
 namespace PortalAboutEverything.Controllers
 {
     public class BlogController : Controller
     {
-        private BlogRepositories _posts;
-        private AuthService _authService;
-        private PortalAboutEverything.Services.PathHelper _pathHelper;
+        private IBlogRepositories _posts;
+        private IAuthService _authService;
+        private IPathHelper _pathHelper;
 
-        public BlogController(BlogRepositories posts, AuthService authService, PortalAboutEverything.Services.PathHelper pathHelper)
+        public BlogController(IBlogRepositories posts, IAuthService authService, IPathHelper pathHelper)
         {
             _posts = posts;
             _authService = authService;
@@ -212,7 +215,7 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
-        private MessageViewModel BuildMessageViewModel()
+        public MessageViewModel BuildMessageViewModel()
             => new MessageViewModel
             {
                 CurrentTime = DateTime.Now,

@@ -21,6 +21,7 @@ namespace PortalAboutEverything.Tests.Services
             _pathHelper = new PathHelper(_webHostEnvironmentMock.Object);
         }
 
+        
         [Test]
         public void GetPathToTravelingImageFolder()
         {

@@ -3,6 +3,8 @@ using PortalAboutEverything.Controllers;
 using PortalAboutEverything.CustomMiddlewareServices;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.CacheServices;
+using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Helpers;
 using PortalAboutEverything.Hubs;
 using PortalAboutEverything.Mappers;
@@ -57,6 +59,9 @@ builder.Services.AddScoped<LikeHelper>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<AuthService>();
+
+builder.Services.AddScoped<IBlogRepositories, BlogRepositories>();
+builder.Services.AddScoped<BlogRepositories>();
 
 builder.Services.AddScoped<BoardGameMapper>();
 builder.Services.AddScoped<AlertMapper>();
