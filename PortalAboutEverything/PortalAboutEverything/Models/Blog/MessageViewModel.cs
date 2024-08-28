@@ -28,7 +28,7 @@ namespace PortalAboutEverything.Models.Blog
         [CorrectSymbols]
         public int Number_2 { get; set; }
 
-        [MaxBlogImageSize(400,400)]
+        [MaxBlogImageSize(1000,1000)]
         public IFormFile? Cover {  get; set; }
 
     }

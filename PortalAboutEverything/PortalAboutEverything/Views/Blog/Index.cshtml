@@ -38,7 +38,7 @@
             @if (Model.IsAccessible)
             {
                 <div> <a href="/Blog/Blogger"> @Blog_Index.SeePosts </a> </div>
-                <div> <a href="/Blog/CreatePost"> @Blog_Index.CreatePost </a> </div>
+                <div> <a class="create-post" href="/Blog/CreatePost"> @Blog_Index.CreatePost </a> </div>
                 <div> <a href="/Blog/SendMessage">  @Blog_Index.SendMessage </a></div>
             }
         </div>
@@ -138,7 +138,7 @@
 
 
                                 <span class="answers">
-                                    <span class="delete"> <a href="/Blog/DeletePost?id=@post.Id">@Blog_Index.PostDelete</a></span>
+                                    <span class="delete"> <a href="/Blog/DeletePost?id=@post.Id" class="delete-post">@Blog_Index.PostDelete</a></span>
                                     <span><a href="/Blog/UpdateMessage?id=@post.Id">@Blog_Index.PostUpdate</a></span>
                                 </span>
                             </div>
