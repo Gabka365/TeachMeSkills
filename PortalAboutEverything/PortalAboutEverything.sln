@@ -17,7 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsTravelingsApi.Data", "N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardGamesReviewsApi", "BoardGamesReviewsApi\BoardGamesReviewsApi.csproj", "{4F2AA18B-4D20-43A1-BACA-579640EA9EFA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardGamesReviewsApi.Data", "BoardGamesRiviewsApi.Data\BoardGamesReviewsApi.Data.csproj", "{17E99B93-645C-410D-9AA5-4C5BA3C69FB5}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortalAboutEverything.Tests", "PortalAboutEverything.Tests\PortalAboutEverything.Tests.csproj", "{C9A143B1-062A-4CA3-9F96-40206348F7E6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardGamesReviewsApi.Dtos", "BoardGamesReviewsApi.Dtos\BoardGamesReviewsApi.Dtos.csproj", "{989324F5-961D-4080-A1E9-E2E982F0C3FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardGamesReviewsApi.Tests", "BoardGamesReviewsApi.Tests\BoardGamesReviewsApi.Tests.csproj", "{1A5FAC57-A3D0-4C10-B2CD-801011917013}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortalAboutEverything.Tests.E2E", "PortalAboutEverything.Tests.E2E\PortalAboutEverything.Tests.E2E.csproj", "{7EBCA6B2-0459-4A84-8F01-C25B9BBB621D}"
 EndProject
@@ -41,7 +47,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesReviewsApi.Data", "Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReflectionExample", "ReflectionExample\ReflectionExample.csproj", "{324CB37C-F921-41D9-A08A-5597C944D9DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadVsAsync", "ThreadVsAsync\ThreadVsAsync.csproj", "{D38BA3A4-21D0-49B5-A9DE-97783AF937CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadVsAsync", "ThreadVsAsync\ThreadVsAsync.csproj", "{D38BA3A4-21D0-49B5-A9DE-97783AF937CE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BoardGamesMicroservices", "BoardGamesMicroservices", "{35777F50-541D-4D93-8B97-BF463B9BAF81}"
 EndProject
@@ -87,10 +93,22 @@ Global
 		{4F2AA18B-4D20-43A1-BACA-579640EA9EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F2AA18B-4D20-43A1-BACA-579640EA9EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F2AA18B-4D20-43A1-BACA-579640EA9EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17E99B93-645C-410D-9AA5-4C5BA3C69FB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17E99B93-645C-410D-9AA5-4C5BA3C69FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17E99B93-645C-410D-9AA5-4C5BA3C69FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17E99B93-645C-410D-9AA5-4C5BA3C69FB5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C9A143B1-062A-4CA3-9F96-40206348F7E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9A143B1-062A-4CA3-9F96-40206348F7E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9A143B1-062A-4CA3-9F96-40206348F7E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9A143B1-062A-4CA3-9F96-40206348F7E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{989324F5-961D-4080-A1E9-E2E982F0C3FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{989324F5-961D-4080-A1E9-E2E982F0C3FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{989324F5-961D-4080-A1E9-E2E982F0C3FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{989324F5-961D-4080-A1E9-E2E982F0C3FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A5FAC57-A3D0-4C10-B2CD-801011917013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A5FAC57-A3D0-4C10-B2CD-801011917013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A5FAC57-A3D0-4C10-B2CD-801011917013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A5FAC57-A3D0-4C10-B2CD-801011917013}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7EBCA6B2-0459-4A84-8F01-C25B9BBB621D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7EBCA6B2-0459-4A84-8F01-C25B9BBB621D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EBCA6B2-0459-4A84-8F01-C25B9BBB621D}.Release|Any CPU.ActiveCfg = Release|Any CPU
