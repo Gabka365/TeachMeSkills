@@ -47,7 +47,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesReviewsApi.Data", "Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReflectionExample", "ReflectionExample\ReflectionExample.csproj", "{324CB37C-F921-41D9-A08A-5597C944D9DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadVsAsync", "ThreadVsAsync\ThreadVsAsync.csproj", "{D38BA3A4-21D0-49B5-A9DE-97783AF937CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadVsAsync", "ThreadVsAsync\ThreadVsAsync.csproj", "{D38BA3A4-21D0-49B5-A9DE-97783AF937CE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BoardGamesMicroservices", "BoardGamesMicroservices", "{35777F50-541D-4D93-8B97-BF463B9BAF81}"
 EndProject
@@ -55,9 +55,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardGameOfDayApi", "BoardG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardGameOfDayApi.Dtos", "BoardGameOfDayApi.Dtos\BoardGameOfDayApi.Dtos.csproj", "{5259F646-5818-41AE-93EE-BBF1124D80AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestBoardGameApi", "BestBoardGameApi\BestBoardGameApi.csproj", "{B0A4135C-CB3F-4D1E-AF8A-B6B1E7861F7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestBoardGameApi", "BestBoardGameApi\BestBoardGameApi.csproj", "{B0A4135C-CB3F-4D1E-AF8A-B6B1E7861F7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestBoardGameApi.Dtos", "BestBoardGameApi.Dtos\BestBoardGameApi.Dtos.csproj", "{435C061B-15E4-44AA-A53F-4ECFFFD31373}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestBoardGameApi.Dtos", "BestBoardGameApi.Dtos\BestBoardGameApi.Dtos.csproj", "{435C061B-15E4-44AA-A53F-4ECFFFD31373}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
