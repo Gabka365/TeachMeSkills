@@ -31,7 +31,7 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         public async Task<List<BoardGameReviewViewModel>> GelAllForBoardGame(int gameId)
         {
             User user = null;
-            bool isModerator = false; ;
+            bool isModerator = false;
 
             if (_authServise.IsAuthenticated())
             {
