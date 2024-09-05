@@ -1,5 +1,4 @@
-﻿using PortalAboutEverything.Data.Migrations;
-using PortalAboutEverything.Data.Model;
+﻿using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
 {

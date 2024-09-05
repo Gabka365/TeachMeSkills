@@ -10,8 +10,6 @@ namespace PortalAboutEverything.Data
 {
     public class PortalDbContext : DbContext
     {
-        public const string CONNECTION_STRING = "Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True;Database=Net16Portal";
-
         public DbSet<Alert> Alerts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<User> Users { get; set; }
@@ -38,7 +36,7 @@ namespace PortalAboutEverything.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer(CONNECTION_STRING);
+                .UseNpgsql($"Host={DatabaseSettings.DbHost};Username={DatabaseSettings.DbUsername};Password={DatabaseSettings.DbPassword};Database={DatabaseSettings.DbDbName}");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

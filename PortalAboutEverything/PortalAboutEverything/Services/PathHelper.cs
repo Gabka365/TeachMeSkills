@@ -14,7 +14,8 @@ namespace PortalAboutEverything.Services
         public string GetPathToPostCover(int postId)
         {
             var fileName = $"cover-{postId}.jpg";
-            return GetPathByFolder("images\\Blog", fileName);
+            //return GetPathByFolder("images\\Blog", fileName);
+            return Path.Combine(_webHostEnvironment.WebRootPath, "images", "Blog", fileName);
         }
 
         public string GetPathToTravelingImageFolder()
@@ -26,19 +27,22 @@ namespace PortalAboutEverything.Services
         public string GetPathToGameCover(int gameId)
         {
             var fileName = $"cover-{gameId}.jpg";
-            return GetPathByFolder("images\\Game", fileName);
+            //return GetPathByFolder("images\\Game", fileName);
+            return Path.Combine(_webHostEnvironment.WebRootPath, "images", "Game", fileName);
         }
 
         public string GetPathToGoodCover(int goodId)
         {
             var fileName = $"goodImage-{goodId}.jpg";
-            return GetPathByFolder("images\\Store\\MainPage\\ImagesForGoods", fileName);
+            return Path.Combine(_webHostEnvironment.WebRootPath, "images", "Store", "MainPage", "ImagesForGoods", fileName);
+            //return GetPathByFolder("images\\Store\\MainPage\\ImagesForGoods", fileName);
         }
 
         public string GetPathToMovieImage(int movieId)
         {
             var fileName = $"cover-{movieId}.jpg";
-            return GetPathByFolder("images\\Movie", fileName);
+            //return GetPathByFolder("images\\Movie", fileName);
+            return Path.Combine(_webHostEnvironment.WebRootPath, "images", "Movie", fileName);
         }
 
         public bool IsGameCoverExist(int id)
@@ -50,7 +54,8 @@ namespace PortalAboutEverything.Services
         public string GetPathToBoardGameMainImage(int boardGameId)
         {
             var fileName = $"mainImage-{boardGameId}.jpg";
-            return GetPathByFolder("images\\BoardGame", fileName);
+            return Path.Combine(_webHostEnvironment.WebRootPath, "images", "BoardGame", fileName);
+            //return GetPathByFolder("images\\BoardGame", fileName);
         }
         
         public bool IsPostCoverExist (int postId)
@@ -68,7 +73,8 @@ namespace PortalAboutEverything.Services
         public string GetPathToBoardGameSideImage(int boardGameId)
         {
             var fileName = $"sideImage-{boardGameId}.jpg";
-            return GetPathByFolder("images\\BoardGame", fileName);
+            return Path.Combine(_webHostEnvironment.WebRootPath, "images", "BoardGame", fileName);
+            //return GetPathByFolder("images\\BoardGame", fileName);
         }
 
         public bool IsBoardGameSideImageExist(int id)
@@ -86,7 +92,8 @@ namespace PortalAboutEverything.Services
         public string GetPathToGameStoreCover(int gameId)
         {
             var fileName = $"caver-{gameId}.jpg";
-            return GetPathByFolder("images\\GameStore", fileName);
+            return Path.Combine(_webHostEnvironment.WebRootPath, "images", "GameStore", fileName);
+            //return GetPathByFolder("images\\GameStore", fileName);
         }
 
         public bool IsGameStoreCoverExist(int id)

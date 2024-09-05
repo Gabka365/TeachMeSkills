@@ -1,5 +1,4 @@
 using BestBoardGameApi.Dtos;
-using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Repositories;
 
@@ -15,7 +14,7 @@ builder.Services.AddCors(o =>
     });
 });
 
-builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbContext.CONNECTION_STRING));
+builder.Services.AddDbContext<PortalDbContext>();
 builder.Services.AddScoped<BoardGameRepositories>();
 
 var app = builder.Build();

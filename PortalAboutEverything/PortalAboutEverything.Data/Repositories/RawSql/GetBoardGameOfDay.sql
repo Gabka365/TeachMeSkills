@@ -1,3 +1,4 @@
-SELECT TOP 1 Id, Title, Price
-FROM BoardGames
-ORDER BY NEWID()
+SELECT "Id", "Title", "Price"
+FROM "BoardGames"
+ORDER BY RANDOM()
+LIMIT 1

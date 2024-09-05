@@ -17,7 +17,7 @@ namespace PortalAboutEverything.Data
             FillBoardGames(service);
             FillMovies(service);
             FillBooks(service);
-            FillBlog(service);
+            //FillBlog(service);
         }
 
         private void FillGames(IServiceScope service)

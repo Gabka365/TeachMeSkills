@@ -15,7 +15,7 @@ namespace PortalAboutEverything.Data.Repositories
             return _dbSet
                 .Where(x => !x.UsersWhoAlreadySawIt
                     .Any(alertUser => alertUser.User.Id == userId))
-                .Where(x => x.EndDate == null || x.EndDate > DateTime.Now)
+                .Where(x => x.EndDate == null || x.EndDate > DateTime.UtcNow)
                 .ToList();
         }
 
@@ -31,7 +31,7 @@ namespace PortalAboutEverything.Data.Repositories
             {
                 User = user,
                 Alert = alert,
-                WhenUserSawAlert = DateTime.Now
+                WhenUserSawAlert = DateTime.UtcNow
             };
 
             user.AlertsWhichISaw.Add(alertUser);

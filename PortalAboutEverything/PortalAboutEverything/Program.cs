@@ -40,7 +40,7 @@ builder.Services
         option.AccessDeniedPath = "/Auth/AccessDenied";
     });
 
-builder.Services.AddDbContext<PortalDbContext>(x => x.UseSqlServer(PortalDbContext.CONNECTION_STRING));
+builder.Services.AddDbContext<PortalDbContext>();
 
 //Repository
 builder.Services.AddVideoLibraryServices();
@@ -93,6 +93,12 @@ builder.Services.AddHostedService<ImageGenerator>();
 builder.Services.AddSingleton<ImageGenerationQueueService>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<PortalDbContext>();
+    dbContext.Database.Migrate();
+}
 
 //app.UseMiddleware<MyGlobalHandlerException>();
 
