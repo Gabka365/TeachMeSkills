@@ -21,6 +21,7 @@ namespace PortalAboutEverything.Tests.Services
             _pathHelper = new PathHelper(_webHostEnvironmentMock.Object);
         }
 
+        
         [Test]
         public void GetPathToTravelingImageFolder()
         {
@@ -97,6 +98,24 @@ namespace PortalAboutEverything.Tests.Services
 
             // Act
             var result = _pathHelper.GetPathToMovieImage(movieId);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(path));
+        }
+
+
+        [Test]
+        [TestCase(14, "C:\\project\\images\\Blog\\cover-14.jpg")]
+        [TestCase(81, "C:\\project\\images\\Blog\\cover-81.jpg")]
+        public void GetPathToPostCover(int postId, string path)
+        {
+            // Prepare
+            _webHostEnvironmentMock
+                .Setup(x => x.WebRootPath)
+                .Returns(FAKE_PROJECT_PATH);
+
+            // Act
+            var result = _pathHelper.GetPathToPostCover(postId);
 
             // Assert
             Assert.That(result, Is.EqualTo(path));

@@ -6,6 +6,7 @@ using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Services.AuthStuff;
+using System.Security;
 using System.Security.Claims;
 
 namespace PortalAboutEverything.Tests.Services.AuthStuff
@@ -199,6 +200,42 @@ namespace PortalAboutEverything.Tests.Services.AuthStuff
 
             // Assert
             Assert.That(result, Is.True);
+        }
+
+
+        [Test]
+        [TestCase("1")]
+        public void GetUserId(string userId)
+        {
+            //Prepare
+            var listClaims = new List<Claim> { new Claim("ID", userId) };
+            _httpContextAccessorMock
+                .Setup(x => x.HttpContext.User.Claims)
+                .Returns(listClaims);
+
+            //Act
+            var result = _authService.GetUserId();
+            
+            //Assert
+            Assert.That(result, Is.EqualTo(1));
+        }
+
+        [Test]
+        [TestCase("User", "User")]
+        public void GetUserRole(string currentRole, UserRole role)
+        {
+            //Prepare
+            var listClaims = new List<Claim> { new Claim("ROLE", currentRole) };
+            _httpContextAccessorMock
+                .Setup(x => x.HttpContext.User.Claims)
+                .Returns(listClaims);
+
+
+            //Act
+            var result = _authService.GetUserRole();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(role));
         }
     }
 }

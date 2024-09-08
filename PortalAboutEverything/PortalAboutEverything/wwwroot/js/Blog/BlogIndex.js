@@ -7,33 +7,15 @@ $(document).ready(function () {
 
 	$('.interactive-section .post').click(function () {
 		const currentBlock = $(this).closest('.post');
-		const isCurrentBlockActive = currentBlock.hasClass('.active');
-
-		$('.post').removeClass('active');
-		$('.post-footer').hide(500);
+		const isCurrentBlockActive = currentBlock.hasClass('active');
 
 		if (!isCurrentBlockActive) {
+			$('.post').removeClass('active');
+			$('.post-footer').hide(500);
 			currentBlock.addClass('active');
 			currentBlock.find('.post-footer').show(500);
 		}
-		
-	});
 
-
-	$('.like-cover').click(function () {
-
-		$(this).removeClass(.like)
-
-
-		let img = $(this).find('img');
-
-		if (img.attr('src') === '/images/Blog/png/like.png') {
-			img.attr('src', '/images/Blog/png/like_pressed.png');
-
-			setTimeout(function () {
-				img.attr('src', '/images/Blog/png/like.png');
-			}, 2 * 1000);
-		}
 	});
 
 });

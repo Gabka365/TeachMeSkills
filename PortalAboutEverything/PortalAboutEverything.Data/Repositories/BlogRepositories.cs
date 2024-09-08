@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class BlogRepositories : BaseRepository<Post>
+    public class BlogRepositories : BaseRepository<Post>, IBlogRepositories
     {
         public BlogRepositories(PortalDbContext db) : base(db) { }
 
@@ -51,6 +52,11 @@ namespace PortalAboutEverything.Data.Repositories
         {
             var db = Get(postId);
 
+            if (db.LikeCount is null)
+            {
+                db.LikeCount = 0;
+            }
+
             db.LikeCount = db.LikeCount + 1;
 
             _dbContext.SaveChanges();
@@ -59,6 +65,11 @@ namespace PortalAboutEverything.Data.Repositories
         public void UpdateDislikeCountByPostId(int postId)
         {
             var db = Get(postId);
+
+            if (db.DislikeCount is null)
+            {
+                db.DislikeCount = 0;
+            }
 
             db.DislikeCount = db.DislikeCount + 1;
 

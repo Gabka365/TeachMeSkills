@@ -5,12 +5,14 @@
 
 @section Style
 {
-    <link href="/css/Blog/style.css?v=3.1" rel="stylesheet" />
+    <link href="/css/Blog/style.css?v=3.6" rel="stylesheet" />
 }
 
 @section Scripts {
-    <script src="/js/Blog/BlogIndex.js"></script>
-    <script src="/js/Blog/ajaxLikeSystem.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/Blog/blogIndex.js?v=1.2"></script>
+    <script src="/js/Blog/ajaxLikeSystem.js?v=1.8"></script>
+    <script src="/js/Blog/lifePage.js?v=1.3"></script>
 }
 
 <div>
@@ -36,7 +38,7 @@
             @if (Model.IsAccessible)
             {
                 <div> <a href="/Blog/Blogger"> @Blog_Index.SeePosts </a> </div>
-                <div> <a href="/Blog/CreatePost"> @Blog_Index.CreatePost </a> </div>
+                <div> <a class="create-post" href="/Blog/CreatePost"> @Blog_Index.CreatePost </a> </div>
                 <div> <a href="/Blog/SendMessage">  @Blog_Index.SendMessage </a></div>
             }
         </div>
@@ -120,41 +122,49 @@
                          
                         <div class="post-footer">
                             <div class="interaction">
-                                
-                                <button class="like-cover">
-                                    <span class="like"> <img src="/images/Blog/png/like.png" alt="" /> </span>
-                                </button>
+
+                                <div class="rate">
+                                    <button class="like-cover" name="postId" value=@post.Id>
+                                        <span class="like"> <img src="/images/Blog/png/like.png" alt="" /> </span>
+                                    </button>
+
+                                    <button class="dislike-cover" name="postId" value=@post.Id>
+                                        <span class="dislike"> <img src="/images/Blog/png/dislike.png" alt="" /> </span>
+                                    </button>
+
+                                    <div class="rate-count">
+                                    </div>
+                                </div>
 
 
-                                <button class="dislike-cover">
-                                    <span class="dislike"> <img src="/images/Blog/png/dislike.png" alt="" /> </span>
-                                </button>
-                                
                                 <span class="answers">
-                                    <span class="delete"> <a href="/Blog/DeletePost?id=@post.Id">@Blog_Index.PostDelete</a></span>
+                                    <span class="delete"> <a href="/Blog/DeletePost?id=@post.Id" class="delete-post">@Blog_Index.PostDelete</a></span>
                                     <span><a href="/Blog/UpdateMessage?id=@post.Id">@Blog_Index.PostUpdate</a></span>
                                 </span>
                             </div>
 
+                            <input type="hidden" name="userName" value="@Model.Name"/>
+
                             <form action="/Blog/AddComment" method="post">
-                                <input type="hidden" value="@post.Id" name="postId" />
-                                <textarea name="text" placeholder="Text for comment"></textarea>
-                                <input type="submit" value="Comment" />
+                                <input class="post-comment" type="hidden" value="@post.Id" name="postId" />
+                                <textarea class="textarea-comment" name="text" placeholder="Text for comment"></textarea>
+                                <input class="submit-comment" type="submit" value="Comment" />
                             </form>
                         </div>
                         
 
                     </div>
 
-                    @foreach (var comment in post.CommentsBlog)
-                    {
-                        <div class="comment">
-                            <span class="author-name">@comment.Name</span>
-                            <span class="date">@comment.CurrentTime</span>
-                            <span class="comment-text">@comment.Message</span>
-                        </div>
-                    }
-
+                    <div class="comments">
+                        @foreach (var comment in post.CommentsBlog)
+                        {
+                            <div class="comment">
+                                <span class="author-name">@comment.Name</span>
+                                <span class="date">@comment.CurrentTime</span>
+                                <span class="comment-text">@comment.Message</span>
+                            </div>
+                        }
+                    </div>
                 }
             }
 
