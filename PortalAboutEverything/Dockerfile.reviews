@@ -6,9 +6,9 @@ COPY ["BoardGamesReviewsApi.Dtos/BoardGamesReviewsApi.Dtos.csproj", "BoardGamesR
 COPY ["BoardGamesReviewsApi.Data/BoardGamesReviewsApi.Data.csproj", "BoardGamesReviewsApi.Data/"]
 RUN dotnet restore "BoardGamesReviewsApi/BoardGamesReviewsApi.csproj"
 COPY . .
-WORKDIR "/src/PortalAboutEverything"
-RUN dotnet build "PortalAboutEverything.csproj" -c $BUILD_CONFIGURATION -o /app/build && \
-    dotnet publish "PortalAboutEverything.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+WORKDIR "/src/BoardGamesReviewsApi"
+RUN dotnet build "BoardGamesReviewsApi.csproj" -c $BUILD_CONFIGURATION -o /app/build && \
+    dotnet publish "BoardGamesReviewsApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 USER $APP_UID
