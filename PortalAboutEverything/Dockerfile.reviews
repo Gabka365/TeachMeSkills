@@ -4,7 +4,7 @@ WORKDIR /src
 COPY ["BoardGamesReviewsApi/BoardGamesReviewsApi.csproj", "BoardGamesReviewsApi/"]
 COPY ["BoardGamesReviewsApi.Dtos/BoardGamesReviewsApi.Dtos.csproj", "BoardGamesReviewsApi.Dtos/"]
 COPY ["BoardGamesReviewsApi.Data/BoardGamesReviewsApi.Data.csproj", "BoardGamesReviewsApi.Data/"]
-RUN dotnet restore "PortalAboutEverything/PortalAboutEverything.csproj"
+RUN dotnet restore "BoardGamesReviewsApi/BoardGamesReviewsApi.csproj"
 COPY . .
 WORKDIR "/src/PortalAboutEverything"
 RUN dotnet build "PortalAboutEverything.csproj" -c $BUILD_CONFIGURATION -o /app/build && \
