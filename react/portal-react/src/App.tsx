@@ -14,10 +14,13 @@ import {
     СreateTravelings,
 } from './components/pages/travelings/Index';
 import UpdateMovie from './components/pages/movies/UpdateMovie';
+import Posts from './components/pages/posts/posts';
 
 function App() {
     return (
         <div className="App">
+            <Posts></Posts>
+
             <AuthContext>
                 <BrowserRouter>
                     <div>

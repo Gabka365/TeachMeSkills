@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Models.Blog;
+using PortalAboutEverything.Controllers;
+using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Controllers.ApiControllers
 {
@@ -13,6 +16,15 @@ namespace PortalAboutEverything.Controllers.ApiControllers
         public BlogController(BlogRepositories blogRepositories) 
         { 
             _blogRepositories = blogRepositories;
+        }
+
+        public List<PostIndexViewModel> GetAll()
+        {
+            var postsViewModel = _blogRepositories
+                .GetAllWithCommentsBlog()
+                .Select(BuildPostIndexViewModel)
+                .ToList();
+            return postsViewModel;
         }
 
         public int? GetLikes(int id)
@@ -37,5 +49,15 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             _blogRepositories.UpdateDislikeCountByPostId(id);
         }
 
+        private PostIndexViewModel BuildPostIndexViewModel(Post post)
+        {
+            return new PostIndexViewModel
+            {
+                Id = post.Id,
+                Message = post.Message,
+                DateOfPublish = post.CurrentTime.ToString(),
+                Name = post.Name,
+            };
+        }
     }
 }
