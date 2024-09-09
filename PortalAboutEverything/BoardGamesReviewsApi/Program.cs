@@ -1,10 +1,10 @@
 using BoardGamesRiviewsApi.Data;
 using BoardGamesRiviewsApi.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using BoardGamesReviewsApi.Middlewares;
 using BoardGamesReviewsApi.Dtos;
 using BoardGamesReviewsApi.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,12 +22,18 @@ builder.Services.AddCors(o =>
     });
 });
 
-builder.Services.AddDbContext<ReviewsDbContext>(x => x.UseSqlServer(ReviewsDbContext.CONNECTION_STRING));
+builder.Services.AddDbContext<ReviewsDbContext>();
 
 builder.Services.AddScoped<BoardGameReviewRepositories>();
 builder.Services.AddScoped<BoardGameReviewMapper>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ReviewsDbContext>();
+    dbContext.Database.Migrate();
+}
 
 app.UseCors();
 app.UseMiddleware<AllowAllCorsMiddleware>();

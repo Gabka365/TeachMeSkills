@@ -23,3 +23,4 @@ FROM (
 ) AS "Temp"
 LEFT JOIN "BoardGames" AS "BG" ON "BG"."Id" = "Temp"."Id"
 WHERE "Temp"."Rank" <= 3
+ORDER BY "Temp"."Rank" 

@@ -146,7 +146,7 @@ namespace PortalAboutEverything.Mappers
             {
                 UserName = _authServise.GetUserName(),
                 UserId = _authServise.GetUserId(),
-                DateOfCreation = DateTime.Now,
+                DateOfCreation = DateTime.UtcNow,
                 Text = reviewViewModel.Text,
             };
 
