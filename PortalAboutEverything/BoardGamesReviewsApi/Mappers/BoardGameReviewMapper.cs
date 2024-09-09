@@ -1,5 +1,5 @@
 ﻿using BoardGamesReviewsApi.Dtos;
-using BoardGamesRiviewsApi.Data.Models;
+using BoardGamesReviewsApi.Data.Models;
 
 namespace BoardGamesReviewsApi.Mappers
 {

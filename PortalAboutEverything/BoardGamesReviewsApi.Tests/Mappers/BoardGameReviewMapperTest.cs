@@ -1,5 +1,5 @@
 ﻿using BoardGamesReviewsApi.Mappers;
-using BoardGamesRiviewsApi.Data.Models;
+using BoardGamesReviewsApi.Data.Models;
 using NUnit.Framework;
 
 namespace BoardGamesReviewsApi.Tests.Mappers

@@ -1,6 +1,6 @@
-﻿using BoardGamesRiviewsApi.Data.Models;
+﻿using BoardGamesReviewsApi.Data.Models;
 
-namespace BoardGamesRiviewsApi.Data.Repositories
+namespace BoardGamesReviewsApi.Data.Repositories
 {
     public class BoardGameReviewRepositories
     {

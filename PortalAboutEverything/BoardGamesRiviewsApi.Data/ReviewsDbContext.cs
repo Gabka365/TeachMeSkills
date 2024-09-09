@@ -1,8 +1,8 @@
 ﻿using BoardGamesReviewsApi.Data;
-using BoardGamesRiviewsApi.Data.Models;
+using BoardGamesReviewsApi.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BoardGamesRiviewsApi.Data
+namespace BoardGamesReviewsApi.Data
 {
     public class ReviewsDbContext : DbContext 
     {

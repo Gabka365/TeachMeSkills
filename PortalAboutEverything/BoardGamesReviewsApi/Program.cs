@@ -1,5 +1,5 @@
-using BoardGamesRiviewsApi.Data;
-using BoardGamesRiviewsApi.Data.Repositories;
+using BoardGamesReviewsApi.Data;
+using BoardGamesReviewsApi.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using BoardGamesReviewsApi.Middlewares;
 using BoardGamesReviewsApi.Dtos;

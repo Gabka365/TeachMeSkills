@@ -1,4 +1,4 @@
-﻿namespace BoardGamesRiviewsApi.Data.Models
+﻿namespace BoardGamesReviewsApi.Data.Models
 {
     public class BoardGameReview
     {
