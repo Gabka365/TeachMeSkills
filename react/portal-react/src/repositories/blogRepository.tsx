@@ -11,8 +11,33 @@ function getAll(){
     return axios.get<PostModel[]>(`${BLOG_API_URL}GetAll`)
 }
 
+
+function remove(id: number){
+    return axios.get(`${BLOG_API_URL}Remove?id=${id}`)
+}
+
+
+function get(id: number){
+    return axios.get(`${BLOG_API_URL}Get?id=${id}`)
+}
+
+
+function add(game: PostModel) {
+    return axios.post(`${BLOG_API_URL}create`, game);
+}
+
+
+function update(movie: PostModel) {
+    return axios.post(`${BLOG_API_URL}update`, movie);
+}
+
+
 const blogRepository = {
-    getAll
+    getAll,
+    remove,
+    add,
+    get,
+    update
 }
 
 export default blogRepository
