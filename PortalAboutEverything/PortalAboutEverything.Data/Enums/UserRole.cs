@@ -11,6 +11,7 @@
         StoreAdmin = 45,
         VideoLibraryAdmin = 44,
         BlogAdmin = 45,
+        GameStoreAdmin = 46,
 
         Moderator = 80,
         Admin = 99,

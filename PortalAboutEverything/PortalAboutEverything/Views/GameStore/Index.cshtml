@@ -2,7 +2,7 @@
 @using PortalAboutEverything.LocalizationResources.GameStore
 
 @section Style {
-    <link rel="stylesheet" href="~/css/GameStore/style.css?v=2" />
+    <link rel="stylesheet" href="~/css/GameStore/style.css?v=3" />
 }
 
 <div class="header_site">
@@ -16,7 +16,10 @@
     </div>
     <div class="header_right">
         <button class="login">
-            <a href="/GameStore/GamerGameStore"> @GameStore_Index.Login</a>
+            @if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <a href="/GameStore/GamerGameStore"> @GameStore_Index.Login</a>
+            }
         </button>
         <button class="basket">
             @GameStore_Index.Basket

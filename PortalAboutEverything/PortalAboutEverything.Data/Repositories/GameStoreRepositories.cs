@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Repositories.DataModel;
+using PortalAboutEverything.Data.Repositories.RawSql;
+using System.Reflection;
 
 namespace PortalAboutEverything.Data.Repositories
 {
@@ -24,6 +27,11 @@ namespace PortalAboutEverything.Data.Repositories
             dbGame.YearOfRelease = game.YearOfRelease;
 
             _dbContext.SaveChanges();
+        }
+
+        public IEnumerable<Top3BuyGamesDataModel> GetTop3BuyGamesGameStore()
+        {
+            return CustomSqlQuery<Top3BuyGamesDataModel>(SqlQueryManager.GetTop3BuyGamesGameStore).ToList();
         }
     }
 }

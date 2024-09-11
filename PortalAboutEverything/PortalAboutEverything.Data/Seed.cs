@@ -171,6 +171,15 @@ namespace PortalAboutEverything.Data
                 };
                 userRepository.Create(boardGameModerator);
 
+
+                var gameStoreAdmin = new User
+                {
+                    UserName = "GameStoreAdmin",
+                    Password = "admin",
+                    Role = UserRole.GameStoreAdmin,
+                    Language = Language.En
+                };
+                userRepository.Create(gameStoreAdmin);
             }
         }
 
