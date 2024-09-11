@@ -1,52 +1,60 @@
 ﻿using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Models.BoardGame;
-using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Models.BoardGameReview;
 using PortalAboutEverything.Data.Repositories.DataModel;
+using BoardGamesReviewsApi.Dtos;
+using PortalAboutEverything.Data.Repositories.Interfaces;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Services.Interfaces;
+using BoardGameOfDayApi.Dtos;
+using BestBoardGameApi.Dtos;
+using PortalAboutEverything.Data.Enums;
 
 namespace PortalAboutEverything.Mappers
 {
     public class BoardGameMapper
     {
-        private readonly AuthService _authServise;
-        private readonly PathHelper _pathHelper;
+        private readonly IAuthService _authServise;
+        private readonly IPathHelper _pathHelper;
+        private readonly IBoardGameRepositories _gameRepositories;
 
-        public BoardGameMapper(AuthService authService, PathHelper pathHelper)
+        public BoardGameMapper(IAuthService authService, IPathHelper pathHelper, IBoardGameRepositories gameRepositories)
         {
             _authServise = authService;
             _pathHelper = pathHelper;
+            _gameRepositories = gameRepositories;
         }
 
         #region BoardGameBuilders
         public BoardGameViewModel BuildBoardGameViewModel(BoardGame game)
+        => new BoardGameViewModel
         {
-            List<BoardGameReviewViewModel> reviewViewModels = new();
-            if (game.Reviews is not null)
-            {
-                foreach (var review in game.Reviews)
-                {
-                    reviewViewModels.Add(BuildBoardGameRewievViewModel(review));
-                }
-            }
-
-            return new BoardGameViewModel
-            {
-                Id = game.Id,
-                Title = game.Title,
-                MiniTitle = game.MiniTitle,
-                HasMainImage = _pathHelper.IsBoardGameMainImageExist(game.Id),
-                HasSideImage = _pathHelper.IsBoardGameSideImageExist(game.Id),
-                Description = game.Description,
-                Essence = game.Essence,
-                Tags = game.Tags,
-                Price = game.Price,
-                ProductCode = game.ProductCode,
-                Reviews = reviewViewModels
-            };
-        }
+            Id = game.Id,
+            Title = game.Title,
+            MiniTitle = game.MiniTitle,
+            HasMainImage = _pathHelper.IsBoardGameMainImageExist(game.Id),
+            HasSideImage = _pathHelper.IsBoardGameSideImageExist(game.Id),
+            Description = game.Description,
+            Essence = game.Essence,
+            Tags = game.Tags,
+            Price = game.Price,
+            ProductCode = game.ProductCode
+        };
 
         public BoardGame BuildBoardGameDataModelFromCreate(BoardGameCreateViewModel gameViewModel)
+            => new BoardGame
+            {
+                Title = gameViewModel.Title,
+                MiniTitle = gameViewModel.MiniTitle,
+                Description = gameViewModel.Description,
+                Essence = gameViewModel.Essence,
+                Tags = gameViewModel.Tags,
+                Price = gameViewModel.Price.Value,
+                ProductCode = gameViewModel.ProductCode.Value,
+            };
+
+        public BoardGame BuildBoardGameDataModelFromCreateReact(BoardGameCreateViewModelReact gameViewModel)
             => new BoardGame
             {
                 Title = gameViewModel.Title,
@@ -97,39 +105,62 @@ namespace PortalAboutEverything.Mappers
                 Id = game.Id,
                 Title = game.Title,
                 CountOfUserWhoLikeIt = game.CountOfUserWhoLikeIt,
+                Rank = game.Rank,
+            };
+
+        public BoardGameOfDayViewModel BuildBoardGameOfDayViewModel(DtoBoardGameOfDay game)
+            => new BoardGameOfDayViewModel
+            {
+                Id = game.Id,
+                Title = game.Title,
+                Price = game.Price,
+                HasMainImage = _pathHelper.IsBoardGameMainImageExist(game.Id),
+            };
+
+        public BestBoardGameViewModel BuildBestBoardGameViewModel(DtoBestBoardGame game)
+            => new BestBoardGameViewModel
+            {
+                Id = game.Id,
+                Title = game.Title,
+                Price = game.Price,
+                CountOfUserWhoLikeIt = game.CountOfUserWhoLikeIt,
+                HasMainImage = _pathHelper.IsBoardGameMainImageExist(game.Id),
             };
         #endregion
 
         #region ReviewBuilders
-        public BoardGameReviewViewModel BuildBoardGameRewievViewModel(BoardGameReview review)
+        public BoardGameReviewViewModel BuildBoardGameReviewViewModel(DtoBoardGameReview review, User currentUser, bool isModerator)
             => new BoardGameReviewViewModel
             {
                 Id = review.Id,
-                Name = review.Name,
-                DateOfCreationInStringFormat = review.DateOfCreation.ToString("dd.MM.yyyy HH:mm"),
+                UserId = review.UserId,
+                UserName = review.UserName,
+                DateOfCreation = review.DateOfCreation,
                 Text = review.Text,
+                CanEdit = review.UserId == currentUser?.Id,
+                CanDelete = review.UserId == currentUser?.Id || isModerator,
             };
 
+        public DtoBoardGameReviewCreate BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
+            => new DtoBoardGameReviewCreate
+            {
+                UserName = _authServise.GetUserName(),
+                UserId = _authServise.GetUserId(),
+                DateOfCreation = DateTime.Now,
+                Text = reviewViewModel.Text,
+            };
 
-        public BoardGameReview BuildBoardGameRewievDataModelFromCreate(BoardGameCreateReviewViewModel reviewViewModel)
-        => new BoardGameReview
-        {
-            Name = _authServise.GetUserName(),
-            DateOfCreation = DateTime.Now,
-            Text = reviewViewModel.Text,
-        };
-
-        public BoardGameReview BuildBoardGameRewievDataModelFromUpdate(BoardGameUpdateReviewViewModel reviewViewModel)
-            => new BoardGameReview
+        public DtoBoardGameReviewUpdate BuildBoardGameRewievDataModelFromUpdate(BoardGameUpdateReviewViewModel reviewViewModel)
+            => new DtoBoardGameReviewUpdate
             {
                 Id = reviewViewModel.Id,
                 Text = reviewViewModel.Text,
             };
 
-        public BoardGameUpdateReviewViewModel BuildBoardGameUpdateRewievViewModel(BoardGameReview review)
+        public BoardGameUpdateReviewViewModel BuildBoardGameUpdateRewievViewModel(DtoBoardGameReview review)
             => new BoardGameUpdateReviewViewModel
             {
-                BoardGameName = review.BoardGame.Title,
+                BoardGameName = _gameRepositories.GetName(review.BoardGameId),
                 Text = review.Text,
             };
         #endregion

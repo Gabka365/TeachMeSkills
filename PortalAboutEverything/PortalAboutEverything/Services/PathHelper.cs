@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using PortalAboutEverything.Data.Model;
+﻿using PortalAboutEverything.Services.Interfaces;
 
 namespace PortalAboutEverything.Services
 {
-    public class PathHelper
+    public class PathHelper : IPathHelper
     {
         private IWebHostEnvironment _webHostEnvironment;
 
@@ -12,10 +11,28 @@ namespace PortalAboutEverything.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
+        public string GetPathToPostCover(int postId)
+        {
+            var fileName = $"cover-{postId}.jpg";
+            return GetPathByFolder("images\\Blog", fileName);
+        }
+
+        public string GetPathToTravelingImageFolder()
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Traveling", "UserPictures");
+            return path;
+        }
+
         public string GetPathToGameCover(int gameId)
         {
             var fileName = $"cover-{gameId}.jpg";
             return GetPathByFolder("images\\Game", fileName);
+        }
+
+        public string GetPathToGoodCover(int goodId)
+        {
+            var fileName = $"goodImage-{goodId}.jpg";
+            return GetPathByFolder("images\\Store\\MainPage\\ImagesForGoods", fileName);
         }
 
         public string GetPathToMovieImage(int movieId)
@@ -34,6 +51,12 @@ namespace PortalAboutEverything.Services
         {
             var fileName = $"mainImage-{boardGameId}.jpg";
             return GetPathByFolder("images\\BoardGame", fileName);
+        }
+        
+        public bool IsPostCoverExist (int postId)
+        {
+            var path = GetPathToPostCover(postId);
+            return File.Exists(path);
         }
 
         public bool IsBoardGameMainImageExist(int id)
@@ -72,6 +95,12 @@ namespace PortalAboutEverything.Services
         public bool IsGameStoreCoverExist(int id)
         {
             var path = GetPathToGameStoreCover(id);
+            return File.Exists(path);
+        }
+
+        public bool IsGoodCoverExist(int id)
+        {
+            var path = GetPathToGoodCover(id);
             return File.Exists(path);
         }
 

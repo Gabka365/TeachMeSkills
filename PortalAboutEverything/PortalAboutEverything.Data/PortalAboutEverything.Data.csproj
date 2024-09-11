@@ -7,14 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Repositories\RawSql\GetBestBoardGame.sql" />
+    <None Remove="Repositories\RawSql\GetBoardGameOfDay.sql" />
     <None Remove="Repositories\RawSql\GetMovieStatistic.sql" />
     <None Remove="Repositories\RawSql\GetTop3BoardGames.sql" />
     <None Remove="Repositories\RawSql\GetTop3BuyGamesGameSrore.sql" />
     <None Remove="Repositories\RawSql\GetTop3Games.sql" />
+    <None Remove="Repositories\RawSql\GetTopGoods.sql" />
     <None Remove="Repositories\RawSql\TopTravelingByComments.sql" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Repositories\RawSql\GetBoardGameOfDay.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Repositories\RawSql\GetBestBoardGame.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Repositories\RawSql\GetTopGoods.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Repositories\RawSql\GetTop3BuyGamesGameSrore.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

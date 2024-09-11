@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class UserRepository : BaseRepository<User>
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
         public UserRepository(PortalDbContext dbContext) : base(dbContext) { }
 
@@ -38,15 +39,15 @@ namespace PortalAboutEverything.Data.Repositories
             _dbContext.SaveChanges();
         }
 
-		public void AddMovieToMoviesFan(Movie movie, int userId)
-		{
-			var user = GetWithFavoriteMovies(userId);
-			var movies = user.FavoriteMovies;
-			movies.Add(movie);
-			user.FavoriteMovies = movies;
+        public void AddMovieToMoviesFan(Movie movie, int userId)
+        {
+            var user = GetWithFavoriteMovies(userId);
+            var movies = user.FavoriteMovies;
+            movies.Add(movie);
+            user.FavoriteMovies = movies;
 
-			_dbContext.SaveChanges();
-		}
+            _dbContext.SaveChanges();
+        }
 
         public void DeleteMovieFromMoviesFan(Movie movie, int userId)
         {
@@ -59,8 +60,11 @@ namespace PortalAboutEverything.Data.Repositories
         }
 
         public User? GetWithFavoriteMovies(int id)
-			 => _dbSet
-			.Include(user => user.FavoriteMovies)
-			.Single(user => user.Id == id);
+             => _dbSet
+            .Include(user => user.FavoriteMovies)
+            .Single(user => user.Id == id);
+
+        public User GetStandartUser() 
+            => _dbSet.Where(u => u.UserName == "User").First();
     }
 }

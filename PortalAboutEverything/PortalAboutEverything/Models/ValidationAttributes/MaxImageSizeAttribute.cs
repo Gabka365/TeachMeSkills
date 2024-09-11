@@ -33,7 +33,7 @@ namespace PortalAboutEverything.Models.ValidationAttributes
                     $"Maximum height {_maxImageHeight}");
             }
 
-            return base.IsValid(value, validationContext);
+            return ValidationResult.Success;
         }
     }
 }

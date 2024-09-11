@@ -24,7 +24,7 @@
 		event.preventDefault();
 	});
 
-	const debounceCheckLogin = debounce(checkLogin, 3 * 1000);
+	const debounceCheckLogin = debounce(checkLogin, 500);
 
 	$('[name=Login]').on('keyup', function () {
 		debounceCheckLogin.call();

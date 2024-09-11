@@ -124,20 +124,20 @@ namespace PortalAboutEverything.LocalizationResources.Store {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login.
-        /// </summary>
-        public static string LogIn {
-            get {
-                return ResourceManager.GetString("LogIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The items are not available. Please add at least one item..
         /// </summary>
         public static string NoGoods {
             get {
                 return ResourceManager.GetString("NoGoods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Popular.
+        /// </summary>
+        public static string Popular {
+            get {
+                return ResourceManager.GetString("Popular", resourceCulture);
             }
         }
         

@@ -1,12 +1,19 @@
 ﻿@model PortalAboutEverything.Models.BoardGame.IndexViewModel
 @using PortalAboutEverything.LocalizationResources.BoardGame
 
+@section Title {
+    <link rel="shortcut icon" href="/images/BoardGame/logo.png" type="image/png">
+    <title>@BoardGame_Index.TitleOfPage</title>
+}
+
 @section Style {
-    <link href="/css/BoardGame/boardGamesIndex.css?v=2" rel="stylesheet" />
+    <link href="/css/BoardGame/boardGamesIndex.css?v=5" rel="stylesheet" />
 }
 
 @section Scripts {
-    <script defer src="~/js/BoardGame/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script defer src="/js/BoardGame/index.js"></script>
+    <script defer src="/js/BoardGame/ajaxDelete.js"></script>
 }
 
 <div class="board-game-list">
@@ -14,7 +21,8 @@
     <ul class="board-games">
         @foreach (var boardGame in Model.BoardGames)
         {
-            <li class="board-game-item">
+            <li class="board-game-item board-game">
+                <input class="board-game-id" type="hidden" value="@boardGame.Id" />
                 <a class="board-game-title text-dark" href="/BoardGame/BoardGame?Id=@boardGame.Id">@boardGame.Title</a>
                 <div class="update-and-delete">
                     @if (Model.CanCreateAndUpdateBoardGames)
@@ -25,17 +33,17 @@
                     }
                     @if (Model.CanDeleteBoardGames)
                     {
-                        <a class="delete-link" href="/BoardGame/Delete?id=@boardGame.Id">
+                        <div class="delete-link">
                             <img class="icon delete-icon" src="/images/BoardGame/delete.svg" alt="@BoardGame_Index.DeleteButton" />
-                        </a>
+                        </div>
                     }
                 </div>
             </li>
         }
     </ul>
 
-    <div class="add-board-game">
-        <a class="add-board-game-link" href="/BoardGame/UserFavoriteBoardGames">@BoardGame_Index.FavoriteButton</a>
+    <div class="favorite-board-game">
+        <a class="favorite-board-game-link" href="/BoardGame/UserFavoriteBoardGames">@BoardGame_Index.FavoriteButton</a>
     </div>
     @if (Model.CanCreateAndUpdateBoardGames)
     {
@@ -44,12 +52,13 @@
         </div>
     }
 
+    <h2 class="title top-title">@BoardGame_Index.TopTitle</h2>
     <ul class="board-games top-board-games">
-        @for(int i = 0; i < Model.Top3FavoriteBoardGames.Count; i++)
+        @foreach (var favoriteBoardGame in Model.Top3FavoriteBoardGames)
         {
-            var favoriteBoardGame = Model.Top3FavoriteBoardGames[i];
             <li class="board-game-item top-board-game-item">
-                <p>@(i+1)</p>
+                <input class="top-board-game-id" type="hidden" value="@favoriteBoardGame.Id" />
+                <img class="top-icon" src="/images//BoardGame/top-@(favoriteBoardGame.Rank).png"/>
                 <a class="board-game-title text-dark top-board-game-title" href="/BoardGame/BoardGame?Id=@favoriteBoardGame.Id">@favoriteBoardGame.Title</a>
                 <p class="like-count">@favoriteBoardGame.CountOfUserWhoLikeIt</p>
             </li>

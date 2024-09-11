@@ -1,11 +1,17 @@
-﻿@model List<PortalAboutEverything.Models.Blog.postIndexViewModel>
+﻿@model PortalAboutEverything.Models.Blog.BlogViewModel
+@using PortalAboutEverything.LocalizationResources.Blog
+
+
 
 @section Style
 {
-    <link href="/css/Blog/style.css" rel="stylesheet" />
+    <link href="/css/Blog/style.css?v=3.1" rel="stylesheet" />
 }
 
-
+@section Scripts {
+    <script src="/js/Blog/BlogIndex.js"></script>
+    <script src="/js/Blog/ajaxLikeSystem.js"></script>
+}
 
 <div>
 
@@ -16,23 +22,25 @@
     <div class="company-information">
         <img src="/images/Blog/png/logo.png" alt="" />
         <div class="contact-with-dev">
-            Number: +375294875745<br>
-            Email: absolutelyreal@gmail.com<br>
-            Address: New York, 50 avenue, 32
+            @Blog_Index.CompanyNumber: +375294875745<br>
+            @Blog_Index.CompanyEmail: absolutelyreal@gmail.com<br>
+            @Blog_Index.CompanyAddress: New York, 50 avenue, 32
         </div>
     </div>
 
 
     <!-- Menu -->
-
-
-    <div class="menu">
-        <div>Main</div>
-        <div>Uploads</div>
-        <div>Page</div>
-        <div> <a href="/Blog/PostMessage">Post Message</a> </div>
-        <div> <a href="/Blog/SendingMessage">  Send message </a></div>
-    </div>
+    @if (Model.IsAccessible)
+    {
+        <div class="menu">
+            @if (Model.IsAccessible)
+            {
+                <div> <a href="/Blog/Blogger"> @Blog_Index.SeePosts </a> </div>
+                <div> <a href="/Blog/CreatePost"> @Blog_Index.CreatePost </a> </div>
+                <div> <a href="/Blog/SendMessage">  @Blog_Index.SendMessage </a></div>
+            }
+        </div>
+    }
 
 
     <!-- Information About Blog Author -->
@@ -46,18 +54,14 @@
             <div class="additional-avas">
                 <img src="/images/Blog/jpeg/third_ava.jpg" alt="" />
                 <div class="new">
-                    More
+                    @Blog_Index.More
                 </div>
             </div>
         </span>
         <span class="text-about-blog-author">
-            First Name: <span>Morgan</span><br>
-            Last Name: <span>Freeman</span><br>
-            Birthday: <span>22.10.1960</span><br>
-            Сity Of Living: <span>Bejing</span><br>
-            Place Of Work: <span>Apple</span><br>
-            Family status: <span>Actively looking</span><br>
-            Political Views: <span>Left</span> <br>
+            @Blog_Index.UserName: <span> @Model.Name </span><br>
+            @Blog_Index.UserLanguage: <span> @Model.UserLanguage</span><br>
+            @Blog_Index.UserRole: <span> @Model.Role</span><br>
         </span>
     </div>
 
@@ -67,41 +71,93 @@
 
     <div class="interactive-section">
         <div class="selection-bar">
-            <span class="tag">Newest</span>
-            <span class="tag">Only popular</span>
-            <span class="tag">Most likable</span>
+            <span class="tag">@Blog_Index.TagNewest</span>
+            <span class="tag">@Blog_Index.TagPopular</span>
+            <span class="tag">@Blog_Index.TagLikable</span>
             <span class="tag">+</span>
         </div>
+
         <div>
-            @foreach (var post in Model)
+
+            @if (Model.IsAccessible)
             {
-                <div class="post">
-                    <span class="header">
-                        Author: @post.Name <br>
-                        Date: @post.Now
-                    </span>
-                    <div class="body">
-                        <div class="litle-ava">
-                            <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
+
+                @foreach (var post in Model.Posts)
+                {
+                    <div class="post">
+                        <span class="header">
+                            @Blog_Index.PostAuthor: @post.Name <br>
+                            @Blog_Index.PostDate: @post.CurrentTime
+                        </span>
+                        <div class="body">
+                            <div class="litle-ava">
+                                <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
+                            </div>
+                            <div class="post-stuff">
+                                <div class="text-of-post">
+                                    @post.Message
+                                </div>
+                                <div class="cover-post">
+
+                                    @if (post.HasCover)
+                                    {
+                                        <img class="cover" src="/images/Blog/cover-@(post.Id).jpg" />
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <form action="/Blog/AddCover?id=@post.Id" method="post" enctype="multipart/form-data">
+                                                <input type="file" name="@nameof(Model.Cover)" accept="image/png, image/jpeg" />
+                                                <input type="submit" name="name" value="Post" class="cover-submit" />
+                                            </form>
+                                        </div>            
+                                    }
+
+                                    
+                                </div>
+                            </div>
                         </div>
-                        <div class="text-of-post">
-                            @post.message
+                         
+                        <div class="post-footer">
+                            <div class="interaction">
+                                
+                                <button class="like-cover">
+                                    <span class="like"> <img src="/images/Blog/png/like.png" alt="" /> </span>
+                                </button>
+
+
+                                <button class="dislike-cover">
+                                    <span class="dislike"> <img src="/images/Blog/png/dislike.png" alt="" /> </span>
+                                </button>
+                                
+                                <span class="answers">
+                                    <span class="delete"> <a href="/Blog/DeletePost?id=@post.Id">@Blog_Index.PostDelete</a></span>
+                                    <span><a href="/Blog/UpdateMessage?id=@post.Id">@Blog_Index.PostUpdate</a></span>
+                                </span>
+                            </div>
+
+                            <form action="/Blog/AddComment" method="post">
+                                <input type="hidden" value="@post.Id" name="postId" />
+                                <textarea name="text" placeholder="Text for comment"></textarea>
+                                <input type="submit" value="Comment" />
+                            </form>
                         </div>
+                        
+
                     </div>
-                    <div class="interaction">
-                        <span class="like">
-                            <img src="/images/Blog/png/like.png" alt="" />
-                        </span>
-                        <span class="dislike">
-                            <img src="/images/Blog/png/dislike.png" alt="" />
-                        </span>
-                        <span class="answers">
-                            <span> <a href="/Blog/DeleteMessage?id=@post.Id">Delete</a></span>
-                            <span><a href="/Blog/UpdateMessage?id=@post.Id">Update</a></span>
-                        </span>
-                    </div>
-                </div>
+
+                    @foreach (var comment in post.CommentsBlog)
+                    {
+                        <div class="comment">
+                            <span class="author-name">@comment.Name</span>
+                            <span class="date">@comment.CurrentTime</span>
+                            <span class="comment-text">@comment.Message</span>
+                        </div>
+                    }
+
+                }
             }
+
         </div>
     </div>
 </div>

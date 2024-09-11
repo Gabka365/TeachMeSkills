@@ -6,25 +6,37 @@
 }
 
 @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/Movies/movieShowAmountReviews.js"></script>
     <script src="/js/Movies/index.js"></script>
+    <script src="/js/Movies/deleteMovie.js"></script>
+    <script src="/js/Movies/movieNotifications.js"></script>
+    <script src="/js/Movies/movieReview.js"></script>
+    
 }
 
 <div class="movieStatisticsTable">
     <div class="movieColumnsName">
-        <div class="movieTableCell">@Movie_Index.MovieName</div>
-        <div class="movieTableCell">@Movie_Index.DirectorName</div>
-        <div class="movieTableCell">@Movie_Index.AmountUsers</div>
-        <div class="movieTableCell">@Movie_Index.AmountReviews</div>
+        <div class="cell">@Movie_Index.MovieName</div>
+        <div class="cell">@Movie_Index.DirectorName</div>
+        <div class="cell">@Movie_Index.AmountUsers</div>
+        <div class="cell">@Movie_Index.AmountReviews</div>
     </div>
     @foreach (var movieInfo in Model.MovieStatistics)
     {
         <div class="movieContent">
-            <div class="movieTableCell">@movieInfo.Name</div>
-            <div class="movieTableCell">@movieInfo.Director</div>
-            <div class="movieTableCell">@movieInfo.CountOfUsersWhoFavorite</div>
-            <div class="movieTableCell">@movieInfo.CountOfMovieReview</div>
+            <input class="movieId" type="hidden" value="@movieInfo.Id" />
+            <div class="cell name">@movieInfo.Name</div>
+            <div class="cell director">@movieInfo.Director</div>
+            <div class="cell countOfUsers">@movieInfo.CountOfUsersWhoFavorite</div>
+            <div class="cell countOfReviews"></div>
         </div>
         }
+</div>
+<div>
+    <h1>Notifications</h1>
+    <div class="notifications-containter">
+    </div>
 </div>
 <div>
     @Movie_Index.ChooseAction
@@ -38,14 +50,17 @@
 <div>
     @if (Model.IsMovieAdmin)
     {
-            <a href="/Movie/CreateMovie">@Movie_Index.CreateMovie</a>
+            <a class="create-link" href="/Movie/CreateMovie">@Movie_Index.CreateMovie</a>
     }
 </div>
 <div>
     @if (User.Identity?.IsAuthenticated ?? false)
     {
-            <a href="/Movie/MoviesFan">@Movie_Index.MovieFanPage</a>
+            <a class="moviesFan-link" href="/Movie/MoviesFan">@Movie_Index.MovieFanPage</a>
     }
+</div>
+<div>
+    <a class="methods-link" href="/Movie/Methods">All methods</a>
 </div>
 <div>
     @Movie_Index.ListOfMovies
@@ -54,7 +69,8 @@
     @foreach (var movie in Model.Movies)
     {
         <div class="movie">
-                <span class="movieName">@Movie_Index.Movie <a href="/Movie/UpdateMovie?id=@movie.Id">@movie.Name</a></span> 
+            <input class="movieId" type="hidden" value="@movie.Id" />
+            <span class="movieName">@Movie_Index.Movie <a href="/Movie/UpdateMovie?id=@movie.Id">@movie.Name</a></span> 
             @if (movie.HasCover)
             {
                 <img class="movieImage" src="/images/Movie/cover-@(movie.Id).jpg" />
@@ -70,24 +86,17 @@
                 <div>@Movie_Index.MovieDescription</div>
                 <div class="movieDescription">@movie.Description</div>
                 <div class="deleteMovie">
-                    <a href="/Movie/DeleteMovie?id=@movie.Id">@Movie_Index.Delete</a> 
+                    @Movie_Index.Delete
+                    <input class="movieIdDel" type="hidden" value="@movie.Id" />
                 </div>
                 <form action="/Movie/AddMovieToMoviesFan" method="post">
                     <input type="hidden" value="@movie.Id" name="movieId" />
-                    <input type="submit" value="@Movie_Index.Add @movie.Name @Movie_Index.ToFavorites_LowerCase" />
+                    <input class="addToMoviesFan" type="submit" value="@Movie_Index.Add @movie.Name @Movie_Index.ToFavorites_LowerCase" />
                 </form>
                 <div>
                     <a href="/Movie/MovieAddReview?id=@movie.Id">@Movie_Index.LeaveReviewForMovie "@movie.Name"</a>
                 </div>
                 <div class="review-container">
-                    @foreach (var review in movie.Reviews)
-                    {
-                        <div class="review">
-                            <div class="deleteReview"><a href="/Movie/MovieDeleteReview?id=@review.Id" class="deleteReview" >Удалить</a></div>
-                            <div class="dateReview">@review.DateOfCreation</div>
-                            <div class="comment">@review.Comment. @Movie_Index.Rate @review.Rate</div>
-                        </div>
-                    }
                 </div>
             </div>
     }

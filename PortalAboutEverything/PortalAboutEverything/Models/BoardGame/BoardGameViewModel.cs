@@ -1,6 +1,4 @@
-﻿using PortalAboutEverything.Models.BoardGameReview;
-
-namespace PortalAboutEverything.Models.BoardGame
+﻿namespace PortalAboutEverything.Models.BoardGame
 {
     public class BoardGameViewModel
     {
@@ -14,7 +12,8 @@ namespace PortalAboutEverything.Models.BoardGame
         public string? Tags { get; set; }
         public double Price { get; set; }
         public long ProductCode { get; set; }
-        public List<BoardGameReviewViewModel> Reviews { get; set; }
         public bool IsFavoriteForUser { get; set; }
+        public BoardGameOfDayViewModel BoardGameOfDay { get; set; }
+        public BestBoardGameViewModel BestBoardGame { get; set; }
     }
 }

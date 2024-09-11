@@ -1,5 +1,4 @@
 ﻿using PortalAboutEverything.Models.ValidationAttributes;
-using System.ComponentModel.DataAnnotations;
 
 namespace PortalAboutEverything.Models.Store
 {
@@ -19,6 +18,11 @@ namespace PortalAboutEverything.Models.Store
         [GoodNoSpecialCharacters]
         public int? Price { get; set; }
 
-        public List<AddGoodReviewViewModel>? Reviews { get; set; }
+        public List<GoodReviewViewModel>? Reviews { get; set; }
+        
+        public IFormFile? Cover { get; set; }
+
+        public bool HasCover { get; set; }
+        public bool HasLike {  get; set; }
     }
 }

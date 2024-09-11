@@ -1,8 +1,19 @@
 ﻿@model PortalAboutEverything.Models.BoardGame.BoardGameViewModel
 @using PortalAboutEverything.LocalizationResources.BoardGame
 
+@section Title {
+    <link rel="shortcut icon" href="/images/BoardGame/logo.png" type="image/png">
+    <title>@Model.Title</title>
+}
+
 @section Style {
-    <link href="/css/BoardGame/style.css" rel="stylesheet" />
+    <link href="/css/BoardGame/style.css?v=1" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script defer src="/js/BoardGame/boardGameReviews.js"></script>
+    <script defer src="/js/BoardGame/ajaxToFavorite.js"></script>
 }
 
 <div class="banner">
@@ -23,6 +34,14 @@
         </div>
     </div>
 </header>
+
+<input type="hidden" class="game-id" value="@Model.Id" />
+
+<input type="hidden" class="text-for-add" value="@BoardGame_GamePage.AddToFavorites" />
+<input type="hidden" class="text-for-remove" value="@BoardGame_GamePage.RemoveFromFavorites" />
+<input type="hidden" class="absence-of-reviews-text" value="@BoardGame_GamePage.AbsenceOfReviewsText" />
+<input type="hidden" class="reviews-not-available-text" value="@BoardGame_GamePage.ReviewsNotAvailableText" />
+<input type="hidden" class="uploading-reviews-text" value="@BoardGame_GamePage.UploadingReviews" />
 
 <div class="title">
     <div class="container">
@@ -91,11 +110,13 @@
                     <button class="highlighted-button">@BoardGame_GamePage.AddToCart</button>
                     @if (Model.IsFavoriteForUser)
                     {
-                        <button class="usual-button" onclick="window.location.href = '/BoardGame/RemoveFavoriteBoardGameForUser?GameId=@Model.Id&IsGamePage=@true';">@BoardGame_GamePage.RemoveFromFavorites</button>
+                        <input type="hidden" class="is-add" value="0" />
+                        <button class="usual-button favorite-button">@BoardGame_GamePage.RemoveFromFavorites</button>
                     }
                     else
                     {
-                        <button class="usual-button" onclick="window.location.href = '/BoardGame/AddFavoriteBoardGameForUser?GameId=@Model.Id';">@BoardGame_GamePage.AddToFavorites</button>
+                        <input type="hidden" class="is-add" value="1" />
+                        <button class="usual-button favorite-button">@BoardGame_GamePage.AddToFavorites</button>
                     }
                 </div>
             </div>
@@ -106,35 +127,61 @@
 <div class="reviews">
     <div class="container">
         <h3 class="reviews-head">@BoardGame_GamePage.Reviews</h3>
-        @if (Model.Reviews.Count > 0)
-        {
-            @foreach (var rewiev in Model.Reviews)
-            {
-                <div class="review">
-                    <div class="name-and-date">
-                        <div class="name">@rewiev.Name</div>
-                        <div class="date">@rewiev.DateOfCreationInStringFormat</div>
-                    </div>
-                    <p class="text">
-                        @rewiev.Text
-                    </p>
-                    <div class="update-and-delete">
-                        <a href="/BoardGameReview/Update?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/edit.svg" /></a>
-                        <a href="/BoardGameReview/Delete?id=@rewiev.Id&gameId=@Model.Id"><img src="/images/BoardGame/delete.svg" /></a>
-                    </div>
-                </div>
-            }
-        }
-        else
-        {
-            <p>@BoardGame_GamePage.AbsenceOfReviewsText</p>
-        }
+        <div class="reviews-container">
+        </div>
         <div class="review-buttons">
             <button class="usual-button">@BoardGame_GamePage.ShowMore</button>
-            <button class="highlighted-button" onclick="window.location.href = '/BoardGameReview/Create?GameId=@Model.Id';">@BoardGame_GamePage.AddReview</button>
+            <button class="highlighted-button create-review-button" onclick="window.location.href = '/BoardGameReview/Create?GameId=@Model.Id';">@BoardGame_GamePage.AddReview</button>
         </div>
     </div>
 </div>
+
+<div class="special-games">
+    <div class="container">
+        @if (Model.BoardGameOfDay is not null)
+        {
+            <div class="game-of-day">
+                <h3>@BoardGame_GamePage.BoardGameOfDay</h3>
+                @if (Model.BoardGameOfDay.HasMainImage)
+                {
+                    <img src="/images/BoardGame/mainImage-@(Model.BoardGameOfDay.Id).jpg"
+                         alt="@BoardGame_GamePage.FotoOfGame"
+                         class="square-image" />
+                }
+                else
+                {
+                    <img src="/images/BoardGame/mainImage-default.jpg"
+                         alt="@BoardGame_GamePage.FotoOfGame"
+                         class="square-image" />
+                }
+                <a href="/BoardGame/BoardGame?Id=@Model.BoardGameOfDay.Id">@Model.BoardGameOfDay.Title</a>
+                <div class="price">@Model.BoardGameOfDay.Price ₽</div>
+            </div>
+        }
+        @if (Model.BestBoardGame is not null)
+        {
+            <div class="best-game">
+                <h3>@BoardGame_GamePage.BestBoardGame</h3>
+                @if (Model.BestBoardGame.HasMainImage)
+                {
+                    <img src="/images/BoardGame/mainImage-@(Model.BestBoardGame.Id).jpg"
+                         alt="@BoardGame_GamePage.FotoOfGame"
+                         class="square-image" />
+                }
+                else
+                {
+                    <img src="/images/BoardGame/mainImage-default.jpg"
+                         alt="@BoardGame_GamePage.FotoOfGame"
+                         class="square-image" />
+                }
+                <a href="/BoardGame/BoardGame?Id=@Model.BestBoardGame.Id">@Model.BestBoardGame.Title</a>
+                <div class="price">@Model.BestBoardGame.Price ₽</div>
+                <div class="count-of-user-who-like-it">@BoardGame_GamePage.CountOfLikes: @Model.BestBoardGame.CountOfUserWhoLikeIt</div>
+            </div>
+        }
+    </div>
+</div>
+
 
 <div class="board-game-footer">
     <div class="container">

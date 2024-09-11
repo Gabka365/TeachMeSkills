@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @RenderSection("Title", false)
     <title>@ViewData["Title"] - PortalAboutEverything</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/alert.css" />
     <link rel="stylesheet" href="~/PortalAboutEverything.styles.css" asp-append-version="true" />
     @RenderSection("Style", false)
     @RenderSection("MovieStyle", false)
@@ -29,7 +31,7 @@
                         @if ((!User?.Identity?.IsAuthenticated) ?? true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Auth/Login">Login</a>
+                                <a class="nav-link text-dark login-link" href="/Auth/Login">Login</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" href="/Auth/Registration">Register</a>
@@ -38,7 +40,7 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Auth/Logout">Logout</a>
+                                <a class="nav-link text-dark logout-link" href="/Auth/Logout">Logout</a>
                             </li>
                         }
 
@@ -49,13 +51,13 @@
                             <a class="nav-link text-dark" href="/History/Index">История</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Traveling/Index">Путешествие</a>
+                            <a class="nav-link text-dark traveling_link" href="/Traveling/Index">Путешествие</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/VideoLibrary">Ancient</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/BoardGame/Index">Настольные игры</a>
+                            <a class="nav-link text-dark board-game-link" href="/BoardGame/Index">Настольные игры</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Movie/Index">Фильмы</a>
@@ -75,6 +77,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/User/Index">Users</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Alert/Index">Alert</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -91,11 +96,15 @@
             &copy; 2024 - PortalAboutEverything - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    <div class="alert-container">
+        @* <div class="alert">Smile</div> *@
+        @* <div class="alert">Alert 2</div> *@
+    </div>
     <script src="~/lib/lodash/lodash 1.8.3.js"></script>
     <script src="~/lib/lodash/debounce.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Alert/alert.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,20 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Models.Game;
 using PortalAboutEverything.Models.Traveling;
 using PortalAboutEverything.Services;
-using static System.Net.Mime.MediaTypeNames;
-using System.Drawing;
-using System.Reflection;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
-using System.Linq;
+using PortalAboutEverything.Services.Apis;
 using PortalAboutEverything.Services.AuthStuff;
-using System.Xml.Linq;
+using System.Reflection;
+
 
 
 namespace PortalAboutEverything.Controllers
@@ -23,15 +19,19 @@ namespace PortalAboutEverything.Controllers
     {
         private TravelingRepositories _travelingRepositories;
         private UserRepository _userRepository;
+        private LikeRepositories _likeRepository;
         private IWebHostEnvironment _hostingEnvironment;
         private AuthService _authService;
+        private HttpNewsTravelingsApi _httpNewsTravelingsApi;
         private readonly string _pathTravelingUserPictures;
         private readonly string _pathTravelingIndexPictures;
         private readonly CommentRepository _commentRepository;
         private readonly string[] _validExtensions = new[] { "png", "jpg", "jpeg", "gif" };
+        private HttpApiJoke _httpApiJoke;
 
         public TravelingController(TravelingRepositories travelingRepositories, IWebHostEnvironment hostingEnvironment,
-                                   UserRepository userRepository, AuthService authService, CommentRepository commentRepository)
+                                   UserRepository userRepository, AuthService authService, CommentRepository commentRepository,
+                                    LikeRepositories likeRepository, HttpNewsTravelingsApi httpNewsTravelingsApi, HttpApiJoke httpApiJoke)
         {
             _travelingRepositories = travelingRepositories;
             _hostingEnvironment = hostingEnvironment;
@@ -40,6 +40,9 @@ namespace PortalAboutEverything.Controllers
             _userRepository = userRepository;
             _authService = authService;
             _commentRepository = commentRepository;
+            _likeRepository = likeRepository;
+            _httpNewsTravelingsApi = httpNewsTravelingsApi;
+            _httpApiJoke = httpApiJoke;
         }
 
         public IActionResult Index()
@@ -120,6 +123,9 @@ namespace PortalAboutEverything.Controllers
         [HttpGet]
         public IActionResult TravelingPosts()
         {
+            var joke = _httpApiJoke.GetRandomJokeAsync().Result;
+
+            var lastNews = _httpNewsTravelingsApi.GetLastNewsAsync().Result;
             var model = new TravelingShowPostsViewModel();
 
             var travelingPosts = _travelingRepositories
@@ -128,7 +134,7 @@ namespace PortalAboutEverything.Controllers
                 .ToList();
 
             if (travelingPosts.Count != 0)
-            { 
+            {
                 var topTraveling = _travelingRepositories.GetTopTreveling();
 
                 var topTravelinViewModel = new TopTravelingByCommentsViewModel
@@ -143,7 +149,9 @@ namespace PortalAboutEverything.Controllers
                     {
                         Text = c.Text,
 
-                    }).ToList()
+                    }).ToList(),
+                    countLike = _travelingRepositories.CountLike(topTraveling.Id)
+
                 };
 
                 foreach (var post in travelingPosts)
@@ -152,16 +160,18 @@ namespace PortalAboutEverything.Controllers
                     {
                         travelingPosts.Remove(post);
                         break;
-                    }               
+                    }
                 }
                 model.TopTravelingByCommentsViewModel = topTravelinViewModel;
             }
 
-            model.TravelingPostsViewModels = travelingPosts;            
+            model.TravelingPostsViewModels = travelingPosts;
             model.IsTravingAdmin = User.Identity.IsAuthenticated ? _authService.HasRoleOrHigher(UserRole.TravelingAdmin) : false;
-
+            model.LastNews = lastNews.Text;
+            model.RandomJoke = joke.Setup;
             return View(model);
         }
+
         [HttpGet]
         public IActionResult ShowImage(int id)
         {
@@ -215,44 +225,6 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("TravelingPosts");
         }
 
-        [HttpPost]
-        public IActionResult CreateComment(TravelingCreateComment travelingCreateComment)
-        {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage;
-
-                TempData["ErrorMessage"] = errors;
-
-                return RedirectToAction("TravelingPosts");
-            }
-            var comment = new Comment
-            {
-                Text = travelingCreateComment.Text,
-                Traveling = _travelingRepositories.Get(travelingCreateComment.PostId)
-            };
-
-            _commentRepository.Create(comment);
-
-            return RedirectToAction("TravelingPosts");
-        }
-
-        public IActionResult DeletePost(int id)
-        {
-            foreach (var ext in _validExtensions)
-            {
-                var imageName = $"{id}.{ext}";
-                var imagePath = Path.Combine(_pathTravelingUserPictures, imageName);
-
-                if (System.IO.File.Exists(imagePath))
-                {
-                    System.IO.File.Delete(imagePath);
-                    break;
-                }
-            }
-            _travelingRepositories.Delete(id);
-            return RedirectToAction("TravelingPosts");
-        }
 
         [HttpGet]
         public IActionResult UpdatePost(int id)
@@ -283,6 +255,39 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("TravelingPosts");
         }
 
+        public IActionResult TravelingApiInfo()
+        {
+
+            var typeTravelingApi = typeof(PortalAboutEverything.Controllers.ApiControllers.TravelingController);
+
+            var customMethods = typeTravelingApi
+                        .GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+                        .Where(m => m.DeclaringType == typeTravelingApi);
+
+
+            var modelList = new List<MethodInfoViewModel>();
+
+            foreach (var method in customMethods)
+            {
+                var model = new MethodInfoViewModel();
+                var parameters = method.GetParameters();
+                string infoparameter = "";
+                foreach (var parameter in parameters)
+                {
+                    infoparameter += $"Имя {parameter.Name} тип {parameter.ParameterType}<br/>";
+                }
+                model.MethodInfo = $"""
+                                    Название метода: {method.Name},<br/>
+                                    Он вернет параметр: {method.ReturnParameter.Name} типа {method.ReturnType},<br/>
+                                    Входящие параметры:<br/>
+                                    {infoparameter}<br/>
+                                    """;
+                modelList.Add(model);
+            }
+
+            return View(modelList);
+        }
+
         private TravelingPostsViewModel BuildTravelingShowPostsViewModel(Traveling traveling)
            => new TravelingPostsViewModel
            {
@@ -295,7 +300,9 @@ namespace PortalAboutEverything.Controllers
                {
                    Text = c.Text,
 
-               }).ToList()
+               }).ToList(),
+               countLike = _travelingRepositories.CountLike(traveling.Id)
+
            };
         private void SaveImageToDirectory(string directoryPath, string filePath, IFormFile image)
         {

@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Data.Enums;
-using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Model.Store;
 using PortalAboutEverything.Data.Repositories;
-using PortalAboutEverything.Models.BookClub;
-using PortalAboutEverything.Models.Game;
+using PortalAboutEverything.Data.Repositories.DataModel;
 using PortalAboutEverything.Models.Store;
+using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
 
 namespace PortalAboutEverything.Controllers
@@ -20,23 +19,38 @@ namespace PortalAboutEverything.Controllers
 
         private AuthService _authService;
 
-        public StoreController(StoreRepositories storeRepositories, GoodReviewRepositories goodReviewRepositories, AuthService authService)
+        private PathHelper _pathHelper;
+
+        private LikeHelper _likeHelper;
+
+        public StoreController(StoreRepositories storeRepositories, GoodReviewRepositories goodReviewRepositories, AuthService authService, PathHelper pathHelper, LikeHelper likeHelper)
         {
             _storeRepositories = storeRepositories;
             _goodReviewRepositories = goodReviewRepositories;
             _authService = authService;
+            _pathHelper = pathHelper;
+            _likeHelper = likeHelper;
         }
 
         [Authorize]
         public IActionResult Index()
         {
-            var goodsViewModel = _storeRepositories.GetAll().Select(BuildStoreIndexViewModel).ToList();
+            var goodsViewModel = _storeRepositories.GetAll().Select(BuildGoodViewModel).ToList();
             var viewModel = new BaseForStoreIndexViewModel
             {
                 Goods = goodsViewModel,
                 IsAdmin = _authService.HasRoleOrHigher(UserRole.Admin),
                 IsStoreAdmin = _authService.HasRoleOrHigher(UserRole.StoreAdmin)
             };
+
+            return View(viewModel);
+        }
+
+        public IActionResult TopGoods()
+        {
+            var topGoods = _storeRepositories.GetTopGoods();
+
+            List<TopGoodViewModel> viewModel = topGoods.Select(BuildTopGoodViewModel).ToList();
 
             return View(viewModel);
         }
@@ -53,6 +67,7 @@ namespace PortalAboutEverything.Controllers
                 Description = goodWithReview.Description,
                 Price = goodWithReview.Price,
                 Reviews = goodWithReview.Reviews?.Select(BuildGoodReviewViewModel).ToList(),
+                HasCover = _pathHelper.IsGoodCoverExist(id),
             };
 
             return View(goodViewModel);
@@ -63,7 +78,7 @@ namespace PortalAboutEverything.Controllers
             var userName = _authService.GetUserName();
 
             var userId = _authService.GetUserId();
-            var favouriteGoods = _storeRepositories.GetFavouriteGoodsBuUserId(userId);
+            var favouriteGoods = _storeRepositories.GetFavouriteGoodsByUserId(userId);
 
             var viewModel = new FavouriteGoodsViewModel
             {
@@ -73,14 +88,7 @@ namespace PortalAboutEverything.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        public IActionResult AddReview(AddGoodReviewViewModel viewModel)
-        {
-
-            _goodReviewRepositories.AddReview(viewModel.GoodId, viewModel.Text);
-
-            return RedirectToAction("Good", new { id = viewModel.GoodId });
-        }
+        
 
         [HasRoleOrHigher(UserRole.Admin)]
         [HttpGet]
@@ -104,16 +112,20 @@ namespace PortalAboutEverything.Controllers
                 Description = createGoodViewModel.Description!,
                 Price = createGoodViewModel.Price.Value,
             };
+
             _storeRepositories.Create(good);
 
-            return RedirectToAction("Index");
-        }
+            if (createGoodViewModel?.Cover?.Length > 0)
+            {
+                var path = _pathHelper.GetPathToGoodCover(good.Id);
 
-        [HasRoleOrHigher(UserRole.Admin)]
-        public IActionResult DeleteGood(int id)
-        {
-            var model = _storeRepositories.GetGoodByIdWithReview(id);
-            _storeRepositories.Delete(model);
+                using (var fs = new FileStream(path, FileMode.Create))
+                {
+                    createGoodViewModel.Cover.CopyTo(fs);
+                }
+            }
+
+
             return RedirectToAction("Index");
         }
 
@@ -158,6 +170,29 @@ namespace PortalAboutEverything.Controllers
             };
         }
 
+        private TopGoodViewModel BuildTopGoodViewModel(TopGoodsDataModel good)
+        {
+            return new TopGoodViewModel
+            {
+                Id = good.GoodId,
+                Name = good.GoodName,
+                CountOfLike = good.CountUsersWhoLikedIt,
+            };
+        }
+
+        private GoodViewModel BuildGoodViewModel(Good good)
+        {
+            return new GoodViewModel
+            {
+                Id = good.Id,
+                Name = good.Name,
+                Description = good.Description,
+                Price = good.Price,
+                HasCover = _pathHelper.IsGoodCoverExist(good.Id),
+                HasLike = _likeHelper.IsGoodLikeExist(good.Id),
+            };
+        }
+
         private GoodUpdateViewModel BuildGoodUpdateViewModel(Good good)
         {
             return new GoodUpdateViewModel
@@ -169,11 +204,12 @@ namespace PortalAboutEverything.Controllers
             };
         }
 
-        private AddGoodReviewViewModel BuildGoodReviewViewModel(GoodReview goodReview)
+        private GoodReviewViewModel BuildGoodReviewViewModel(GoodReview goodReview)
         {
-            return new AddGoodReviewViewModel
+            return new GoodReviewViewModel
             {
-                Text = goodReview.Description,
+                Text = goodReview.Text,
+                UserWhoLeavedAReview = goodReview.UserWhoLeavedAReview,
             };
         }
     }

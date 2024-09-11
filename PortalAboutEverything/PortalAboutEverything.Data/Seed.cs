@@ -17,6 +17,7 @@ namespace PortalAboutEverything.Data
             FillBoardGames(service);
             FillMovies(service);
             FillBooks(service);
+            FillBlog(service);
         }
 
         private void FillGames(IServiceScope service)
@@ -57,8 +58,7 @@ namespace PortalAboutEverything.Data
                     Essence = "\"Билет на поезд: Европа\" (Ticket to Ride: Europe) стала второй в серии настольный игр о путешествиях по железной дороге. Здесь вы можете прокладывать маршруты, соединяя города, пускать новые составы и при случае обгонять соперников по количеству заработанных очков. В настольной игре \"Билет на поезд: Европа\" вы перенесетесь в самые красивые города. В новой игре в распоряжении игрока несколько оригинальных механик, добавились игровые элементы, и более разнообразными стали правила. Невероятные ощущения, динамика и новые открытия ждут вас в этой настольной игре.",
                     Tags = "Игра из серии",
                     Price = 3900,
-                    ProductCode = 31458,
-                    Reviews = new()
+                    ProductCode = 31458
                 };
                 boardGameRepositories.Create(ticketToRide);
             }
@@ -134,6 +134,44 @@ namespace PortalAboutEverything.Data
                 };
                 userRepository.Create(videoLibraryAdmin);
 
+                var storeAdmin = new User
+                {
+                    UserName = "storeAdmin",
+                    Password = "storeAdmin",
+                    Role = UserRole.StoreAdmin,
+                    Language = Language.En
+                };
+                userRepository.Create(storeAdmin);
+
+                var blogAdmin = new User
+                {
+                    UserName = "blogger",
+                    Password = "blogger",
+                    Role = UserRole.BlogAdmin,
+                };
+                userRepository.Create(blogAdmin);
+
+                var boardGameCreator = new User
+                {
+                    UserName = "boardGameCreator",
+                    Password = "1",
+                    Role = UserRole.BoardGameAdmin,
+                    Permission = Permission.CanCreateAndUpdateBoardGames,
+                    Language = Language.Ru
+                };
+                userRepository.Create(boardGameCreator);
+
+                var boardGameModerator = new User
+                {
+                    UserName = "boardGameModerator",
+                    Password = "1",
+                    Role = UserRole.BoardGameAdmin,
+                    Permission = Permission.CanDeleteBoardGames,
+                    Language = Language.Ru
+                };
+                userRepository.Create(boardGameModerator);
+
+
                 var gameStoreAdmin = new User
                 {
                     UserName = "GameStoreAdmin",
@@ -174,5 +212,25 @@ namespace PortalAboutEverything.Data
                 movieRepositories.Create(insideOut);
             }
         }
+
+
+        private void FillBlog(IServiceScope service)
+        {
+            var posts = service.ServiceProvider.GetService<BlogRepositories>()!;
+
+            if (!posts.Any())
+            {
+                var post = new Post
+                {
+                    Message = "Hello World",
+                    Name = "Seed",
+                    CurrentTime = DateTime.Now,
+                    LikeCount = 0,
+                    DislikeCount = 0,
+                };
+                posts.Create(post);
+            }
+        }
+
     }
 }

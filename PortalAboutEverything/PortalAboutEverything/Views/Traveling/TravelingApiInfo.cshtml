@@ -1,0 +1,9 @@
+﻿@model List<PortalAboutEverything.Models.Traveling.MethodInfoViewModel>
+
+@foreach (var method in Model)
+{
+    <div>
+       @Html.Raw(method.MethodInfo)
+    </div>
+}
+

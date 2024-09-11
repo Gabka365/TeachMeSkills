@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Models.Auth;
 using PortalAboutEverything.Models.User;
 
 namespace PortalAboutEverything.Controllers.ApiControllers
@@ -21,6 +22,18 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             return !_userRepository.Exist(login);
         }
 
+        public ApiUserViewModel Login(string name, string password)
+        {
+            var user = _userRepository.GetByLoginAndPasswrod(name, password);
+            
+            return new ApiUserViewModel
+            {
+                Name = user.UserName,
+                Roles = user.Role.ToString(),
+                Permissions = user.Permission.ToString(), // "User,Admin,Moderator"
+            };
+        }
+
         public UserPermissionViewModel GetUserInfo(int userId)
         {
             var user = _userRepository.Get(userId);
@@ -32,5 +45,6 @@ namespace PortalAboutEverything.Controllers.ApiControllers
             };
             return viewModel;
         }
+
     }
 }

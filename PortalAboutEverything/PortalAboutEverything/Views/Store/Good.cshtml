@@ -5,37 +5,48 @@
     <link rel="stylesheet" href="/css/Store/style.css" />
 }
 
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/Store/socket.js"></script>
+}
+
 <div class="goodPageWrapper">
     <div class="goodDescriptionBlock">
         <div>
-            <img class="goodImg" src="https://source.unsplash.com/random" alt="good" />
-        </div>
-        <div>
-            @if (Model.Reviews.Count == 0)
+            @if (Model.HasCover)
             {
-                <div class="titleForBlockReviews">
-                    @Store_GoodPage.ReviewsWillBeHereText
-                </div>
+                <img class="goodImg" src="/images/Store/MainPage/ImagesForGoods/goodImage-@(Model.Id).jpg" alt="good" />
             }
             else
             {
-                <div class="titleForBlockReviews">
+                <img class="goodImg" src="/images/Store/MainPage/ImagesForGoods/goodImage-default.jpg" alt="random" />
+            }
+
+        </div>
+        <div>
+            <div class="titleForBlockReviews">
+                @if (Model.Reviews.Count > 0)
+                {
                     @Store_GoodPage.GoodReviews
-                </div>
+                }
+                else
+                {
+                    @Store_GoodPage.ReviewsWillBeHereText
+                }
+            </div>
+            <div class="blockGoodReviews" data-id=@Model.Id>
                 @foreach (var review in Model.Reviews)
                 {
-
                     <div class="goodReview">
-                        @review.Text
+                        <span class="userName">@review.UserWhoLeavedAReview</span> <span class="text">@review.Text</span>
                     </div>
-
                 }
-            }
-            <form class="reviewForm" action="/Store/AddReview" method="post">
+            </div>
+            <form class="reviewForm" method="post">
                 <h3 class="reviewTitle">@Store_GoodPage.WriteReview</h3>
-                <input type="hidden" value="@Model.Id" name="goodId" />
+                <input id="goodId" type="hidden" value="@Model.Id" name="goodId" />
                 <textarea class="reviewField" name="text" placeholder="@Store_GoodPage.LeaveYourReview"></textarea>
-                <input class="submitBtn" type="submit" value="@Store_GoodPage.LeaveReviewTextBtn" />
+                <input class="submitBtn" type="button" value="@Store_GoodPage.LeaveReviewTextBtn" />
             </form>
         </div>
     </div>

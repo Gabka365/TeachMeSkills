@@ -1,18 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories.DataModel;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Data.Repositories.RawSql;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class BoardGameRepositories : BaseRepository<BoardGame>
+    public class BoardGameRepositories : BaseRepository<BoardGame>, IBoardGameRepositories
     {
         public BoardGameRepositories(PortalDbContext dbContext) : base(dbContext) { }
 
-        public BoardGame GetWithReviews(int id)
+        public string GetName(int id)
             => _dbSet
-            .Include(boardGame => boardGame.Reviews)
-            .Single(boardGame => boardGame.Id == id);
+            .First(boardGame => boardGame.Id == id)
+            .Title;
 
         public BoardGame GetWithUsersWhoFavoriteThisBoardGame(int id)
             => _dbSet
@@ -21,7 +22,7 @@ namespace PortalAboutEverything.Data.Repositories
 
         public List<BoardGame> GetFavoriteBoardGamesForUser(int userId)
             => _dbSet
-            .Where(boardGame => boardGame.UsersWhoFavoriteThisBoardGame.Any(user =>  user.Id == userId))
+            .Where(boardGame => boardGame.UsersWhoFavoriteThisBoardGame.Any(user => user.Id == userId))
             .ToList();
 
         public void Update(BoardGame boardGame)
@@ -36,6 +37,28 @@ namespace PortalAboutEverything.Data.Repositories
             updatedboardGame.ProductCode = boardGame.ProductCode;
 
             _dbContext.SaveChanges();
+        }
+
+        public bool Delete(int gameId)
+        {
+            var game = Get(gameId);
+
+            if (game is null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            _dbSet.Remove(game);
+            _dbContext.SaveChanges();
+
+            if (Get(gameId) is null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void AddUserWhoFavoriteThisBoardGame(User user, int gameId)
@@ -58,6 +81,18 @@ namespace PortalAboutEverything.Data.Repositories
         {
             return CustomSqlQuery<Top3BoardGameDataModel>(SqlQueryManager.GetTop3BoardGames)
                 .ToList();
+        }
+
+        public BoardGameOfDay GetBoardGameOfDay()
+        {
+            return CustomSqlQuery<BoardGameOfDay>(SqlQueryManager.GetBoardGameOfDay)
+                .First();
+        }
+
+        public BestBoardGameDataModel GetBest()
+        {
+            return CustomSqlQuery<BestBoardGameDataModel>(SqlQueryManager.GetBestBoardGame)
+                .First();
         }
     }
 }

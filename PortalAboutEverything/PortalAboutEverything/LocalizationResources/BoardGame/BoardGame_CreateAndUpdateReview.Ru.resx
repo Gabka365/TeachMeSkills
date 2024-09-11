@@ -129,11 +129,17 @@
   <data name="Text" xml:space="preserve">
     <value>Ваш отзыв</value>
   </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Создание отзыва</value>
+  </data>
   <data name="TitleOfPageCreate" xml:space="preserve">
     <value>Напишите ваше мнение об игре</value>
   </data>
   <data name="TitleOfPageUpdate" xml:space="preserve">
     <value>Ваше мнение об игре</value>
+  </data>
+  <data name="TitleUpdate" xml:space="preserve">
+    <value>Редактирование отзыва</value>
   </data>
   <data name="UpdateButton" xml:space="preserve">
     <value>Изменить отзыв</value>

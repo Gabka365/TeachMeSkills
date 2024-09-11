@@ -4,44 +4,92 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public class BlogRepositories
+    public class BlogRepositories : BaseRepository<Post>
     {
-        private int _postID = 1;
+        public BlogRepositories(PortalDbContext db) : base(db) { }
 
-        private List<Post> _posts = new List<Post>();
+        public List<Post> GetAllWithCommentsBlog()
+            => _dbSet
+            .Include(x => x.CommentsBlog)
+            .ToList();
 
-        public List<Post> GetAll()
+        public List<Post> GetPostsWithCommentsBlogByUserId(int userId)
+            => _dbSet
+            .Include(x => x.CommentsBlog)
+            .Where(x => x.Users.Any(u => u.Id == userId))
+            .ToList();
+
+
+        public List<Post> GetPostsByUserId(int userId)
+            => _dbSet
+            .Where(x => x.Users.Any(u => u.Id == userId))
+            .ToList();
+
+        public int? GetLikeCountByPostId(int postId)
         {
-            return _posts.ToList(); 
+            return _dbSet
+                .Where(x => x.Id == postId)
+                .Select(x => x.LikeCount)
+                .FirstOrDefault();
         }
 
-        public void Create(Post post)
+        public int? GetDislikeCountByPostId(int postId)
         {
-            post.Id = _postID++;
-            _posts.Add(post);
-        }
-
-        public void Delete(int id)
-        {
-            var post = _posts.Single(x => x.Id == id);
-            _posts.Remove(post);
+            return _dbSet
+                .Where(x => x.Id == postId)
+                .Select(x => x.DislikeCount)
+                .FirstOrDefault();
         }
 
 
-        public Post Get(int id)
+        public void UpdateLikeCountByPostId(int postId)
         {
-            return _posts.Single(x => x.Id == id);
+            var db = Get(postId);
+
+            db.LikeCount = db.LikeCount + 1;
+
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateDislikeCountByPostId(int postId)
+        {
+            var db = Get(postId);
+
+            db.DislikeCount = db.DislikeCount + 1;
+
+            _dbContext.SaveChanges();
         }
 
         public void Update(Post post)
         {
-            Delete(post.Id);
-            Create(post);
+            var db = Get(post.Id);
+
+            db.Message = post.Message;
+
+            _dbContext.SaveChanges();
         }
 
+
+        public void AddComment(int postId, string text, string name)
+        {
+            var post = Get(postId);
+
+            var comment = new CommentBlog
+            {
+                Message = text,
+                Post = post,
+                CurrentTime = DateTime.Now,
+                Name = name
+            };
+
+
+            _dbContext.CommentsBlog.Add(comment);
+            _dbContext.SaveChanges();
+        }
     }
 }

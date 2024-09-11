@@ -9,5 +9,6 @@
         public int UserId { get; set; }
         public int CommentCount { get; set; }
         public List<TravelingCreateComment>? Comments { get; set; }
+        public int countLike { get; set; }
     }
 }

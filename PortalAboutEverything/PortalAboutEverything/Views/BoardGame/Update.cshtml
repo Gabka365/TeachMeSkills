@@ -2,6 +2,11 @@
 @using PortalAboutEverything.LocalizationResources.BoardGame
 @using PortalAboutEverything.Models.BoardGame;
 
+@section Title {
+    <link rel="shortcut icon" href="/images/BoardGame/logo.png" type="image/png">
+    <title>@string.Format(@BoardGame_CreateAndUpdateGame.TitleUpdate, Model.OriginalTitle)</title>
+}
+
 @section Style {
     <link href="/css/BoardGame/forms.css" rel="stylesheet" />
 }
@@ -32,7 +37,7 @@
         <div class="file-input-container">
             <p>
                 @Html.DisplayNameFor(boardGame => boardGame.MainImage)
-            </p>   
+            </p>
             <input type="file" name="@nameof(BoardGameUpdateViewModel.MainImage)" accept="image/png, image/jpeg" />
             @Html.ValidationMessageFor(boardGame => boardGame.MainImage)
         </div>

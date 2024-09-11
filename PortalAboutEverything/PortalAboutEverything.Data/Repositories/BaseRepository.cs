@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalAboutEverything.Data.Model;
-using PortalAboutEverything.Data.Model.VideoLibrary;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Data.Repositories.RawSql;
 using System.Reflection;
 
 namespace PortalAboutEverything.Data.Repositories
 {
-    public abstract class BaseRepository<DbModel>
-        where DbModel : BaseModel
+    public abstract class BaseRepository<DbModel> : IBaseRepository<DbModel> where DbModel : BaseModel
     {
         protected PortalDbContext _dbContext;
         protected DbSet<DbModel> _dbSet;
@@ -18,7 +17,7 @@ namespace PortalAboutEverything.Data.Repositories
             _dbSet = dbContext.Set<DbModel>();
         }
 
-        public virtual bool Any() 
+        public virtual bool Any()
             => _dbSet.Any();
 
         public virtual List<DbModel> GetAll()

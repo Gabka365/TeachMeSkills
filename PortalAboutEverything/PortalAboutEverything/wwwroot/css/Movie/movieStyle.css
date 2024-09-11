@@ -31,9 +31,9 @@
     border: 3px solid red;
 }
 
-.movie.active .movieName {
-    background: #ffa007;
-}
+    .movie.active .movieName {
+        background: #ffa007;
+    }
 
 .review {
     padding: 5px;
@@ -44,6 +44,11 @@
 
 .deleteMovie {
     display: none;
+}
+
+.deleteMovie {
+    cursor: pointer;
+    color: red;
 }
 
 .dateReview {
@@ -70,7 +75,7 @@
     display: flex;
 }
 
-.movieTableCell {
+.cell {
     padding: 5px;
     border: 1px solid black;
     width: 200px;
@@ -78,8 +83,45 @@
     align-content: center;
 }
 
-.deleteReview {
+.delete {
     color: red;
     text-align: right;
     font-size: small;
+    cursor: pointer;
+}
+
+.update {
+    color: green;
+    text-align: right;
+    font-size: small;
+    cursor: pointer;
+}
+
+.sendReview {
+    cursor: pointer;
+}
+
+.method {
+    border: 1px solid black;
+}
+
+.spell {
+    color: red;
+    font-style: italic;
+}
+
+.useOfSpell {
+    color: green;
+}
+
+.favoriteMovies {
+    margin-top: 15px;
+    display: inline-block;
+}
+
+.favoriteMovie {
+    border-left: 4px solid #f407ff;
+    padding: 10px;
+    background: #f6d3fa;
+    margin-bottom: 15px;
 }

@@ -1,26 +1,30 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PortalAboutEverything.Data.Model;
-using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Mappers;
 using PortalAboutEverything.Models.BoardGameReview;
+using PortalAboutEverything.Services.Apis;
+using PortalAboutEverything.Data.Repositories.Interfaces;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
 
 namespace PortalAboutEverything.Controllers
 {
     [Authorize]
     public class BoardGameReviewController : Controller
     {
-        private readonly BoardGameRepositories _gameRepositories;
-        private readonly BoardGameReviewRepositories _reviewRepositories;
+        private readonly IBoardGameRepositories _gameRepositories;
         private readonly BoardGameMapper _mapper;
+        private readonly HttpBoardGamesReviewsApiService _httpService;
+        private readonly IAuthService _authService;
 
-        public BoardGameReviewController(BoardGameRepositories gameRepositories,
-            BoardGameReviewRepositories reviewRepositories,
-            BoardGameMapper mapper)
+        public BoardGameReviewController(IBoardGameRepositories gameRepositories,
+            BoardGameMapper mapper,
+            HttpBoardGamesReviewsApiService httpService,
+            IAuthService authService)
         {
             _gameRepositories = gameRepositories;
-            _reviewRepositories = reviewRepositories;
             _mapper = mapper;
+            _httpService = httpService;
+            _authService = authService;
         }
 
         [HttpGet]
@@ -37,53 +41,55 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(BoardGameCreateReviewViewModel boardGameReviewViewModel)
+        public async Task<IActionResult> Create(BoardGameCreateReviewViewModel boardGameReviewViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View(boardGameReviewViewModel);
             }
 
-            BoardGameReview review = _mapper.BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
-            _reviewRepositories.Create(review, boardGameReviewViewModel.BoardGameId);
+            var review = _mapper.BuildBoardGameRewievDataModelFromCreate(boardGameReviewViewModel);
+            review.BoardGameId = boardGameReviewViewModel.BoardGameId;
+            await _httpService.CreateReviewAsync(review);
 
-            //return RedirectToPage($"/BoardGame/BoardGame?Id={review.BoardGame!.Id}");
-            return RedirectToAction("BoardGame", "BoardGame", new { id = review.BoardGame!.Id });
+            return RedirectToAction(nameof(BoardGameController.BoardGame), nameof(BoardGameController)[..^"Controller".Length], new { id = review.BoardGameId });
         }
 
         [HttpGet]
-        public IActionResult Update(int id, int gameId)
-        {
-            BoardGameReview reviewForUpdate = _reviewRepositories.GetWithBoardGame(id);
-            BoardGameUpdateReviewViewModel viewModel = _mapper.BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
+        public async Task<IActionResult> Update(int id, int gameId)
+        {          
+            var reviewForUpdate = await _httpService.GetReviewAsync(id);
+
+            if (_authService.GetUserId() != reviewForUpdate.UserId)
+            {
+                return RedirectToAction(nameof(AuthController.AccessDenied), nameof(AuthController)[..^"Controller".Length]);
+            } 
+
+            var viewModel = _mapper.BuildBoardGameUpdateRewievViewModel(reviewForUpdate);
             viewModel.BoardGameId = gameId;
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Update(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
+        public async Task<IActionResult> Update(BoardGameUpdateReviewViewModel boardGameReviewViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View(boardGameReviewViewModel);
             }
 
-            BoardGameReview updatedReview = _mapper.BuildBoardGameRewievDataModelFromUpdate(boardGameReviewViewModel);
-            _reviewRepositories.Update(updatedReview, boardGameReviewViewModel.BoardGameId);
+            var review = await _httpService.GetReviewAsync(boardGameReviewViewModel.Id);
 
-            //return RedirectToPage($"/BoardGame/BoardGame?Id={updatedReview.BoardGame!.Id}");
-            return RedirectToAction("BoardGame", "BoardGame", new { id = updatedReview.BoardGame!.Id });
-        }
+            if (_authService.GetUserId() != review.UserId)
+            {
+                return RedirectToAction(nameof(AuthController.AccessDenied), nameof(AuthController)[..^"Controller".Length]);
+            }
 
-        public IActionResult Delete(int id, int gameId)
-        {
-            _reviewRepositories.Delete(id);
+            var updatedReview = _mapper.BuildBoardGameRewievDataModelFromUpdate(boardGameReviewViewModel);
+            await _httpService.UpdateReviewAsync(updatedReview);
 
-            //return RedirectToPage($"/BoardGame/BoardGame?Id={gameId}");
-            return RedirectToAction("BoardGame", "BoardGame", new { id = gameId });
-        }
-
-        
+            return RedirectToAction(nameof(BoardGameController.BoardGame), nameof(BoardGameController)[..^"Controller".Length], new { id = boardGameReviewViewModel.BoardGameId });
+        }     
     }
 }

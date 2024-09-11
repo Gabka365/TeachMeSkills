@@ -32,13 +32,13 @@
     transition: background-color 0.3s;
 }
 
-    .board-game-item.active {
-        border: 2px solid #ef6747;
-    }
+.board-game-item.active-board-game {
+    border: 2px solid #ef6747;
+}
 
-    .board-game-item:hover {
-        background-color: #f1f1f1;
-    }
+.board-game-item:hover {
+    background-color: #f1f1f1;
+}
 
 .board-game-title {
     font-size: 18px;
@@ -47,7 +47,7 @@
 }
 
 .update-and-delete {
-    display: flex;
+    display: none;
     gap: 10px;
 }
 
@@ -61,12 +61,14 @@
     height: 20px;
 }
 
-.add-board-game {
+.add-board-game,
+.favorite-board-game {
     text-align: center;
     margin-top: 20px;
 }
 
-.add-board-game-link {
+.add-board-game-link,
+.favorite-board-game-link {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
@@ -77,13 +79,22 @@
     transition: background-color 0.3s;
 }
 
-    .add-board-game-link:hover {
-        background-color: #dd7e68;
-        color: #fff;
-    }
+.add-board-game-link:hover,
+.favorite-board-game-link:hover {
+    background-color: #dd7e68;
+    color: #fff;
+}
+
+.top-title{
+    margin-top: 50px;
+}
 
 .top-board-games {
     margin-top: 30px;
+}
+
+.top-icon {
+    max-height: 36px;
 }
 
 .top-board-game-item {
@@ -97,9 +108,9 @@
     margin-bottom: 10px;
 }
 
-    .top-board-game-item:hover {
-        background-color: #f9f9f9;
-    }
+.top-board-game-item:hover {
+    background-color: #f9f9f9;
+}
 
 .top-board-game-title {
     font-weight: bold;

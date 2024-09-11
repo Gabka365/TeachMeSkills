@@ -129,11 +129,17 @@
   <data name="Text" xml:space="preserve">
     <value>Your review</value>
   </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Creating a review</value>
+  </data>
   <data name="TitleOfPageCreate" xml:space="preserve">
     <value>Write your opinion about the game</value>
   </data>
   <data name="TitleOfPageUpdate" xml:space="preserve">
     <value>Your opinion about the game</value>
+  </data>
+  <data name="TitleUpdate" xml:space="preserve">
+    <value>Editing a review</value>
   </data>
   <data name="UpdateButton" xml:space="preserve">
     <value>Edit a review</value>

@@ -7,34 +7,39 @@ using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
 using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
+using System.Reflection;
+using PortalAboutEverything.Services.Apis;
 
 namespace PortalAboutEverything.Controllers
 {
     public class MovieController : Controller
     {
         private MovieRepositories _movieRepositories;
-        private MovieReviewRepositories _movieReviewRepositories;
         private AuthService _authService;
         private UserRepository _userRepository;
         private PathHelper _pathHelper;
+        private HttpMoviesAverageRateApiService _httpMoviesAverageRateApiService;
+        private HttpApiSpellService _httpApiSpellService;
 
         public MovieController(MovieRepositories movieRepositories,
-            MovieReviewRepositories movieReviewRepositories,
             AuthService authService,
             UserRepository userRepository,
-            PathHelper pathHelper)
+            PathHelper pathHelper,
+            HttpMoviesAverageRateApiService httpMoviesAverageRateApiService,
+            HttpApiSpellService httpApiSpellService)
         {
             _movieRepositories = movieRepositories;
-            _movieReviewRepositories = movieReviewRepositories;
             _authService = authService;
             _userRepository = userRepository;
             _pathHelper = pathHelper;
+            _httpMoviesAverageRateApiService = httpMoviesAverageRateApiService;
+            _httpApiSpellService = httpApiSpellService;
         }
 
         public IActionResult Index()
         {
             var movieStatistics = _movieRepositories.GetMovieStatistic();
-            var moviesViewModel = _movieRepositories.GetAllWithReviews().Select(movie => new MovieIndexViewModel
+            var moviesViewModel = _movieRepositories.GetAll().Select(movie => new MovieIndexViewModel
             {
                 Id = movie.Id,
                 Name = movie.Name,
@@ -44,13 +49,6 @@ namespace PortalAboutEverything.Controllers
                 Budget = movie.Budget,
                 CountryOfOrigin = movie.CountryOfOrigin,
                 HasCover = _pathHelper.IsMovieImageExist(movie.Id),
-                Reviews = movie.Reviews.Select(review => new MovieReviewViewModel
-                {
-                    Id = review.Id,
-                    Rate = review.Rate,
-                    DateOfCreation = review.DateOfCreation,
-                    Comment = review.Comment,
-                }).ToList()
             }).ToList();
 
             var viewModel = new IndexMovieAdminViewModel()
@@ -126,25 +124,6 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize]
-        [HasPermission(Permission.CanDeleteMovie)]
-        public IActionResult DeleteMovie(int id)
-        {
-            _movieRepositories.Delete(id);
-
-            var path = _pathHelper.GetPathToMovieImage(id);
-            System.IO.File.Delete(path);
-
-            return RedirectToAction("Index");
-        }
-
-        [Authorize]
-        public IActionResult MovieDeleteReview(int id)
-        {
-            _movieReviewRepositories.Delete(id);
-            return RedirectToAction("Index");
-        }
-
         [HttpGet]
         [Authorize]
         [HasPermission(Permission.CanUpdateMovie)]
@@ -195,31 +174,41 @@ namespace PortalAboutEverything.Controllers
         [HasPermission(Permission.CanLeaveReviewForMovie)]
         public IActionResult MovieAddReview(int id)
         {
-            var movie = _movieRepositories.Get(id);
+            var movieName = _movieRepositories.GetMovieName(id);
             var viewModel = new MovieAddReviewViewModel
             {
-                MovieId = movie.Id,
-                Name = movie.Name,
+                MovieId = id,
+                Name = movieName,
             };
             return View(viewModel);
         }
 
-        [HttpPost]
-        [Authorize]
-        [HasPermission(Permission.CanLeaveReviewForMovie)]
-        public IActionResult MovieAddReview(MovieAddReviewViewModel movieAddReviewViewModel)
+        [HttpGet]
+        public IActionResult MovieUpdateReview(int movieId, int reviewId)
         {
-            _movieReviewRepositories.AddReviewToMovie(movieAddReviewViewModel.MovieId,
-                movieAddReviewViewModel.Comment, movieAddReviewViewModel.Rate);
-            return RedirectToAction("Index");
+            var movieName = _movieRepositories.GetMovieName(movieId);
+            var viewModel = new MovieUpdateReviewViewModel
+            {
+                MovieId = movieId,
+                ReviewId = reviewId,
+                MovieName = movieName,
+            };
+            return View(viewModel);
         }
 
         [Authorize]
-        public IActionResult MoviesFan()
+        public async Task<IActionResult> MoviesFan()
         {
             var userName = _authService.GetUserName();
             var userId = _authService.GetUserId();
             var movies = _movieRepositories.GetFavoriteMoviesByUserId(userId);
+            var moviesId = movies.Select(m => m.Id).ToList();
+
+            var averageRatesTask = _httpMoviesAverageRateApiService.GetAverageRatesAsync(moviesId);
+            var spellTask = _httpApiSpellService.GetSpellAsync();
+
+            await Task.WhenAll(averageRatesTask, spellTask);
+
             var viewModel = new MoviesFanViewModel
             {
                 Name = userName,
@@ -232,9 +221,14 @@ namespace PortalAboutEverything.Controllers
                     Director = movie.Director,
                     Budget = movie.Budget,
                     CountryOfOrigin = movie.CountryOfOrigin,
+                    AverageRate = averageRatesTask.Result
+                    .FirstOrDefault(dto => dto.MovieId == movie.Id)
+                    .AverageRate,
                 }).ToList(),
+                Spell = spellTask.Result.Spell,
+                UsageOfSpell = spellTask.Result.Use,
             };
-
+            
             return View(viewModel);
         }
 
@@ -255,6 +249,44 @@ namespace PortalAboutEverything.Controllers
             _userRepository.DeleteMovieFromMoviesFan(movie, userId);
 
             return RedirectToAction("MoviesFan");
+        }
+
+        public IActionResult Methods()
+        {
+            var movieApiController = typeof(ApiControllers.MovieController);
+            var methods = movieApiController.GetMethods(BindingFlags.Instance | BindingFlags.Public
+                | BindingFlags.DeclaredOnly);
+            var methodsArrayModel = new List<MethodViewModel>();
+
+            foreach (var method in methods)
+            {
+                var methodName = method.Name;
+                var methodType = method.ReturnType.Name;
+                var parameters = method.GetParameters();
+                var parametersArrayModel = new List<MethodParametersViewModel>();
+                foreach (var parameter in parameters)
+                {
+                    var parameterName = parameter.Name;
+                    var parameterType = parameter.ParameterType.Name;
+
+                    var parameterModel = new MethodParametersViewModel
+                    {
+                        ParameterName = parameterName,
+                        ParameterType = parameterType,
+                    };
+                    parametersArrayModel.Add(parameterModel);
+                }
+                
+                var methodModel = new MethodViewModel
+                {
+                    MethodName = methodName,
+                    MethodType = methodType,
+                    ParametersInfo = parametersArrayModel,
+                };
+                methodsArrayModel.Add(methodModel);
+            }
+
+            return View(methodsArrayModel);
         }
     }
 }

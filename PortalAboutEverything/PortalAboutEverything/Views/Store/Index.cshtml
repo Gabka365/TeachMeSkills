@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="/css/Store/style.css" />
 }
 
+@section Scripts {
+    <script type="module" src="/js/Store/index.js"></script>
+    <script type="module" src="/js/Store/store.js"></script>
+}
+
 <div class="storeWrapper" data-theme="light">
     <div class="header">
         <div class="changeThemeBlock">
@@ -36,13 +41,15 @@
                 </li>
                 <li class="headerFeaturesBlock">
                     <a href="/Store/FavouriteGoods" class="linkToFavouriteGoods">
-                        <img class="featureIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
+                        <img class="featureIcon" src="/images/store/header/unLikedIcon.svg" alt="liked" />
                         <p class="featuresTitle">@Store_Index.Liked</p>
                     </a>
                 </li>
                 <li class="headerFeaturesBlock">
-                    <img class="featureIcon" src="/images/store/header/loginIcon.svg" alt="login" />
-                    <p class="featuresTitle">@Store_Index.LogIn</p>
+                    <a href="/Store/TopGoods" class="linkToFavouriteGoods">
+                        <img class="featureIcon" src="/images/store/header/loginIcon.svg" alt="favourites" />
+                        <p class="featuresTitle">@Store_Index.Popular</p>
+                    </a>
                 </li>
                 <li class="headerFeaturesBlock">
                     <img class="featureIcon" src="/images/store/header/basketIcon.svg" alt="basket" />
@@ -74,13 +81,27 @@
             @foreach (var good in Model.Goods)
             {
                 <div class="goodBlock">
-                    <a class="linkToReview" href="/Store/Good/@good.Id">
-                        <img class="good" src="https://source.unsplash.com/random" alt="random" />
-                        <img class="likedIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
+                    <a class="linkToReview" href="/Store/Good/@good.Id" data-id=@good.Id>
+                        @if (good.HasCover)
+                        {
+                            <img class="good" src="/images/Store/MainPage/ImagesForGoods/goodImage-@(good.Id).jpg" alt="goodImage" />
+                        }
+                        else
+                        {
+                            <img class="good" src="/images/Store/MainPage/ImagesForGoods/goodImage-default.jpg" alt="default" />
+                        }
+                        @if (good.HasLike)
+                        {
+                            <img class="likedIcon" src="/images/store/header/likedIcon.svg" alt="liked" />
+                        }
+                        else
+                        {
+                            <img class="likedIcon" src="/images/store/header/unLikedIcon.svg" alt="liked" />
+                        }
                     </a>
                     <p class="pricePretext">@Store_Index.PriceFrom<span class="price"> @good.Price </span>@Store_Index.Value</p>
                     <p class="salor">Valencia med - @good.Name</p>
-                    <p class="goodDescription">@good.Description</p>
+                    <p class="goodDesc">@good.Description</p>
                     <div class="raitingBlock">
                         <img class="infoIcon" src="/images/store/MainPage/raitingIcon.svg" alt="raiting" />
                         <p class="info">4.8</p>
@@ -93,16 +114,14 @@
                     </div>
                     @if (Model.IsStoreAdmin)
                     {
-                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">@Store_Index.UpdateGoodInfo</a>                       
+                        <a href="/Store/UpdateGood/@good.Id" class="updateGoodLink">@Store_Index.UpdateGoodInfo</a>
                     }
-                    @if (Model.IsAdmin)
-                    {                       
-                        <a href="/Store/DeleteGood/@good.Id" class="deleteGoodLink">@Store_Index.DeleteGood</a>
+                    @if (Model.IsStoreAdmin)
+                    {
+                        <button data-id=@good.Id class="deleteGoodLink">@Store_Index.DeleteGood</button>
                     }
                 </div>
             }
         </div>
     </main>
 </div>
-@* <script type="module" src="index.js"></script>
-<script type="module" src="service.js"></script> *@

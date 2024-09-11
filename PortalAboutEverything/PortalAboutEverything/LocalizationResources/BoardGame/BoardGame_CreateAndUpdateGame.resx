@@ -183,10 +183,16 @@
   <data name="Title" xml:space="preserve">
     <value>The title of the game</value>
   </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Creating a game</value>
+  </data>
   <data name="TitleOfPageCreate" xml:space="preserve">
     <value>Add a new game</value>
   </data>
   <data name="TitleOfPageUpdate" xml:space="preserve">
     <value>Editing the game</value>
+  </data>
+  <data name="TitleUpdate" xml:space="preserve">
+    <value>Editing the "{0}"</value>
   </data>
 </root>

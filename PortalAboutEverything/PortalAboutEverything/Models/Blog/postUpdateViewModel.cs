@@ -1,6 +1,7 @@
 ﻿namespace PortalAboutEverything.Models.Blog
 {
-    public class postUpdateViewModel
+
+    public class PostUpdateViewModel
     {
         public int Id { get; set; }
 
@@ -8,6 +9,6 @@
 
         public string? Name { get; set; }
 
-        public DateTime? Now { get; set; }
+        public DateTime? CurrentTime { get; set; }
     }
 }

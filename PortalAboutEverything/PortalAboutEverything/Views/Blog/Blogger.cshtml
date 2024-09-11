@@ -1,0 +1,25 @@
+﻿@model PortalAboutEverything.Models.Blog.BloggerViewModel
+@using PortalAboutEverything.LocalizationResources.Blog
+
+
+<link href="/css/Blog/auth.css" rel="stylesheet" />
+
+
+<div class="inf-blogger">
+    <div class="text">
+        @Blog_AdditionalContent.Hello @Model.Name
+    </div>
+
+    @foreach(var post in Model.Posts)
+    {
+        <div class="posts">
+            @post.message
+        </div>
+    }
+
+    
+
+    <div class="button">
+        <a href="/Blog/Index">@Blog_AdditionalContent.BackToBlog</a>
+    </div>
+</div>

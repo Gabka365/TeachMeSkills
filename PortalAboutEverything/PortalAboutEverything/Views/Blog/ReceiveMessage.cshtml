@@ -1,0 +1,34 @@
+﻿@model PortalAboutEverything.Models.Blog.MessageViewModel
+@using PortalAboutEverything.LocalizationResources.Blog
+
+
+<div class="section-output">
+    <header>
+        <link href="/css/Blog/menu.css" rel="stylesheet" />
+    </header>
+    <div>
+        <div class="receive">
+            <div class="sending">
+                <div class="header">
+                    <div class="inf-about-author">
+                        <img src="/images/Blog/jpeg/first_ava.jpg" />
+                        @Model.CurrentTime <br>
+                        @Blog_AdditionalContent.From: @Model.Name <br>
+                    </div>
+                    <div class="text-field">
+                        @Blog_AdditionalContent.ReceivedMessage:  <br />@Model.Message
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="back">
+                <a href="/Blog/Index"> @Blog_AdditionalContent.BackToBlog </a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
