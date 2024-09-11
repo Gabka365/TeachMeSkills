@@ -85,7 +85,7 @@ namespace PortalAboutEverything.Services
 
         public string GetPathToGameStoreCover(int gameId)
         {
-            var pathToFolder = "C:\\Users\\Илья\\source\\repos\\JinOptimist\\Net16Online\\PortalAboutEverything\\PortalAboutEverything\\wwwroot\\images";
+            var pathToFolder = "C:\\Users\\Илья\\source\\repos\\JinOptimist\\Net16Online\\PortalAboutEverything\\PortalAboutEverything\\wwwroot\\images\\GameStore";
             var fileName = $"cover-{gameId}.jpg";
             var path = Path.Combine(pathToFolder, fileName);
             return path;
