@@ -1,6 +1,7 @@
 import { FC, useCallback } from "react"
 import PostModel from "../../../models/PostModel"
 import blogRepository from "../../../repositories/blogRepository"
+import Permission from "../../../contexts/Permission"
 
 
 interface PostProp{
@@ -19,7 +20,9 @@ const Post: FC<PostProp> = (post) =>
     return (
         <div className="post">
             The text "{post.PostBody.message}" published by user {post.PostBody.name} on {post.PostBody.dateOfPublish}.
-            <button onClick={() => Remove(post.PostBody.id)}> Remove </button>
+            <Permission check={(p) => p.CanDeleteInBlog}>
+                <button onClick={() => Remove(post.PostBody.id)}> Remove </button>
+            </Permission>
         </div>
     )
 }

@@ -15,6 +15,7 @@ import {
 } from './components/pages/travelings/Index';
 import UpdateMovie from './components/pages/movies/UpdateMovie';
 import { CreatePost, Post, Posts, UpdatePost } from './components/pages/posts';
+import Permission from './contexts/Permission';
 
 function App() {
     return (

@@ -2,16 +2,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import blogRepository from '../../../repositories/blogRepository';
 import PostModel from '../../../models/PostModel';
+import Permission from '../../../contexts/Permission';
 
-
-function CreatePost() 
-{
+function CreatePost() {
     let navigate = useNavigate();
 
     const { add } = blogRepository;
 
-    const[name, setName] = useState<string>('');
-    const[message, setMessage] = useState<string>('');
+    const [name, setName] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
 
     const onNameChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +18,6 @@ function CreatePost()
         },
         []
     );
-
 
     const onMessageChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,23 +37,24 @@ function CreatePost()
     }, [name, message]);
 
     return (
-        <div>
+        <Permission check={(p) => p.CanPostInBlog}>
             <div>
-                Name:
-                <input type="text" value={name} onChange={onNameChange} />
+                <div>
+                    Name:
+                    <input type="text" value={name} onChange={onNameChange} />
+                </div>
+                <div>
+                    Message:
+                    <input
+                        type="text"
+                        value={message}
+                        onChange={onMessageChange}
+                    />
+                </div>
+                <button onClick={onCreate}>Create</button>
             </div>
-            <div>
-                Message:
-                <input
-                    type="text"
-                    value={message}
-                    onChange={onMessageChange}
-                />
-            </div>
-            <button onClick={onCreate}>Create</button>
-        </div>
+        </Permission>
     );
 }
-
 
 export default CreatePost;
