@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.Hosting;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Controllers.ApiControllers;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
@@ -14,6 +15,7 @@ using PortalAboutEverything.Services;
 using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services.AuthStuff.Interfaces;
 using PortalAboutEverything.Services.Interfaces;
+using System.Reflection;
 
 namespace PortalAboutEverything.Controllers
 {
@@ -176,6 +178,33 @@ namespace PortalAboutEverything.Controllers
             {
                 return RedirectToAction("SendMessage");
             }
+
+            return View(viewModel);
+        }
+
+
+        [HttpGet]
+        public IActionResult SeeApiMethods()
+        {
+            List<string> apiData = new List<string>();
+
+            var typeApiController = typeof(ApiControllers.BlogController);
+
+            var methods = typeApiController.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+            foreach (var method in methods)
+            {
+                var parameters = method.GetParameters();
+                
+                var parametersString = string.Join(" | ", parameters.Select(p => $" {p.Name}({p.ParameterType.Name})"));  
+                apiData.Add($"Method {method.Name}({method.ReturnType.ToString()}) with parameters: {parametersString}");
+            }
+
+
+            ApiListViewModel viewModel = new ApiListViewModel 
+            { 
+                ApiMethods = apiData,
+            };
 
             return View(viewModel);
         }

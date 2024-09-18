@@ -144,6 +144,9 @@
   <data name="PostUpdate" xml:space="preserve">
     <value>Обновить</value>
   </data>
+  <data name="SeeApiMethods" xml:space="preserve">
+    <value>Посмотреть методы API</value>
+  </data>
   <data name="SeePosts" xml:space="preserve">
     <value>Ваши записи</value>
   </data>

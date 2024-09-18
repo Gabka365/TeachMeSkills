@@ -1,0 +1,16 @@
+﻿@model PortalAboutEverything.Models.Blog.ApiListViewModel
+@using PortalAboutEverything.LocalizationResources.Blog
+
+<div class="methods">
+    @foreach(var method in Model.ApiMethods)
+    {
+        <div class="method">
+            @method
+        </div>
+    }
+
+    <div class="back-to-blog">
+        <a href="/Blog/Index">@Blog_AdditionalContent.BackToBlog</a>
+    </div>
+
+</div>

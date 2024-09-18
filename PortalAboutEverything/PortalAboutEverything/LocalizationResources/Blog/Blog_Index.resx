@@ -144,6 +144,9 @@
   <data name="PostUpdate" xml:space="preserve">
     <value>Update</value>
   </data>
+  <data name="SeeApiMethods" xml:space="preserve">
+    <value>See API methods</value>
+  </data>
   <data name="SeePosts" xml:space="preserve">
     <value>See Your Posts</value>
   </data>
