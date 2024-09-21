@@ -93,6 +93,10 @@ builder.Services.AddHttpClient<HttpMoviesAverageRateApiService>(
     x => x.BaseAddress = new Uri("https://localhost:58814/"));
 builder.Services.AddHttpClient<HttpApiSpellService>(
     x => x.BaseAddress = new Uri("https://potterapi-fedeperin.vercel.app/"));
+builder.Services.AddHttpClient<HttpBlogApiService>
+    (x => x.BaseAddress = new Uri("https://localhost:7103/"));
+builder.Services.AddHttpClient<HttpNumbersApiService>
+    (x => x.BaseAddress = new Uri("http://numbersapi.com/"));
 
 builder.Services.AddHostedService<ImageGenerator>();
 builder.Services.AddSingleton<ImageGenerationQueueService>();

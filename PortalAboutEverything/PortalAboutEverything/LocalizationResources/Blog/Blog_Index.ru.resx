@@ -150,6 +150,9 @@
   <data name="SeePosts" xml:space="preserve">
     <value>Ваши записи</value>
   </data>
+  <data name="SeeYourComments" xml:space="preserve">
+    <value>Ваши комментарии</value>
+  </data>
   <data name="SendMessage" xml:space="preserve">
     <value>Отправить сообщение</value>
   </data>

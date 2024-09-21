@@ -34,7 +34,7 @@
         $.get(baseApiUrl + 'getAllComments')
             .done(function (comments) {
                 comments.forEach((comment) => {
-                    addNewComment(comment.name, comment.message, comment.currentTime, comment.postId); //дописать то, что должно вернуться
+                    addNewComment(comment.name, comment.message, comment.currentTime, comment.postId); 
                 });
             })
     }

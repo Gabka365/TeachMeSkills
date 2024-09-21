@@ -12,8 +12,10 @@ using PortalAboutEverything.Data.Repositories;
 using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Models.Blog;
 using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.Apis;
 using PortalAboutEverything.Services.AuthStuff;
 using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Services.Dtos;
 using PortalAboutEverything.Services.Interfaces;
 using System.Reflection;
 
@@ -24,19 +26,27 @@ namespace PortalAboutEverything.Controllers
         private IBlogRepositories _posts;
         private IAuthService _authService;
         private IPathHelper _pathHelper;
+        private HttpBlogApiService _httpBlogApiService;
+        private HttpNumbersApiService _httpNumbersApiService;
 
-        public BlogController(IBlogRepositories posts, IAuthService authService, IPathHelper pathHelper)
+        public BlogController(IBlogRepositories posts, 
+            IAuthService authService, IPathHelper pathHelper, 
+            HttpBlogApiService httpBlogApiService, 
+            HttpNumbersApiService httpNumbersApiService)
         {
             _posts = posts;
             _authService = authService;
             _pathHelper = pathHelper;
+            _httpBlogApiService = httpBlogApiService;
+            _httpNumbersApiService = httpNumbersApiService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             BlogViewModel viewModel;
 
-            
+            var factAboutToday = await _httpNumbersApiService.GetFactAsync();
+
             if (_authService.IsAuthenticated())
             {
                 var postsViewModel = _posts
@@ -51,6 +61,7 @@ namespace PortalAboutEverything.Controllers
                     IsAccessible = _authService.HasRoleOrHigher(UserRole.User),
                     UserLanguage = _authService.GetUserLanguage(),
                     Role = _authService.GetUserRole(),
+                    Fact = factAboutToday
                 };
             }
             else
@@ -204,6 +215,20 @@ namespace PortalAboutEverything.Controllers
             ApiListViewModel viewModel = new ApiListViewModel 
             { 
                 ApiMethods = apiData,
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SeeComments()
+        {
+            var username = _authService.GetUserName();
+            var comments = await _httpBlogApiService.GetAllCommentsByUsernameAsync(username);
+
+            var viewModel = new UsersCommentsViewModel
+            {
+                UsersComments = comments
             };
 
             return View(viewModel);

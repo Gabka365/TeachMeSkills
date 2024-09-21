@@ -322,4 +322,26 @@ form {
             align-items: center;
         }
 
-    
+.comments .comment .name {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.comments .comment {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+
+.fact {
+    display: flex;
+    justify-content: space-around;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #374a43;
+    color: white;
+    padding: 5px;
+    margin-left: 900px;
+    margin-right: 100px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}

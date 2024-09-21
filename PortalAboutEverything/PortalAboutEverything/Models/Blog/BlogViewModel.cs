@@ -1,4 +1,5 @@
 ﻿using PortalAboutEverything.Data.Enums;
+using PortalAboutEverything.Services.Dtos;
 
 namespace PortalAboutEverything.Models.Blog
 {
@@ -11,5 +12,6 @@ namespace PortalAboutEverything.Models.Blog
         public string Name { get; set; }
         public Language UserLanguage { get; set; }
         public UserRole Role { get; set; }
+        public string Fact { get; set; }
     }
 }

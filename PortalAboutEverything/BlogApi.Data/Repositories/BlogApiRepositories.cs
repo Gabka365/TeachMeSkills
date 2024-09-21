@@ -39,5 +39,11 @@ namespace BlogApi.Data.Repositories
             return _dbSet.ToList();
         }
 
+        public List<CommentBlog> GetCommentsByUsername(string name)
+        {
+            return _dbSet
+            .Where(x => x.Name == name)
+            .ToList();
+        }
     }
 }

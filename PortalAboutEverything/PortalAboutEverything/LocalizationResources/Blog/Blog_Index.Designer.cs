@@ -160,6 +160,15 @@ namespace PortalAboutEverything.LocalizationResources.Blog {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to See your comments.
+        /// </summary>
+        public static string SeeYourComments {
+            get {
+                return ResourceManager.GetString("SeeYourComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send Message.
         /// </summary>
         public static string SendMessage {

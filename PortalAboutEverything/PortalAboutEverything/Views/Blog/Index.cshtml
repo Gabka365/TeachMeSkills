@@ -5,7 +5,7 @@
 
 @section Style
 {
-    <link href="/css/Blog/style.css?v=3.6" rel="stylesheet" />
+    <link href="/css/Blog/style.css?v=3.7" rel="stylesheet" />
 }
 
 @section Scripts {
@@ -34,6 +34,8 @@
     <!-- Menu -->
     @if (Model.IsAccessible)
     {
+        <div class="fact"> @Model.Fact </div>
+
         <div class="menu">
             @if (Model.IsAccessible)
             {
@@ -41,6 +43,7 @@
                 <div> <a class="create-post" href="/Blog/CreatePost"> @Blog_Index.CreatePost </a> </div>
                 <div> <a href="/Blog/SendMessage">  @Blog_Index.SendMessage </a></div>
                 <div> <a href="/Blog/SeeApiMethods"> @Blog_Index.SeeApiMethods </a></div>
+                <div> <a href="/Blog/SeeComments"> @Blog_Index.SeeYourComments </a></div>
             }
         </div>
     }

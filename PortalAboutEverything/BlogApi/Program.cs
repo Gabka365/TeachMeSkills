@@ -35,6 +35,13 @@ app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/para", () => "You are here");
 
-app.MapGet("/getAllComments", (BlogApiRepositories repo) => repo.GetAllComments()); // дописать вызов метода
+app.MapGet("/getAllComments", (BlogApiRepositories repo) => repo.GetAllComments()); 
+
+app.MapGet("/GetAllUsersCommentsByUsername", (string username, BlogApiRepositories repo) =>
+{
+    var comments = repo.GetCommentsByUsername(username);
+    return comments;
+});
+
 
 app.Run();

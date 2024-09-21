@@ -120,6 +120,12 @@
   <data name="BackToBlog" xml:space="preserve">
     <value>Back To Blog</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="CommentId" xml:space="preserve">
+    <value>CommentId</value>
+  </data>
   <data name="FirstNumber" xml:space="preserve">
     <value>First Number</value>
   </data>
@@ -134,6 +140,15 @@
   </data>
   <data name="MoodRate" xml:space="preserve">
     <value>Mood rate</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Author name</value>
+  </data>
+  <data name="PostId" xml:space="preserve">
+    <value>PostId</value>
+  </data>
+  <data name="PublishTime" xml:space="preserve">
+    <value>Time of publish </value>
   </data>
   <data name="ReceivedMessage" xml:space="preserve">
     <value>Received Message</value>
