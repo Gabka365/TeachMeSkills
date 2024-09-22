@@ -41,7 +41,6 @@
             {
                 <div> <a href="/Blog/Blogger"> @Blog_Index.SeePosts </a> </div>
                 <div> <a class="create-post" href="/Blog/CreatePost"> @Blog_Index.CreatePost </a> </div>
-                <div> <a href="/Blog/SendMessage">  @Blog_Index.SendMessage </a></div>
                 <div> <a href="/Blog/SeeApiMethods"> @Blog_Index.SeeApiMethods </a></div>
                 <div> <a href="/Blog/SeeComments"> @Blog_Index.SeeYourComments </a></div>
             }
@@ -55,13 +54,20 @@
     <div class="inf-about-blog-author">
         <span class="ava">
             <div class="main-ava">
-                <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
-            </div>
-            <div class="additional-avas">
-                <img src="/images/Blog/jpeg/third_ava.jpg" alt="" />
-                <div class="new">
-                    @Blog_Index.More
-                </div>
+                @if (Model.HasAvatar)
+                {
+                    <img class="avatar" src="/images/Blog/avatars/user-avatar-@(Model.UserId).jpg" style="width: 500px" />
+                    <div><a href="/Blog/UpdateAvatar"> @Blog_Index.PostUpdate </a></div>
+                }
+                else
+                {
+                    <div>
+                        <form action="/Blog/AddAvatar?UserId=@Model.UserId" method="post" enctype="multipart/form-data">
+                            <input type="file" name="@nameof(Model.Avatar)" accept="image/png, image/jpeg" />
+                            <input type="submit" name="name" value="Update" class="avatar-submit" />
+                        </form>
+                    </div>
+                }
             </div>
         </span>
         <span class="text-about-blog-author">
@@ -80,7 +86,6 @@
             <span class="tag">@Blog_Index.TagNewest</span>
             <span class="tag">@Blog_Index.TagPopular</span>
             <span class="tag">@Blog_Index.TagLikable</span>
-            <span class="tag">+</span>
         </div>
 
         <div>
@@ -96,9 +101,6 @@
                             @Blog_Index.PostDate: @post.CurrentTime
                         </span>
                         <div class="body">
-                            <div class="litle-ava">
-                                <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
-                            </div>
                             <div class="post-stuff">
                                 <div class="text-of-post">
                                     @post.Message

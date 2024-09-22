@@ -3,6 +3,7 @@
     public interface IPathHelper
     {
         string GetPathToPostCover(int postId);
+        string GetPathToUserAvatar(int userId);
         string GetPathToBoardGameMainImage(int boardGameId);
         string GetPathToBoardGameSideImage(int boardGameId);
         string GetPathToGameCover(int gameId);
@@ -11,6 +12,7 @@
         string GetPathToMovieImage(int movieId);
         string GetPathToTravelingImageFolder();
         bool IsPostCoverExist(int id);
+        bool IsUserAvatarExist(int userId);
         bool IsBoardGameMainImageExist(int id);
         bool IsBoardGameSideImageExist(int id);
         bool IsGameCoverExist(int id);

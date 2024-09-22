@@ -46,8 +46,9 @@ namespace PortalAboutEverything.Controllers
             BlogViewModel viewModel;
 
             var factAboutToday = await _httpNumbersApiService.GetFactAsync();
+            var userId = _authService.GetUserId();
 
-            if (_authService.IsAuthenticated())
+            if (_authService.IsAuthenticated()) 
             {
                 var postsViewModel = _posts
                 .GetAllWithCommentsBlog()
@@ -56,6 +57,8 @@ namespace PortalAboutEverything.Controllers
                     
                 viewModel = new BlogViewModel()
                 {
+                    HasAvatar = _pathHelper.IsUserAvatarExist(userId),
+                    UserId = userId,
                     Name = _authService.GetUserName(),
                     Posts = postsViewModel,
                     IsAccessible = _authService.HasRoleOrHigher(UserRole.User),
@@ -175,6 +178,25 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
+        public IActionResult UpdateAvatar()
+        {
+            var userId = _authService.GetUserId();
+            var path = _pathHelper.GetPathToUserAvatar(userId);
+
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+
+            var viewModel = new BlogViewModel
+            {
+                UserId = userId,
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
         public IActionResult SendMessage()
         {
             var viewModel = BuildMessageViewModel();
@@ -264,6 +286,25 @@ namespace PortalAboutEverything.Controllers
             using (var fs = new FileStream(path, FileMode.Create))
             {
                 viewModel.Cover.CopyTo(fs);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult AddAvatar(BlogViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var path = _pathHelper.GetPathToUserAvatar(viewModel.UserId);
+
+            using (var fs = new FileStream(path, FileMode.Create))
+            {
+                viewModel.Avatar.CopyTo(fs);
             }
 
             return RedirectToAction("Index");
