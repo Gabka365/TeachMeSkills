@@ -17,6 +17,12 @@ namespace PortalAboutEverything.Services
             return GetPathByFolder("images\\Blog", fileName);
         }
 
+        public string GetPathToUserAvatar(int userId)
+        {
+            var fileName = $"user-avatar-{userId}.jpg";
+            return GetPathByFolder("images\\Blog\\avatars", fileName);
+        }
+
         public string GetPathToTravelingImageFolder()
         {
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Traveling", "UserPictures");
@@ -58,7 +64,11 @@ namespace PortalAboutEverything.Services
             var path = GetPathToPostCover(postId);
             return File.Exists(path);
         }
-
+        public bool IsUserAvatarExist(int userId)
+        {
+            var path = GetPathToUserAvatar(userId);
+            return File.Exists(path);
+        }
         public bool IsBoardGameMainImageExist(int id)
         {
             var path = GetPathToBoardGameMainImage(id);

@@ -1,0 +1,28 @@
+﻿@model PortalAboutEverything.Models.Blog.UsersCommentsViewModel
+@using PortalAboutEverything.LocalizationResources.Blog
+
+@section Style
+{
+    <link href="/css/Blog/style.css" rel="stylesheet" />
+}
+
+
+<div class="comments">
+    @foreach (var comment in Model.UsersComments)
+    {
+        <div class="comment">
+            <p>
+                <div class="name">@Blog_AdditionalContent.Name: @comment.Name</div><br>
+                @Blog_AdditionalContent.Comment: @comment.Message<br>
+                @Blog_AdditionalContent.CommentId: @comment.Id<br>
+                @Blog_AdditionalContent.PostId: @comment.PostId<br>
+                @Blog_AdditionalContent.PublishTime: @comment.CurrentTime<br>
+            </p>
+        </div>
+    }
+
+    <div class="back-to-blog">
+        <a href="/Blog/Index">@Blog_AdditionalContent.BackToBlog</a>
+    </div>
+
+</div>

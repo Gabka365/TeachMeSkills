@@ -6,5 +6,6 @@ namespace PortalAboutEverything.Tests.E2E.PagesSelectors
     {
         public static By UserNameSpan = By.CssSelector(".user-name");
         public static By TravelingLink = By.CssSelector(".traveling_link");
+        public static By BlogLink = By.CssSelector(".blog-link");
     }
 }

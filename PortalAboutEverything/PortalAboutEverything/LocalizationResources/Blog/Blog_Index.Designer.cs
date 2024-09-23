@@ -97,6 +97,15 @@ namespace PortalAboutEverything.LocalizationResources.Blog {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hello.
+        /// </summary>
+        public static string Hello {
+            get {
+                return ResourceManager.GetString("Hello", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More.
         /// </summary>
         public static string More {
@@ -142,11 +151,29 @@ namespace PortalAboutEverything.LocalizationResources.Blog {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to See API methods.
+        /// </summary>
+        public static string SeeApiMethods {
+            get {
+                return ResourceManager.GetString("SeeApiMethods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to See Your Posts.
         /// </summary>
         public static string SeePosts {
             get {
                 return ResourceManager.GetString("SeePosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See your comments.
+        /// </summary>
+        public static string SeeYourComments {
+            get {
+                return ResourceManager.GetString("SeeYourComments", resourceCulture);
             }
         }
         

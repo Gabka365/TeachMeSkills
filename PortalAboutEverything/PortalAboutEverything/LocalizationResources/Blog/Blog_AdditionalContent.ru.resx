@@ -120,6 +120,12 @@
   <data name="BackToBlog" xml:space="preserve">
     <value>Вернуться к блогу</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Комментарий</value>
+  </data>
+  <data name="CommentId" xml:space="preserve">
+    <value>Id комментария</value>
+  </data>
   <data name="FirstNumber" xml:space="preserve">
     <value>Первая цифра</value>
   </data>
@@ -134,6 +140,15 @@
   </data>
   <data name="MoodRate" xml:space="preserve">
     <value>Оценка настроения</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Имя автора</value>
+  </data>
+  <data name="PostId" xml:space="preserve">
+    <value>Id поста</value>
+  </data>
+  <data name="PublishTime" xml:space="preserve">
+    <value>Время публикации</value>
   </data>
   <data name="ReceivedMessage" xml:space="preserve">
     <value>Полученное сообщение</value>

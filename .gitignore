@@ -421,5 +421,6 @@ PortalAboutEverything/PortalAboutEverything/wwwroot/images/GameStore/*.*
 *.vscode
 /react/portal-react/.vscode
 PortalAboutEverything/PortalAboutEverything/wwwroot/images/Blog/*.*
+PortalAboutEverything/PortalAboutEverything/wwwroot/images/Blog/avatars/*.*
 !PortalAboutEverything/PortalAboutEverything/wwwroot/images/Blog/cover-default.png
 

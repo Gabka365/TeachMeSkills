@@ -8,6 +8,8 @@
 
         public string? Name { get; set; }
 
+        public string DateOfPublish { get; set; }
+
         public DateTime? CurrentTime { get; set; }
 
         public bool HasCover { get; set; }

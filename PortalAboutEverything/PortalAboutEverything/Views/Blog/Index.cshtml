@@ -5,12 +5,14 @@
 
 @section Style
 {
-    <link href="/css/Blog/style.css?v=3.1" rel="stylesheet" />
+    <link href="/css/Blog/style.css?v=3.8" rel="stylesheet" />
 }
 
 @section Scripts {
-    <script src="/js/Blog/BlogIndex.js"></script>
-    <script src="/js/Blog/ajaxLikeSystem.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/Blog/blogIndex.js?v=1.2"></script>
+    <script src="/js/Blog/ajaxLikeSystem.js?v=1.8"></script>
+    <script src="/js/Blog/lifePage.js?v=1.3"></script>
 }
 
 <div>
@@ -32,12 +34,19 @@
     <!-- Menu -->
     @if (Model.IsAccessible)
     {
+        <div class="topper">
+            <div class="greetings">
+                <h1>@Blog_Index.Hello @Model.Name</h1>
+            </div>
+            <div class="fact"> @Model.Fact </div>
+        </div>
+
         <div class="menu">
             @if (Model.IsAccessible)
             {
-                <div> <a href="/Blog/Blogger"> @Blog_Index.SeePosts </a> </div>
-                <div> <a href="/Blog/CreatePost"> @Blog_Index.CreatePost </a> </div>
-                <div> <a href="/Blog/SendMessage">  @Blog_Index.SendMessage </a></div>
+                <div> <a class="create-post" href="/Blog/CreatePost"> @Blog_Index.CreatePost </a> </div>
+                <div> <a href="/Blog/SeeApiMethods"> @Blog_Index.SeeApiMethods </a></div>
+                <div> <a href="/Blog/SeeComments"> @Blog_Index.SeeYourComments </a></div>
             }
         </div>
     }
@@ -49,13 +58,20 @@
     <div class="inf-about-blog-author">
         <span class="ava">
             <div class="main-ava">
-                <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
-            </div>
-            <div class="additional-avas">
-                <img src="/images/Blog/jpeg/third_ava.jpg" alt="" />
-                <div class="new">
-                    @Blog_Index.More
-                </div>
+                @if (Model.HasAvatar)
+                {
+                    <img class="avatar" src="/images/Blog/avatars/user-avatar-@(Model.UserId).jpg" style="width: 500px" />
+                    <div><a href="/Blog/UpdateAvatar"> @Blog_Index.PostUpdate </a></div>
+                }
+                else
+                {
+                    <div>
+                        <form action="/Blog/AddAvatar?UserId=@Model.UserId" method="post" enctype="multipart/form-data">
+                            <input type="file" name="@nameof(Model.Avatar)" accept="image/png, image/jpeg" />
+                            <input type="submit" name="name" value="Update" class="avatar-submit" />
+                        </form>
+                    </div>
+                }
             </div>
         </span>
         <span class="text-about-blog-author">
@@ -74,7 +90,6 @@
             <span class="tag">@Blog_Index.TagNewest</span>
             <span class="tag">@Blog_Index.TagPopular</span>
             <span class="tag">@Blog_Index.TagLikable</span>
-            <span class="tag">+</span>
         </div>
 
         <div>
@@ -90,9 +105,6 @@
                             @Blog_Index.PostDate: @post.CurrentTime
                         </span>
                         <div class="body">
-                            <div class="litle-ava">
-                                <img src="/images/Blog/jpeg/first_ava.jpg" alt="" />
-                            </div>
                             <div class="post-stuff">
                                 <div class="text-of-post">
                                     @post.Message
@@ -120,41 +132,49 @@
                          
                         <div class="post-footer">
                             <div class="interaction">
-                                
-                                <button class="like-cover">
-                                    <span class="like"> <img src="/images/Blog/png/like.png" alt="" /> </span>
-                                </button>
+
+                                <div class="rate">
+                                    <button class="like-cover" name="postId" value=@post.Id>
+                                        <span class="like"> <img src="/images/Blog/png/like.png" alt="" /> </span>
+                                    </button>
+
+                                    <button class="dislike-cover" name="postId" value=@post.Id>
+                                        <span class="dislike"> <img src="/images/Blog/png/dislike.png" alt="" /> </span>
+                                    </button>
+
+                                    <div class="rate-count">
+                                    </div>
+                                </div>
 
 
-                                <button class="dislike-cover">
-                                    <span class="dislike"> <img src="/images/Blog/png/dislike.png" alt="" /> </span>
-                                </button>
-                                
                                 <span class="answers">
-                                    <span class="delete"> <a href="/Blog/DeletePost?id=@post.Id">@Blog_Index.PostDelete</a></span>
+                                    <span class="delete"> <a href="/Blog/DeletePost?id=@post.Id" class="delete-post">@Blog_Index.PostDelete</a></span>
                                     <span><a href="/Blog/UpdateMessage?id=@post.Id">@Blog_Index.PostUpdate</a></span>
                                 </span>
                             </div>
 
+                            <input type="hidden" name="userName" value="@Model.Name"/>
+
                             <form action="/Blog/AddComment" method="post">
-                                <input type="hidden" value="@post.Id" name="postId" />
-                                <textarea name="text" placeholder="Text for comment"></textarea>
-                                <input type="submit" value="Comment" />
+                                <input class="post-comment" type="hidden" value="@post.Id" name="postId" />
+                                <textarea class="textarea-comment" name="text" placeholder="Text for comment"></textarea>
+                                <input class="submit-comment" type="submit" value="Comment" />
                             </form>
                         </div>
                         
 
                     </div>
 
-                    @foreach (var comment in post.CommentsBlog)
-                    {
-                        <div class="comment">
-                            <span class="author-name">@comment.Name</span>
-                            <span class="date">@comment.CurrentTime</span>
-                            <span class="comment-text">@comment.Message</span>
-                        </div>
-                    }
-
+                    <div class="comments">
+                        @foreach (var comment in post.CommentsBlog)
+                        {
+                            <div class="comment">
+                                <span class="author-name">@comment.Name</span>
+                                <span class="date">@comment.CurrentTime</span>
+                                <span class="comment-text">@comment.Message</span>
+                            </div>
+                        }
+                    </div>
                 }
             }
 

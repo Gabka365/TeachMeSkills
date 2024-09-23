@@ -14,6 +14,8 @@ import {
     СreateTravelings,
 } from './components/pages/travelings/Index';
 import UpdateMovie from './components/pages/movies/UpdateMovie';
+import { CreatePost, Post, Posts, UpdatePost } from './components/pages/posts';
+import Permission from './contexts/Permission';
 
 function App() {
     return (
@@ -27,6 +29,7 @@ function App() {
                         <Link to="/boardGame">Board Games</Link>
                         <Link to="/movies">Movies</Link>
                         <Link to="/traveling">Traveling</Link>
+                        <Link to="/blog">Blog</Link>
                     </div>
                     <div className="content">
                         <Routes>
@@ -82,6 +85,16 @@ function App() {
                                     path="create"
                                     Component={СreateTravelings}
                                 ></Route>
+                            </Route>
+                            <Route path="/blog">
+                                <Route path="" Component={Posts}></Route>
+                                <Route
+                                    path="create"
+                                    Component={CreatePost}
+                                ></Route>
+                                <Route path="/blog/update">
+                                    <Route path=":postId" Component={UpdatePost}></Route>
+                                </Route>
                             </Route>
                         </Routes>
                     </div>

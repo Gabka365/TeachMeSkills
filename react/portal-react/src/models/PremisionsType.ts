@@ -15,4 +15,6 @@ export interface PermissionType {
     CanCreateGameInGameStore: boolean,
     CanDeleteGameInGameStore: boolean,
     CanUpdateGameInGameStore: boolean,
+    CanUpdateInBlog: boolean,
+    CanDeleteInBlog: boolean
 }

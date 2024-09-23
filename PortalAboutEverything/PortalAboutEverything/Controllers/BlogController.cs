@@ -4,35 +4,51 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.Hosting;
 using PortalAboutEverything.Controllers.ActionFilterAttributes;
+using PortalAboutEverything.Controllers.ApiControllers;
 using PortalAboutEverything.Data;
 using PortalAboutEverything.Data.Enums;
 using PortalAboutEverything.Data.Model;
 using PortalAboutEverything.Data.Repositories;
+using PortalAboutEverything.Data.Repositories.Interfaces;
 using PortalAboutEverything.Models.Blog;
 using PortalAboutEverything.Services;
+using PortalAboutEverything.Services.Apis;
 using PortalAboutEverything.Services.AuthStuff;
+using PortalAboutEverything.Services.AuthStuff.Interfaces;
+using PortalAboutEverything.Services.Dtos;
+using PortalAboutEverything.Services.Interfaces;
+using System.Reflection;
 
 namespace PortalAboutEverything.Controllers
 {
     public class BlogController : Controller
     {
-        private BlogRepositories _posts;
-        private AuthService _authService;
-        private PortalAboutEverything.Services.PathHelper _pathHelper;
+        private IBlogRepositories _posts;
+        private IAuthService _authService;
+        private IPathHelper _pathHelper;
+        private HttpBlogApiService _httpBlogApiService;
+        private HttpNumbersApiService _httpNumbersApiService;
 
-        public BlogController(BlogRepositories posts, AuthService authService, PortalAboutEverything.Services.PathHelper pathHelper)
+        public BlogController(IBlogRepositories posts, 
+            IAuthService authService, IPathHelper pathHelper, 
+            HttpBlogApiService httpBlogApiService, 
+            HttpNumbersApiService httpNumbersApiService)
         {
             _posts = posts;
             _authService = authService;
             _pathHelper = pathHelper;
+            _httpBlogApiService = httpBlogApiService;
+            _httpNumbersApiService = httpNumbersApiService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             BlogViewModel viewModel;
 
-            
-            if (_authService.IsAuthenticated())
+            var factAboutToday = await _httpNumbersApiService.GetFactAsync();
+            var userId = _authService.GetUserId();
+
+            if (_authService.IsAuthenticated()) 
             {
                 var postsViewModel = _posts
                 .GetAllWithCommentsBlog()
@@ -41,11 +57,14 @@ namespace PortalAboutEverything.Controllers
                     
                 viewModel = new BlogViewModel()
                 {
+                    HasAvatar = _pathHelper.IsUserAvatarExist(userId),
+                    UserId = userId,
                     Name = _authService.GetUserName(),
                     Posts = postsViewModel,
                     IsAccessible = _authService.HasRoleOrHigher(UserRole.User),
                     UserLanguage = _authService.GetUserLanguage(),
                     Role = _authService.GetUserRole(),
+                    Fact = factAboutToday
                 };
             }
             else
@@ -159,6 +178,25 @@ namespace PortalAboutEverything.Controllers
         }
 
         [HttpGet]
+        public IActionResult UpdateAvatar()
+        {
+            var userId = _authService.GetUserId();
+            var path = _pathHelper.GetPathToUserAvatar(userId);
+
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+
+            var viewModel = new BlogViewModel
+            {
+                UserId = userId,
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
         public IActionResult SendMessage()
         {
             var viewModel = BuildMessageViewModel();
@@ -173,6 +211,47 @@ namespace PortalAboutEverything.Controllers
             {
                 return RedirectToAction("SendMessage");
             }
+
+            return View(viewModel);
+        }
+
+
+        [HttpGet]
+        public IActionResult SeeApiMethods()
+        {
+            List<string> apiData = new List<string>();
+
+            var typeApiController = typeof(ApiControllers.BlogController);
+
+            var methods = typeApiController.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+            foreach (var method in methods)
+            {
+                var parameters = method.GetParameters();
+                
+                var parametersString = string.Join(" | ", parameters.Select(p => $" {p.Name}({p.ParameterType.Name})"));  
+                apiData.Add($"Method {method.Name}({method.ReturnType.ToString()}) with parameters: {parametersString}");
+            }
+
+
+            ApiListViewModel viewModel = new ApiListViewModel 
+            { 
+                ApiMethods = apiData,
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SeeComments()
+        {
+            var username = _authService.GetUserName();
+            var comments = await _httpBlogApiService.GetAllCommentsByUsernameAsync(username);
+
+            var viewModel = new UsersCommentsViewModel
+            {
+                UsersComments = comments
+            };
 
             return View(viewModel);
         }
@@ -212,11 +291,31 @@ namespace PortalAboutEverything.Controllers
             return RedirectToAction("Index");
         }
 
-        private MessageViewModel BuildMessageViewModel()
+        [HttpPost]
+        [Authorize]
+        public IActionResult AddAvatar(BlogViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var path = _pathHelper.GetPathToUserAvatar(viewModel.UserId);
+
+            using (var fs = new FileStream(path, FileMode.Create))
+            {
+                viewModel.Avatar.CopyTo(fs);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public MessageViewModel BuildMessageViewModel()
             => new MessageViewModel
             {
                 CurrentTime = DateTime.Now,
                 Name = _authService.GetUserName(),
+                UserId = _authService.GetUserId(),
             };
 
         private PostIndexViewModel BuildPostIndexViewModel(Post post)

@@ -129,6 +129,9 @@
   <data name="CreatePost" xml:space="preserve">
     <value>Create Post</value>
   </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Hello</value>
+  </data>
   <data name="More" xml:space="preserve">
     <value>More</value>
   </data>
@@ -144,8 +147,14 @@
   <data name="PostUpdate" xml:space="preserve">
     <value>Update</value>
   </data>
+  <data name="SeeApiMethods" xml:space="preserve">
+    <value>See API methods</value>
+  </data>
   <data name="SeePosts" xml:space="preserve">
     <value>See Your Posts</value>
+  </data>
+  <data name="SeeYourComments" xml:space="preserve">
+    <value>See your comments</value>
   </data>
   <data name="SendMessage" xml:space="preserve">
     <value>Send Message</value>

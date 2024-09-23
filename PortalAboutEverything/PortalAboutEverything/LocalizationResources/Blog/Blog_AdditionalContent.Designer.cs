@@ -70,6 +70,24 @@ namespace PortalAboutEverything.LocalizationResources.Blog {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CommentId.
+        /// </summary>
+        public static string CommentId {
+            get {
+                return ResourceManager.GetString("CommentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Number.
         /// </summary>
         public static string FirstNumber {
@@ -111,6 +129,33 @@ namespace PortalAboutEverything.LocalizationResources.Blog {
         public static string MoodRate {
             get {
                 return ResourceManager.GetString("MoodRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PostId.
+        /// </summary>
+        public static string PostId {
+            get {
+                return ResourceManager.GetString("PostId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time of publish .
+        /// </summary>
+        public static string PublishTime {
+            get {
+                return ResourceManager.GetString("PublishTime", resourceCulture);
             }
         }
         

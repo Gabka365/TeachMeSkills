@@ -1,0 +1,8 @@
+﻿@model PortalAboutEverything.Models.Blog.BlogViewModel
+
+<div>
+    <form action="/Blog/AddAvatar?UserId=@Model.UserId" method="post" enctype="multipart/form-data">
+        <input type="file" name="@nameof(Model.Avatar)" accept="image/png, image/jpeg" />
+        <input type="submit" name="name" value="Update" class="avatar-submit" />
+    </form>
+</div>

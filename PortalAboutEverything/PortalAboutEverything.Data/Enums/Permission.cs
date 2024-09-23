@@ -19,5 +19,7 @@
         CanCreateGameInGameStore = 4096,
         CanDeleteGameInGameStore = 8192,
         CanUpdateGameInGameStore = 16384,
+        CanUpdateInBlog = 32768,
+        CanDeleteInBlog = 65536
     }
 }
