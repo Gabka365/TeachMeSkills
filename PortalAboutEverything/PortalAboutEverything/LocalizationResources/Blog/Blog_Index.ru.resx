@@ -129,6 +129,9 @@
   <data name="CreatePost" xml:space="preserve">
     <value>Сделать запись</value>
   </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Привет</value>
+  </data>
   <data name="More" xml:space="preserve">
     <value>Ещё</value>
   </data>

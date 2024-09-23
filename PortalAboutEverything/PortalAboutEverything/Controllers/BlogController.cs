@@ -315,6 +315,7 @@ namespace PortalAboutEverything.Controllers
             {
                 CurrentTime = DateTime.Now,
                 Name = _authService.GetUserName(),
+                UserId = _authService.GetUserId(),
             };
 
         private PostIndexViewModel BuildPostIndexViewModel(Post post)

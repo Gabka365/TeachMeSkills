@@ -129,6 +129,9 @@
   <data name="CreatePost" xml:space="preserve">
     <value>Create Post</value>
   </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Hello</value>
+  </data>
   <data name="More" xml:space="preserve">
     <value>More</value>
   </data>
