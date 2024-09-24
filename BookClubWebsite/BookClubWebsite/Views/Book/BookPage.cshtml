@@ -1,0 +1,48 @@
+﻿@using BookClubWebsite.Controllers
+@model BookClubWebsite.Models.Book.BookPageViewModel;
+@{
+    ViewData["Title"] = "Book page";
+}
+
+<div class="content-page">
+	<div class="content-page__wrapper">
+		<div class="content-page__book book">
+			<div class="book__book_title">@Model.TitleOfBook</div>
+			<div class="book__book_author">@Model.AuthorOfBook</div>
+			<div class="book__book-images">
+				<div class="image_wrapper">
+					<img src="/images/book/cover.webp" alt="cover" class="book-image__item cover">
+				</div>
+				<div class="image_wrapper">
+					<img src="/images/book/back_cover.webp" alt="back cover" class="book-image__item back_cover">
+				</div>
+				<div class="image_wrapper">
+					<img src="/images/book/contents.webp" alt="table contents" class="book-image__item contents">
+				</div>
+			</div>
+		</div>
+		<div class="content-page__aside aside">
+			<div class="aside__title">О книге</div>
+			<div class="aside__summury">
+				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit eum ipsa ab corporis, sunt id
+				tenetur. Fugiat beatae similique rem, eligendi quas quasi incidunt magni reiciendis possimus est
+				nisi enim numquam voluptatibus tenetur atque neque eum officia minus omnis sapiente aliquid.
+				Adipisci repellendus accusantium inventore dolorum facere qui veritatis sequi dolore nihil
+				repudiandae minima unde perspiciatis at assumenda nulla, atque, id enim voluptatem cum rem
+				possimus ex hic? Adipisci sequi beatae dolorem tenetur eligendi delectus quaerat asperiores
+				debitis vero numquam qui rerum, odio dolore ad eum fugiat? Iusto excepturi obcaecati quae
+				nesciunt adipisci! Atque modi, numquam eaque obcaecati aliquid natus.
+			</div>
+			<div class="aside__subject subject">
+				@foreach (var subject in Model.SubjectsOfBook)
+				{
+					<span class="subject__item">@DescriptionAttributeExtensions.GetEnumDescription(subject)</span>
+				}
+			</div>
+			<div class="aside__buttons">
+				<a class="btn btn_big" href="/Book/BookReview?bookAuthor=@Model.AuthorOfBook&bookTitle=@Model.TitleOfBook">Оставить отзыв о книге</a>
+				<a class="btn btn_big">Открыть список книг</a>
+			</div>
+		</div>
+	</div>
+</div>
