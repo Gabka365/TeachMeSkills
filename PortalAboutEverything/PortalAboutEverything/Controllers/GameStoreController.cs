@@ -27,6 +27,8 @@ namespace PortalAboutEverything.Controllers
 
         public IActionResult Index()
         {
+            var Top3BuyGamesGameStore = _gameStoreRepositories.GetTop3BuyGamesGameStore();
+
             var gamesViewModel = _gameStoreRepositories
                 .GetAll()
                 .Select(BuildGameStoreIndexViewModel)
@@ -77,7 +79,7 @@ namespace PortalAboutEverything.Controllers
             _gameStoreRepositories.Create(game);
 
             var path = _pathHelper.GetPathToGameStoreCover(game.Id);
-            using(var fs = new FileStream(path, FileMode.Create))
+            using (var fs = new FileStream(path, FileMode.Create))
             {
                 createGameStoreViewModel.Cover.CopyTo(fs);
             }
